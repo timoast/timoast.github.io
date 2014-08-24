@@ -1,0 +1,26 @@
+# Dependencies
+markdown:         redcarpet
+pygments:         true
+
+# Permalinks
+permalink:        pretty
+
+# Setup
+title:            DNAwesome
+tagline:
+paginate:         1
+baseurl:          /
+author:
+  name:           Tim Stuart
+  email:          timstuart90@gmail.com
+
+# Custom vars
+version:          1.0.0
+github:
+  repo:           https://github.com/timoast
+
+pages_list:
+  About: '/about'
+  Archive: '/archive'
+  Code: '/code'
+  Feed: '/atom.xml'
