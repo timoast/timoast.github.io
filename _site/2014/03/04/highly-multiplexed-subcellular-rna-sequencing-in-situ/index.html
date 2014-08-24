@@ -26,6 +26,17 @@
   <link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">
 </head>
 
+  <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-54133406-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
 
   <body>
 
@@ -60,10 +71,10 @@
 <blockquote><p><img src="/assets/s5_reduced1.gif" width="250" height="250" /></p>
 <p>Video S5 from Lee et al. (2014) (1).</p></blockquote>
 <p>The authors have compared the FISSEQ method to RNA-seq and gene expression arrays, and find a reasonably good correlation between some genes (those that were moderately expressed), though overall the correlation is poor:</p>
-<blockquote><p><img class="alignnone size-medium wp-image-55" alt="S11C" src="assets/s11c.png" width="300" height="220" /></a><br />
+<blockquote><p><img src="/assets/s11c.png" width="300" height="220" /><br />
 Figure S11C from Lee et al. (2014) (1).</p></blockquote>
 <p>There also seems to be a partial depletion of reads involved in RNA and protein processing, and the authors suggest that this could be due to some cellular structures, such as the nucleolus, being inaccessible by the FISSEQ method. I would agree that this is the case, since there were far fewer rRNA reads detected than would be expected (only 42.7% in primary fibroblasts) and it's pretty clear from some of the figures and videos that there are amplicon-free regions:</p>
-<blockquote><p><img class="alignnone size-medium wp-image-67" alt="S6B" src="assets/s6b.png" width="300" height="296" /></a></p>
+<blockquote><p><img src="/assets/s6b.png" width="300" height="296" /></p>
 <p>Figure S6B from Lee et al. (2014) (1).</p></blockquote>
 <p>Actually, it could be a good thing that some parts of the cell are not covered by FISSEQ, particularly the nucleolus, as this seems to provide a partial rRNA depletion.</p>
 <p>Overall, I think the method is an exciting one, and an impressive achievement with some promising applications in the future—the authors suggest <em>in situ </em>cell type identification based on expression profiling, and high-throughput <em>in situ </em>mutation detection. However, these applications are likely to be held back until longer read lengths can be achieved, and the protocol can simplified to reduce hands-on time. From the supplementary methods, I estimated just the SOLiD sequencing to take around two hours per cycle. Considering 27 cycles were done in these experiments, that would total 54 hours of hands-on lab time, for only 27 bp of sequence. Little mention is made of the amount of time needed for downstream informatics.</p>
@@ -79,7 +90,7 @@ Figure S11C from Lee et al. (2014) (1).</p></blockquote>
     
       <li>
         <h3>
-          <a href="//2014/08/24/UsefulCommands.MARKUP/">
+          <a href="//2014/08/24/UsefulCommands/">
             Useful Linux/Unix commands
             <small>24 Aug 2014</small>
           </a>
