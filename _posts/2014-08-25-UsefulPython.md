@@ -1,6 +1,9 @@
-# Useful Python Code
-
+---
+title: Useful python code
+layout: post
+---
 ### Take command-line arguments
+
 ```python
 from sys import argv
 
@@ -26,7 +29,9 @@ def checkArgs(arg1, arg2):
 ```
 
 ## List Comprehension
+
 If ever declaring and empty list then using `.append`, can be done with list comprehension.
+
 ```python
 list3 = []
 for x in list2:
@@ -37,7 +42,9 @@ list3 = [x for x in list2 if x[0] in list1]
 ```
 
 ## Printing
+
 ### Print in colour
+
 ```python
 class colour:
     PURPLE = '\033[95m'
@@ -55,70 +62,24 @@ print colour.CYAN + 'This is blue' + colour.END
 ```
 
 ### Format text wrapping correctly in terminal
+
 ```python
 import textwrap
 print textwrap.dedent('print message')
 ```
 
-## Plotly
-### Import statements
-```python
-import plotly.plotly as py
-from plotly.graph_objs import *
-import plotly.tools as tls
-```
-
-### Create credentials file
-```python
-import plotly.tools as tls
-tls.set_credentials_file(username="your_username", api_key="your_api_key")
-```
-
-### Sign in with credentials file
-```python
-my_creds = tls.get_credentials_file()
-py.sign_in(my_creds['username'], my_creds['api_key'])
-```
-
-### Layout settings
-```python
-l = Layout(title= 'Title',
-  yaxis= YAxis(title= 'X-axis title'),
-  xaxis= XAxis(title= 'Y-axis title'),
-  barmode= 'overlay', # group, stack
-  showlegend= False,
-  width= 500,
-  height= 500,
-  autosize= False,
-  margin= Margin(
-  l= 50,
-  r= 50,
-  b= 100,
-  t= 100,
-  pad= 4
-  ))
-```
-
-### Figures
-```python
-dataset1 = Histogram(x= dataset1, name= 'Data', opacity= 0.75)
-dataset1 = Histogram(x= dataset2, name= 'Data', opacity= 0.75)
-data = Data([dataset1, dataset2])
-fig = Figure(data= data, layout= l)
-py.iplot(fig) # interactive, inline
-plot_url = py.plot(fig, auto_open= False) # returns plot url
-```
-
 ## File reading / writing
+
 ### Read lines in tsv/csv file
+
 ```python
 with open('merged_dmrs.bed', 'r') as f:
     for line in f:
         line = line.rsplit() # each item in line is now part of a list
 ```
 
-## Mapping
-Functions for mapping gDNA reads
+## Functions for mapping NGS reads
+
 ```python
 import os
 from subprocess import call
@@ -153,6 +114,7 @@ def seMap(proc):
 ```
 
 ## Split sra files into fastq
+
 ```python
 import os
 from subprocess import call

@@ -266,7 +266,7 @@ def fastqSplit():
 
 ### Using SRA toolkit  
 
-SRA toolkit doesn't seem to work well for downloading bulk data. wget is a much better option as it allows download of whole folders, gives more descriptive output as it goes. SRA often fails and sometimes gives no error. Download with wget and use fastq-split to get fastq files.  
+SRA toolkit doesn't seem to work well for downloading bulk data. `wget` is a much better option as it allows download of whole folders, gives more descriptive output as it goes. SRA often fails and sometimes gives no error. Download with `wget` and use `fastq-split` to get fastq files.  
 
 ```bash
 fastq-dump SRR534224 &

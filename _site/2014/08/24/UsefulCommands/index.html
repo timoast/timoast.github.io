@@ -243,7 +243,7 @@ awk <span class="s1">&#39;BEGIN {FS=OFS=&quot;\t&quot;} {print $7,$1,$8,$2,$3,$4
 </code></pre></div>
 <h3>Using SRA toolkit</h3>
 
-<p>SRA toolkit doesn&#39;t seem to work well for downloading bulk data. wget is a much better option as it allows download of whole folders, gives more descriptive output as it goes. SRA often fails and sometimes gives no error. Download with wget and use fastq-split to get fastq files.  </p>
+<p>SRA toolkit doesn&#39;t seem to work well for downloading bulk data. <code>wget</code> is a much better option as it allows download of whole folders, gives more descriptive output as it goes. SRA often fails and sometimes gives no error. Download with <code>wget</code> and use <code>fastq-split</code> to get fastq files.  </p>
 <div class="highlight"><pre><code class="language-bash" data-lang="bash">fastq-dump SRR534224 <span class="p">&amp;</span>
 </code></pre></div>
 <h2>RNA-seq</h2>
@@ -310,6 +310,15 @@ awk <span class="s1">&#39;BEGIN {FS=OFS=&quot;\t&quot;} {print $7,$1,$8,$2,$3,$4
     
       <li>
         <h3>
+          <a href="//2014/08/25/UsefulPython/">
+            Useful python code
+            <small>25 Aug 2014</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
           <a href="//2014/03/04/highly-multiplexed-subcellular-rna-sequencing-in-situ/">
             Highly Multiplexed Subcellular RNA Sequencing in Situ
             <small>04 Mar 2014</small>
@@ -321,11 +330,11 @@ awk <span class="s1">&#39;BEGIN {FS=OFS=&quot;\t&quot;} {print $7,$1,$8,$2,$3,$4
 </div>
 
 
-      <div class="footer">
+      <!-- <div class="footer">
         <p>
           &copy; 2014. All rights reserved.
         </p>
-      </div>
+      </div> -->
     </div>
 
   </body>
