@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
- <title>DNAwesome</title>
+ <title></title>
  <link href="/atom.xml" rel="self"/>
  <link href="/"/>
- <updated>2014-08-24T22:32:05+08:00</updated>
+ <updated>2014-08-26T09:23:36+08:00</updated>
  <id></id>
  <author>
    <name>Tim Stuart</name>
@@ -174,10 +174,10 @@ grep --color &lt;span class=&quot;s1&quot;&gt;&amp;#39;text&amp;#39;&lt;/span&gt
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;h2&gt;Counting&lt;/h2&gt;
 
-&lt;h4&gt;Count lines in chr1 file&lt;/h4&gt;
+&lt;p&gt;Count lines in chr1 file&lt;/p&gt;
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;wc -l chr1
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;h4&gt;Count characters in chr1 file&lt;/h4&gt;
+&lt;p&gt;Count characters in chr1 file&lt;/p&gt;
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;wc -c chr1
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;h2&gt;List&lt;/h2&gt;

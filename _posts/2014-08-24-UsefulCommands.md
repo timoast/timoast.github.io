@@ -65,13 +65,13 @@ grep "text" filename.txt >> output.txt
 ```
 
 ## Counting
-#### Count lines in chr1 file
+Count lines in chr1 file
 
 ```bash
 wc -l chr1
 ```
 
-#### Count characters in chr1 file
+Count characters in chr1 file
 
 ```bash
 wc -c chr1
@@ -170,6 +170,12 @@ for myfile in $(ls);do
 done
 ```
 
+Search only in one column
+
+```bash
+awk '{if ($1 == 1) print $2}' p1 > chr1_p1
+```
+
 ## Joining files
 
 Join files with each starting on a new line  
@@ -179,6 +185,11 @@ for filename in *.fa; do
     cat "${filename}"
     echo
 done > output.fa
+```
+Merge files of the same format
+
+```bash
+cat p1_* | sort -nk1,1 -k2,2 | uniq > p1
 ```
 
 ## Comparing Files  
