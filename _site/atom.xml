@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
- <title></title>
+ <title>DNAwesome</title>
  <link href="/atom.xml" rel="self"/>
  <link href="/"/>
- <updated>2014-08-26T09:23:36+08:00</updated>
+ <updated>2014-08-28T10:16:07+08:00</updated>
  <id></id>
  <author>
    <name>Tim Stuart</name>
@@ -233,6 +233,9 @@ awk &lt;span class=&quot;s1&quot;&gt;&amp;#39;BEGIN {FS=OFS=&amp;quot;\t&amp;quo
     awk &lt;span class=&quot;s1&quot;&gt;&amp;#39;BEGIN {FS=OFS=&amp;quot;\t&amp;quot;} {$1=&amp;quot;&amp;quot;;sub(&amp;quot;\t&amp;quot;,&amp;quot;&amp;quot;)}1&amp;#39;&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$myfile&lt;/span&gt; &amp;gt; mod_&lt;span class=&quot;nv&quot;&gt;$myfile&lt;/span&gt;
 &lt;span class=&quot;k&quot;&gt;done&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Search only in one column&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;awk &lt;span class=&quot;s1&quot;&gt;&amp;#39;{if ($1 == 1) print $2}&amp;#39;&lt;/span&gt; p1 &amp;gt; chr1_p1
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;h2&gt;Joining files&lt;/h2&gt;
 
 &lt;p&gt;Join files with each starting on a new line  &lt;/p&gt;
@@ -240,6 +243,9 @@ awk &lt;span class=&quot;s1&quot;&gt;&amp;#39;BEGIN {FS=OFS=&amp;quot;\t&amp;quo
     cat &lt;span class=&quot;s2&quot;&gt;&amp;quot;${filename}&amp;quot;&lt;/span&gt;
     &lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt;
 &lt;span class=&quot;k&quot;&gt;done&lt;/span&gt; &amp;gt; output.fa
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Merge files of the same format&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;cat p1_* &lt;span class=&quot;p&quot;&gt;|&lt;/span&gt; sort -nk1,1 -k2,2 &lt;span class=&quot;p&quot;&gt;|&lt;/span&gt; uniq &amp;gt; p1
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;h2&gt;Comparing Files&lt;/h2&gt;
 

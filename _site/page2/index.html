@@ -10,7 +10,7 @@
 
   <title>
     
-       &middot; 
+      DNAwesome &middot; 
     
   </title>
 
@@ -43,7 +43,7 @@
     <div class="container content">
       <div class="masthead">
         <h3 class="masthead-title">
-          <a href="/" title="Home"></a>
+          <a href="/" title="Home">DNAwesome</a>
           <small></small>
 
           
@@ -177,6 +177,9 @@ awk <span class="s1">&#39;BEGIN {FS=OFS=&quot;\t&quot;} {print $7,$1,$8,$2,$3,$4
     awk <span class="s1">&#39;BEGIN {FS=OFS=&quot;\t&quot;} {$1=&quot;&quot;;sub(&quot;\t&quot;,&quot;&quot;)}1&#39;</span> <span class="nv">$myfile</span> &gt; mod_<span class="nv">$myfile</span>
 <span class="k">done</span>
 </code></pre></div>
+<p>Search only in one column</p>
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">awk <span class="s1">&#39;{if ($1 == 1) print $2}&#39;</span> p1 &gt; chr1_p1
+</code></pre></div>
 <h2>Joining files</h2>
 
 <p>Join files with each starting on a new line  </p>
@@ -184,6 +187,9 @@ awk <span class="s1">&#39;BEGIN {FS=OFS=&quot;\t&quot;} {print $7,$1,$8,$2,$3,$4
     cat <span class="s2">&quot;${filename}&quot;</span>
     <span class="nb">echo</span>
 <span class="k">done</span> &gt; output.fa
+</code></pre></div>
+<p>Merge files of the same format</p>
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">cat p1_* <span class="p">|</span> sort -nk1,1 -k2,2 <span class="p">|</span> uniq &gt; p1
 </code></pre></div>
 <h2>Comparing Files</h2>
 
