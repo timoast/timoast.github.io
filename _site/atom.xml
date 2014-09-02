@@ -4,7 +4,7 @@
  <title>DNAwesome</title>
  <link href="/atom.xml" rel="self"/>
  <link href="/"/>
- <updated>2014-09-02T17:15:01+08:00</updated>
+ <updated>2014-09-02T17:18:05+08:00</updated>
  <id></id>
  <author>
    <name>Tim Stuart</name>
@@ -383,7 +383,7 @@ awk &lt;span class=&quot;s1&quot;&gt;&amp;#39;BEGIN {FS=OFS=&amp;quot;\t&amp;quo
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;samtools sort file.bam sorted
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;ul&gt;
-&lt;li&gt;outputs sorted.bam&lt;/li&gt;
+&lt;li&gt;outputs &lt;code&gt;sorted.bam&lt;/code&gt; file&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;h3&gt;Samblaster&lt;/h3&gt;

@@ -352,7 +352,7 @@ samtools view -bS file.sam > file.bam
 ```
 samtools sort file.bam sorted
 ```
-* outputs sorted.bam
+* outputs `sorted.bam` file
 
 ### Samblaster
 
