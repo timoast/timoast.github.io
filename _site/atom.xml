@@ -4,7 +4,7 @@
  <title>DNAwesome</title>
  <link href="/atom.xml" rel="self"/>
  <link href="/"/>
- <updated>2014-08-28T10:16:07+08:00</updated>
+ <updated>2014-09-02T17:15:01+08:00</updated>
  <id></id>
  <author>
    <name>Tim Stuart</name>
@@ -369,7 +369,32 @@ awk &lt;span class=&quot;s1&quot;&gt;&amp;#39;BEGIN {FS=OFS=&amp;quot;\t&amp;quo
 &lt;li&gt;&lt;code&gt;--fr&lt;/code&gt; means mate pairs are ordered in forward then reverse orientation. Can do &lt;code&gt;--ff&lt;/code&gt;, &lt;code&gt;--rf&lt;/code&gt;.&lt;br&gt;&lt;/li&gt;
 &lt;li&gt;&lt;code&gt;-X&lt;/code&gt; specifies maximum insert size. Default 500.&lt;br&gt;&lt;/li&gt;
 &lt;li&gt;&lt;code&gt;-I&lt;/code&gt; specifies minimum insert size. Default 0 (no minimum).&lt;br&gt;&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;--un-conc&lt;/code&gt; specifies path and file to write discordant alignments to&lt;br&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;--un-conc&lt;/code&gt; specifies path and file to write discordant alignments to. Note that these are just the &lt;code&gt;fastq&lt;/code&gt; reads, not alignments.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2&gt;Samtools&lt;/h2&gt;
+
+&lt;p&gt;samtools can read from a stream, so can pipe output in from other tools (eg bowtie to get &lt;code&gt;.bam&lt;/code&gt; output) or other samtools commands.&lt;/p&gt;
+
+&lt;h3&gt;Convert from &lt;code&gt;sam&lt;/code&gt; to &lt;code&gt;bam&lt;/code&gt;&lt;/h3&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;samtools view -bS file.sam &amp;gt; file.bam
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h3&gt;Sort bamfile&lt;/h3&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;samtools sort file.bam sorted
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;ul&gt;
+&lt;li&gt;outputs sorted.bam&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3&gt;Samblaster&lt;/h3&gt;
+
+&lt;p&gt;Extracts reads from &lt;code&gt;.sam&lt;/code&gt; alignment files&lt;/p&gt;
+
+&lt;h4&gt;Get discordant reads&lt;/h4&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;samblaster -e -d file.sam | samtools view -bS - &amp;gt; file.bam
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;ul&gt;
+&lt;li&gt;pipe output directly into &lt;code&gt;samtools view&lt;/code&gt; to save as &lt;code&gt;.bam&lt;/code&gt; file&lt;/li&gt;
 &lt;/ul&gt;
 </content>
  </entry>

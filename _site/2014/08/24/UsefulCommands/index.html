@@ -305,7 +305,32 @@ awk <span class="s1">&#39;BEGIN {FS=OFS=&quot;\t&quot;} {print $7,$1,$8,$2,$3,$4
 <li><code>--fr</code> means mate pairs are ordered in forward then reverse orientation. Can do <code>--ff</code>, <code>--rf</code>.<br></li>
 <li><code>-X</code> specifies maximum insert size. Default 500.<br></li>
 <li><code>-I</code> specifies minimum insert size. Default 0 (no minimum).<br></li>
-<li><code>--un-conc</code> specifies path and file to write discordant alignments to<br></li>
+<li><code>--un-conc</code> specifies path and file to write discordant alignments to. Note that these are just the <code>fastq</code> reads, not alignments.</li>
+</ul>
+
+<h2>Samtools</h2>
+
+<p>samtools can read from a stream, so can pipe output in from other tools (eg bowtie to get <code>.bam</code> output) or other samtools commands.</p>
+
+<h3>Convert from <code>sam</code> to <code>bam</code></h3>
+<div class="highlight"><pre><code class="language-text" data-lang="text">samtools view -bS file.sam &gt; file.bam
+</code></pre></div>
+<h3>Sort bamfile</h3>
+<div class="highlight"><pre><code class="language-text" data-lang="text">samtools sort file.bam sorted
+</code></pre></div>
+<ul>
+<li>outputs sorted.bam</li>
+</ul>
+
+<h3>Samblaster</h3>
+
+<p>Extracts reads from <code>.sam</code> alignment files</p>
+
+<h4>Get discordant reads</h4>
+<div class="highlight"><pre><code class="language-text" data-lang="text">samblaster -e -d file.sam | samtools view -bS - &gt; file.bam
+</code></pre></div>
+<ul>
+<li>pipe output directly into <code>samtools view</code> to save as <code>.bam</code> file</li>
 </ul>
 
 </div>

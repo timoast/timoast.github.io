@@ -337,4 +337,29 @@ bowtie2 -p8 --local --fr -q -R 5 -N 1 -x [path/to/bowtie2/index] -X 1000 -1 [mat
 * `--fr` means mate pairs are ordered in forward then reverse orientation. Can do `--ff`, `--rf`.  
 * `-X` specifies maximum insert size. Default 500.  
 * `-I` specifies minimum insert size. Default 0 (no minimum).  
-* `--un-conc` specifies path and file to write discordant alignments to  
+* `--un-conc` specifies path and file to write discordant alignments to. Note that these are just the `fastq` reads, not alignments.
+
+## Samtools
+
+samtools can read from a stream, so can pipe output in from other tools (eg bowtie to get `.bam` output) or other samtools commands.
+
+### Convert from `sam` to `bam`
+```
+samtools view -bS file.sam > file.bam
+```
+
+### Sort bamfile
+```
+samtools sort file.bam sorted
+```
+* outputs sorted.bam
+
+### Samblaster
+
+Extracts reads from `.sam` alignment files
+
+#### Get discordant reads
+```
+samblaster -e -d file.sam | samtools view -bS - > file.bam
+```
+* pipe output directly into `samtools view` to save as `.bam` file
