@@ -4,7 +4,7 @@
  <title>DNAwesome</title>
  <link href="/atom.xml" rel="self"/>
  <link href="/"/>
- <updated>2014-09-02T22:47:55+08:00</updated>
+ <updated>2014-09-04T21:44:32+08:00</updated>
  <id></id>
  <author>
    <name>Tim Stuart</name>
@@ -264,6 +264,10 @@ awk &lt;span class=&quot;s1&quot;&gt;&amp;#39;BEGIN {FS=OFS=&amp;quot;\t&amp;quo
 &lt;p&gt;Compress recursively  &lt;/p&gt;
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;tar cvfz slam.tgz slam/
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Decompress files&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;tar -x -f file.tar
+tar -x -z -f file.tgz
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;h2&gt;Download data from SRA&lt;/h2&gt;
 
 &lt;h3&gt;Using wget&lt;/h3&gt;
@@ -391,10 +395,12 @@ awk &lt;span class=&quot;s1&quot;&gt;&amp;#39;BEGIN {FS=OFS=&amp;quot;\t&amp;quo
 &lt;p&gt;Extracts reads from &lt;code&gt;.sam&lt;/code&gt; alignment files&lt;/p&gt;
 
 &lt;h4&gt;Get discordant reads&lt;/h4&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;samblaster -e -d file.sam | samtools view -bS - &amp;gt; file.bam
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;bowtie2 [options] | samblaster -e -d file.sam | samtools view -bS - &amp;gt; file.bam
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;ul&gt;
-&lt;li&gt;pipe output directly into &lt;code&gt;samtools view&lt;/code&gt; to save as &lt;code&gt;.bam&lt;/code&gt; file&lt;/li&gt;
+&lt;li&gt;Print output from bowtie to stderr to pipe directly into samblaster&lt;/li&gt;
+&lt;li&gt;Saves having to search through sam or bam file later to extract discordant reads&lt;/li&gt;
+&lt;li&gt;Pipe output directly into &lt;code&gt;samtools view&lt;/code&gt; to save as &lt;code&gt;.bam&lt;/code&gt; file (these won&amp;#39;t be the reads in the samblaster output)&lt;/li&gt;
 &lt;/ul&gt;
 </content>
  </entry>

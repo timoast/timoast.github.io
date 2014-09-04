@@ -208,6 +208,10 @@ awk <span class="s1">&#39;BEGIN {FS=OFS=&quot;\t&quot;} {print $7,$1,$8,$2,$3,$4
 <p>Compress recursively  </p>
 <div class="highlight"><pre><code class="language-bash" data-lang="bash">tar cvfz slam.tgz slam/
 </code></pre></div>
+<p>Decompress files</p>
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">tar -x -f file.tar
+tar -x -z -f file.tgz
+</code></pre></div>
 <h2>Download data from SRA</h2>
 
 <h3>Using wget</h3>
@@ -335,10 +339,12 @@ awk <span class="s1">&#39;BEGIN {FS=OFS=&quot;\t&quot;} {print $7,$1,$8,$2,$3,$4
 <p>Extracts reads from <code>.sam</code> alignment files</p>
 
 <h4>Get discordant reads</h4>
-<div class="highlight"><pre><code class="language-text" data-lang="text">samblaster -e -d file.sam | samtools view -bS - &gt; file.bam
+<div class="highlight"><pre><code class="language-text" data-lang="text">bowtie2 [options] | samblaster -e -d file.sam | samtools view -bS - &gt; file.bam
 </code></pre></div>
 <ul>
-<li>pipe output directly into <code>samtools view</code> to save as <code>.bam</code> file</li>
+<li>Print output from bowtie to stderr to pipe directly into samblaster</li>
+<li>Saves having to search through sam or bam file later to extract discordant reads</li>
+<li>Pipe output directly into <code>samtools view</code> to save as <code>.bam</code> file (these won&#39;t be the reads in the samblaster output)</li>
 </ul>
 
   </div>

@@ -214,6 +214,13 @@ Compress recursively
 tar cvfz slam.tgz slam/
 ```
 
+Decompress files
+
+```bash
+tar -x -f file.tar
+tar -x -z -f file.tgz
+```
+
 ## Download data from SRA  
 
 ### Using wget  
@@ -360,6 +367,8 @@ Extracts reads from `.sam` alignment files
 
 #### Get discordant reads
 ```
-samblaster -e -d file.sam | samtools view -bS - > file.bam
+bowtie2 [options] | samblaster -e -d file.sam | samtools view -bS - > file.bam
 ```
-* pipe output directly into `samtools view` to save as `.bam` file
+* Print output from bowtie to stderr to pipe directly into samblaster
+* Saves having to search through sam or bam file later to extract discordant reads
+* Pipe output directly into `samtools view` to save as `.bam` file (these won't be the reads in the samblaster output)
