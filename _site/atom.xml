@@ -4,7 +4,7 @@
  <title>DNAwesome</title>
  <link href="/atom.xml" rel="self"/>
  <link href="/"/>
- <updated>2014-09-04T21:44:32+08:00</updated>
+ <updated>2014-09-08T17:11:42+08:00</updated>
  <id></id>
  <author>
    <name>Tim Stuart</name>
@@ -152,6 +152,9 @@ Attach: &lt;code&gt;screen -r&lt;/code&gt;&lt;br&gt;
 Close screen: &lt;code&gt;ctr-a-d&lt;/code&gt;&lt;br&gt;
 Kill screen: &lt;code&gt;ctr-a :quit&lt;/code&gt;  &lt;/p&gt;
 
+&lt;h2&gt;Human-readable path&lt;/h2&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; -e &lt;span class=&quot;k&quot;&gt;${&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;PATH&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;//:/&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&amp;#39;\n&amp;#39;&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;h2&gt;Searching&lt;/h2&gt;
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;grep &lt;span class=&quot;s1&quot;&gt;&amp;#39;text&amp;#39;&lt;/span&gt; filename
 grep &lt;span class=&quot;s1&quot;&gt;&amp;#39;text&amp;#39;&lt;/span&gt; file1 file2 file3

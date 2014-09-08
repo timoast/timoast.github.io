@@ -96,6 +96,9 @@ Attach: <code>screen -r</code><br>
 Close screen: <code>ctr-a-d</code><br>
 Kill screen: <code>ctr-a :quit</code>  </p>
 
+<h2>Human-readable path</h2>
+<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nb">echo</span> -e <span class="k">${</span><span class="nv">PATH</span><span class="p">//:/</span><span class="s1">&#39;\n&#39;</span><span class="k">}</span>
+</code></pre></div>
 <h2>Searching</h2>
 <div class="highlight"><pre><code class="language-bash" data-lang="bash">grep <span class="s1">&#39;text&#39;</span> filename
 grep <span class="s1">&#39;text&#39;</span> file1 file2 file3

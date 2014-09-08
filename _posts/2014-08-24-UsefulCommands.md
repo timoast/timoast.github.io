@@ -30,6 +30,12 @@ Attach: `screen -r`
 Close screen: `ctr-a-d`  
 Kill screen: `ctr-a :quit`  
 
+## Human-readable path
+
+```bash
+echo -e ${PATH//:/'\n'}
+```
+
 ## Searching
 
 ```bash
