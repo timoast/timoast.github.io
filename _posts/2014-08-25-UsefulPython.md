@@ -28,7 +28,9 @@ def checkArgs(arg1, arg2):
 
 ```
 
-## List Comprehension
+## Lists
+
+### List comprehension
 
 If ever declaring and empty list then using `.append`, can be done with list comprehension.
 
@@ -39,6 +41,18 @@ for x in list2:
         list3.append(x)
 
 list3 = [x for x in list2 if x[0] in list1]
+```
+
+### Convert items in list to string
+
+```python
+outfile.write('{l}\n'.format(l='\t'.join(list)))
+```
+
+If list items are not strings
+
+```python
+outfile.write('{l}\n'.format(l=map(str, list)))
 ```
 
 ## Printing
@@ -66,6 +80,13 @@ print colour.CYAN + 'This is blue' + colour.END
 ```python
 import textwrap
 print textwrap.dedent('print message')
+```
+## Strings
+
+### Split strings by multiple delimiters
+
+```python
+accession_name = f.replace('calls_', '.').split('.')
 ```
 
 ## File reading / writing
