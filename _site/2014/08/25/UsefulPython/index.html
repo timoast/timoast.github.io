@@ -138,6 +138,15 @@
     <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">f</span><span class="p">:</span>
         <span class="n">line</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">rsplit</span><span class="p">()</span> <span class="c"># each item in line is now part of a list</span>
 </code></pre></div>
+<h2>Find if coordinates overlap</h2>
+<div class="highlight"><pre><code class="language-python" data-lang="python"><span class="k">def</span> <span class="nf">overlap</span><span class="p">(</span><span class="n">start1</span><span class="p">,</span> <span class="n">stop1</span><span class="p">,</span> <span class="n">start2</span><span class="p">,</span> <span class="n">stop2</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;returns True if sets of coordinates overlap. Assumes coordinates are on same chromosome&quot;&quot;&quot;</span>
+    <span class="k">for</span> <span class="n">y</span> <span class="ow">in</span> <span class="nb">xrange</span><span class="p">(</span><span class="n">start2</span><span class="p">,</span> <span class="n">stop2</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">start1</span> <span class="o">&lt;=</span> <span class="n">y</span> <span class="o">&lt;=</span> <span class="n">stop1</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">True</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">pass</span>
+</code></pre></div>
 <h2>Functions for mapping NGS reads</h2>
 <div class="highlight"><pre><code class="language-python" data-lang="python"><span class="kn">import</span> <span class="nn">os</span>
 <span class="kn">from</span> <span class="nn">subprocess</span> <span class="kn">import</span> <span class="n">call</span>
