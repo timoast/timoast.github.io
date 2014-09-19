@@ -141,7 +141,7 @@
 <h2>Find if coordinates overlap</h2>
 <div class="highlight"><pre><code class="language-python" data-lang="python"><span class="k">def</span> <span class="nf">overlap</span><span class="p">(</span><span class="n">start1</span><span class="p">,</span> <span class="n">stop1</span><span class="p">,</span> <span class="n">start2</span><span class="p">,</span> <span class="n">stop2</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;returns True if sets of coordinates overlap. Assumes coordinates are on same chromosome&quot;&quot;&quot;</span>
-    <span class="k">for</span> <span class="n">y</span> <span class="ow">in</span> <span class="nb">xrange</span><span class="p">(</span><span class="n">start2</span><span class="p">,</span> <span class="n">stop2</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">y</span> <span class="ow">in</span> <span class="nb">xrange</span><span class="p">(</span><span class="n">start2</span><span class="p">,</span> <span class="n">stop2</span><span class="o">+</span><span class="mi">1</span><span class="p">):</span>
         <span class="k">if</span> <span class="n">start1</span> <span class="o">&lt;=</span> <span class="n">y</span> <span class="o">&lt;=</span> <span class="n">stop1</span><span class="p">:</span>
             <span class="k">return</span> <span class="bp">True</span>
         <span class="k">else</span><span class="p">:</span>
@@ -192,31 +192,6 @@
         <span class="k">else</span><span class="p">:</span>
             <span class="k">pass</span>
 </code></pre></div>
-</div>
-
-<div class="related">
-  <h2>Related Posts</h2>
-  <ul class="related-posts">
-    
-      <li>
-        <h3>
-          <a href="//2014/08/24/UsefulCommands/">
-            Useful Linux/Unix commands
-            <small>24 Aug 2014</small>
-          </a>
-        </h3>
-      </li>
-    
-      <li>
-        <h3>
-          <a href="//2014/03/04/highly-multiplexed-subcellular-rna-sequencing-in-situ/">
-            Highly Multiplexed Subcellular RNA Sequencing in Situ
-            <small>04 Mar 2014</small>
-          </a>
-        </h3>
-      </li>
-    
-  </ul>
 </div>
 
 
