@@ -21,6 +21,35 @@ for directory in ./*; do
 done
 ```
 
+## Take command-line arguments
+
+Required flags are followed by `:`
+
+```bash
+index=  proc=  path=  
+
+while getopts x:pA opt; do
+  case $opt in
+  x)
+      index=$OPTARG
+      ;;
+  p)
+      proc=$OPTARG
+      ;;
+  A)
+      path=${OPTARG%/}
+      ;;
+  esac
+done
+shift $((OPTIND - 1))
+```
+
+## Strip trailing slash from string
+
+```bash
+path=${OPTARG%/}
+```
+
 ## GNU Screen
 
 Start screen: `screen -S [screen name]`  
@@ -214,10 +243,16 @@ comm -i file1 file2 > output.txt
 
 ## Compressing files  
 
-Compress recursively  
+Compress recursively and store all files in a single compressed folder  
 
 ```bash
 tar cvfz slam.tgz slam/
+```
+
+Compress recursively  
+
+```bash
+gzip -r directory/
 ```
 
 Decompress files
@@ -225,6 +260,7 @@ Decompress files
 ```bash
 tar -x -f file.tar
 tar -x -z -f file.tgz
+gunzip file.gz
 ```
 
 ## Download data from SRA  

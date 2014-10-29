@@ -79,6 +79,29 @@
     <span class="k">fi</span>
 <span class="k">done</span>
 </code></pre></div>
+<h2>Take command-line arguments</h2>
+
+<p>Required flags are followed by <code>:</code></p>
+<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nv">index</span><span class="o">=</span>  <span class="nv">proc</span><span class="o">=</span>  <span class="nv">path</span><span class="o">=</span>  
+
+<span class="k">while</span> <span class="nb">getopts </span>x:pA opt<span class="p">;</span> <span class="k">do</span>
+  <span class="k">case</span> <span class="nv">$opt</span> in
+  x<span class="o">)</span>
+      <span class="nv">index</span><span class="o">=</span><span class="nv">$OPTARG</span>
+      <span class="p">;;</span>
+  p<span class="o">)</span>
+      <span class="nv">proc</span><span class="o">=</span><span class="nv">$OPTARG</span>
+      <span class="p">;;</span>
+  A<span class="o">)</span>
+      <span class="nv">path</span><span class="o">=</span><span class="k">${</span><span class="nv">OPTARG</span><span class="p">%/</span><span class="k">}</span>
+      <span class="p">;;</span>
+  <span class="k">esac</span>
+<span class="k">done</span>
+<span class="nb">shift</span> <span class="k">$((</span>OPTIND <span class="o">-</span> <span class="m">1</span><span class="k">))</span>
+</code></pre></div>
+<h2>Strip trailing slash from string</h2>
+<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nv">path</span><span class="o">=</span><span class="k">${</span><span class="nv">OPTARG</span><span class="p">%/</span><span class="k">}</span>
+</code></pre></div>
 <h2>GNU Screen</h2>
 
 <p>Start screen: <code>screen -S [screen name]</code><br>
@@ -200,12 +223,16 @@ awk <span class="s1">&#39;BEGIN {FS=OFS=&quot;\t&quot;} {print $7,$1,$8,$2,$3,$4
 
 <h2>Compressing files</h2>
 
-<p>Compress recursively  </p>
+<p>Compress recursively and store all files in a single compressed folder  </p>
 <div class="highlight"><pre><code class="language-bash" data-lang="bash">tar cvfz slam.tgz slam/
+</code></pre></div>
+<p>Compress recursively  </p>
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">gzip -r directory/
 </code></pre></div>
 <p>Decompress files</p>
 <div class="highlight"><pre><code class="language-bash" data-lang="bash">tar -x -f file.tar
 tar -x -z -f file.tgz
+gunzip file.gz
 </code></pre></div>
 <h2>Download data from SRA</h2>
 
@@ -219,11 +246,12 @@ tar -x -z -f file.tgz
 <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s">&#39;SraAccList.txt&#39;</span><span class="p">,</span> <span class="s">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">accessions</span><span class="p">:</span>
     <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">accessions</span><span class="p">:</span>
         <span class="n">acc</span> <span class="o">=</span> <span class="n">row</span><span class="o">.</span><span class="n">strip</span><span class="p">(</span><span class="s">&#39;</span><span class="se">\n</span><span class="s">&#39;</span><span class="p">)</span>
+        <span class="n">prefix</span> <span class="o">=</span> <span class="n">acc</span><span class="p">[:</span><span class="mi">6</span><span class="p">]</span>
         <span class="k">print</span> <span class="s">&quot;Downloading {a}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">a</span><span class="o">=</span><span class="n">acc</span><span class="p">)</span>
         <span class="n">call</span><span class="p">([</span><span class="s">&quot;wget&quot;</span><span class="p">,</span>
               <span class="s">&quot;-r&quot;</span><span class="p">,</span>
               <span class="s">&quot;--no-parent&quot;</span><span class="p">,</span>
-              <span class="s">&quot;ftp://ftp-trace.ncbi.nih.gov/sra/sra-instant/reads/ByRun/sra/SRR/SRR492/{acc}/*&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">acc</span><span class="o">=</span><span class="n">acc</span><span class="p">)])</span>
+              <span class="s">&quot;ftp://ftp-trace.ncbi.nih.gov/sra/sra-instant/reads/ByRun/sra/SRR/{pre}/{acc}/*&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">pre</span><span class="o">=</span><span class="n">prefix</span><span class="p">,</span> <span class="n">acc</span><span class="o">=</span><span class="n">acc</span><span class="p">)])</span>
 </code></pre></div>
 <h4>Split into fastq files</h4>
 <div class="highlight"><pre><code class="language-bash" data-lang="bash">fastq-dump --split-3 ./SRP005399/*
