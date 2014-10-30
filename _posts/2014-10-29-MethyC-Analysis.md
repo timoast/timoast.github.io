@@ -34,7 +34,7 @@ nohup make -j 12
 cp Project_E_grandis ~/working_data
 ```
 
-2. Rename fastq files to s_1_sequence.txt, s_2_sequence.txt etc.
+2. Rename fastq files to `s_1_sequence.txt`, `s_2_sequence.txt` etc.
 3. Store sequence files a separate directory, eg. sequences. If you have data from the same library but multiple runs, store in separate directories.
 
 ## Mapping
