@@ -4,7 +4,7 @@
  <title>DNAwesome</title>
  <link href="/atom.xml" rel="self"/>
  <link href="/"/>
- <updated>2014-10-30T15:01:19+08:00</updated>
+ <updated>2014-11-02T17:04:48+08:00</updated>
  <id></id>
  <author>
    <name>Tim Stuart</name>
@@ -101,8 +101,8 @@
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;All Methylpy steps must be done in using the methylenv. To exit the methylenv, type &lt;code&gt;deactivate&lt;/code&gt;.&lt;/p&gt;
 
-&lt;p&gt;To clone methylpy from repository:&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;git clone https://ryanlister@bitbucket.org/schultzmattd/methylpy.git
+&lt;p&gt;If you don&amp;#39;t have the package already it can be cloned from bitbucket:&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;git clone git@bitbucket.org:schultzmattd/methylpy.git
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;To update, from the directory created by the clone:&lt;/p&gt;
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;git pull

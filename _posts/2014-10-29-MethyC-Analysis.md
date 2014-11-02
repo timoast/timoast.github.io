@@ -112,10 +112,10 @@ alias methylenv='source /usr/local/virtualenv/methylenv/bin/activate; export PYT
 
 All Methylpy steps must be done in using the methylenv. To exit the methylenv, type `deactivate`.
 
-To clone methylpy from repository:
+If you don't have the package already it can be cloned from bitbucket:
 
 ```bash
-git clone https://ryanlister@bitbucket.org/schultzmattd/methylpy.git
+git clone git@bitbucket.org:schultzmattd/methylpy.git
 ```
 
 To update, from the directory created by the clone:
