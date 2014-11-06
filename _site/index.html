@@ -80,7 +80,7 @@
 <p>It can be used to estimate the insert size from sam or bam files:</p>
 <div class="highlight"><pre><code class="language-text" data-lang="text">$ head -10000 mapped.sam | python mean_size.py
 220 35
-</code></pre></div><div class="highlight"><pre><code class="language-text" data-lang="text">$ samtools view mapped.bam | python mean_size.py
+</code></pre></div><div class="highlight"><pre><code class="language-text" data-lang="text">$ samtools view mapped.bam | head -10000 | python mean_size.py
 220 35
 </code></pre></div>
 <script src="https://gist.github.com/timoast/af73c0e9fac00187ee49.js"></script>

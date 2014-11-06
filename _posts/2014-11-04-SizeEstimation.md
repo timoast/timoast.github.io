@@ -15,7 +15,7 @@ $ head -10000 mapped.sam | python mean_size.py
 ```
 
 ```
-$ samtools view mapped.bam | python mean_size.py
+$ samtools view mapped.bam | head -10000 | python mean_size.py
 220 35
 ```
 

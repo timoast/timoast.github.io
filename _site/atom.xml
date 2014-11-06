@@ -4,7 +4,7 @@
  <title>DNAwesome</title>
  <link href="/atom.xml" rel="self"/>
  <link href="/"/>
- <updated>2014-11-04T16:47:44+08:00</updated>
+ <updated>2014-11-06T13:14:07+08:00</updated>
  <id></id>
  <author>
    <name>Tim Stuart</name>
@@ -24,7 +24,7 @@
 &lt;p&gt;It can be used to estimate the insert size from sam or bam files:&lt;/p&gt;
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;$ head -10000 mapped.sam | python mean_size.py
 220 35
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;$ samtools view mapped.bam | python mean_size.py
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;$ samtools view mapped.bam | head -10000 | python mean_size.py
 220 35
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;script src=&quot;https://gist.github.com/timoast/af73c0e9fac00187ee49.js&quot;&gt;&lt;/script&gt;
