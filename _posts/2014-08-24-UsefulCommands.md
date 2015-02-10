@@ -2,6 +2,12 @@
 title: Useful Linux/Unix commands
 layout: post
 ---
+## go back to last directory
+
+```
+cd -
+```
+
 ## Do something in a range
 Move files
 

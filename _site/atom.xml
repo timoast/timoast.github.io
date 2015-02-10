@@ -4,7 +4,7 @@
  <title>DNAwesome</title>
  <link href="/atom.xml" rel="self"/>
  <link href="/"/>
- <updated>2014-11-11T20:10:43+08:00</updated>
+ <updated>2015-02-10T16:20:57+08:00</updated>
  <id></id>
  <author>
    <name>Tim Stuart</name>
@@ -323,7 +323,10 @@ Run the script on the &lt;code&gt;_rms_results.tsv&lt;/code&gt; file.&lt;/p&gt;
    <link href="//2014/08/24/UsefulCommands/"/>
    <updated>2014-08-24T00:00:00+08:00</updated>
    <id>/2014/08/24/UsefulCommands</id>
-   <content type="html">&lt;h2&gt;Do something in a range&lt;/h2&gt;
+   <content type="html">&lt;h2&gt;go back to last directory&lt;/h2&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;cd -
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h2&gt;Do something in a range&lt;/h2&gt;
 
 &lt;p&gt;Move files&lt;/p&gt;
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; i in &lt;span class=&quot;k&quot;&gt;$(&lt;/span&gt;seq 10&lt;span class=&quot;k&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt; mv chr&lt;span class=&quot;nv&quot;&gt;$i&lt;/span&gt; ../genomes/&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;done&lt;/span&gt;
