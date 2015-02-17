@@ -4,7 +4,7 @@
  <title>DNAwesome</title>
  <link href="/atom.xml" rel="self"/>
  <link href="/"/>
- <updated>2015-02-10T16:20:57+08:00</updated>
+ <updated>2015-02-17T15:00:09+08:00</updated>
  <id></id>
  <author>
    <name>Tim Stuart</name>
@@ -562,7 +562,7 @@ gunzip file.gz
 
 &lt;h2&gt;Bedtools&lt;/h2&gt;
 
-&lt;p&gt;&lt;a href=&quot;http://quinlanlab.org/tutorials/cshl2013/bedtools.html&quot;&gt;Good tutorial from the Quinlan lab&lt;/a&gt;  &lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;http://quinlanlab.org/tutorials/cshl2014/bedtools.html&quot;&gt;Good tutorial from the Quinlan lab&lt;/a&gt;&lt;/p&gt;
 
 &lt;p&gt;Need to order files so that chromosome, start, stop and first three columns (BED format). Also need to remove header. Can do these steps with &lt;code&gt;awk&lt;/code&gt; and &lt;code&gt;sed 1d&lt;/code&gt;.  &lt;/p&gt;
 

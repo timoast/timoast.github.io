@@ -354,7 +354,7 @@ tophat -p8 -G /home/lister/working_data/data/genomes/annotations/tair10/TAIR10_g
 
 ## Bedtools  
 
-[Good tutorial from the Quinlan lab](http://quinlanlab.org/tutorials/cshl2013/bedtools.html)  
+[Good tutorial from the Quinlan lab](http://quinlanlab.org/tutorials/cshl2014/bedtools.html)
 
 Need to order files so that chromosome, start, stop and first three columns (BED format). Also need to remove header. Can do these steps with `awk` and `sed 1d`.  
 
