@@ -108,16 +108,13 @@
 
 <h2>Mapping</h2>
 
-<p>Mapping and postmap needs to be done on the high memory group:</p>
-<div class="highlight"><pre><code class="language-text" data-lang="text">echo &quot;alias limit=&#39;cgexec -g *:sys_limits/high&#39;” &gt;&gt; /home/&lt;username&gt;/.bashrc
-</code></pre></div>
 <p>Can do multiple samples at a time</p>
 
 <p>Use <code>map.php</code> (0 mismatches, or use <code>map_1mm.php</code> or <code>map_2mm.php</code> for 1 or 2 mismatches) to map all the reads to the genome (follow instructions):</p>
-<div class="highlight"><pre><code class="language-bash" data-lang="bash">limit php /home/lister/working_data/php/methpipe_se/map.php <span class="p">|</span> tee -a log.txt
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">php /home/lister/working_data/php/methpipe_se/map.php <span class="p">|</span> tee -a log.txt
 </code></pre></div>
 <p>For PE data</p>
-<div class="highlight"><pre><code class="language-bash" data-lang="bash">limit php /home/lister/working_data/php/methpipe_pe/map.php <span class="p">|</span> tee -a log.txt
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">php /home/lister/working_data/php/methpipe_pe/map.php <span class="p">|</span> tee -a log.txt
 </code></pre></div>
 <h2>Post-map</h2>
 
@@ -131,7 +128,7 @@
 <div class="highlight"><pre><code class="language-bash" data-lang="bash">screen -S postmap
 </code></pre></div>
 <p>Start the postmap script as follows:</p>
-<div class="highlight"><pre><code class="language-bash" data-lang="bash">limit php /home/lister/working_data/php/methpipe_se/post_map.php <span class="p">|</span> tee -a log.txt
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">php /home/lister/working_data/php/methpipe_se/post_map.php <span class="p">|</span> tee -a log.txt
 </code></pre></div>
 <p>You will see the following prompts:</p>
 <div class="highlight"><pre><code class="language-text" data-lang="text">  -Do you want to perform stage 1 (merge mapped runs, convert to .slam, sort, collapse, trim reads) (y/n): y

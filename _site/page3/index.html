@@ -107,11 +107,14 @@
 
 <span class="n">list3</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">list2</span> <span class="k">if</span> <span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="ow">in</span> <span class="n">list1</span><span class="p">]</span>
 </code></pre></div>
-<h3>Convert items in list to string</h3>
+<h3>Join items in list</h3>
 <div class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">outfile</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s">&#39;{l}</span><span class="se">\n</span><span class="s">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">l</span><span class="o">=</span><span class="s">&#39;</span><span class="se">\t</span><span class="s">&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">list</span><span class="p">)))</span>
 </code></pre></div>
 <p>If list items are not strings</p>
 <div class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">outfile</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s">&#39;{l}</span><span class="se">\n</span><span class="s">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">l</span><span class="o">=</span><span class="nb">map</span><span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="nb">list</span><span class="p">)))</span>
+</code></pre></div>
+<p>Or using list comprehension</p>
+<div class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">stringVersion</span> <span class="o">=</span> <span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">inputList</span><span class="p">]</span>
 </code></pre></div>
 <h2>Printing</h2>
 

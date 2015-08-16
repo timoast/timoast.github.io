@@ -217,6 +217,12 @@ Search only in one column
 awk '{if ($1 == 1) print $2}' p1 > chr1_p1
 ```
 
+Add string prefix to a column, eg. add 'chr' to the first column
+
+```bash
+awk 'BEGIN {FS=OFS="\t"} {$1="chr"$1; print $0}' input_file.txt > output_file.txt
+```
+
 ## Joining files
 
 Join files with each starting on a new line  

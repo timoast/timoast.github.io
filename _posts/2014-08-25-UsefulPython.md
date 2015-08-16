@@ -43,7 +43,7 @@ for x in list2:
 list3 = [x for x in list2 if x[0] in list1]
 ```
 
-### Convert items in list to string
+### Join items in list
 
 ```python
 outfile.write('{l}\n'.format(l='\t'.join(list)))
@@ -53,6 +53,12 @@ If list items are not strings
 
 ```python
 outfile.write('{l}\n'.format(l=map(str, list)))
+```
+
+Or using list comprehension
+
+```python
+stringVersion = [str(x) for x in inputList]
 ```
 
 ## Printing

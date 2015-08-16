@@ -209,6 +209,9 @@ awk <span class="s1">&#39;BEGIN {FS=OFS=&quot;\t&quot;} {print $7,$1,$8,$2,$3,$4
 <p>Search only in one column</p>
 <div class="highlight"><pre><code class="language-bash" data-lang="bash">awk <span class="s1">&#39;{if ($1 == 1) print $2}&#39;</span> p1 &gt; chr1_p1
 </code></pre></div>
+<p>Add string prefix to a column, eg. add &#39;chr&#39; to the first column</p>
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">awk <span class="s1">&#39;BEGIN {FS=OFS=&quot;\t&quot;} {$1=&quot;chr&quot;$1; print $0}&#39;</span> input_file.txt &gt; output_file.txt
+</code></pre></div>
 <h2>Joining files</h2>
 
 <p>Join files with each starting on a new line  </p>

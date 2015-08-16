@@ -39,24 +39,18 @@ cp Project_E_grandis ~/working_data
 
 ## Mapping
 
-Mapping and postmap needs to be done on the high memory group:
-
-```
-echo "alias limit='cgexec -g *:sys_limits/high'” >> /home/<username>/.bashrc
-```
-
 Can do multiple samples at a time
 
 Use `map.php` (0 mismatches, or use `map_1mm.php` or `map_2mm.php` for 1 or 2 mismatches) to map all the reads to the genome (follow instructions):
 
 ```bash
-limit php /home/lister/working_data/php/methpipe_se/map.php | tee -a log.txt
+php /home/lister/working_data/php/methpipe_se/map.php | tee -a log.txt
 ```
 
 For PE data
 
 ```bash
-limit php /home/lister/working_data/php/methpipe_pe/map.php | tee -a log.txt
+php /home/lister/working_data/php/methpipe_pe/map.php | tee -a log.txt
 ```
 
 ## Post-map
@@ -76,7 +70,7 @@ screen -S postmap
 Start the postmap script as follows:
 
 ```bash
-limit php /home/lister/working_data/php/methpipe_se/post_map.php | tee -a log.txt
+php /home/lister/working_data/php/methpipe_se/post_map.php | tee -a log.txt
 ```
 
 You will see the following prompts:
