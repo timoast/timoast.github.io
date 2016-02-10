@@ -86,6 +86,7 @@ print colour.CYAN + 'This is blue' + colour.END
 import textwrap
 print textwrap.dedent('print message')
 ```
+
 ## Strings
 
 ### Split strings by multiple delimiters

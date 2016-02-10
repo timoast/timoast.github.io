@@ -4,7 +4,7 @@
  <title>DNAwesome</title>
  <link href="/atom.xml" rel="self"/>
  <link href="/"/>
- <updated>2016-02-10T11:09:34+08:00</updated>
+ <updated>2016-02-10T17:23:14+08:00</updated>
  <id></id>
  <author>
    <name>Tim Stuart</name>
@@ -385,8 +385,9 @@ class colour:
 &lt;p&gt;&lt;code&gt;python
 import textwrap
 print textwrap.dedent(&#39;print message&#39;)
-&lt;/code&gt;
-## Strings&lt;/p&gt;
+&lt;/code&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;strings&quot;&gt;Strings&lt;/h2&gt;
 
 &lt;h3 id=&quot;split-strings-by-multiple-delimiters&quot;&gt;Split strings by multiple delimiters&lt;/h3&gt;
 
