@@ -66,29 +66,438 @@
   
   <div class="post">
     <h1 class="post-title">
-      <a href="/2014/03/04/highly-multiplexed-subcellular-rna-sequencing-in-situ/">
-        Highly Multiplexed Subcellular RNA Sequencing in Situ
+      <a href="/2014/08/24/UsefulCommands/">
+        Useful Linux/Unix commands
       </a>
     </h1>
 
-    <span class="post-date">04 Mar 2014</span>
+    <span class="post-date">24 Aug 2014</span>
 
-    <p>An improved method capable of sequencing RNA inside fixed cells (FISSEQ) was published in the early issue of <i>Science</i> last week, titled <i>Highly Multiplexed Subcellular RNA Sequencing in Situ </i>(1). It's an interesting method, and I'm going to go over it briefly here.</p>
-<p>Firstly, the method is not new; it was developed in 2003, and this is stated in the first paragraph of the paper. The original 2003 method was conceptually the same, involving sequencing of DNA bases through the incorporation of fluorescent nucleotides. However, this was only capable of sequencing libraries fixed in gel on a glass slide, and produced a measly 8 bp of sequence (2). Needless to say, huge improvements in sequencing technologies have been made over the past ten years.</p>
-<p>The new method presented by Lee et al. works in the following way. Firstly, cells are fixed with formaldehyde and permeabilised, and an <em>in situ</em> reverse transcription reaction performed with random hexamers and aminoallyl dUTP. cDNA is then circularised and amplified by rolling circle amplification. The authors report that the use of RNaseA improves the circularisation of cDNAs for rolling circle amplification (an RNaseH digest is also done after the RT to degrade RNA templates). dUTPs incorporated during the RT then allow crosslinking of the amplicons, through the addition of BS(PEG)9. This improves spacial stabilisation of the library <em>in situ</em><em>. </em>Addition of BS(PEG)9 is also helpful in reducing non-specific probe binding. Next, a formamide wash removes unlinked cDNA amplicons, improving amplicon density, and fluorescent probes are hybridised to the adapter sequence. Finally, SOLiD sequencing-by-ligation can be performed, and the authors report read lengths of 27 bp (up from 8 bp in 2003), with a median error rate of 0.64%. Additionally, this method provides subcellular localisation data for reads. The end result is a bunch of cool flashing dots inside a cell:</p>
-<blockquote><p><img src="/assets/s5_reduced1.gif" width="250" height="250" /></p>
-<p>Video S5 from Lee et al. (2014) (1).</p></blockquote>
-<p>The authors have compared the FISSEQ method to RNA-seq and gene expression arrays, and find a reasonably good correlation between some genes (those that were moderately expressed), though overall the correlation is poor:</p>
-<blockquote><p><img src="/assets/s11c.png" width="300" height="220" /><br />
-Figure S11C from Lee et al. (2014) (1).</p></blockquote>
-<p>There also seems to be a partial depletion of reads involved in RNA and protein processing, and the authors suggest that this could be due to some cellular structures, such as the nucleolus, being inaccessible by the FISSEQ method. I would agree that this is the case, since there were far fewer rRNA reads detected than would be expected (only 42.7% in primary fibroblasts) and it's pretty clear from some of the figures and videos that there are amplicon-free regions:</p>
-<blockquote><p><img src="/assets/s6b.png" width="300" height="296" /></p>
-<p>Figure S6B from Lee et al. (2014) (1).</p></blockquote>
-<p>Actually, it could be a good thing that some parts of the cell are not covered by FISSEQ, particularly the nucleolus, as this seems to provide a partial rRNA depletion.</p>
-<p>Overall, I think the method is an exciting one, and an impressive achievement with some promising applications in the future—the authors suggest <em>in situ </em>cell type identification based on expression profiling, and high-throughput <em>in situ </em>mutation detection. However, these applications are likely to be held back until longer read lengths can be achieved, and the protocol can simplified to reduce hands-on time. From the supplementary methods, I estimated just the SOLiD sequencing to take around two hours per cycle. Considering 27 cycles were done in these experiments, that would total 54 hours of hands-on lab time, for only 27 bp of sequence. Little mention is made of the amount of time needed for downstream informatics.</p>
-<p><a href="http://www.sciencemag.org/content/early/2014/02/26/science.1250212" target="_blank">1. <span style="line-height:1.5em;">Lee, J. H., Daugharthy, E. R., Scheiman, J., Kalhor, R., Yang, J. L., Ferrante, T. C., et al. (2014). Highly Multiplexed Subcellular RNA Sequencing in Situ. Science. doi:10.1126/science.1250212</span></a><a href="http://www.sciencemag.org/content/early/2014/02/26/science.1250212" target="_blank"><br />
-</a></p>
-<p><a href="http://arep.med.harvard.edu/pdf/Mitra03c.pdf" target="_blank">2. Mitra, R. D., Shendure, J., Olejnik, J., Edyta-Krzymanska-Olejnik, &amp; Church, G. M. (2003). Fluorescent in situ sequencing on polymerase colonies. Analytical Biochemistry, 320(1), 55–65. doi:10.1016/S0003-2697(03)00291-4</a></p>
+    <h2 id="go-back-to-last-directory">go back to last directory</h2>
+
+<p><code>
+cd -
+</code></p>
+
+<h2 id="do-something-in-a-range">Do something in a range</h2>
+<p>Move files</p>
+
+<p><code>bash
+for i in $(seq 10); do mv chr$i ../genomes/; done
+</code></p>
+
+<p><code>bash
+for directory in ./*; do
+    if [ -d "$directory" ]; then
+        cd $directory
+        for myfile in $(ls -d *.sra);do
+            mv $myfile /home/tstuart/working_data/1000genomes/$myfile
+        done
+        cd ..
+    fi
+done
+</code></p>
+
+<h2 id="take-command-line-arguments">Take command-line arguments</h2>
+
+<p>Required flags are followed by <code>:</code></p>
+
+<p>```bash
+index=  proc=  path=</p>
+
+<p>while getopts x:pA opt; do
+  case $opt in
+  x)
+      index=$OPTARG
+      ;;
+  p)
+      proc=$OPTARG
+      ;;
+  A)
+      path=${OPTARG%/}
+      ;;
+  esac
+done
+shift $((OPTIND - 1))
+```</p>
+
+<h2 id="strip-trailing-slash-from-string">Strip trailing slash from string</h2>
+
+<p><code>bash
+path=${OPTARG%/}
+</code></p>
+
+<h2 id="gnu-screen">GNU Screen</h2>
+
+<p>Start screen: <code>screen -S [screen name]</code><br />
+List screens: <code>screen -list</code><br />
+Detach: <code>screen -d</code><br />
+Attach: <code>screen -r</code><br />
+Close screen: <code>ctr-a-d</code><br />
+Kill screen: <code>ctr-a :quit</code></p>
+
+<h2 id="human-readable-path">Human-readable path</h2>
+
+<p><code>bash
+echo -e ${PATH//:/'\n'}
+</code></p>
+
+<h2 id="searching">Searching</h2>
+
+<p><code>bash
+grep 'text' filename
+grep 'text' file1 file2 file3
+grep 'text1 text2' filename
+grep --color 'text' filename
+</code></p>
+
+<p>Search all files in a directory, show output in less</p>
+
+<p><code>bash
+grep -r 'text' /home/usr/ | less
+</code></p>
+
+<p>Search for multiple strings</p>
+
+<p><code>bash
+egrep '(AT4G40030)|(AT4G40040)|(AT5G10980)' * &gt; h3.3
+</code></p>
+
+<h2 id="pipe-output-into-file">Pipe output into file</h2>
+<p>#### Overwrite contents of file</p>
+
+<p><code>bash
+grep "text" filename.txt &gt; output.txt
+</code></p>
+
+<h4 id="append-to-file">Append to file</h4>
+
+<p><code>bash
+grep "text" filename.txt &gt;&gt; output.txt
+</code></p>
+
+<h2 id="counting">Counting</h2>
+<p>Count lines in chr1 file</p>
+
+<p><code>bash
+wc -l chr1
+</code></p>
+
+<p>Count characters in chr1 file</p>
+
+<p><code>bash
+wc -c chr1
+</code></p>
+
+<h2 id="list">List</h2>
+
+<p>List and sort</p>
+
+<p><code>bash
+ls -ls
+</code></p>
+
+<p>List and sort by size</p>
+
+<p><code>bash
+ls -ls -S
+</code></p>
+
+<p>Count number of directories in current directory</p>
+
+<p><code>bash
+ls -l | grep ^d | wc -l
+</code></p>
+
+<h2 id="sorting">Sorting</h2>
+
+<p>Sort file by numerical order of first column, save as sorted_list.txt</p>
+
+<p><code>bash
+sort -nk 1 list.txt &gt; sorted_list.txt
+</code></p>
+
+<p>Sort file by order of first column, then numerical order of second column, save as sorted_list.txt</p>
+
+<p><code>bash
+sort -k1,1 -nk2,2 list.txt &gt; sorted_list.txt
+</code></p>
+
+<p>Sort descending</p>
+
+<p><code>bash
+sort -rn -k3 file.txt &gt; sorted.txt
+</code></p>
+
+<p>overwrite</p>
+
+<p><code>bash
+sort -rn -k3 -o file.txt file.txt
+</code></p>
+
+<h2 id="rows">Rows</h2>
+<p>Delete first line</p>
+
+<p><code>bash
+sed 1d file.txt &gt; headerless_file.txt
+</code></p>
+
+<p>Delete lines 1-3 inclusive</p>
+
+<p><code>bash
+sed 1,3d file.txt &gt; newfile.txt
+</code></p>
+
+<p>Delete lines containing string</p>
+
+<p><code>bash
+sed '/ATC/d' file.txt &gt; file_mod.txt
+</code></p>
+
+<p>Overwrite file</p>
+
+<p><code>bash
+sed -i.bak 1d file.txt
+</code></p>
+
+<h2 id="columns">Columns</h2>
+<p>Write columns to new file. Can also reorder columns.</p>
+
+<p><code>bash
+awk 'BEGIN {FS=OFS="\t"} {print $2,$4,$5,$6,$7,$8,$1,$3}' file.txt &gt; outfile.txt
+awk 'BEGIN {FS=OFS="\t"} {print $7,$1,$8,$2,$3,$4,$5,$6}' cmt2_targets.tsv &gt; cmt2_targets_ordered.tsv
+</code></p>
+
+<p>Add column</p>
+
+<p><code>bash
+awk '{print $0, "cmt2"}' cmt2_targets_ordered.tsv &gt; newfile.tsv
+</code></p>
+
+<p>Remove first column from all files</p>
+
+<p><code>bash
+for myfile in $(ls);do
+    awk 'BEGIN {FS=OFS="\t"} {$1="";sub("\t","")}1' $myfile &gt; mod_$myfile
+done
+</code></p>
+
+<p>Search only in one column</p>
+
+<p><code>bash
+awk '{if ($1 == 1) print $2}' p1 &gt; chr1_p1
+</code></p>
+
+<p>Add string prefix to a column, eg. add ‘chr’ to the first column</p>
+
+<p><code>bash
+awk 'BEGIN {FS=OFS="\t"} {$1="chr"$1; print $0}' input_file.txt &gt; output_file.txt
+</code></p>
+
+<h2 id="joining-files">Joining files</h2>
+
+<p>Join files with each starting on a new line</p>
+
+<p><code>bash
+for filename in *.fa; do
+    cat "${filename}"
+    echo
+done &gt; output.fa
+</code>
+Merge files of the same format</p>
+
+<p><code>bash
+cat p1_* | sort -nk1,1 -k2,2 | uniq &gt; p1
+</code></p>
+
+<h2 id="comparing-files">Comparing Files</h2>
+
+<p>Files should first be sorted</p>
+
+<p>Find lines that are common or different between two files</p>
+
+<p><code>bash
+comm -i file1 file2 &gt; output.txt
+</code></p>
+
+<ul>
+  <li><code>-i</code> is case-insensitive</li>
+  <li>outputs three columns. First is lines only in file1, second is lines only in file2, third is lines common in both.</li>
+</ul>
+
+<h2 id="compressing-files">Compressing files</h2>
+
+<p>Compress recursively and store all files in a single compressed folder</p>
+
+<p><code>bash
+tar cvfz slam.tgz slam/
+</code></p>
+
+<p>Compress recursively</p>
+
+<p><code>bash
+gzip -r directory/
+</code></p>
+
+<p>Decompress files</p>
+
+<p><code>bash
+tar -x -f file.tar
+tar -x -z -f file.tgz
+gunzip file.gz
+</code></p>
+
+<h2 id="download-data-from-sra">Download data from SRA</h2>
+
+<h3 id="using-wget">Using wget</h3>
+
+<p><code>
+wget -r --no-parent --reject "index.html*" ftp://ftp-trace.ncbi.nih.gov/sra/sra-instant/reads/ByStudy/sra/SRP/SRP005/SRP005399/
+</code>
+Alternatively, you can download a list of accessions from the SRA website and use that file to call <code>wget</code> for all the accessions.</p>
+
+<p>```python
+from subprocess import call</p>
+
+<p>with open(‘SraAccList.txt’, ‘r’) as accessions:
+    for row in accessions:
+        acc = row.strip(‘\n’)
+        prefix = acc[:6]
+        print “Downloading {a}”.format(a=acc)
+        call([“wget”,
+              “-r”,
+              “–no-parent”,
+              “ftp://ftp-trace.ncbi.nih.gov/sra/sra-instant/reads/ByRun/sra/SRR/{pre}/{acc}/*“.format(pre=prefix, acc=acc)])</p>
+
+<p>```</p>
+
+<h4 id="split-into-fastq-files">Split into fastq files</h4>
+
+<p><code>bash
+fastq-dump --split-3 ./SRP005399/*
+</code></p>
+
+<p><code>--split-3</code> causes PE files to be split into <code>*_1.fastq</code> and <code>*_2.fastq</code></p>
+
+<p>bash loop</p>
+
+<p><code>bash
+for directory in ./*; do
+    if [ -d "$directory" ]; then
+        cd $directory
+        for myfile in $(ls -d *.sra);do
+            fastq-dump --split-3 -v $myfile
+        done
+        cd ..
+    fi
+done
+</code></p>
+
+<p>Python function</p>
+
+<p>```python
+import os
+from subprocess import call</p>
+
+<p>def fastqSplit():
+    for filename in os.listdir(‘.’):
+        if filename.endswith(‘.sra’):
+            print ‘processing {n}’.format(n=filename)
+            call([‘fastq-dump’, ‘–split-3’, ‘-v’, filename])
+        else:
+            pass
+```</p>
+
+<h3 id="using-sra-toolkit">Using SRA toolkit</h3>
+
+<p>SRA toolkit doesn’t seem to work well for downloading bulk data. <code>wget</code> is a much better option as it allows download of whole folders, gives more descriptive output as it goes. SRA often fails and sometimes gives no error. Download with <code>wget</code> and use <code>fastq-split</code> to get fastq files.</p>
+
+<p><code>bash
+fastq-dump SRR534224 &amp;
+</code></p>
+
+<h2 id="rna-seq">RNA-seq</h2>
+
+<h3 id="mapping">Mapping</h3>
+
+<p><code>
+tophat -p8 -G /home/lister/working_data/data/genomes/annotations/tair10/TAIR10_gene_TE_illumina.gtf --transcriptome-index=transcript_index/tair10 /home/lister/working_data/data/genomes/bowtie2_indexes/tair9 SRR501604.fastq,SRR501605.fastq
+</code>
+* <code>--transcriptome-index=transcript_index/tair10</code> creates transcriptome index file saved in transcript_index/ with name <code>tair10.*</code>. This can be reused if mapping to the same transcriptome (ie. gff file)<br />
+* <code>-p8</code> uses 8 cores<br />
+* <code>-G</code> specifies gff file. Optional<br />
+* If using PE reads check manual</p>
+
+<h2 id="bedtools">Bedtools</h2>
+
+<p><a href="http://quinlanlab.org/tutorials/cshl2014/bedtools.html">Good tutorial from the Quinlan lab</a></p>
+
+<p>Need to order files so that chromosome, start, stop and first three columns (BED format). Also need to remove header. Can do these steps with <code>awk</code> and <code>sed 1d</code>.</p>
+
+<h3 id="merge">Merge</h3>
+
+<p><code>bash
+bedtools merge -i dmrs_ddc.tsv -d 100 &gt; dmrs_ddc_merged.tsv
+</code>
+* <code>-d</code> is distance between coordinates that will still be merged<br />
+* <code>-i</code> is input file</p>
+
+<h3 id="intersect">Intersect</h3>
+
+<p><code>bash
+bedtools intersect -a tair10_tes.txt -b dmrs_ddc_merged.tsv -wa -f 0.50 &gt; ddc_targets.tsv
+</code>
+* <code>-a</code> is file a<br />
+* <code>-b</code> is file b<br />
+* <code>-wa</code> is write a<br />
+* <code>-f</code> is minimum overlap percentage</p>
+
+<h2 id="bowtie">Bowtie</h2>
+
+<h3 id="mapping-pe-data">Mapping PE data</h3>
+
+<p><code>
+bowtie2 -p8 --local --fr -q -R 5 -N 1 -x [path/to/bowtie2/index] -X 1000 -1 [mate1.fq] -2 [mate2.fq] -S [alignment.sam] --un-conc ./discordant/
+</code>
+* <code>-p</code> is number of processors<br />
+* <code>--local</code> allows soft-clipping of reads to improve alignment<br />
+* <code>-q</code> specifies that reads are in fastq format<br />
+* <code>-x</code> gives path to index<br />
+* <code>-S</code> gives name of output file<br />
+* <code>-R</code> is number of times bowtie will try to ‘re-seed’ repetitive seeds. Default 2<br />
+* <code>-N</code> is number of mismatches allowed in seed. 0 or 1.<br />
+* <code>--no-mixed</code> tells bowtie to find alignments only when both pairs can be aligned.<br />
+* <code>--fr</code> means mate pairs are ordered in forward then reverse orientation. Can do <code>--ff</code>, <code>--rf</code>.<br />
+* <code>-X</code> specifies maximum insert size. Default 500.<br />
+* <code>-I</code> specifies minimum insert size. Default 0 (no minimum).<br />
+* <code>--un-conc</code> specifies path and file to write discordant alignments to. Note that these are just the <code>fastq</code> reads, not alignments.</p>
+
+<h2 id="samtools">Samtools</h2>
+
+<p>samtools can read from a stream, so can pipe output in from other tools (eg bowtie to get <code>.bam</code> output) or other samtools commands.</p>
+
+<h3 id="convert-from-sam-to-bam">Convert from <code>sam</code> to <code>bam</code></h3>
+<p><code>
+samtools view -bS file.sam &gt; file.bam
+</code></p>
+
+<h3 id="sort-bamfile">Sort bamfile</h3>
+<p><code>
+samtools sort file.bam sorted
+</code>
+* outputs <code>sorted.bam</code> file</p>
+
+<h3 id="samblaster">Samblaster</h3>
+
+<p>Extracts reads from <code>.sam</code> alignment files</p>
+
+<h4 id="get-discordant-reads">Get discordant reads</h4>
+<p><code>
+bowtie2 [options] | samblaster -e -d file.sam | samtools view -bS - &gt; file.bam
+</code>
+* Print output from bowtie to stderr to pipe directly into samblaster
+* Saves having to search through sam or bam file later to extract discordant reads
+* Pipe output directly into <code>samtools view</code> to save as <code>.bam</code> file (these won’t be the reads in the samblaster output)</p>
 
   </div>
   
@@ -96,7 +505,7 @@ Figure S11C from Lee et al. (2014) (1).</p></blockquote>
 
 <div class="pagination">
   
-    <span class="pagination-item older">Older</span>
+    <a class="pagination-item older" href="/page6">Older</a>
   
   
     
@@ -108,7 +517,7 @@ Figure S11C from Lee et al. (2014) (1).</p></blockquote>
 
       <!-- <div class="footer">
         <p>
-          &copy; 2015. All rights reserved.
+          &copy; 2016. All rights reserved.
         </p>
       </div> -->
     </div>

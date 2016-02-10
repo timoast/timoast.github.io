@@ -65,142 +65,174 @@
       <div class="post">
   <h1 class="post-title">Useful python code</h1>
   <span class="post-date">25 Aug 2014</span>
-  <h3>Take command-line arguments</h3>
-<div class="highlight"><pre><code class="language-python" data-lang="python"><span class="kn">from</span> <span class="nn">sys</span> <span class="kn">import</span> <span class="n">argv</span>
+  <h3 id="take-command-line-arguments">Take command-line arguments</h3>
 
+<p>```python
+from argparse import ArgumentParser</p>
 
-<span class="k">def</span> <span class="nf">checkArgs</span><span class="p">(</span><span class="n">arg1</span><span class="p">,</span> <span class="n">arg2</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    arg1 is short arg, eg h</span>
-<span class="sd">    arg2 is long arg, eg host</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">args</span> <span class="o">=</span> <span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span>
-    <span class="k">if</span> <span class="n">arg1</span> <span class="ow">in</span> <span class="n">args</span><span class="p">:</span>
-        <span class="n">index</span> <span class="o">=</span> <span class="n">args</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">arg1</span><span class="p">)</span><span class="o">+</span><span class="mi">1</span>
-        <span class="n">variable</span> <span class="o">=</span> <span class="n">args</span><span class="p">[</span><span class="n">index</span><span class="p">]</span>
-        <span class="k">return</span> <span class="n">variable</span>
-    <span class="k">elif</span> <span class="n">arg2</span> <span class="ow">in</span> <span class="n">args</span><span class="p">:</span>
-        <span class="n">index</span> <span class="o">=</span> <span class="n">args</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">arg2</span><span class="p">)</span><span class="o">+</span><span class="mi">1</span>
-        <span class="n">variable</span> <span class="o">=</span> <span class="n">args</span><span class="p">[</span><span class="n">index</span><span class="p">]</span>
-        <span class="k">return</span> <span class="n">variable</span>
-    <span class="k">else</span><span class="p">:</span>
-        <span class="n">variable</span> <span class="o">=</span> <span class="nb">raw_input</span><span class="p">(</span><span class="s">&quot;</span><span class="se">\n</span><span class="s">Enter {arg2}: &quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">arg2</span><span class="o">=</span><span class="n">arg2</span><span class="p">))</span>
-        <span class="k">return</span> <span class="n">variable</span>
-</code></pre></div>
-<h2>Lists</h2>
+<p>version = pkg_resources.require(“program”)[0].version
+parser = ArgumentParser(description=’program description’)
+group = parser.add_mutually_exclusive_group()
+parser.add_argument(‘–version’, action=’version’, version=’%(prog)s ‘+str(version))
+parser.add_argument(‘–option’, help=’option description’, required=False, default=False, action=’store_true’)
+parser.add_argument(‘-n’, ‘–name’, help=’sample name’, required=True)
+```</p>
 
-<h3>List comprehension</h3>
+<h2 id="lists">Lists</h2>
+
+<h3 id="list-comprehension">List comprehension</h3>
 
 <p>If ever declaring and empty list then using <code>.append</code>, can be done with list comprehension.</p>
-<div class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">list3</span> <span class="o">=</span> <span class="p">[]</span>
-<span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">list2</span><span class="p">:</span>
-    <span class="k">if</span> <span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="ow">in</span> <span class="n">list1</span><span class="p">:</span>
-        <span class="n">list3</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
 
-<span class="n">list3</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">list2</span> <span class="k">if</span> <span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="ow">in</span> <span class="n">list1</span><span class="p">]</span>
-</code></pre></div>
-<h3>Join items in list</h3>
-<div class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">outfile</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s">&#39;{l}</span><span class="se">\n</span><span class="s">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">l</span><span class="o">=</span><span class="s">&#39;</span><span class="se">\t</span><span class="s">&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">list</span><span class="p">)))</span>
-</code></pre></div>
+<p>```python
+list3 = []
+for x in list2:
+    if x[0] in list1:
+        list3.append(x)</p>
+
+<p>list3 = [x for x in list2 if x[0] in list1]
+```</p>
+
+<p>Can also use this to read from a file in one line, eg to read column 4 in a file into a list in python:</p>
+
+<p><code>python
+all_TEs = [line.rsplit()[4] for line in open("TAIR9_TE.bed", "r")]
+</code></p>
+
+<p>Or read all lines into a list:</p>
+
+<p><code>python
+all_lines = [line.strip("\n") for line in open("filename", "r")]
+</code></p>
+
+<h3 id="join-items-in-list">Join items in list</h3>
+
+<p><code>python
+outfile.write('{l}\n'.format(l='\t'.join(list)))
+</code></p>
+
 <p>If list items are not strings</p>
-<div class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">outfile</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s">&#39;{l}</span><span class="se">\n</span><span class="s">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">l</span><span class="o">=</span><span class="nb">map</span><span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="nb">list</span><span class="p">)))</span>
-</code></pre></div>
+
+<p><code>python
+outfile.write('{l}\n'.format(l=map(str, list)))
+</code></p>
+
 <p>Or using list comprehension</p>
-<div class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">stringVersion</span> <span class="o">=</span> <span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">inputList</span><span class="p">]</span>
-</code></pre></div>
-<h2>Printing</h2>
 
-<h3>Print in colour</h3>
-<div class="highlight"><pre><code class="language-python" data-lang="python"><span class="k">class</span> <span class="nc">colour</span><span class="p">:</span>
-    <span class="n">PURPLE</span> <span class="o">=</span> <span class="s">&#39;</span><span class="se">\033</span><span class="s">[95m&#39;</span>
-    <span class="n">CYAN</span> <span class="o">=</span> <span class="s">&#39;</span><span class="se">\033</span><span class="s">[96m&#39;</span>
-    <span class="n">DARKCYAN</span> <span class="o">=</span> <span class="s">&#39;</span><span class="se">\033</span><span class="s">[36m&#39;</span>
-    <span class="n">BLUE</span> <span class="o">=</span> <span class="s">&#39;</span><span class="se">\033</span><span class="s">[94m&#39;</span>
-    <span class="n">GREEN</span> <span class="o">=</span> <span class="s">&#39;</span><span class="se">\033</span><span class="s">[92m&#39;</span>
-    <span class="n">YELLOW</span> <span class="o">=</span> <span class="s">&#39;</span><span class="se">\033</span><span class="s">[93m&#39;</span>
-    <span class="n">RED</span> <span class="o">=</span> <span class="s">&#39;</span><span class="se">\033</span><span class="s">[91m&#39;</span>
-    <span class="n">BOLD</span> <span class="o">=</span> <span class="s">&#39;</span><span class="se">\033</span><span class="s">[1m&#39;</span>
-    <span class="n">UNDERLINE</span> <span class="o">=</span> <span class="s">&#39;</span><span class="se">\033</span><span class="s">[4m&#39;</span>
-    <span class="n">END</span> <span class="o">=</span> <span class="s">&#39;</span><span class="se">\033</span><span class="s">[0m&#39;</span>
+<p><code>python
+stringVersion = [str(x) for x in inputList]
+</code></p>
 
-<span class="k">print</span> <span class="n">colour</span><span class="o">.</span><span class="n">CYAN</span> <span class="o">+</span> <span class="s">&#39;This is blue&#39;</span> <span class="o">+</span> <span class="n">colour</span><span class="o">.</span><span class="n">END</span>
-</code></pre></div>
-<h3>Format text wrapping correctly in terminal</h3>
-<div class="highlight"><pre><code class="language-python" data-lang="python"><span class="kn">import</span> <span class="nn">textwrap</span>
-<span class="k">print</span> <span class="n">textwrap</span><span class="o">.</span><span class="n">dedent</span><span class="p">(</span><span class="s">&#39;print message&#39;</span><span class="p">)</span>
-</code></pre></div>
-<h2>Strings</h2>
+<h2 id="printing">Printing</h2>
 
-<h3>Split strings by multiple delimiters</h3>
-<div class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">accession_name</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s">&#39;calls_&#39;</span><span class="p">,</span> <span class="s">&#39;.&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s">&#39;.&#39;</span><span class="p">)</span>
-</code></pre></div>
-<h2>File reading / writing</h2>
+<h3 id="print-in-colour">Print in colour</h3>
 
-<h3>Read lines in tsv/csv file</h3>
-<div class="highlight"><pre><code class="language-python" data-lang="python"><span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s">&#39;merged_dmrs.bed&#39;</span><span class="p">,</span> <span class="s">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
-    <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">f</span><span class="p">:</span>
-        <span class="n">line</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">rsplit</span><span class="p">()</span> <span class="c"># each item in line is now part of a list</span>
-</code></pre></div>
-<h2>Find if coordinates overlap</h2>
-<div class="highlight"><pre><code class="language-python" data-lang="python"><span class="k">def</span> <span class="nf">overlap</span><span class="p">(</span><span class="n">start1</span><span class="p">,</span> <span class="n">stop1</span><span class="p">,</span> <span class="n">start2</span><span class="p">,</span> <span class="n">stop2</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;returns True if sets of coordinates overlap. Assumes coordinates are on same chromosome&quot;&quot;&quot;</span>
-    <span class="k">for</span> <span class="n">y</span> <span class="ow">in</span> <span class="nb">xrange</span><span class="p">(</span><span class="n">start2</span><span class="p">,</span> <span class="n">stop2</span><span class="o">+</span><span class="mi">1</span><span class="p">):</span>
-        <span class="k">if</span> <span class="n">start1</span> <span class="o">&lt;=</span> <span class="n">y</span> <span class="o">&lt;=</span> <span class="n">stop1</span><span class="p">:</span>
-            <span class="k">return</span> <span class="bp">True</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="k">pass</span>
-</code></pre></div>
-<h2>Functions for mapping NGS reads</h2>
-<div class="highlight"><pre><code class="language-python" data-lang="python"><span class="kn">import</span> <span class="nn">os</span>
-<span class="kn">from</span> <span class="nn">subprocess</span> <span class="kn">import</span> <span class="n">call</span>
+<p>```python
+class colour:
+    PURPLE = ‘\033[95m’
+    CYAN = ‘\033[96m’
+    DARKCYAN = ‘\033[36m’
+    BLUE = ‘\033[94m’
+    GREEN = ‘\033[92m’
+    YELLOW = ‘\033[93m’
+    RED = ‘\033[91m’
+    BOLD = ‘\033[1m’
+    UNDERLINE = ‘\033[4m’
+    END = ‘\033[0m’</p>
 
+<p>print colour.CYAN + ‘This is blue’ + colour.END
+```</p>
 
-<span class="k">def</span> <span class="nf">peMap</span><span class="p">(</span><span class="n">proc</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    paired-end reads</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">for</span> <span class="n">filename</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="s">&#39;.&#39;</span><span class="p">):</span>
-        <span class="k">if</span> <span class="n">filename</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s">&quot;_1.fastq&quot;</span><span class="p">):</span>
-            <span class="n">sam</span> <span class="o">=</span> <span class="n">filename</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s">&#39;_&#39;</span><span class="p">)</span>
-            <span class="n">sam</span> <span class="o">=</span> <span class="n">sam</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-            <span class="n">call</span><span class="p">([</span><span class="s">&quot;bowtie2&quot;</span><span class="p">,</span> <span class="s">&quot;-p{x}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">proc</span><span class="p">),</span> <span class="s">&quot;-q&quot;</span><span class="p">,</span> <span class="s">&quot;-x /dd_stage/userdata/lister/data/genomes/bowtie2_indexes/tair9&quot;</span><span class="p">,</span>
-                  <span class="s">&quot;-1 {f}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">f</span><span class="o">=</span><span class="n">sam</span> <span class="o">+</span> <span class="s">&#39;_1.fastq&#39;</span><span class="p">),</span> <span class="s">&quot;-2 {f}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">f</span><span class="o">=</span><span class="n">sam</span> <span class="o">+</span> <span class="s">&#39;_2.fastq&#39;</span><span class="p">),</span> <span class="s">&quot;-S {s}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">s</span><span class="o">=</span><span class="n">sam</span> <span class="o">+</span> <span class="s">&#39;.sam&#39;</span><span class="p">)])</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="k">pass</span>
+<h3 id="format-text-wrapping-correctly-in-terminal">Format text wrapping correctly in terminal</h3>
 
+<p><code>python
+import textwrap
+print textwrap.dedent('print message')
+</code>
+## Strings</p>
 
-<span class="k">def</span> <span class="nf">seMap</span><span class="p">(</span><span class="n">proc</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    single-end reads</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">for</span> <span class="n">filename</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="s">&#39;.&#39;</span><span class="p">):</span>
-        <span class="k">if</span> <span class="n">filename</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s">&quot;.fastq&quot;</span><span class="p">):</span>
-            <span class="n">sam</span> <span class="o">=</span> <span class="n">filename</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s">&#39;.&#39;</span><span class="p">)</span>
-            <span class="n">sam</span> <span class="o">=</span> <span class="n">sam</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-            <span class="n">call</span><span class="p">([</span><span class="s">&quot;bowtie2&quot;</span><span class="p">,</span> <span class="s">&quot;-p{x}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">proc</span><span class="p">),</span> <span class="s">&quot;-q&quot;</span><span class="p">,</span> <span class="s">&quot;-x /dd_stage/userdata/lister/data/genomes/bowtie2_indexes/tair9&quot;</span><span class="p">,</span>
-                  <span class="s">&quot;-U {f}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">f</span><span class="o">=</span><span class="n">filename</span><span class="p">),</span> <span class="s">&quot;-S {s}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">s</span><span class="o">=</span><span class="n">sam</span> <span class="o">+</span> <span class="s">&#39;.sam&#39;</span><span class="p">)])</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="k">pass</span>
-</code></pre></div>
-<h2>Split sra files into fastq</h2>
-<div class="highlight"><pre><code class="language-python" data-lang="python"><span class="kn">import</span> <span class="nn">os</span>
-<span class="kn">from</span> <span class="nn">subprocess</span> <span class="kn">import</span> <span class="n">call</span>
+<h3 id="split-strings-by-multiple-delimiters">Split strings by multiple delimiters</h3>
 
+<p><code>python
+accession_name = f.replace('calls_', '.').split('.')
+</code></p>
 
-<span class="k">def</span> <span class="nf">fastqSplit</span><span class="p">():</span>
-    <span class="k">for</span> <span class="n">filename</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="s">&#39;.&#39;</span><span class="p">):</span>
-        <span class="k">if</span> <span class="n">filename</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s">&#39;.sra&#39;</span><span class="p">):</span>
-            <span class="k">print</span> <span class="s">&#39;processing {n}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">n</span><span class="o">=</span><span class="n">filename</span><span class="p">)</span>
-            <span class="n">call</span><span class="p">([</span><span class="s">&#39;fastq-dump&#39;</span><span class="p">,</span> <span class="s">&#39;--split-3&#39;</span><span class="p">,</span> <span class="s">&#39;-v&#39;</span><span class="p">,</span> <span class="n">filename</span><span class="p">])</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="k">pass</span>
-</code></pre></div>
+<h2 id="file-reading--writing">File reading / writing</h2>
+
+<h3 id="read-lines-in-tsvcsv-file">Read lines in tsv/csv file</h3>
+
+<p><code>python
+with open('merged_dmrs.bed', 'r') as f:
+    for line in f:
+        line = line.rsplit() # each item in line is now part of a list
+</code></p>
+
+<h2 id="find-if-coordinates-overlap">Find if coordinates overlap</h2>
+
+<p><code>python
+def overlap(start1, stop1, start2, stop2):
+    """returns True if sets of coordinates overlap. Assumes coordinates are on same chromosome"""
+    for y in xrange(start2, stop2+1):
+        if start1 &lt;= y &lt;= stop1:
+            return True
+        else:
+            pass
+</code></p>
+
+<h2 id="functions-for-mapping-ngs-reads">Functions for mapping NGS reads</h2>
+
+<p>```python
+import os
+from subprocess import call</p>
+
+<p>def peMap(proc):
+    “””
+    paired-end reads
+    “””
+    for filename in os.listdir(‘.’):
+        if filename.endswith(“<em>1.fastq”):
+            sam = filename.split(‘</em>’)
+            sam = sam[0]
+            call([“bowtie2”, “-p{x}”.format(x=proc), “-q”, “-x /dd_stage/userdata/lister/data/genomes/bowtie2_indexes/tair9”,
+                  “-1 {f}”.format(f=sam + ‘_1.fastq’), “-2 {f}”.format(f=sam + ‘_2.fastq’), “-S {s}”.format(s=sam + ‘.sam’)])
+        else:
+            pass</p>
+
+<p>def seMap(proc):
+    “””
+    single-end reads
+    “””
+    for filename in os.listdir(‘.’):
+        if filename.endswith(“.fastq”):
+            sam = filename.split(‘.’)
+            sam = sam[0]
+            call([“bowtie2”, “-p{x}”.format(x=proc), “-q”, “-x /dd_stage/userdata/lister/data/genomes/bowtie2_indexes/tair9”,
+                  “-U {f}”.format(f=filename), “-S {s}”.format(s=sam + ‘.sam’)])
+        else:
+            pass
+```</p>
+
+<h2 id="split-sra-files-into-fastq">Split sra files into fastq</h2>
+
+<p>```python
+import os
+from subprocess import call</p>
+
+<p>def fastqSplit():
+    for filename in os.listdir(‘.’):
+        if filename.endswith(‘.sra’):
+            print ‘processing {n}’.format(n=filename)
+            call([‘fastq-dump’, ‘–split-3’, ‘-v’, filename])
+        else:
+            pass
+```</p>
+
 </div>
 
 
       <!-- <div class="footer">
         <p>
-          &copy; 2015. All rights reserved.
+          &copy; 2016. All rights reserved.
         </p>
       </div> -->
     </div>

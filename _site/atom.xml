@@ -4,7 +4,7 @@
  <title>DNAwesome</title>
  <link href="/atom.xml" rel="self"/>
  <link href="/"/>
- <updated>2015-08-16T13:42:57+08:00</updated>
+ <updated>2016-02-10T11:09:34+08:00</updated>
  <id></id>
  <author>
    <name>Tim Stuart</name>
@@ -13,21 +13,73 @@
 
  
  <entry>
+   <title>Extract reads from bam file by read name</title>
+   <link href="//2015/10/12/ExtractReads/"/>
+   <updated>2015-10-12T00:00:00+08:00</updated>
+   <id>/2015/10/12/ExtractReads</id>
+   <content type="html">&lt;p&gt;While there are very fast and easy ways to extract reads from a bam file according to mapping location, extracting reads by read name is more difficult.&lt;/p&gt;
+
+&lt;p&gt;Simple methods, like using &lt;code&gt;grep&lt;/code&gt;, are incredibly slow if you want to look for more than a few reads.&lt;/p&gt;
+
+&lt;p&gt;Luckily, &lt;code&gt;pysam&lt;/code&gt; allows you to index a bam file by read name (using &lt;code&gt;pysam.IndexedReads(AlignmentFile)&lt;/code&gt;) while keeping the sort order. However, the index is stored in memory so this can use a lot of RAM (my tests with a 5.7 GB bam file used about 9 GB RAM).&lt;/p&gt;
+
+&lt;p&gt;I wrote a small python script (below) that uses pysam to extract reads by read name from a bam file.&lt;/p&gt;
+
+&lt;p&gt;Extracting 10 reads from a 5.7 GB bam file, just using &lt;code&gt;grep&lt;/code&gt; is slightly faster than the python script:&lt;/p&gt;
+
+&lt;p&gt;```shell
+timstuart Altai-5$  time samtools view Altai-5_filtered.bam | grep -f reads.txt &amp;gt; extracted&lt;/p&gt;
+
+&lt;p&gt;real    2m10.088s
+user    2m23.107s
+sys 0m35.470s&lt;/p&gt;
+
+&lt;p&gt;timstuart Altai-5$  time python extract_reads.py -b Altai-5_filtered.bam -n reads.txt -o python_extracted.bam&lt;/p&gt;
+
+&lt;p&gt;real    3m36.444s
+user    3m14.744s
+sys 0m18.867s&lt;/p&gt;
+
+&lt;p&gt;```&lt;/p&gt;
+
+&lt;p&gt;But extracting 200 reads using python is fast, while using &lt;code&gt;grep&lt;/code&gt; ran for over an hour before I stopped the process.&lt;/p&gt;
+
+&lt;p&gt;```shell
+timstuart Altai-5$  time python extract_reads.py -b Altai-5_filtered.bam -n reads.txt -o python_extracted.bam&lt;/p&gt;
+
+&lt;p&gt;real    3m30.015s
+user    3m12.738s
+sys 0m15.055s
+```&lt;/p&gt;
+
+&lt;script src=&quot;https://gist.github.com/timoast/2264a79f93b3f1cb3aac.js&quot;&gt;&lt;/script&gt;
+
+</content>
+ </entry>
+ 
+ <entry>
    <title>Estimation of insert size from sam / bam files</title>
    <link href="//2014/11/04/SizeEstimation/"/>
    <updated>2014-11-04T00:00:00+08:00</updated>
    <id>/2014/11/04/SizeEstimation</id>
-   <content type="html">&lt;p&gt;I&amp;#39;ve been looking for a simple way to estimate paired-end insert sizes from mapped data. There are a few more complicated tools available (I think picard will do it), as well as simple scripts different people have written that don&amp;#39;t exclude outliers. However outliers due to discordant read alignments will hugely change the mean, so need to be removed.&lt;/p&gt;
+   <content type="html">&lt;p&gt;I’ve been looking for a simple way to estimate paired-end insert sizes from mapped data. There are a few more complicated tools available (I think picard will do it), as well as simple scripts different people have written that don’t exclude outliers. However outliers due to discordant read alignments will hugely change the mean, so need to be removed.&lt;/p&gt;
 
-&lt;p&gt;As I couldn&amp;#39;t find anything that was a nice middle ground, I ended up writing my own simple python script that will take input from stdin and exclude outliers more that two standard deviations from the median, and print the mean and standard deviation to stdout.&lt;/p&gt;
+&lt;p&gt;As I couldn’t find anything that was a nice middle ground, I ended up writing my own simple python script that will take input from stdin and exclude outliers more that two standard deviations from the median, and print the mean and standard deviation to stdout.&lt;/p&gt;
 
 &lt;p&gt;It can be used to estimate the insert size from sam or bam files:&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;$ head -10000 mapped.sam | python mean_size.py
+
+&lt;p&gt;&lt;code&gt;
+$ head -10000 mapped.sam | python mean_size.py
 220 35
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;$ samtools view mapped.bam | head -10000 | python mean_size.py
+&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;
+$ samtools view mapped.bam | head -10000 | python mean_size.py
 220 35
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;/code&gt;&lt;/p&gt;
+
 &lt;script src=&quot;https://gist.github.com/timoast/af73c0e9fac00187ee49.js&quot;&gt;&lt;/script&gt;
+
 </content>
  </entry>
  
@@ -36,50 +88,65 @@
    <link href="//2014/10/29/MethyC-Analysis/"/>
    <updated>2014-10-29T00:00:00+08:00</updated>
    <id>/2014/10/29/MethyC-Analysis</id>
-   <content type="html">&lt;h2&gt;Preliminary steps&lt;/h2&gt;
+   <content type="html">&lt;h2 id=&quot;preliminary-steps&quot;&gt;Preliminary steps&lt;/h2&gt;
 
-&lt;h3&gt;Bcl-conversion&lt;/h3&gt;
-
-&lt;ol&gt;
-&lt;li&gt;Enter a screen&lt;/li&gt;
-&lt;/ol&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;screen -S bcl-conversion
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;ol&gt;
-&lt;li&gt;Navigate to directory with run (eg. 130909&lt;em&gt;SNL119&lt;/em&gt;0105_AC2GYKACXX)&lt;/li&gt;
-&lt;li&gt;Check sample sheet configured correctly. If only one adapter in lane, remove adapter sequence from sample sheet.&lt;/li&gt;
-&lt;li&gt;Run the following (modified with correct run name, sample sheet etc). Can change final value to change number of reads in files:&lt;/li&gt;
-&lt;/ol&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;/usr/local/packages/CASAVA_v1.8.2/bcl2fastq/build/bin/configureBclToFastq.pl --input-dir /dd_rundata/hiseq/Runs/130909_SNL119_0105_AC2GYKACXX/Data/Intensities/BaseCalls/ --sample-sheet /dd_rundata/hiseq/Runs/130909_SNL119_0105_AC2GYKACXX/SampleSheet.csv --fastq-cluster-count 50000000
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;ol&gt;
-&lt;li&gt;Navigate to newly created Unaligned directory (under top run directory) and enter:&lt;/li&gt;
-&lt;/ol&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;nohup make -j 12
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;h3&gt;Moving and renaming files&lt;/h3&gt;
+&lt;h3 id=&quot;bcl-conversion&quot;&gt;Bcl-conversion&lt;/h3&gt;
 
 &lt;ol&gt;
-&lt;li&gt;Copy run files from run directory to working directory:&lt;/li&gt;
-&lt;/ol&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;cp Project_E_grandis ~/working_data
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;ol&gt;
-&lt;li&gt;Rename fastq files to &lt;code&gt;s_1_sequence.txt&lt;/code&gt;, &lt;code&gt;s_2_sequence.txt&lt;/code&gt; etc.&lt;/li&gt;
-&lt;li&gt;Store sequence files a separate directory, eg. sequences. If you have data from the same library but multiple runs, store in separate directories.&lt;/li&gt;
+  &lt;li&gt;Enter a screen&lt;/li&gt;
 &lt;/ol&gt;
 
-&lt;h2&gt;Mapping&lt;/h2&gt;
+&lt;p&gt;&lt;code&gt;bash
+screen -S bcl-conversion
+&lt;/code&gt;
+2. Navigate to directory with run (eg. 130909_SNL119_0105_AC2GYKACXX)
+3. Check sample sheet configured correctly. If only one adapter in lane, remove adapter sequence from sample sheet.
+4. Run the following (modified with correct run name, sample sheet etc). Can change final value to change number of reads in files:&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;bash
+/usr/local/packages/CASAVA_v1.8.2/bcl2fastq/build/bin/configureBclToFastq.pl --input-dir /dd_rundata/hiseq/Runs/130909_SNL119_0105_AC2GYKACXX/Data/Intensities/BaseCalls/ --sample-sheet /dd_rundata/hiseq/Runs/130909_SNL119_0105_AC2GYKACXX/SampleSheet.csv --fastq-cluster-count 50000000
+&lt;/code&gt;&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;Navigate to newly created Unaligned directory (under top run directory) and enter:&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;&lt;code&gt;bash
+nohup make -j 12
+&lt;/code&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;moving-and-renaming-files&quot;&gt;Moving and renaming files&lt;/h3&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;Copy run files from run directory to working directory:&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;&lt;code&gt;bash
+cp Project_E_grandis ~/working_data
+&lt;/code&gt;&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;Rename fastq files to &lt;code&gt;s_1_sequence.txt&lt;/code&gt;, &lt;code&gt;s_2_sequence.txt&lt;/code&gt; etc.&lt;/li&gt;
+  &lt;li&gt;Store sequence files a separate directory, eg. sequences. If you have data from the same library but multiple runs, store in separate directories.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h2 id=&quot;mapping&quot;&gt;Mapping&lt;/h2&gt;
 
 &lt;p&gt;Can do multiple samples at a time&lt;/p&gt;
 
 &lt;p&gt;Use &lt;code&gt;map.php&lt;/code&gt; (0 mismatches, or use &lt;code&gt;map_1mm.php&lt;/code&gt; or &lt;code&gt;map_2mm.php&lt;/code&gt; for 1 or 2 mismatches) to map all the reads to the genome (follow instructions):&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;php /home/lister/working_data/php/methpipe_se/map.php &lt;span class=&quot;p&quot;&gt;|&lt;/span&gt; tee -a log.txt
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;code&gt;bash
+php /home/lister/working_data/php/methpipe_se/map.php | tee -a log.txt
+&lt;/code&gt;&lt;/p&gt;
+
 &lt;p&gt;For PE data&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;php /home/lister/working_data/php/methpipe_pe/map.php &lt;span class=&quot;p&quot;&gt;|&lt;/span&gt; tee -a log.txt
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;h2&gt;Post-map&lt;/h2&gt;
+
+&lt;p&gt;&lt;code&gt;bash
+php /home/lister/working_data/php/methpipe_pe/map.php | tee -a log.txt
+&lt;/code&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;post-map&quot;&gt;Post-map&lt;/h2&gt;
 
 &lt;p&gt;Do one sample at a time. This step will generate all the tables in mySQL (used for AnnoJ and DMR script).&lt;/p&gt;
 
@@ -88,96 +155,145 @@
 &lt;p&gt;Start with a mapped dir containing the subdir that contain the &lt;code&gt;\*_final&lt;/code&gt; mapped files.&lt;/p&gt;
 
 &lt;p&gt;Navigate to directory above mapped run data and start a screen:&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;screen -S postmap
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;code&gt;bash
+screen -S postmap
+&lt;/code&gt;&lt;/p&gt;
+
 &lt;p&gt;Start the postmap script as follows:&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;php /home/lister/working_data/php/methpipe_se/post_map.php &lt;span class=&quot;p&quot;&gt;|&lt;/span&gt; tee -a log.txt
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;code&gt;bash
+php /home/lister/working_data/php/methpipe_se/post_map.php | tee -a log.txt
+&lt;/code&gt;&lt;/p&gt;
+
 &lt;p&gt;You will see the following prompts:&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;  -Do you want to perform stage 1 (merge mapped runs, convert to .slam, sort, collapse, trim reads) (y/n): y
+
+&lt;p&gt;&lt;code&gt;
+  -Do you want to perform stage 1 (merge mapped runs, convert to .slam, sort, collapse, trim reads) (y/n): y
   -Do you want to perform stage 2 (import mapped reads into MYSQL) (y/n): y
   -Do you want to perform stage 3 (stack and hammer) (y/n): y
   -Do you want to perform stage 4 (import stacks into MYSQL) (y/n): y
-  -Do you want to perform stage 5 (import mC&amp;#39;s into MYSQL) (y/n): y
+  -Do you want to perform stage 5 (import mC&#39;s into MYSQL) (y/n): y
   -Do you want to perform stage 6 (correct mammalian mCH for genotype) (y/n): n
   -Do you want to perform stage 7 (make and import allC tables) (y/n): y
   -Do you want to perform stage 8 (identify partially methylated domains) (y/n): n
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;/code&gt;&lt;/p&gt;
+
 &lt;p&gt;Enter the path to mapped folder when prompted.&lt;/p&gt;
 
 &lt;p&gt;Shows a summary of all options, then:&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;- Based on these settings, do you want to proceed (y/n): y
+
+&lt;p&gt;&lt;code&gt;
+- Based on these settings, do you want to proceed (y/n): y
 - Number of libraries that make up the sample: 1
 - Enter run folder names in library 1 (space delim): sequences  &amp;lt;-- name of sample folder
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;h1&gt;Methylpy DMR finder&lt;/h1&gt;
+&lt;/code&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;methylpy-dmr-finder&quot;&gt;Methylpy DMR finder&lt;/h1&gt;
 
 &lt;p&gt;Add the following to your &lt;code&gt;.bashrc&lt;/code&gt;:&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;nb&quot;&gt;alias &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;methylenv&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&amp;#39;source /usr/local/virtualenv/methylenv/bin/activate; export PYTHONPATH=/usr/local/packages/methylpy:/usr/local/packages/methylpy/methylpy&amp;#39;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;code&gt;bash
+alias methylenv=&#39;source /usr/local/virtualenv/methylenv/bin/activate; export PYTHONPATH=/usr/local/packages/methylpy:/usr/local/packages/methylpy/methylpy&#39;
+&lt;/code&gt;&lt;/p&gt;
+
 &lt;p&gt;All Methylpy steps must be done in using the methylenv. To exit the methylenv, type &lt;code&gt;deactivate&lt;/code&gt;.&lt;/p&gt;
 
-&lt;p&gt;If you don&amp;#39;t have the package already it can be cloned from bitbucket:&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;git clone git@bitbucket.org:schultzmattd/methylpy.git
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;If you don’t have the package already it can be cloned from bitbucket:&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;bash
+git clone git@bitbucket.org:schultzmattd/methylpy.git
+&lt;/code&gt;&lt;/p&gt;
+
 &lt;p&gt;To update, from the directory created by the clone:&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;git pull
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;code&gt;bash
+git pull
+&lt;/code&gt;&lt;/p&gt;
+
 &lt;p&gt;To test methylpy:&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;python methylpy_test.py
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;code&gt;bash
+python methylpy_test.py
+&lt;/code&gt;&lt;/p&gt;
+
 &lt;p&gt;There are 3 steps to the DMR finding algorithm:&lt;/p&gt;
 
 &lt;ol&gt;
-&lt;li&gt;&lt;p&gt;Perform a root mean square test (you can think of it like a chisquare test) on each site across all samples. P-values are simulated (i.e., randomize the data a bunch of times and see if you get a significant result), which adjusts for multiple testing.&lt;/p&gt;&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;Calculate threshold p-value for a desired FDR.&lt;/p&gt;&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;Aggregate any significant sites within X bp and showing changes in the same direction (e.g, sample A is methylated and sample B is unmethylated) into a window.&lt;/p&gt;&lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Perform a root mean square test (you can think of it like a chisquare test) on each site across all samples. P-values are simulated (i.e., randomize the data a bunch of times and see if you get a significant result), which adjusts for multiple testing.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Calculate threshold p-value for a desired FDR.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Aggregate any significant sites within X bp and showing changes in the same direction (e.g, sample A is methylated and sample B is unmethylated) into a window.&lt;/p&gt;
+  &lt;/li&gt;
 &lt;/ol&gt;
 
-&lt;h2&gt;Generation of allC files&lt;/h2&gt;
+&lt;h2 id=&quot;generation-of-allc-files&quot;&gt;Generation of allC files&lt;/h2&gt;
 
 &lt;p&gt;Edit the allC generating script: &lt;code&gt;create_allc_file_template_hs.py&lt;/code&gt;&lt;/p&gt;
 
 &lt;p&gt;Sample base names:&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-python&quot; data-lang=&quot;python&quot;&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;sample_1_name&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;sample_2_name&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;Database names:&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-python&quot; data-lang=&quot;python&quot;&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;database_name&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;database_name&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;MySQL server:&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-python&quot; data-lang=&quot;python&quot;&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;localhost&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;localhost&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;h3&gt;Run allC generating script&lt;/h3&gt;
 
+&lt;p&gt;&lt;code&gt;python
+[&quot;sample_1_name&quot;, &quot;sample_2_name&quot;]
+&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;Database names:&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;python
+[&quot;database_name&quot;,&quot;database_name&quot;]
+&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;MySQL server:&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;python
+[&quot;localhost&quot;,&quot;localhost&quot;]
+&lt;/code&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;run-allc-generating-script&quot;&gt;Run allC generating script&lt;/h3&gt;
 &lt;p&gt;Move to folder called “allC”:&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;methylenv
-&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;methylenv&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;python create_allc_file_egrandis.py
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;h2&gt;DMRfind&lt;/h2&gt;
+
+&lt;p&gt;&lt;code&gt;bash
+$ methylenv
+(methylenv) $ python create_allc_file_egrandis.py
+&lt;/code&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;dmrfind&quot;&gt;DMRfind&lt;/h2&gt;
 
 &lt;p&gt;Run all samples at the same time within an experiment.&lt;/p&gt;
 
 &lt;p&gt;Edit the python script named &lt;code&gt;DMR_find.py&lt;/code&gt; with your sample names and parameters.&lt;/p&gt;
 
 &lt;p&gt;Run script, in a folder named “DMR”:&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;python dmr_find.py &amp;gt; dmr_find_ouput.txt
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;h2&gt;Histogram correction&lt;/h2&gt;
+
+&lt;p&gt;&lt;code&gt;bash
+python dmr_find.py &amp;gt; dmr_find_ouput.txt
+&lt;/code&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;histogram-correction&quot;&gt;Histogram correction&lt;/h2&gt;
 
 &lt;p&gt;Modify &lt;code&gt;histogram_correction.py&lt;/code&gt; script with name of &lt;code&gt;_rms_results.tsv&lt;/code&gt; file from allC step.&lt;/p&gt;
 
 &lt;p&gt;Run script:&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;python histogram_correction.py &amp;gt;&amp;gt; histogram_correction_output.txt
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;code&gt;bash
+python histogram_correction.py &amp;gt;&amp;gt; histogram_correction_output.txt
+&lt;/code&gt;&lt;/p&gt;
+
 &lt;p&gt;Use the p-value determined by histogram correction for the collapse step.&lt;/p&gt;
 
-&lt;h2&gt;Collapse&lt;/h2&gt;
+&lt;h2 id=&quot;collapse&quot;&gt;Collapse&lt;/h2&gt;
 
 &lt;p&gt;Edit the collapse.py script with your sample names and parameters. This may need to be changed and run several times to find the right parameters.
 Run the script on the &lt;code&gt;_rms_results.tsv&lt;/code&gt; file.&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;python collapse.py
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt; &lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;bash
+python collapse.py
+&lt;/code&gt;
+ &lt;/p&gt;
 </content>
  </entry>
  
@@ -186,136 +302,168 @@ Run the script on the &lt;code&gt;_rms_results.tsv&lt;/code&gt; file.&lt;/p&gt;
    <link href="//2014/08/25/UsefulPython/"/>
    <updated>2014-08-25T00:00:00+08:00</updated>
    <id>/2014/08/25/UsefulPython</id>
-   <content type="html">&lt;h3&gt;Take command-line arguments&lt;/h3&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-python&quot; data-lang=&quot;python&quot;&gt;&lt;span class=&quot;kn&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;sys&lt;/span&gt; &lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;argv&lt;/span&gt;
+   <content type="html">&lt;h3 id=&quot;take-command-line-arguments&quot;&gt;Take command-line arguments&lt;/h3&gt;
 
+&lt;p&gt;```python
+from argparse import ArgumentParser&lt;/p&gt;
 
-&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;checkArgs&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;arg1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;arg2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
-    &lt;span class=&quot;sd&quot;&gt;&amp;quot;&amp;quot;&amp;quot;&lt;/span&gt;
-&lt;span class=&quot;sd&quot;&gt;    arg1 is short arg, eg h&lt;/span&gt;
-&lt;span class=&quot;sd&quot;&gt;    arg2 is long arg, eg host&lt;/span&gt;
-&lt;span class=&quot;sd&quot;&gt;    &amp;quot;&amp;quot;&amp;quot;&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;args&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;argv&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:]&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;arg1&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;args&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;index&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;args&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;index&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;arg1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;variable&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;args&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;index&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;variable&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;elif&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;arg2&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;args&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;index&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;args&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;index&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;arg2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;variable&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;args&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;index&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;variable&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;variable&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;raw_input&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\n&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;Enter {arg2}: &amp;quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;format&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;arg2&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;arg2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;variable&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;h2&gt;Lists&lt;/h2&gt;
+&lt;p&gt;version = pkg_resources.require(“program”)[0].version
+parser = ArgumentParser(description=’program description’)
+group = parser.add_mutually_exclusive_group()
+parser.add_argument(‘–version’, action=’version’, version=’%(prog)s ‘+str(version))
+parser.add_argument(‘–option’, help=’option description’, required=False, default=False, action=’store_true’)
+parser.add_argument(‘-n’, ‘–name’, help=’sample name’, required=True)
+```&lt;/p&gt;
 
-&lt;h3&gt;List comprehension&lt;/h3&gt;
+&lt;h2 id=&quot;lists&quot;&gt;Lists&lt;/h2&gt;
+
+&lt;h3 id=&quot;list-comprehension&quot;&gt;List comprehension&lt;/h3&gt;
 
 &lt;p&gt;If ever declaring and empty list then using &lt;code&gt;.append&lt;/code&gt;, can be done with list comprehension.&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-python&quot; data-lang=&quot;python&quot;&gt;&lt;span class=&quot;n&quot;&gt;list3&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[]&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;list2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;list1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;list3&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;append&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
 
-&lt;span class=&quot;n&quot;&gt;list3&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;list2&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;list1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;h3&gt;Join items in list&lt;/h3&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-python&quot; data-lang=&quot;python&quot;&gt;&lt;span class=&quot;n&quot;&gt;outfile&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;write&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;#39;{l}&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\n&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;#39;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;format&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;l&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;#39;&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\t&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;#39;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;join&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;list&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)))&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;```python
+list3 = []
+for x in list2:
+    if x[0] in list1:
+        list3.append(x)&lt;/p&gt;
+
+&lt;p&gt;list3 = [x for x in list2 if x[0] in list1]
+```&lt;/p&gt;
+
+&lt;p&gt;Can also use this to read from a file in one line, eg to read column 4 in a file into a list in python:&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;python
+all_TEs = [line.rsplit()[4] for line in open(&quot;TAIR9_TE.bed&quot;, &quot;r&quot;)]
+&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;Or read all lines into a list:&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;python
+all_lines = [line.strip(&quot;\n&quot;) for line in open(&quot;filename&quot;, &quot;r&quot;)]
+&lt;/code&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;join-items-in-list&quot;&gt;Join items in list&lt;/h3&gt;
+
+&lt;p&gt;&lt;code&gt;python
+outfile.write(&#39;{l}\n&#39;.format(l=&#39;\t&#39;.join(list)))
+&lt;/code&gt;&lt;/p&gt;
+
 &lt;p&gt;If list items are not strings&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-python&quot; data-lang=&quot;python&quot;&gt;&lt;span class=&quot;n&quot;&gt;outfile&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;write&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;#39;{l}&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\n&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;#39;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;format&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;l&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;map&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;str&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;list&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)))&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;code&gt;python
+outfile.write(&#39;{l}\n&#39;.format(l=map(str, list)))
+&lt;/code&gt;&lt;/p&gt;
+
 &lt;p&gt;Or using list comprehension&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-python&quot; data-lang=&quot;python&quot;&gt;&lt;span class=&quot;n&quot;&gt;stringVersion&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;str&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;inputList&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;h2&gt;Printing&lt;/h2&gt;
 
-&lt;h3&gt;Print in colour&lt;/h3&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-python&quot; data-lang=&quot;python&quot;&gt;&lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;colour&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;PURPLE&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;#39;&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\033&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;[95m&amp;#39;&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;CYAN&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;#39;&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\033&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;[96m&amp;#39;&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;DARKCYAN&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;#39;&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\033&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;[36m&amp;#39;&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;BLUE&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;#39;&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\033&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;[94m&amp;#39;&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;GREEN&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;#39;&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\033&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;[92m&amp;#39;&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;YELLOW&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;#39;&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\033&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;[93m&amp;#39;&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;RED&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;#39;&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\033&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;[91m&amp;#39;&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;BOLD&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;#39;&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\033&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;[1m&amp;#39;&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;UNDERLINE&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;#39;&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\033&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;[4m&amp;#39;&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;END&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;#39;&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\033&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;[0m&amp;#39;&lt;/span&gt;
+&lt;p&gt;&lt;code&gt;python
+stringVersion = [str(x) for x in inputList]
+&lt;/code&gt;&lt;/p&gt;
 
-&lt;span class=&quot;k&quot;&gt;print&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;colour&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;CYAN&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;#39;This is blue&amp;#39;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;colour&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;END&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;h3&gt;Format text wrapping correctly in terminal&lt;/h3&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-python&quot; data-lang=&quot;python&quot;&gt;&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;textwrap&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;print&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;textwrap&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;dedent&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;#39;print message&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;h2&gt;Strings&lt;/h2&gt;
+&lt;h2 id=&quot;printing&quot;&gt;Printing&lt;/h2&gt;
 
-&lt;h3&gt;Split strings by multiple delimiters&lt;/h3&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-python&quot; data-lang=&quot;python&quot;&gt;&lt;span class=&quot;n&quot;&gt;accession_name&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;f&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;replace&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;#39;calls_&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;#39;.&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;split&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;#39;.&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;h2&gt;File reading / writing&lt;/h2&gt;
+&lt;h3 id=&quot;print-in-colour&quot;&gt;Print in colour&lt;/h3&gt;
 
-&lt;h3&gt;Read lines in tsv/csv file&lt;/h3&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-python&quot; data-lang=&quot;python&quot;&gt;&lt;span class=&quot;k&quot;&gt;with&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;open&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;#39;merged_dmrs.bed&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;#39;r&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;as&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;f&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;line&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;f&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;line&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;line&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;rsplit&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;# each item in line is now part of a list&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;h2&gt;Find if coordinates overlap&lt;/h2&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-python&quot; data-lang=&quot;python&quot;&gt;&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;overlap&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;start1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;stop1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;start2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;stop2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
-    &lt;span class=&quot;sd&quot;&gt;&amp;quot;&amp;quot;&amp;quot;returns True if sets of coordinates overlap. Assumes coordinates are on same chromosome&amp;quot;&amp;quot;&amp;quot;&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;y&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;xrange&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;start2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;stop2&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;start1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;y&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;stop1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
-            &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;True&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
-            &lt;span class=&quot;k&quot;&gt;pass&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;h2&gt;Functions for mapping NGS reads&lt;/h2&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-python&quot; data-lang=&quot;python&quot;&gt;&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;os&lt;/span&gt;
-&lt;span class=&quot;kn&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;subprocess&lt;/span&gt; &lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;call&lt;/span&gt;
+&lt;p&gt;```python
+class colour:
+    PURPLE = ‘\033[95m’
+    CYAN = ‘\033[96m’
+    DARKCYAN = ‘\033[36m’
+    BLUE = ‘\033[94m’
+    GREEN = ‘\033[92m’
+    YELLOW = ‘\033[93m’
+    RED = ‘\033[91m’
+    BOLD = ‘\033[1m’
+    UNDERLINE = ‘\033[4m’
+    END = ‘\033[0m’&lt;/p&gt;
 
+&lt;p&gt;print colour.CYAN + ‘This is blue’ + colour.END
+```&lt;/p&gt;
 
-&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;peMap&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;proc&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
-    &lt;span class=&quot;sd&quot;&gt;&amp;quot;&amp;quot;&amp;quot;&lt;/span&gt;
-&lt;span class=&quot;sd&quot;&gt;    paired-end reads&lt;/span&gt;
-&lt;span class=&quot;sd&quot;&gt;    &amp;quot;&amp;quot;&amp;quot;&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;filename&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;os&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;listdir&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;#39;.&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;filename&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;endswith&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;_1.fastq&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
-            &lt;span class=&quot;n&quot;&gt;sam&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;filename&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;split&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;#39;_&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-            &lt;span class=&quot;n&quot;&gt;sam&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;sam&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
-            &lt;span class=&quot;n&quot;&gt;call&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;([&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;bowtie2&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;-p{x}&amp;quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;format&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;proc&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;-q&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;-x /dd_stage/userdata/lister/data/genomes/bowtie2_indexes/tair9&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-                  &lt;span class=&quot;s&quot;&gt;&amp;quot;-1 {f}&amp;quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;format&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;f&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sam&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;#39;_1.fastq&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;-2 {f}&amp;quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;format&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;f&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sam&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;#39;_2.fastq&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;-S {s}&amp;quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;format&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;s&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sam&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;#39;.sam&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)])&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
-            &lt;span class=&quot;k&quot;&gt;pass&lt;/span&gt;
+&lt;h3 id=&quot;format-text-wrapping-correctly-in-terminal&quot;&gt;Format text wrapping correctly in terminal&lt;/h3&gt;
 
+&lt;p&gt;&lt;code&gt;python
+import textwrap
+print textwrap.dedent(&#39;print message&#39;)
+&lt;/code&gt;
+## Strings&lt;/p&gt;
 
-&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;seMap&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;proc&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
-    &lt;span class=&quot;sd&quot;&gt;&amp;quot;&amp;quot;&amp;quot;&lt;/span&gt;
-&lt;span class=&quot;sd&quot;&gt;    single-end reads&lt;/span&gt;
-&lt;span class=&quot;sd&quot;&gt;    &amp;quot;&amp;quot;&amp;quot;&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;filename&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;os&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;listdir&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;#39;.&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;filename&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;endswith&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;.fastq&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
-            &lt;span class=&quot;n&quot;&gt;sam&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;filename&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;split&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;#39;.&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-            &lt;span class=&quot;n&quot;&gt;sam&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;sam&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
-            &lt;span class=&quot;n&quot;&gt;call&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;([&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;bowtie2&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;-p{x}&amp;quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;format&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;proc&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;-q&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;-x /dd_stage/userdata/lister/data/genomes/bowtie2_indexes/tair9&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-                  &lt;span class=&quot;s&quot;&gt;&amp;quot;-U {f}&amp;quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;format&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;f&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;filename&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;-S {s}&amp;quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;format&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;s&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sam&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;#39;.sam&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)])&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
-            &lt;span class=&quot;k&quot;&gt;pass&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;h2&gt;Split sra files into fastq&lt;/h2&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-python&quot; data-lang=&quot;python&quot;&gt;&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;os&lt;/span&gt;
-&lt;span class=&quot;kn&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;subprocess&lt;/span&gt; &lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;call&lt;/span&gt;
+&lt;h3 id=&quot;split-strings-by-multiple-delimiters&quot;&gt;Split strings by multiple delimiters&lt;/h3&gt;
 
+&lt;p&gt;&lt;code&gt;python
+accession_name = f.replace(&#39;calls_&#39;, &#39;.&#39;).split(&#39;.&#39;)
+&lt;/code&gt;&lt;/p&gt;
 
-&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;fastqSplit&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;():&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;filename&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;os&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;listdir&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;#39;.&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;filename&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;endswith&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;#39;.sra&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
-            &lt;span class=&quot;k&quot;&gt;print&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;#39;processing {n}&amp;#39;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;format&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;filename&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-            &lt;span class=&quot;n&quot;&gt;call&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;([&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;#39;fastq-dump&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;#39;--split-3&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;#39;-v&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;filename&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
-            &lt;span class=&quot;k&quot;&gt;pass&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</content>
+&lt;h2 id=&quot;file-reading--writing&quot;&gt;File reading / writing&lt;/h2&gt;
+
+&lt;h3 id=&quot;read-lines-in-tsvcsv-file&quot;&gt;Read lines in tsv/csv file&lt;/h3&gt;
+
+&lt;p&gt;&lt;code&gt;python
+with open(&#39;merged_dmrs.bed&#39;, &#39;r&#39;) as f:
+    for line in f:
+        line = line.rsplit() # each item in line is now part of a list
+&lt;/code&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;find-if-coordinates-overlap&quot;&gt;Find if coordinates overlap&lt;/h2&gt;
+
+&lt;p&gt;&lt;code&gt;python
+def overlap(start1, stop1, start2, stop2):
+    &quot;&quot;&quot;returns True if sets of coordinates overlap. Assumes coordinates are on same chromosome&quot;&quot;&quot;
+    for y in xrange(start2, stop2+1):
+        if start1 &amp;lt;= y &amp;lt;= stop1:
+            return True
+        else:
+            pass
+&lt;/code&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;functions-for-mapping-ngs-reads&quot;&gt;Functions for mapping NGS reads&lt;/h2&gt;
+
+&lt;p&gt;```python
+import os
+from subprocess import call&lt;/p&gt;
+
+&lt;p&gt;def peMap(proc):
+    “””
+    paired-end reads
+    “””
+    for filename in os.listdir(‘.’):
+        if filename.endswith(“&lt;em&gt;1.fastq”):
+            sam = filename.split(‘&lt;/em&gt;’)
+            sam = sam[0]
+            call([“bowtie2”, “-p{x}”.format(x=proc), “-q”, “-x /dd_stage/userdata/lister/data/genomes/bowtie2_indexes/tair9”,
+                  “-1 {f}”.format(f=sam + ‘_1.fastq’), “-2 {f}”.format(f=sam + ‘_2.fastq’), “-S {s}”.format(s=sam + ‘.sam’)])
+        else:
+            pass&lt;/p&gt;
+
+&lt;p&gt;def seMap(proc):
+    “””
+    single-end reads
+    “””
+    for filename in os.listdir(‘.’):
+        if filename.endswith(“.fastq”):
+            sam = filename.split(‘.’)
+            sam = sam[0]
+            call([“bowtie2”, “-p{x}”.format(x=proc), “-q”, “-x /dd_stage/userdata/lister/data/genomes/bowtie2_indexes/tair9”,
+                  “-U {f}”.format(f=filename), “-S {s}”.format(s=sam + ‘.sam’)])
+        else:
+            pass
+```&lt;/p&gt;
+
+&lt;h2 id=&quot;split-sra-files-into-fastq&quot;&gt;Split sra files into fastq&lt;/h2&gt;
+
+&lt;p&gt;```python
+import os
+from subprocess import call&lt;/p&gt;
+
+&lt;p&gt;def fastqSplit():
+    for filename in os.listdir(‘.’):
+        if filename.endswith(‘.sra’):
+            print ‘processing {n}’.format(n=filename)
+            call([‘fastq-dump’, ‘–split-3’, ‘-v’, filename])
+        else:
+            pass
+```&lt;/p&gt;
+</content>
  </entry>
  
  <entry>
@@ -323,316 +471,431 @@ Run the script on the &lt;code&gt;_rms_results.tsv&lt;/code&gt; file.&lt;/p&gt;
    <link href="//2014/08/24/UsefulCommands/"/>
    <updated>2014-08-24T00:00:00+08:00</updated>
    <id>/2014/08/24/UsefulCommands</id>
-   <content type="html">&lt;h2&gt;go back to last directory&lt;/h2&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;cd -
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;h2&gt;Do something in a range&lt;/h2&gt;
+   <content type="html">&lt;h2 id=&quot;go-back-to-last-directory&quot;&gt;go back to last directory&lt;/h2&gt;
 
+&lt;p&gt;&lt;code&gt;
+cd -
+&lt;/code&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;do-something-in-a-range&quot;&gt;Do something in a range&lt;/h2&gt;
 &lt;p&gt;Move files&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; i in &lt;span class=&quot;k&quot;&gt;$(&lt;/span&gt;seq 10&lt;span class=&quot;k&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt; mv chr&lt;span class=&quot;nv&quot;&gt;$i&lt;/span&gt; ../genomes/&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;done&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; directory in ./*&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt; -d &lt;span class=&quot;s2&quot;&gt;&amp;quot;$directory&amp;quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;then&lt;/span&gt;
-        &lt;span class=&quot;nb&quot;&gt;cd&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$directory&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; myfile in &lt;span class=&quot;k&quot;&gt;$(&lt;/span&gt;ls -d *.sra&lt;span class=&quot;k&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;do&lt;/span&gt;
-            mv &lt;span class=&quot;nv&quot;&gt;$myfile&lt;/span&gt; /home/tstuart/working_data/1000genomes/&lt;span class=&quot;nv&quot;&gt;$myfile&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;done&lt;/span&gt;
-        &lt;span class=&quot;nb&quot;&gt;cd&lt;/span&gt; ..
-    &lt;span class=&quot;k&quot;&gt;fi&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;done&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;h2&gt;Take command-line arguments&lt;/h2&gt;
+
+&lt;p&gt;&lt;code&gt;bash
+for i in $(seq 10); do mv chr$i ../genomes/; done
+&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;bash
+for directory in ./*; do
+    if [ -d &quot;$directory&quot; ]; then
+        cd $directory
+        for myfile in $(ls -d *.sra);do
+            mv $myfile /home/tstuart/working_data/1000genomes/$myfile
+        done
+        cd ..
+    fi
+done
+&lt;/code&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;take-command-line-arguments&quot;&gt;Take command-line arguments&lt;/h2&gt;
 
 &lt;p&gt;Required flags are followed by &lt;code&gt;:&lt;/code&gt;&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;nv&quot;&gt;index&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;  &lt;span class=&quot;nv&quot;&gt;proc&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;  &lt;span class=&quot;nv&quot;&gt;path&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;  
 
-&lt;span class=&quot;k&quot;&gt;while&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;getopts &lt;/span&gt;x:pA opt&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt;
-  &lt;span class=&quot;k&quot;&gt;case&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$opt&lt;/span&gt; in
-  x&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
-      &lt;span class=&quot;nv&quot;&gt;index&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$OPTARG&lt;/span&gt;
-      &lt;span class=&quot;p&quot;&gt;;;&lt;/span&gt;
-  p&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
-      &lt;span class=&quot;nv&quot;&gt;proc&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$OPTARG&lt;/span&gt;
-      &lt;span class=&quot;p&quot;&gt;;;&lt;/span&gt;
-  A&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
-      &lt;span class=&quot;nv&quot;&gt;path&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;${&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;OPTARG&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;%/&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;}&lt;/span&gt;
-      &lt;span class=&quot;p&quot;&gt;;;&lt;/span&gt;
-  &lt;span class=&quot;k&quot;&gt;esac&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;done&lt;/span&gt;
-&lt;span class=&quot;nb&quot;&gt;shift&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;$((&lt;/span&gt;OPTIND &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;))&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;h2&gt;Strip trailing slash from string&lt;/h2&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;nv&quot;&gt;path&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;${&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;OPTARG&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;%/&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;h2&gt;GNU Screen&lt;/h2&gt;
+&lt;p&gt;```bash
+index=  proc=  path=&lt;/p&gt;
 
-&lt;p&gt;Start screen: &lt;code&gt;screen -S [screen name]&lt;/code&gt;&lt;br&gt;
-List screens: &lt;code&gt;screen -list&lt;/code&gt;&lt;br&gt;
-Detach: &lt;code&gt;screen -d&lt;/code&gt;&lt;br&gt;
-Attach: &lt;code&gt;screen -r&lt;/code&gt;&lt;br&gt;
-Close screen: &lt;code&gt;ctr-a-d&lt;/code&gt;&lt;br&gt;
-Kill screen: &lt;code&gt;ctr-a :quit&lt;/code&gt;  &lt;/p&gt;
+&lt;p&gt;while getopts x:pA opt; do
+  case $opt in
+  x)
+      index=$OPTARG
+      ;;
+  p)
+      proc=$OPTARG
+      ;;
+  A)
+      path=${OPTARG%/}
+      ;;
+  esac
+done
+shift $((OPTIND - 1))
+```&lt;/p&gt;
 
-&lt;h2&gt;Human-readable path&lt;/h2&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; -e &lt;span class=&quot;k&quot;&gt;${&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;PATH&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;//:/&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&amp;#39;\n&amp;#39;&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;h2&gt;Searching&lt;/h2&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;grep &lt;span class=&quot;s1&quot;&gt;&amp;#39;text&amp;#39;&lt;/span&gt; filename
-grep &lt;span class=&quot;s1&quot;&gt;&amp;#39;text&amp;#39;&lt;/span&gt; file1 file2 file3
-grep &lt;span class=&quot;s1&quot;&gt;&amp;#39;text1 text2&amp;#39;&lt;/span&gt; filename
-grep --color &lt;span class=&quot;s1&quot;&gt;&amp;#39;text&amp;#39;&lt;/span&gt; filename
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;Search all files in a directory, show output in less  &lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;grep -r &lt;span class=&quot;s1&quot;&gt;&amp;#39;text&amp;#39;&lt;/span&gt; /home/usr/ &lt;span class=&quot;p&quot;&gt;|&lt;/span&gt; less
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;Search for multiple strings  &lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;egrep &lt;span class=&quot;s1&quot;&gt;&amp;#39;(AT4G40030)|(AT4G40040)|(AT5G10980)&amp;#39;&lt;/span&gt; * &amp;gt; h3.3
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;h2&gt;Pipe output into file&lt;/h2&gt;
+&lt;h2 id=&quot;strip-trailing-slash-from-string&quot;&gt;Strip trailing slash from string&lt;/h2&gt;
 
-&lt;h4&gt;Overwrite contents of file&lt;/h4&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;grep &lt;span class=&quot;s2&quot;&gt;&amp;quot;text&amp;quot;&lt;/span&gt; filename.txt &amp;gt; output.txt
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;h4&gt;Append to file&lt;/h4&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;grep &lt;span class=&quot;s2&quot;&gt;&amp;quot;text&amp;quot;&lt;/span&gt; filename.txt &amp;gt;&amp;gt; output.txt
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;h2&gt;Counting&lt;/h2&gt;
+&lt;p&gt;&lt;code&gt;bash
+path=${OPTARG%/}
+&lt;/code&gt;&lt;/p&gt;
 
+&lt;h2 id=&quot;gnu-screen&quot;&gt;GNU Screen&lt;/h2&gt;
+
+&lt;p&gt;Start screen: &lt;code&gt;screen -S [screen name]&lt;/code&gt;&lt;br /&gt;
+List screens: &lt;code&gt;screen -list&lt;/code&gt;&lt;br /&gt;
+Detach: &lt;code&gt;screen -d&lt;/code&gt;&lt;br /&gt;
+Attach: &lt;code&gt;screen -r&lt;/code&gt;&lt;br /&gt;
+Close screen: &lt;code&gt;ctr-a-d&lt;/code&gt;&lt;br /&gt;
+Kill screen: &lt;code&gt;ctr-a :quit&lt;/code&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;human-readable-path&quot;&gt;Human-readable path&lt;/h2&gt;
+
+&lt;p&gt;&lt;code&gt;bash
+echo -e ${PATH//:/&#39;\n&#39;}
+&lt;/code&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;searching&quot;&gt;Searching&lt;/h2&gt;
+
+&lt;p&gt;&lt;code&gt;bash
+grep &#39;text&#39; filename
+grep &#39;text&#39; file1 file2 file3
+grep &#39;text1 text2&#39; filename
+grep --color &#39;text&#39; filename
+&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;Search all files in a directory, show output in less&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;bash
+grep -r &#39;text&#39; /home/usr/ | less
+&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;Search for multiple strings&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;bash
+egrep &#39;(AT4G40030)|(AT4G40040)|(AT5G10980)&#39; * &amp;gt; h3.3
+&lt;/code&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;pipe-output-into-file&quot;&gt;Pipe output into file&lt;/h2&gt;
+&lt;p&gt;#### Overwrite contents of file&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;bash
+grep &quot;text&quot; filename.txt &amp;gt; output.txt
+&lt;/code&gt;&lt;/p&gt;
+
+&lt;h4 id=&quot;append-to-file&quot;&gt;Append to file&lt;/h4&gt;
+
+&lt;p&gt;&lt;code&gt;bash
+grep &quot;text&quot; filename.txt &amp;gt;&amp;gt; output.txt
+&lt;/code&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;counting&quot;&gt;Counting&lt;/h2&gt;
 &lt;p&gt;Count lines in chr1 file&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;wc -l chr1
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;code&gt;bash
+wc -l chr1
+&lt;/code&gt;&lt;/p&gt;
+
 &lt;p&gt;Count characters in chr1 file&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;wc -c chr1
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;h2&gt;List&lt;/h2&gt;
 
-&lt;p&gt;List and sort  &lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;ls -ls
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;List and sort by size  &lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;ls -ls -S
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;Count number of directories in current directory  &lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;ls -l &lt;span class=&quot;p&quot;&gt;|&lt;/span&gt; grep ^d &lt;span class=&quot;p&quot;&gt;|&lt;/span&gt; wc -l
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;h2&gt;Sorting&lt;/h2&gt;
+&lt;p&gt;&lt;code&gt;bash
+wc -c chr1
+&lt;/code&gt;&lt;/p&gt;
 
-&lt;p&gt;Sort file by numerical order of first column, save as sorted_list.txt  &lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;sort -nk &lt;span class=&quot;m&quot;&gt;1&lt;/span&gt; list.txt &amp;gt; sorted_list.txt
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;Sort file by order of first column, then numerical order of second column, save as sorted_list.txt  &lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;sort -k1,1 -nk2,2 list.txt &amp;gt; sorted_list.txt
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;Sort descending  &lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;sort -rn -k3 file.txt &amp;gt; sorted.txt
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;overwrite  &lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;sort -rn -k3 -o file.txt file.txt
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;h2&gt;Rows&lt;/h2&gt;
+&lt;h2 id=&quot;list&quot;&gt;List&lt;/h2&gt;
 
+&lt;p&gt;List and sort&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;bash
+ls -ls
+&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;List and sort by size&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;bash
+ls -ls -S
+&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;Count number of directories in current directory&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;bash
+ls -l | grep ^d | wc -l
+&lt;/code&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;sorting&quot;&gt;Sorting&lt;/h2&gt;
+
+&lt;p&gt;Sort file by numerical order of first column, save as sorted_list.txt&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;bash
+sort -nk 1 list.txt &amp;gt; sorted_list.txt
+&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;Sort file by order of first column, then numerical order of second column, save as sorted_list.txt&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;bash
+sort -k1,1 -nk2,2 list.txt &amp;gt; sorted_list.txt
+&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;Sort descending&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;bash
+sort -rn -k3 file.txt &amp;gt; sorted.txt
+&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;overwrite&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;bash
+sort -rn -k3 -o file.txt file.txt
+&lt;/code&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;rows&quot;&gt;Rows&lt;/h2&gt;
 &lt;p&gt;Delete first line&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;sed 1d file.txt &amp;gt; headerless_file.txt
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;Delete lines 1-3 inclusive  &lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;sed 1,3d file.txt &amp;gt; newfile.txt
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;Delete lines containing string  &lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;sed &lt;span class=&quot;s1&quot;&gt;&amp;#39;/ATC/d&amp;#39;&lt;/span&gt; file.txt &amp;gt; file_mod.txt
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;Overwrite file  &lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;sed -i.bak 1d file.txt
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;h2&gt;Columns&lt;/h2&gt;
 
-&lt;p&gt;Write columns to new file. Can also reorder columns.  &lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;awk &lt;span class=&quot;s1&quot;&gt;&amp;#39;BEGIN {FS=OFS=&amp;quot;\t&amp;quot;} {print $2,$4,$5,$6,$7,$8,$1,$3}&amp;#39;&lt;/span&gt; file.txt &amp;gt; outfile.txt
-awk &lt;span class=&quot;s1&quot;&gt;&amp;#39;BEGIN {FS=OFS=&amp;quot;\t&amp;quot;} {print $7,$1,$8,$2,$3,$4,$5,$6}&amp;#39;&lt;/span&gt; cmt2_targets.tsv &amp;gt; cmt2_targets_ordered.tsv
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;Add column  &lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;awk &lt;span class=&quot;s1&quot;&gt;&amp;#39;{print $0, &amp;quot;cmt2&amp;quot;}&amp;#39;&lt;/span&gt; cmt2_targets_ordered.tsv &amp;gt; newfile.tsv
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;Remove first column from all files  &lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; myfile in &lt;span class=&quot;k&quot;&gt;$(&lt;/span&gt;ls&lt;span class=&quot;k&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;do&lt;/span&gt;
-    awk &lt;span class=&quot;s1&quot;&gt;&amp;#39;BEGIN {FS=OFS=&amp;quot;\t&amp;quot;} {$1=&amp;quot;&amp;quot;;sub(&amp;quot;\t&amp;quot;,&amp;quot;&amp;quot;)}1&amp;#39;&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$myfile&lt;/span&gt; &amp;gt; mod_&lt;span class=&quot;nv&quot;&gt;$myfile&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;done&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;code&gt;bash
+sed 1d file.txt &amp;gt; headerless_file.txt
+&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;Delete lines 1-3 inclusive&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;bash
+sed 1,3d file.txt &amp;gt; newfile.txt
+&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;Delete lines containing string&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;bash
+sed &#39;/ATC/d&#39; file.txt &amp;gt; file_mod.txt
+&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;Overwrite file&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;bash
+sed -i.bak 1d file.txt
+&lt;/code&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;columns&quot;&gt;Columns&lt;/h2&gt;
+&lt;p&gt;Write columns to new file. Can also reorder columns.&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;bash
+awk &#39;BEGIN {FS=OFS=&quot;\t&quot;} {print $2,$4,$5,$6,$7,$8,$1,$3}&#39; file.txt &amp;gt; outfile.txt
+awk &#39;BEGIN {FS=OFS=&quot;\t&quot;} {print $7,$1,$8,$2,$3,$4,$5,$6}&#39; cmt2_targets.tsv &amp;gt; cmt2_targets_ordered.tsv
+&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;Add column&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;bash
+awk &#39;{print $0, &quot;cmt2&quot;}&#39; cmt2_targets_ordered.tsv &amp;gt; newfile.tsv
+&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;Remove first column from all files&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;bash
+for myfile in $(ls);do
+    awk &#39;BEGIN {FS=OFS=&quot;\t&quot;} {$1=&quot;&quot;;sub(&quot;\t&quot;,&quot;&quot;)}1&#39; $myfile &amp;gt; mod_$myfile
+done
+&lt;/code&gt;&lt;/p&gt;
+
 &lt;p&gt;Search only in one column&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;awk &lt;span class=&quot;s1&quot;&gt;&amp;#39;{if ($1 == 1) print $2}&amp;#39;&lt;/span&gt; p1 &amp;gt; chr1_p1
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;Add string prefix to a column, eg. add &amp;#39;chr&amp;#39; to the first column&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;awk &lt;span class=&quot;s1&quot;&gt;&amp;#39;BEGIN {FS=OFS=&amp;quot;\t&amp;quot;} {$1=&amp;quot;chr&amp;quot;$1; print $0}&amp;#39;&lt;/span&gt; input_file.txt &amp;gt; output_file.txt
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;h2&gt;Joining files&lt;/h2&gt;
 
-&lt;p&gt;Join files with each starting on a new line  &lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; filename in *.fa&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt;
-    cat &lt;span class=&quot;s2&quot;&gt;&amp;quot;${filename}&amp;quot;&lt;/span&gt;
-    &lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;done&lt;/span&gt; &amp;gt; output.fa
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;Merge files of the same format&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;cat p1_* &lt;span class=&quot;p&quot;&gt;|&lt;/span&gt; sort -nk1,1 -k2,2 &lt;span class=&quot;p&quot;&gt;|&lt;/span&gt; uniq &amp;gt; p1
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;h2&gt;Comparing Files&lt;/h2&gt;
+&lt;p&gt;&lt;code&gt;bash
+awk &#39;{if ($1 == 1) print $2}&#39; p1 &amp;gt; chr1_p1
+&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;Add string prefix to a column, eg. add ‘chr’ to the first column&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;bash
+awk &#39;BEGIN {FS=OFS=&quot;\t&quot;} {$1=&quot;chr&quot;$1; print $0}&#39; input_file.txt &amp;gt; output_file.txt
+&lt;/code&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;joining-files&quot;&gt;Joining files&lt;/h2&gt;
+
+&lt;p&gt;Join files with each starting on a new line&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;bash
+for filename in *.fa; do
+    cat &quot;${filename}&quot;
+    echo
+done &amp;gt; output.fa
+&lt;/code&gt;
+Merge files of the same format&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;bash
+cat p1_* | sort -nk1,1 -k2,2 | uniq &amp;gt; p1
+&lt;/code&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;comparing-files&quot;&gt;Comparing Files&lt;/h2&gt;
 
 &lt;p&gt;Files should first be sorted&lt;/p&gt;
 
-&lt;p&gt;Find lines that are common or different between two files  &lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;comm -i file1 file2 &amp;gt; output.txt
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Find lines that are common or different between two files&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;bash
+comm -i file1 file2 &amp;gt; output.txt
+&lt;/code&gt;&lt;/p&gt;
+
 &lt;ul&gt;
-&lt;li&gt;&lt;code&gt;-i&lt;/code&gt; is case-insensitive&lt;br&gt;&lt;/li&gt;
-&lt;li&gt;outputs three columns. First is lines only in file1, second is lines only in file2, third is lines common in both.&lt;/li&gt;
+  &lt;li&gt;&lt;code&gt;-i&lt;/code&gt; is case-insensitive&lt;/li&gt;
+  &lt;li&gt;outputs three columns. First is lines only in file1, second is lines only in file2, third is lines common in both.&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;h2&gt;Compressing files&lt;/h2&gt;
+&lt;h2 id=&quot;compressing-files&quot;&gt;Compressing files&lt;/h2&gt;
 
-&lt;p&gt;Compress recursively and store all files in a single compressed folder  &lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;tar cvfz slam.tgz slam/
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;Compress recursively  &lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;gzip -r directory/
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Compress recursively and store all files in a single compressed folder&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;bash
+tar cvfz slam.tgz slam/
+&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;Compress recursively&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;bash
+gzip -r directory/
+&lt;/code&gt;&lt;/p&gt;
+
 &lt;p&gt;Decompress files&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;tar -x -f file.tar
+
+&lt;p&gt;&lt;code&gt;bash
+tar -x -f file.tar
 tar -x -z -f file.tgz
 gunzip file.gz
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;h2&gt;Download data from SRA&lt;/h2&gt;
+&lt;/code&gt;&lt;/p&gt;
 
-&lt;h3&gt;Using wget&lt;/h3&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;wget -r --no-parent --reject &amp;quot;index.html*&amp;quot; ftp://ftp-trace.ncbi.nih.gov/sra/sra-instant/reads/ByStudy/sra/SRP/SRP005/SRP005399/
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;Alternatively, you can download a list of accessions from the SRA website and use that file to call &lt;code&gt;wget&lt;/code&gt; for all the accessions.  &lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-python&quot; data-lang=&quot;python&quot;&gt;&lt;span class=&quot;kn&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;subprocess&lt;/span&gt; &lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;call&lt;/span&gt;
+&lt;h2 id=&quot;download-data-from-sra&quot;&gt;Download data from SRA&lt;/h2&gt;
 
+&lt;h3 id=&quot;using-wget&quot;&gt;Using wget&lt;/h3&gt;
 
-&lt;span class=&quot;k&quot;&gt;with&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;open&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;#39;SraAccList.txt&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;#39;r&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;as&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;accessions&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;row&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;accessions&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;acc&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;row&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;strip&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;#39;&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\n&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;prefix&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;acc&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[:&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;6&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;print&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;Downloading {a}&amp;quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;format&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;acc&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;call&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;([&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;wget&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-              &lt;span class=&quot;s&quot;&gt;&amp;quot;-r&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-              &lt;span class=&quot;s&quot;&gt;&amp;quot;--no-parent&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-              &lt;span class=&quot;s&quot;&gt;&amp;quot;ftp://ftp-trace.ncbi.nih.gov/sra/sra-instant/reads/ByRun/sra/SRR/{pre}/{acc}/*&amp;quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;format&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;pre&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;prefix&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;acc&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;acc&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)])&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;h4&gt;Split into fastq files&lt;/h4&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;fastq-dump --split-3 ./SRP005399/*
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;code&gt;
+wget -r --no-parent --reject &quot;index.html*&quot; ftp://ftp-trace.ncbi.nih.gov/sra/sra-instant/reads/ByStudy/sra/SRP/SRP005/SRP005399/
+&lt;/code&gt;
+Alternatively, you can download a list of accessions from the SRA website and use that file to call &lt;code&gt;wget&lt;/code&gt; for all the accessions.&lt;/p&gt;
+
+&lt;p&gt;```python
+from subprocess import call&lt;/p&gt;
+
+&lt;p&gt;with open(‘SraAccList.txt’, ‘r’) as accessions:
+    for row in accessions:
+        acc = row.strip(‘\n’)
+        prefix = acc[:6]
+        print “Downloading {a}”.format(a=acc)
+        call([“wget”,
+              “-r”,
+              “–no-parent”,
+              “ftp://ftp-trace.ncbi.nih.gov/sra/sra-instant/reads/ByRun/sra/SRR/{pre}/{acc}/*“.format(pre=prefix, acc=acc)])&lt;/p&gt;
+
+&lt;p&gt;```&lt;/p&gt;
+
+&lt;h4 id=&quot;split-into-fastq-files&quot;&gt;Split into fastq files&lt;/h4&gt;
+
+&lt;p&gt;&lt;code&gt;bash
+fastq-dump --split-3 ./SRP005399/*
+&lt;/code&gt;&lt;/p&gt;
+
 &lt;p&gt;&lt;code&gt;--split-3&lt;/code&gt; causes PE files to be split into &lt;code&gt;*_1.fastq&lt;/code&gt; and &lt;code&gt;*_2.fastq&lt;/code&gt;&lt;/p&gt;
 
-&lt;p&gt;bash loop  &lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; directory in ./*&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt; -d &lt;span class=&quot;s2&quot;&gt;&amp;quot;$directory&amp;quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;then&lt;/span&gt;
-        &lt;span class=&quot;nb&quot;&gt;cd&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$directory&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; myfile in &lt;span class=&quot;k&quot;&gt;$(&lt;/span&gt;ls -d *.sra&lt;span class=&quot;k&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;do&lt;/span&gt;
-            fastq-dump --split-3 -v &lt;span class=&quot;nv&quot;&gt;$myfile&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;done&lt;/span&gt;
-        &lt;span class=&quot;nb&quot;&gt;cd&lt;/span&gt; ..
-    &lt;span class=&quot;k&quot;&gt;fi&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;done&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;Python function  &lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-python&quot; data-lang=&quot;python&quot;&gt;&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;os&lt;/span&gt;
-&lt;span class=&quot;kn&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;subprocess&lt;/span&gt; &lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;call&lt;/span&gt;
+&lt;p&gt;bash loop&lt;/p&gt;
 
+&lt;p&gt;&lt;code&gt;bash
+for directory in ./*; do
+    if [ -d &quot;$directory&quot; ]; then
+        cd $directory
+        for myfile in $(ls -d *.sra);do
+            fastq-dump --split-3 -v $myfile
+        done
+        cd ..
+    fi
+done
+&lt;/code&gt;&lt;/p&gt;
 
-&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;fastqSplit&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;():&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;filename&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;os&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;listdir&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;#39;.&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;filename&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;endswith&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;#39;.sra&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
-            &lt;span class=&quot;k&quot;&gt;print&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;#39;processing {n}&amp;#39;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;format&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;filename&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-            &lt;span class=&quot;n&quot;&gt;call&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;([&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;#39;fastq-dump&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;#39;--split-3&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;#39;-v&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;filename&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
-            &lt;span class=&quot;k&quot;&gt;pass&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;h3&gt;Using SRA toolkit&lt;/h3&gt;
+&lt;p&gt;Python function&lt;/p&gt;
 
-&lt;p&gt;SRA toolkit doesn&amp;#39;t seem to work well for downloading bulk data. &lt;code&gt;wget&lt;/code&gt; is a much better option as it allows download of whole folders, gives more descriptive output as it goes. SRA often fails and sometimes gives no error. Download with &lt;code&gt;wget&lt;/code&gt; and use &lt;code&gt;fastq-split&lt;/code&gt; to get fastq files.  &lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;fastq-dump SRR534224 &lt;span class=&quot;p&quot;&gt;&amp;amp;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;h2&gt;RNA-seq&lt;/h2&gt;
+&lt;p&gt;```python
+import os
+from subprocess import call&lt;/p&gt;
 
-&lt;h3&gt;Mapping&lt;/h3&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;tophat -p8 -G /home/lister/working_data/data/genomes/annotations/tair10/TAIR10_gene_TE_illumina.gtf --transcriptome-index=transcript_index/tair10 /home/lister/working_data/data/genomes/bowtie2_indexes/tair9 SRR501604.fastq,SRR501605.fastq
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;code&gt;--transcriptome-index=transcript_index/tair10&lt;/code&gt; creates transcriptome index file saved in transcript_index/ with name &lt;code&gt;tair10.*&lt;/code&gt;. This can be reused if mapping to the same transcriptome (ie. gff file)&lt;br&gt;&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;-p8&lt;/code&gt; uses 8 cores&lt;br&gt;&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;-G&lt;/code&gt; specifies gff file. Optional&lt;br&gt;&lt;/li&gt;
-&lt;li&gt;If using PE reads check manual&lt;br&gt;&lt;/li&gt;
-&lt;/ul&gt;
+&lt;p&gt;def fastqSplit():
+    for filename in os.listdir(‘.’):
+        if filename.endswith(‘.sra’):
+            print ‘processing {n}’.format(n=filename)
+            call([‘fastq-dump’, ‘–split-3’, ‘-v’, filename])
+        else:
+            pass
+```&lt;/p&gt;
 
-&lt;h2&gt;Bedtools&lt;/h2&gt;
+&lt;h3 id=&quot;using-sra-toolkit&quot;&gt;Using SRA toolkit&lt;/h3&gt;
+
+&lt;p&gt;SRA toolkit doesn’t seem to work well for downloading bulk data. &lt;code&gt;wget&lt;/code&gt; is a much better option as it allows download of whole folders, gives more descriptive output as it goes. SRA often fails and sometimes gives no error. Download with &lt;code&gt;wget&lt;/code&gt; and use &lt;code&gt;fastq-split&lt;/code&gt; to get fastq files.&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;bash
+fastq-dump SRR534224 &amp;amp;
+&lt;/code&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;rna-seq&quot;&gt;RNA-seq&lt;/h2&gt;
+
+&lt;h3 id=&quot;mapping&quot;&gt;Mapping&lt;/h3&gt;
+
+&lt;p&gt;&lt;code&gt;
+tophat -p8 -G /home/lister/working_data/data/genomes/annotations/tair10/TAIR10_gene_TE_illumina.gtf --transcriptome-index=transcript_index/tair10 /home/lister/working_data/data/genomes/bowtie2_indexes/tair9 SRR501604.fastq,SRR501605.fastq
+&lt;/code&gt;
+* &lt;code&gt;--transcriptome-index=transcript_index/tair10&lt;/code&gt; creates transcriptome index file saved in transcript_index/ with name &lt;code&gt;tair10.*&lt;/code&gt;. This can be reused if mapping to the same transcriptome (ie. gff file)&lt;br /&gt;
+* &lt;code&gt;-p8&lt;/code&gt; uses 8 cores&lt;br /&gt;
+* &lt;code&gt;-G&lt;/code&gt; specifies gff file. Optional&lt;br /&gt;
+* If using PE reads check manual&lt;/p&gt;
+
+&lt;h2 id=&quot;bedtools&quot;&gt;Bedtools&lt;/h2&gt;
 
 &lt;p&gt;&lt;a href=&quot;http://quinlanlab.org/tutorials/cshl2014/bedtools.html&quot;&gt;Good tutorial from the Quinlan lab&lt;/a&gt;&lt;/p&gt;
 
-&lt;p&gt;Need to order files so that chromosome, start, stop and first three columns (BED format). Also need to remove header. Can do these steps with &lt;code&gt;awk&lt;/code&gt; and &lt;code&gt;sed 1d&lt;/code&gt;.  &lt;/p&gt;
+&lt;p&gt;Need to order files so that chromosome, start, stop and first three columns (BED format). Also need to remove header. Can do these steps with &lt;code&gt;awk&lt;/code&gt; and &lt;code&gt;sed 1d&lt;/code&gt;.&lt;/p&gt;
 
-&lt;h3&gt;Merge&lt;/h3&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;bedtools merge -i dmrs_ddc.tsv -d &lt;span class=&quot;m&quot;&gt;100&lt;/span&gt; &amp;gt; dmrs_ddc_merged.tsv
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;code&gt;-d&lt;/code&gt; is distance between coordinates that will still be merged&lt;br&gt;&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;-i&lt;/code&gt; is input file&lt;br&gt;&lt;/li&gt;
-&lt;/ul&gt;
+&lt;h3 id=&quot;merge&quot;&gt;Merge&lt;/h3&gt;
 
-&lt;h3&gt;Intersect&lt;/h3&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;bedtools intersect -a tair10_tes.txt -b dmrs_ddc_merged.tsv -wa -f 0.50 &amp;gt; ddc_targets.tsv
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;code&gt;-a&lt;/code&gt; is file a&lt;br&gt;&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;-b&lt;/code&gt; is file b&lt;br&gt;&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;-wa&lt;/code&gt; is write a&lt;br&gt;&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;-f&lt;/code&gt; is minimum overlap percentage&lt;br&gt;&lt;/li&gt;
-&lt;/ul&gt;
+&lt;p&gt;&lt;code&gt;bash
+bedtools merge -i dmrs_ddc.tsv -d 100 &amp;gt; dmrs_ddc_merged.tsv
+&lt;/code&gt;
+* &lt;code&gt;-d&lt;/code&gt; is distance between coordinates that will still be merged&lt;br /&gt;
+* &lt;code&gt;-i&lt;/code&gt; is input file&lt;/p&gt;
 
-&lt;h2&gt;Bowtie&lt;/h2&gt;
+&lt;h3 id=&quot;intersect&quot;&gt;Intersect&lt;/h3&gt;
 
-&lt;h3&gt;Mapping PE data&lt;/h3&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;bowtie2 -p8 --local --fr -q -R 5 -N 1 -x [path/to/bowtie2/index] -X 1000 -1 [mate1.fq] -2 [mate2.fq] -S [alignment.sam] --un-conc ./discordant/
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;code&gt;-p&lt;/code&gt; is number of processors&lt;br&gt;&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;--local&lt;/code&gt; allows soft-clipping of reads to improve alignment&lt;br&gt;&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;-q&lt;/code&gt; specifies that reads are in fastq format&lt;br&gt;&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;-x&lt;/code&gt; gives path to index&lt;br&gt;&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;-S&lt;/code&gt; gives name of output file&lt;br&gt;&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;-R&lt;/code&gt; is number of times bowtie will try to &amp;#39;re-seed&amp;#39; repetitive seeds. Default 2&lt;br&gt;&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;-N&lt;/code&gt; is number of mismatches allowed in seed. 0 or 1.&lt;br&gt;&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;--no-mixed&lt;/code&gt; tells bowtie to find alignments only when both pairs can be aligned.&lt;br&gt;&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;--fr&lt;/code&gt; means mate pairs are ordered in forward then reverse orientation. Can do &lt;code&gt;--ff&lt;/code&gt;, &lt;code&gt;--rf&lt;/code&gt;.&lt;br&gt;&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;-X&lt;/code&gt; specifies maximum insert size. Default 500.&lt;br&gt;&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;-I&lt;/code&gt; specifies minimum insert size. Default 0 (no minimum).&lt;br&gt;&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;--un-conc&lt;/code&gt; specifies path and file to write discordant alignments to. Note that these are just the &lt;code&gt;fastq&lt;/code&gt; reads, not alignments.&lt;/li&gt;
-&lt;/ul&gt;
+&lt;p&gt;&lt;code&gt;bash
+bedtools intersect -a tair10_tes.txt -b dmrs_ddc_merged.tsv -wa -f 0.50 &amp;gt; ddc_targets.tsv
+&lt;/code&gt;
+* &lt;code&gt;-a&lt;/code&gt; is file a&lt;br /&gt;
+* &lt;code&gt;-b&lt;/code&gt; is file b&lt;br /&gt;
+* &lt;code&gt;-wa&lt;/code&gt; is write a&lt;br /&gt;
+* &lt;code&gt;-f&lt;/code&gt; is minimum overlap percentage&lt;/p&gt;
 
-&lt;h2&gt;Samtools&lt;/h2&gt;
+&lt;h2 id=&quot;bowtie&quot;&gt;Bowtie&lt;/h2&gt;
+
+&lt;h3 id=&quot;mapping-pe-data&quot;&gt;Mapping PE data&lt;/h3&gt;
+
+&lt;p&gt;&lt;code&gt;
+bowtie2 -p8 --local --fr -q -R 5 -N 1 -x [path/to/bowtie2/index] -X 1000 -1 [mate1.fq] -2 [mate2.fq] -S [alignment.sam] --un-conc ./discordant/
+&lt;/code&gt;
+* &lt;code&gt;-p&lt;/code&gt; is number of processors&lt;br /&gt;
+* &lt;code&gt;--local&lt;/code&gt; allows soft-clipping of reads to improve alignment&lt;br /&gt;
+* &lt;code&gt;-q&lt;/code&gt; specifies that reads are in fastq format&lt;br /&gt;
+* &lt;code&gt;-x&lt;/code&gt; gives path to index&lt;br /&gt;
+* &lt;code&gt;-S&lt;/code&gt; gives name of output file&lt;br /&gt;
+* &lt;code&gt;-R&lt;/code&gt; is number of times bowtie will try to ‘re-seed’ repetitive seeds. Default 2&lt;br /&gt;
+* &lt;code&gt;-N&lt;/code&gt; is number of mismatches allowed in seed. 0 or 1.&lt;br /&gt;
+* &lt;code&gt;--no-mixed&lt;/code&gt; tells bowtie to find alignments only when both pairs can be aligned.&lt;br /&gt;
+* &lt;code&gt;--fr&lt;/code&gt; means mate pairs are ordered in forward then reverse orientation. Can do &lt;code&gt;--ff&lt;/code&gt;, &lt;code&gt;--rf&lt;/code&gt;.&lt;br /&gt;
+* &lt;code&gt;-X&lt;/code&gt; specifies maximum insert size. Default 500.&lt;br /&gt;
+* &lt;code&gt;-I&lt;/code&gt; specifies minimum insert size. Default 0 (no minimum).&lt;br /&gt;
+* &lt;code&gt;--un-conc&lt;/code&gt; specifies path and file to write discordant alignments to. Note that these are just the &lt;code&gt;fastq&lt;/code&gt; reads, not alignments.&lt;/p&gt;
+
+&lt;h2 id=&quot;samtools&quot;&gt;Samtools&lt;/h2&gt;
 
 &lt;p&gt;samtools can read from a stream, so can pipe output in from other tools (eg bowtie to get &lt;code&gt;.bam&lt;/code&gt; output) or other samtools commands.&lt;/p&gt;
 
-&lt;h3&gt;Convert from &lt;code&gt;sam&lt;/code&gt; to &lt;code&gt;bam&lt;/code&gt;&lt;/h3&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;samtools view -bS file.sam &amp;gt; file.bam
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;h3&gt;Sort bamfile&lt;/h3&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;samtools sort file.bam sorted
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;ul&gt;
-&lt;li&gt;outputs &lt;code&gt;sorted.bam&lt;/code&gt; file&lt;/li&gt;
-&lt;/ul&gt;
+&lt;h3 id=&quot;convert-from-sam-to-bam&quot;&gt;Convert from &lt;code&gt;sam&lt;/code&gt; to &lt;code&gt;bam&lt;/code&gt;&lt;/h3&gt;
+&lt;p&gt;&lt;code&gt;
+samtools view -bS file.sam &amp;gt; file.bam
+&lt;/code&gt;&lt;/p&gt;
 
-&lt;h3&gt;Samblaster&lt;/h3&gt;
+&lt;h3 id=&quot;sort-bamfile&quot;&gt;Sort bamfile&lt;/h3&gt;
+&lt;p&gt;&lt;code&gt;
+samtools sort file.bam sorted
+&lt;/code&gt;
+* outputs &lt;code&gt;sorted.bam&lt;/code&gt; file&lt;/p&gt;
+
+&lt;h3 id=&quot;samblaster&quot;&gt;Samblaster&lt;/h3&gt;
 
 &lt;p&gt;Extracts reads from &lt;code&gt;.sam&lt;/code&gt; alignment files&lt;/p&gt;
 
-&lt;h4&gt;Get discordant reads&lt;/h4&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;bowtie2 [options] | samblaster -e -d file.sam | samtools view -bS - &amp;gt; file.bam
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;ul&gt;
-&lt;li&gt;Print output from bowtie to stderr to pipe directly into samblaster&lt;/li&gt;
-&lt;li&gt;Saves having to search through sam or bam file later to extract discordant reads&lt;/li&gt;
-&lt;li&gt;Pipe output directly into &lt;code&gt;samtools view&lt;/code&gt; to save as &lt;code&gt;.bam&lt;/code&gt; file (these won&amp;#39;t be the reads in the samblaster output)&lt;/li&gt;
-&lt;/ul&gt;
+&lt;h4 id=&quot;get-discordant-reads&quot;&gt;Get discordant reads&lt;/h4&gt;
+&lt;p&gt;&lt;code&gt;
+bowtie2 [options] | samblaster -e -d file.sam | samtools view -bS - &amp;gt; file.bam
+&lt;/code&gt;
+* Print output from bowtie to stderr to pipe directly into samblaster
+* Saves having to search through sam or bam file later to extract discordant reads
+* Pipe output directly into &lt;code&gt;samtools view&lt;/code&gt; to save as &lt;code&gt;.bam&lt;/code&gt; file (these won’t be the reads in the samblaster output)&lt;/p&gt;
 </content>
  </entry>
  

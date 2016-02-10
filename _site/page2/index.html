@@ -66,155 +66,31 @@
   
   <div class="post">
     <h1 class="post-title">
-      <a href="/2014/10/29/MethyC-Analysis/">
-        MethyC-Seq Analysis Notes
+      <a href="/2014/11/04/SizeEstimation/">
+        Estimation of insert size from sam / bam files
       </a>
     </h1>
 
-    <span class="post-date">29 Oct 2014</span>
+    <span class="post-date">04 Nov 2014</span>
 
-    <h2>Preliminary steps</h2>
+    <p>I’ve been looking for a simple way to estimate paired-end insert sizes from mapped data. There are a few more complicated tools available (I think picard will do it), as well as simple scripts different people have written that don’t exclude outliers. However outliers due to discordant read alignments will hugely change the mean, so need to be removed.</p>
 
-<h3>Bcl-conversion</h3>
+<p>As I couldn’t find anything that was a nice middle ground, I ended up writing my own simple python script that will take input from stdin and exclude outliers more that two standard deviations from the median, and print the mean and standard deviation to stdout.</p>
 
-<ol>
-<li>Enter a screen</li>
-</ol>
-<div class="highlight"><pre><code class="language-bash" data-lang="bash">screen -S bcl-conversion
-</code></pre></div>
-<ol>
-<li>Navigate to directory with run (eg. 130909<em>SNL119</em>0105_AC2GYKACXX)</li>
-<li>Check sample sheet configured correctly. If only one adapter in lane, remove adapter sequence from sample sheet.</li>
-<li>Run the following (modified with correct run name, sample sheet etc). Can change final value to change number of reads in files:</li>
-</ol>
-<div class="highlight"><pre><code class="language-bash" data-lang="bash">/usr/local/packages/CASAVA_v1.8.2/bcl2fastq/build/bin/configureBclToFastq.pl --input-dir /dd_rundata/hiseq/Runs/130909_SNL119_0105_AC2GYKACXX/Data/Intensities/BaseCalls/ --sample-sheet /dd_rundata/hiseq/Runs/130909_SNL119_0105_AC2GYKACXX/SampleSheet.csv --fastq-cluster-count 50000000
-</code></pre></div>
-<ol>
-<li>Navigate to newly created Unaligned directory (under top run directory) and enter:</li>
-</ol>
-<div class="highlight"><pre><code class="language-bash" data-lang="bash">nohup make -j 12
-</code></pre></div>
-<h3>Moving and renaming files</h3>
+<p>It can be used to estimate the insert size from sam or bam files:</p>
 
-<ol>
-<li>Copy run files from run directory to working directory:</li>
-</ol>
-<div class="highlight"><pre><code class="language-bash" data-lang="bash">cp Project_E_grandis ~/working_data
-</code></pre></div>
-<ol>
-<li>Rename fastq files to <code>s_1_sequence.txt</code>, <code>s_2_sequence.txt</code> etc.</li>
-<li>Store sequence files a separate directory, eg. sequences. If you have data from the same library but multiple runs, store in separate directories.</li>
-</ol>
+<p><code>
+$ head -10000 mapped.sam | python mean_size.py
+220 35
+</code></p>
 
-<h2>Mapping</h2>
+<p><code>
+$ samtools view mapped.bam | head -10000 | python mean_size.py
+220 35
+</code></p>
 
-<p>Can do multiple samples at a time</p>
+<script src="https://gist.github.com/timoast/af73c0e9fac00187ee49.js"></script>
 
-<p>Use <code>map.php</code> (0 mismatches, or use <code>map_1mm.php</code> or <code>map_2mm.php</code> for 1 or 2 mismatches) to map all the reads to the genome (follow instructions):</p>
-<div class="highlight"><pre><code class="language-bash" data-lang="bash">php /home/lister/working_data/php/methpipe_se/map.php <span class="p">|</span> tee -a log.txt
-</code></pre></div>
-<p>For PE data</p>
-<div class="highlight"><pre><code class="language-bash" data-lang="bash">php /home/lister/working_data/php/methpipe_pe/map.php <span class="p">|</span> tee -a log.txt
-</code></pre></div>
-<h2>Post-map</h2>
-
-<p>Do one sample at a time. This step will generate all the tables in mySQL (used for AnnoJ and DMR script).</p>
-
-<p>This script can take mapped read runs, merge sets, convert to .slam format, sort reads,  collapse, trim, split, stack, hammer, import reads, stacks and mC to MYSQL.</p>
-
-<p>Start with a mapped dir containing the subdir that contain the <code>\*_final</code> mapped files.</p>
-
-<p>Navigate to directory above mapped run data and start a screen:</p>
-<div class="highlight"><pre><code class="language-bash" data-lang="bash">screen -S postmap
-</code></pre></div>
-<p>Start the postmap script as follows:</p>
-<div class="highlight"><pre><code class="language-bash" data-lang="bash">php /home/lister/working_data/php/methpipe_se/post_map.php <span class="p">|</span> tee -a log.txt
-</code></pre></div>
-<p>You will see the following prompts:</p>
-<div class="highlight"><pre><code class="language-text" data-lang="text">  -Do you want to perform stage 1 (merge mapped runs, convert to .slam, sort, collapse, trim reads) (y/n): y
-  -Do you want to perform stage 2 (import mapped reads into MYSQL) (y/n): y
-  -Do you want to perform stage 3 (stack and hammer) (y/n): y
-  -Do you want to perform stage 4 (import stacks into MYSQL) (y/n): y
-  -Do you want to perform stage 5 (import mC&#39;s into MYSQL) (y/n): y
-  -Do you want to perform stage 6 (correct mammalian mCH for genotype) (y/n): n
-  -Do you want to perform stage 7 (make and import allC tables) (y/n): y
-  -Do you want to perform stage 8 (identify partially methylated domains) (y/n): n
-</code></pre></div>
-<p>Enter the path to mapped folder when prompted.</p>
-
-<p>Shows a summary of all options, then:</p>
-<div class="highlight"><pre><code class="language-text" data-lang="text">- Based on these settings, do you want to proceed (y/n): y
-- Number of libraries that make up the sample: 1
-- Enter run folder names in library 1 (space delim): sequences  &lt;-- name of sample folder
-</code></pre></div>
-<h1>Methylpy DMR finder</h1>
-
-<p>Add the following to your <code>.bashrc</code>:</p>
-<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nb">alias </span><span class="nv">methylenv</span><span class="o">=</span><span class="s1">&#39;source /usr/local/virtualenv/methylenv/bin/activate; export PYTHONPATH=/usr/local/packages/methylpy:/usr/local/packages/methylpy/methylpy&#39;</span>
-</code></pre></div>
-<p>All Methylpy steps must be done in using the methylenv. To exit the methylenv, type <code>deactivate</code>.</p>
-
-<p>If you don&#39;t have the package already it can be cloned from bitbucket:</p>
-<div class="highlight"><pre><code class="language-bash" data-lang="bash">git clone git@bitbucket.org:schultzmattd/methylpy.git
-</code></pre></div>
-<p>To update, from the directory created by the clone:</p>
-<div class="highlight"><pre><code class="language-bash" data-lang="bash">git pull
-</code></pre></div>
-<p>To test methylpy:</p>
-<div class="highlight"><pre><code class="language-bash" data-lang="bash">python methylpy_test.py
-</code></pre></div>
-<p>There are 3 steps to the DMR finding algorithm:</p>
-
-<ol>
-<li><p>Perform a root mean square test (you can think of it like a chisquare test) on each site across all samples. P-values are simulated (i.e., randomize the data a bunch of times and see if you get a significant result), which adjusts for multiple testing.</p></li>
-<li><p>Calculate threshold p-value for a desired FDR.</p></li>
-<li><p>Aggregate any significant sites within X bp and showing changes in the same direction (e.g, sample A is methylated and sample B is unmethylated) into a window.</p></li>
-</ol>
-
-<h2>Generation of allC files</h2>
-
-<p>Edit the allC generating script: <code>create_allc_file_template_hs.py</code></p>
-
-<p>Sample base names:</p>
-<div class="highlight"><pre><code class="language-python" data-lang="python"><span class="p">[</span><span class="s">&quot;sample_1_name&quot;</span><span class="p">,</span> <span class="s">&quot;sample_2_name&quot;</span><span class="p">]</span>
-</code></pre></div>
-<p>Database names:</p>
-<div class="highlight"><pre><code class="language-python" data-lang="python"><span class="p">[</span><span class="s">&quot;database_name&quot;</span><span class="p">,</span><span class="s">&quot;database_name&quot;</span><span class="p">]</span>
-</code></pre></div>
-<p>MySQL server:</p>
-<div class="highlight"><pre><code class="language-python" data-lang="python"><span class="p">[</span><span class="s">&quot;localhost&quot;</span><span class="p">,</span><span class="s">&quot;localhost&quot;</span><span class="p">]</span>
-</code></pre></div>
-<h3>Run allC generating script</h3>
-
-<p>Move to folder called “allC”:</p>
-<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nv">$ </span>methylenv
-<span class="o">(</span>methylenv<span class="o">)</span> <span class="nv">$ </span>python create_allc_file_egrandis.py
-</code></pre></div>
-<h2>DMRfind</h2>
-
-<p>Run all samples at the same time within an experiment.</p>
-
-<p>Edit the python script named <code>DMR_find.py</code> with your sample names and parameters.</p>
-
-<p>Run script, in a folder named “DMR”:</p>
-<div class="highlight"><pre><code class="language-bash" data-lang="bash">python dmr_find.py &gt; dmr_find_ouput.txt
-</code></pre></div>
-<h2>Histogram correction</h2>
-
-<p>Modify <code>histogram_correction.py</code> script with name of <code>_rms_results.tsv</code> file from allC step.</p>
-
-<p>Run script:</p>
-<div class="highlight"><pre><code class="language-bash" data-lang="bash">python histogram_correction.py &gt;&gt; histogram_correction_output.txt
-</code></pre></div>
-<p>Use the p-value determined by histogram correction for the collapse step.</p>
-
-<h2>Collapse</h2>
-
-<p>Edit the collapse.py script with your sample names and parameters. This may need to be changed and run several times to find the right parameters.
-Run the script on the <code>_rms_results.tsv</code> file.</p>
-<div class="highlight"><pre><code class="language-bash" data-lang="bash">python collapse.py
-</code></pre></div>
-<p> </p>
 
   </div>
   
@@ -234,7 +110,7 @@ Run the script on the <code>_rms_results.tsv</code> file.</p>
 
       <!-- <div class="footer">
         <p>
-          &copy; 2015. All rights reserved.
+          &copy; 2016. All rights reserved.
         </p>
       </div> -->
     </div>

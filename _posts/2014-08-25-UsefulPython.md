@@ -5,27 +5,14 @@ layout: post
 ### Take command-line arguments
 
 ```python
-from sys import argv
+from argparse import ArgumentParser
 
-
-def checkArgs(arg1, arg2):
-    """
-    arg1 is short arg, eg h
-    arg2 is long arg, eg host
-    """
-    args = argv[1:]
-    if arg1 in args:
-        index = args.index(arg1)+1
-        variable = args[index]
-        return variable
-    elif arg2 in args:
-        index = args.index(arg2)+1
-        variable = args[index]
-        return variable
-    else:
-        variable = raw_input("\nEnter {arg2}: ".format(arg2=arg2))
-        return variable
-
+version = pkg_resources.require("program")[0].version
+parser = ArgumentParser(description='program description')
+group = parser.add_mutually_exclusive_group()
+parser.add_argument('--version', action='version', version='%(prog)s '+str(version))
+parser.add_argument('--option', help='option description', required=False, default=False, action='store_true')
+parser.add_argument('-n', '--name', help='sample name', required=True)
 ```
 
 ## Lists
@@ -41,6 +28,18 @@ for x in list2:
         list3.append(x)
 
 list3 = [x for x in list2 if x[0] in list1]
+```
+
+Can also use this to read from a file in one line, eg to read column 4 in a file into a list in python:
+
+```python
+all_TEs = [line.rsplit()[4] for line in open("TAIR9_TE.bed", "r")]
+```
+
+Or read all lines into a list:
+
+```python
+all_lines = [line.strip("\n") for line in open("filename", "r")]
 ```
 
 ### Join items in list
