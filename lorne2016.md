@@ -1,6 +1,6 @@
 ---
 layout: page
-title: Poster additional info
+title: Lorne genome 2016 poster additional info
 ---
 
 TEPID TE presence/absence variant discovery software:
