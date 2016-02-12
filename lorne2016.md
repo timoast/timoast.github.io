@@ -7,11 +7,13 @@ TEPID TE presence/absence variant discovery software:
 
 [https://github.com/ListerLab/TEPID](https://github.com/ListerLab/TEPID)
 
-Figshare poster:
+Poster:
 
+[https://dx.doi.org/10.6084/m9.figshare.2082757.v1](https://dx.doi.org/10.6084/m9.figshare.2082757.v1)
 
-Biorxiv manuscript:
+Manuscript:
 
+[http://dx.doi.org/10.1101/039511](http://biorxiv.org/content/early/2016/02/11/039511)
 
 My ORCID ID:
 
