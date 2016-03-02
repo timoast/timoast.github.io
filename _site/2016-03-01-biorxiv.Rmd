@@ -160,7 +160,7 @@ data %>%
   knitr::kable(., align = 'l')
 ```
 
-All interesting papers, most of which are now published in journals.
+All interesting papers, most of which are still not published in journals.
 
 ### Distribution of views
 
