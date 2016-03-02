@@ -1,0 +1,137 @@
+---
+title: "A look at bioRxiv preprints"
+author: "Tim Stuart"
+date: "2 March 2016"
+layout: post
+output:
+  html_document:
+    toc: true
+    highlight: tango
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+After posting a my first [preprint](http://biorxiv.org/content/early/2016/02/21/039511) to [bioRxiv](http://biorxiv.org/) a few weeks ago, I have been periodically checking the number of views and PDF downloads. I became interested to see how many downloads or views the preprints on bioRxiv typically get, but this type of information isn't actually available. What are the all-time top bioRxiv preprints? How many people are  reading bioRxiv preprints on average? No-one knows! Altmetric must track this data, as it will tell you how a particular preprint ranks in relation to others, but that data hasn't been made publicly available (as far as I can tell).
+
+Not to worry, a little [python script](https://github.com/timoast/biorxivData/blob/master/scrape_biorxiv.py) I wrote will scrape this information from the biorxiv website and record it in a file. I ran it on the 29th February this year and collected a snapshot of biorxiv metrics at that time.
+
+Let's take a look at the data.
+
+```{r imports, message=FALSE}
+library(dplyr)
+library(ggplot2)
+library(readr)
+library(lubridate)
+
+data <- read_tsv("./data/biorxiv_data_2016_2_29.tsv")
+collection_date <- ymd("2016_2_29")
+
+str(data)
+```
+
+As you can see, the python script gathers data on the title, url, number of abstract views, number of PDF downloads, original upload date, and the date that the current version was uploaded (this will be the same as the original upload date in many cases).
+
+Let's add the age of the preprint and whether it was revised (true/false).
+
+```{r age}
+data <-  data %>%
+  mutate(Age = collection_date - ymd(`Original submission`),
+         Revised = `Original submission` != `Current submission`)
+
+str(data)
+```
+
+### Submissions over time
+
+bioRxiv has supposedly been [growing in popularity](https://quantixed.wordpress.com/2015/12/11/white-label-the-growth-of-biorxiv/), let's take a look at the rate of submissions over time.
+
+First group into weeks:
+
+```{r time, fig.height=4, fig.width=5, message=FALSE, warning=FALSE}
+weekly <- data %>%
+  mutate(weeks_past = ceiling(Age / 7),
+         `Submission week` = collection_date - weeks(weeks_past)) %>%
+  group_by(`Submission week`) %>%
+  summarise(Submissions = n())
+
+ggplot(weekly, aes(`Submission week`, Submissions)) +
+  geom_point(stat = "identity") +
+  geom_smooth() +
+  ggtitle("bioRxiv submissions per week") +
+  theme_bw()
+```
+
+So the rate of submission really is increasing.
+
+### Some bioRxiv metrics
+
+bioRxiv allows you to submit a revision at any time (until the paper is published in a peer-reviewed journal). How many preprints are revised at some stage?
+
+```{r revised}
+data %>%
+  group_by(Revised) %>%
+  summarise(n = n(), `%` = n/nrow(data) * 100)
+```
+
+So only 28% are ever revised.
+
+What's the average number of abstract views and PDF downloads for preprints?
+
+```{r views}
+abstr_mn <- mean(data$`Abstract views`, na.rm = T)
+abstr_med <- median(data$`Abstract views`, na.rm = T)
+pdf_mn <- mean(data$`PDF views`, na.rm = T)
+pdf_med <- median(data$`PDF views`, na.rm = T)
+```
+
+The mean number of abstract views was `r round(abstr_mn)`, and the median was `r round(abstr_med)`. For PDF views, it was `r round(pdf_mn)` and `r round(pdf_med)`.
+
+The mean seems to be pulled up by some outliers with very high numbers of views. Let's take a look at what those are.
+
+### Top 10 bioRxiv preprints
+
+```{r top}
+top10 <- data %>%
+  arrange(-`PDF views`) %>%
+  select(Title, `Abstract views`, `PDF views`, Age, Revised) %>%
+  head(., 10)
+knitr::kable(top10)  # output as nicely formatted table
+```
+
+All interesting papers, most of which are now published in journals.
+
+### Distribution of views
+
+Let's first filter out preprints less than 10 days old, as these probably have an artificially low number of views.
+
+```{r dist, echo=TRUE, fig.height=4, fig.width=5, message=FALSE, warning=FALSE}
+older_than_10 <- filter(data, Age > 10)
+quantile(older_than_10$`PDF views`, na.rm =TRUE)
+
+ggplot(older_than_10, aes(`PDF views`)) +
+  geom_histogram(bins = 100) + theme_bw()
+```
+
+This would be better looked at on a log scale:
+
+```{r pdf, fig.height=4, fig.width=5, message=FALSE, warning=FALSE}
+ggplot(older_than_10, aes(log(`PDF views`))) +
+  ggtitle("PDF views") +
+  geom_density(fill = 'blue', alpha = 0.5) + theme_bw() +
+  geom_vline(xintercept = log(pdf_med), col = 'red') +
+  geom_vline(xintercept = log(331))  # my paper
+```
+
+```{r abstracts, fig.height=4, fig.width=5, message=FALSE, warning=FALSE}
+ggplot(older_than_10, aes(log(`Abstract views`))) +
+  ggtitle("Abstract views") +
+  geom_density(fill = 'blue', alpha = 0.5) + theme_bw() +
+  geom_vline(xintercept = log(abstr_med), col = 'red') +
+  geom_vline(xintercept = log(1678))  # my paper
+```
+
+The red line in both plots show the median, the black line show the datapoint for my own preprint posted a few weeks ago. It seems to have done slightly better than most others.
+
+There's plenty more I could look at, but for now this satifies my basic curiosity. I've posted the data and code on [GitHub](https://github.com/timoast/biorxivData), so interested people can download and play with it themselves.
