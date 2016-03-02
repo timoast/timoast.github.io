@@ -193,7 +193,7 @@ ggplot(older_than_10, aes(log(`Abstract views`))) +
 
 The red line in both plots show the median, the black line show the datapoint for my own preprint posted a few weeks ago. It seems to have done slightly better than most others.
 
-There's plenty more I could look at, but for now this satifies my basic curiosity. I've posted the data and code on [GitHub](https://github.com/timoast/biorxivData), so interested people can download and play with it themselves.
+There's plenty more I could look at, but for now this satisfies my basic curiosity. I've posted the data and code on [GitHub](https://github.com/timoast/biorxivData), so interested people can download and play with it themselves.
 
 </div>
 
