@@ -241,13 +241,29 @@ collection_date &lt;-<span class="st"> </span><span class="kw">ymd</span>(<span 
 <p>bioRxiv allows you to submit a revision at any time (until the paper is published in a peer-reviewed journal). How many preprints are revised at some stage?</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">data %&gt;%
 <span class="st">  </span><span class="kw">group_by</span>(Revised) %&gt;%
-<span class="st">  </span><span class="kw">summarise</span>(<span class="dt">n =</span> <span class="kw">n</span>(), <span class="st">`</span><span class="dt">%</span><span class="st">`</span> =<span class="st"> </span>n/<span class="kw">nrow</span>(data) *<span class="st"> </span><span class="dv">100</span>)</code></pre></div>
-<pre><code>## Source: local data frame [2 x 3]
-## 
-##   Revised     n        %
-##     (lgl) (int)    (dbl)
-## 1   FALSE  2220 71.72859
-## 2    TRUE   875 28.27141</code></pre>
+<span class="st">  </span><span class="kw">summarise</span>(<span class="dt">Count =</span> <span class="kw">n</span>(), <span class="dt">Percentage =</span> Count/<span class="kw">nrow</span>(data) *<span class="st"> </span><span class="dv">100</span>) %&gt;%
+<span class="st">  </span>knitr::<span class="kw">kable</span>(., <span class="dt">align =</span> <span class="st">'c'</span>)</code></pre></div>
+<table>
+<thead>
+<tr class="header">
+<th align="center">Revised</th>
+<th align="center">Count</th>
+<th align="center">Percentage</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">FALSE</td>
+<td align="center">2220</td>
+<td align="center">71.72859</td>
+</tr>
+<tr class="even">
+<td align="center">TRUE</td>
+<td align="center">875</td>
+<td align="center">28.27141</td>
+</tr>
+</tbody>
+</table>
 <p>So only 28% are ever revised.</p>
 <p>What’s the average number of abstract views and PDF downloads for preprints?</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">abstr_mn &lt;-<span class="st"> </span><span class="kw">mean</span>(data$<span class="st">`</span><span class="dt">Abstract views</span><span class="st">`</span>, <span class="dt">na.rm =</span> T)
@@ -259,91 +275,91 @@ pdf_med &lt;-<span class="st"> </span><span class="kw">median</span>(data$<span 
 </div>
 <div id="top-10-biorxiv-preprints" class="section level3">
 <h3>Top 10 bioRxiv preprints</h3>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">top10 &lt;-<span class="st"> </span>data %&gt;%
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">data %&gt;%
 <span class="st">  </span><span class="kw">arrange</span>(-<span class="st">`</span><span class="dt">PDF views</span><span class="st">`</span>) %&gt;%
 <span class="st">  </span><span class="kw">select</span>(Title, <span class="st">`</span><span class="dt">Abstract views</span><span class="st">`</span>, <span class="st">`</span><span class="dt">PDF views</span><span class="st">`</span>, Age, Revised) %&gt;%
-<span class="st">  </span><span class="kw">head</span>(., <span class="dv">10</span>)
-knitr::<span class="kw">kable</span>(top10)  <span class="co"># output as nicely formatted table</span></code></pre></div>
+<span class="st">  </span><span class="kw">head</span>(., <span class="dv">10</span>) %&gt;%
+<span class="st">  </span>knitr::<span class="kw">kable</span>(., <span class="dt">align =</span> <span class="st">'r'</span>)</code></pre></div>
 <table>
 <thead>
 <tr class="header">
-<th align="left">Title</th>
+<th align="right">Title</th>
 <th align="right">Abstract views</th>
 <th align="right">PDF views</th>
-<th align="left">Age</th>
-<th align="left">Revised</th>
+<th align="right">Age</th>
+<th align="right">Revised</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td align="left">Massive migration from the steppe is a source for Indo-European languages in Europe</td>
+<td align="right">Massive migration from the steppe is a source for Indo-European languages in Europe</td>
 <td align="right">17385</td>
 <td align="right">15170</td>
-<td align="left">384 days</td>
-<td align="left">FALSE</td>
+<td align="right">384 days</td>
+<td align="right">FALSE</td>
 </tr>
 <tr class="even">
-<td align="left">Revised estimates for the number of human and bacteria cells in the body</td>
+<td align="right">Revised estimates for the number of human and bacteria cells in the body</td>
 <td align="right">23174</td>
 <td align="right">9625</td>
-<td align="left">54 days</td>
-<td align="left">FALSE</td>
+<td align="right">54 days</td>
+<td align="right">FALSE</td>
 </tr>
 <tr class="odd">
-<td align="left">Accelerating Scientific Publication in Biology</td>
+<td align="right">Accelerating Scientific Publication in Biology</td>
 <td align="right">12206</td>
 <td align="right">5504</td>
-<td align="left">233 days</td>
-<td align="left">TRUE</td>
+<td align="right">233 days</td>
+<td align="right">TRUE</td>
 </tr>
 <tr class="even">
-<td align="left">The genome of the tardigrade Hypsibius dujardini</td>
+<td align="right">The genome of the tardigrade Hypsibius dujardini</td>
 <td align="right">22074</td>
 <td align="right">4084</td>
-<td align="left">90 days</td>
-<td align="left">TRUE</td>
+<td align="right">90 days</td>
+<td align="right">TRUE</td>
 </tr>
 <tr class="odd">
-<td align="left">Real time selective sequencing using nanopore technology.</td>
+<td align="right">Real time selective sequencing using nanopore technology.</td>
 <td align="right">6906</td>
 <td align="right">4039</td>
-<td align="left">26 days</td>
-<td align="left">FALSE</td>
+<td align="right">26 days</td>
+<td align="right">FALSE</td>
 </tr>
 <tr class="even">
-<td align="left">Simple multi-trait analysis identifies novel loci associated with growth and obesity measures</td>
+<td align="right">Simple multi-trait analysis identifies novel loci associated with growth and obesity measures</td>
 <td align="right">4362</td>
 <td align="right">2905</td>
-<td align="left">236 days</td>
-<td align="left">FALSE</td>
+<td align="right">236 days</td>
+<td align="right">FALSE</td>
 </tr>
 <tr class="odd">
-<td align="left">A vision for ubiquitous sequencing</td>
+<td align="right">A vision for ubiquitous sequencing</td>
 <td align="right">2435</td>
 <td align="right">2735</td>
-<td align="left">298 days</td>
-<td align="left">TRUE</td>
+<td align="right">298 days</td>
+<td align="right">TRUE</td>
 </tr>
 <tr class="even">
-<td align="left">￼TP53 copy number expansion correlates with the evolution of increased body size and an enhanced DNA damage response in elephants</td>
+<td align="right">￼TP53 copy number expansion correlates with the evolution of increased body size and an enhanced DNA damage response in elephants</td>
 <td align="right">12275</td>
 <td align="right">2502</td>
-<td align="left">146 days</td>
-<td align="left">TRUE</td>
+<td align="right">146 days</td>
+<td align="right">TRUE</td>
 </tr>
 <tr class="odd">
-<td align="left">Reconstructing Genetic History of Siberian and Northeastern European Populations</td>
+<td align="right">Reconstructing Genetic History of Siberian and Northeastern European Populations</td>
 <td align="right">2079</td>
 <td align="right">2410</td>
-<td align="left">134 days</td>
-<td align="left">TRUE</td>
+<td align="right">134 days</td>
+<td align="right">TRUE</td>
 </tr>
 <tr class="even">
-<td align="left">Genome variation and meiotic recombination in Plasmodium falciparum: insights from deep sequencing of genetic crosses</td>
+<td align="right">Genome variation and meiotic recombination in Plasmodium falciparum: insights from deep sequencing of genetic crosses</td>
 <td align="right">559</td>
 <td align="right">2408</td>
-<td align="left">206 days</td>
-<td align="left">TRUE</td>
+<td align="right">206 days</td>
+<td align="right">TRUE</td>
 </tr>
 </tbody>
 </table>

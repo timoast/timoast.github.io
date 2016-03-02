@@ -4,7 +4,7 @@
  <title>Tim Stuart</title>
  <link href="/atom.xml" rel="self"/>
  <link href="/"/>
- <updated>2016-03-02T17:49:36+08:00</updated>
+ <updated>2016-03-02T18:51:37+08:00</updated>
  <id></id>
  <author>
    <name>Tim Stuart</name>
@@ -182,13 +182,29 @@ collection_date &amp;lt;-&lt;span class=&quot;st&quot;&gt; &lt;/span&gt;&lt;span
 &lt;p&gt;bioRxiv allows you to submit a revision at any time (until the paper is published in a peer-reviewed journal). How many preprints are revised at some stage?&lt;/p&gt;
 &lt;div class=&quot;sourceCode&quot;&gt;&lt;pre class=&quot;sourceCode r&quot;&gt;&lt;code class=&quot;sourceCode r&quot;&gt;data %&amp;gt;%
 &lt;span class=&quot;st&quot;&gt;  &lt;/span&gt;&lt;span class=&quot;kw&quot;&gt;group_by&lt;/span&gt;(Revised) %&amp;gt;%
-&lt;span class=&quot;st&quot;&gt;  &lt;/span&gt;&lt;span class=&quot;kw&quot;&gt;summarise&lt;/span&gt;(&lt;span class=&quot;dt&quot;&gt;n =&lt;/span&gt; &lt;span class=&quot;kw&quot;&gt;n&lt;/span&gt;(), &lt;span class=&quot;st&quot;&gt;`&lt;/span&gt;&lt;span class=&quot;dt&quot;&gt;%&lt;/span&gt;&lt;span class=&quot;st&quot;&gt;`&lt;/span&gt; =&lt;span class=&quot;st&quot;&gt; &lt;/span&gt;n/&lt;span class=&quot;kw&quot;&gt;nrow&lt;/span&gt;(data) *&lt;span class=&quot;st&quot;&gt; &lt;/span&gt;&lt;span class=&quot;dv&quot;&gt;100&lt;/span&gt;)&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;pre&gt;&lt;code&gt;## Source: local data frame [2 x 3]
-## 
-##   Revised     n        %
-##     (lgl) (int)    (dbl)
-## 1   FALSE  2220 71.72859
-## 2    TRUE   875 28.27141&lt;/code&gt;&lt;/pre&gt;
+&lt;span class=&quot;st&quot;&gt;  &lt;/span&gt;&lt;span class=&quot;kw&quot;&gt;summarise&lt;/span&gt;(&lt;span class=&quot;dt&quot;&gt;Count =&lt;/span&gt; &lt;span class=&quot;kw&quot;&gt;n&lt;/span&gt;(), &lt;span class=&quot;dt&quot;&gt;Percentage =&lt;/span&gt; Count/&lt;span class=&quot;kw&quot;&gt;nrow&lt;/span&gt;(data) *&lt;span class=&quot;st&quot;&gt; &lt;/span&gt;&lt;span class=&quot;dv&quot;&gt;100&lt;/span&gt;) %&amp;gt;%
+&lt;span class=&quot;st&quot;&gt;  &lt;/span&gt;knitr::&lt;span class=&quot;kw&quot;&gt;kable&lt;/span&gt;(., &lt;span class=&quot;dt&quot;&gt;align =&lt;/span&gt; &lt;span class=&quot;st&quot;&gt;&#39;c&#39;&lt;/span&gt;)&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr class=&quot;header&quot;&gt;
+&lt;th align=&quot;center&quot;&gt;Revised&lt;/th&gt;
+&lt;th align=&quot;center&quot;&gt;Count&lt;/th&gt;
+&lt;th align=&quot;center&quot;&gt;Percentage&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr class=&quot;odd&quot;&gt;
+&lt;td align=&quot;center&quot;&gt;FALSE&lt;/td&gt;
+&lt;td align=&quot;center&quot;&gt;2220&lt;/td&gt;
+&lt;td align=&quot;center&quot;&gt;71.72859&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class=&quot;even&quot;&gt;
+&lt;td align=&quot;center&quot;&gt;TRUE&lt;/td&gt;
+&lt;td align=&quot;center&quot;&gt;875&lt;/td&gt;
+&lt;td align=&quot;center&quot;&gt;28.27141&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
 &lt;p&gt;So only 28% are ever revised.&lt;/p&gt;
 &lt;p&gt;What’s the average number of abstract views and PDF downloads for preprints?&lt;/p&gt;
 &lt;div class=&quot;sourceCode&quot;&gt;&lt;pre class=&quot;sourceCode r&quot;&gt;&lt;code class=&quot;sourceCode r&quot;&gt;abstr_mn &amp;lt;-&lt;span class=&quot;st&quot;&gt; &lt;/span&gt;&lt;span class=&quot;kw&quot;&gt;mean&lt;/span&gt;(data$&lt;span class=&quot;st&quot;&gt;`&lt;/span&gt;&lt;span class=&quot;dt&quot;&gt;Abstract views&lt;/span&gt;&lt;span class=&quot;st&quot;&gt;`&lt;/span&gt;, &lt;span class=&quot;dt&quot;&gt;na.rm =&lt;/span&gt; T)
@@ -200,91 +216,91 @@ pdf_med &amp;lt;-&lt;span class=&quot;st&quot;&gt; &lt;/span&gt;&lt;span class=&
 &lt;/div&gt;
 &lt;div id=&quot;top-10-biorxiv-preprints&quot; class=&quot;section level3&quot;&gt;
 &lt;h3&gt;Top 10 bioRxiv preprints&lt;/h3&gt;
-&lt;div class=&quot;sourceCode&quot;&gt;&lt;pre class=&quot;sourceCode r&quot;&gt;&lt;code class=&quot;sourceCode r&quot;&gt;top10 &amp;lt;-&lt;span class=&quot;st&quot;&gt; &lt;/span&gt;data %&amp;gt;%
+&lt;div class=&quot;sourceCode&quot;&gt;&lt;pre class=&quot;sourceCode r&quot;&gt;&lt;code class=&quot;sourceCode r&quot;&gt;data %&amp;gt;%
 &lt;span class=&quot;st&quot;&gt;  &lt;/span&gt;&lt;span class=&quot;kw&quot;&gt;arrange&lt;/span&gt;(-&lt;span class=&quot;st&quot;&gt;`&lt;/span&gt;&lt;span class=&quot;dt&quot;&gt;PDF views&lt;/span&gt;&lt;span class=&quot;st&quot;&gt;`&lt;/span&gt;) %&amp;gt;%
 &lt;span class=&quot;st&quot;&gt;  &lt;/span&gt;&lt;span class=&quot;kw&quot;&gt;select&lt;/span&gt;(Title, &lt;span class=&quot;st&quot;&gt;`&lt;/span&gt;&lt;span class=&quot;dt&quot;&gt;Abstract views&lt;/span&gt;&lt;span class=&quot;st&quot;&gt;`&lt;/span&gt;, &lt;span class=&quot;st&quot;&gt;`&lt;/span&gt;&lt;span class=&quot;dt&quot;&gt;PDF views&lt;/span&gt;&lt;span class=&quot;st&quot;&gt;`&lt;/span&gt;, Age, Revised) %&amp;gt;%
-&lt;span class=&quot;st&quot;&gt;  &lt;/span&gt;&lt;span class=&quot;kw&quot;&gt;head&lt;/span&gt;(., &lt;span class=&quot;dv&quot;&gt;10&lt;/span&gt;)
-knitr::&lt;span class=&quot;kw&quot;&gt;kable&lt;/span&gt;(top10)  &lt;span class=&quot;co&quot;&gt;# output as nicely formatted table&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;span class=&quot;st&quot;&gt;  &lt;/span&gt;&lt;span class=&quot;kw&quot;&gt;head&lt;/span&gt;(., &lt;span class=&quot;dv&quot;&gt;10&lt;/span&gt;) %&amp;gt;%
+&lt;span class=&quot;st&quot;&gt;  &lt;/span&gt;knitr::&lt;span class=&quot;kw&quot;&gt;kable&lt;/span&gt;(., &lt;span class=&quot;dt&quot;&gt;align =&lt;/span&gt; &lt;span class=&quot;st&quot;&gt;&#39;r&#39;&lt;/span&gt;)&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;table&gt;
 &lt;thead&gt;
 &lt;tr class=&quot;header&quot;&gt;
-&lt;th align=&quot;left&quot;&gt;Title&lt;/th&gt;
+&lt;th align=&quot;right&quot;&gt;Title&lt;/th&gt;
 &lt;th align=&quot;right&quot;&gt;Abstract views&lt;/th&gt;
 &lt;th align=&quot;right&quot;&gt;PDF views&lt;/th&gt;
-&lt;th align=&quot;left&quot;&gt;Age&lt;/th&gt;
-&lt;th align=&quot;left&quot;&gt;Revised&lt;/th&gt;
+&lt;th align=&quot;right&quot;&gt;Age&lt;/th&gt;
+&lt;th align=&quot;right&quot;&gt;Revised&lt;/th&gt;
 &lt;/tr&gt;
 &lt;/thead&gt;
 &lt;tbody&gt;
 &lt;tr class=&quot;odd&quot;&gt;
-&lt;td align=&quot;left&quot;&gt;Massive migration from the steppe is a source for Indo-European languages in Europe&lt;/td&gt;
+&lt;td align=&quot;right&quot;&gt;Massive migration from the steppe is a source for Indo-European languages in Europe&lt;/td&gt;
 &lt;td align=&quot;right&quot;&gt;17385&lt;/td&gt;
 &lt;td align=&quot;right&quot;&gt;15170&lt;/td&gt;
-&lt;td align=&quot;left&quot;&gt;384 days&lt;/td&gt;
-&lt;td align=&quot;left&quot;&gt;FALSE&lt;/td&gt;
+&lt;td align=&quot;right&quot;&gt;384 days&lt;/td&gt;
+&lt;td align=&quot;right&quot;&gt;FALSE&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr class=&quot;even&quot;&gt;
-&lt;td align=&quot;left&quot;&gt;Revised estimates for the number of human and bacteria cells in the body&lt;/td&gt;
+&lt;td align=&quot;right&quot;&gt;Revised estimates for the number of human and bacteria cells in the body&lt;/td&gt;
 &lt;td align=&quot;right&quot;&gt;23174&lt;/td&gt;
 &lt;td align=&quot;right&quot;&gt;9625&lt;/td&gt;
-&lt;td align=&quot;left&quot;&gt;54 days&lt;/td&gt;
-&lt;td align=&quot;left&quot;&gt;FALSE&lt;/td&gt;
+&lt;td align=&quot;right&quot;&gt;54 days&lt;/td&gt;
+&lt;td align=&quot;right&quot;&gt;FALSE&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr class=&quot;odd&quot;&gt;
-&lt;td align=&quot;left&quot;&gt;Accelerating Scientific Publication in Biology&lt;/td&gt;
+&lt;td align=&quot;right&quot;&gt;Accelerating Scientific Publication in Biology&lt;/td&gt;
 &lt;td align=&quot;right&quot;&gt;12206&lt;/td&gt;
 &lt;td align=&quot;right&quot;&gt;5504&lt;/td&gt;
-&lt;td align=&quot;left&quot;&gt;233 days&lt;/td&gt;
-&lt;td align=&quot;left&quot;&gt;TRUE&lt;/td&gt;
+&lt;td align=&quot;right&quot;&gt;233 days&lt;/td&gt;
+&lt;td align=&quot;right&quot;&gt;TRUE&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr class=&quot;even&quot;&gt;
-&lt;td align=&quot;left&quot;&gt;The genome of the tardigrade Hypsibius dujardini&lt;/td&gt;
+&lt;td align=&quot;right&quot;&gt;The genome of the tardigrade Hypsibius dujardini&lt;/td&gt;
 &lt;td align=&quot;right&quot;&gt;22074&lt;/td&gt;
 &lt;td align=&quot;right&quot;&gt;4084&lt;/td&gt;
-&lt;td align=&quot;left&quot;&gt;90 days&lt;/td&gt;
-&lt;td align=&quot;left&quot;&gt;TRUE&lt;/td&gt;
+&lt;td align=&quot;right&quot;&gt;90 days&lt;/td&gt;
+&lt;td align=&quot;right&quot;&gt;TRUE&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr class=&quot;odd&quot;&gt;
-&lt;td align=&quot;left&quot;&gt;Real time selective sequencing using nanopore technology.&lt;/td&gt;
+&lt;td align=&quot;right&quot;&gt;Real time selective sequencing using nanopore technology.&lt;/td&gt;
 &lt;td align=&quot;right&quot;&gt;6906&lt;/td&gt;
 &lt;td align=&quot;right&quot;&gt;4039&lt;/td&gt;
-&lt;td align=&quot;left&quot;&gt;26 days&lt;/td&gt;
-&lt;td align=&quot;left&quot;&gt;FALSE&lt;/td&gt;
+&lt;td align=&quot;right&quot;&gt;26 days&lt;/td&gt;
+&lt;td align=&quot;right&quot;&gt;FALSE&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr class=&quot;even&quot;&gt;
-&lt;td align=&quot;left&quot;&gt;Simple multi-trait analysis identifies novel loci associated with growth and obesity measures&lt;/td&gt;
+&lt;td align=&quot;right&quot;&gt;Simple multi-trait analysis identifies novel loci associated with growth and obesity measures&lt;/td&gt;
 &lt;td align=&quot;right&quot;&gt;4362&lt;/td&gt;
 &lt;td align=&quot;right&quot;&gt;2905&lt;/td&gt;
-&lt;td align=&quot;left&quot;&gt;236 days&lt;/td&gt;
-&lt;td align=&quot;left&quot;&gt;FALSE&lt;/td&gt;
+&lt;td align=&quot;right&quot;&gt;236 days&lt;/td&gt;
+&lt;td align=&quot;right&quot;&gt;FALSE&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr class=&quot;odd&quot;&gt;
-&lt;td align=&quot;left&quot;&gt;A vision for ubiquitous sequencing&lt;/td&gt;
+&lt;td align=&quot;right&quot;&gt;A vision for ubiquitous sequencing&lt;/td&gt;
 &lt;td align=&quot;right&quot;&gt;2435&lt;/td&gt;
 &lt;td align=&quot;right&quot;&gt;2735&lt;/td&gt;
-&lt;td align=&quot;left&quot;&gt;298 days&lt;/td&gt;
-&lt;td align=&quot;left&quot;&gt;TRUE&lt;/td&gt;
+&lt;td align=&quot;right&quot;&gt;298 days&lt;/td&gt;
+&lt;td align=&quot;right&quot;&gt;TRUE&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr class=&quot;even&quot;&gt;
-&lt;td align=&quot;left&quot;&gt;￼TP53 copy number expansion correlates with the evolution of increased body size and an enhanced DNA damage response in elephants&lt;/td&gt;
+&lt;td align=&quot;right&quot;&gt;￼TP53 copy number expansion correlates with the evolution of increased body size and an enhanced DNA damage response in elephants&lt;/td&gt;
 &lt;td align=&quot;right&quot;&gt;12275&lt;/td&gt;
 &lt;td align=&quot;right&quot;&gt;2502&lt;/td&gt;
-&lt;td align=&quot;left&quot;&gt;146 days&lt;/td&gt;
-&lt;td align=&quot;left&quot;&gt;TRUE&lt;/td&gt;
+&lt;td align=&quot;right&quot;&gt;146 days&lt;/td&gt;
+&lt;td align=&quot;right&quot;&gt;TRUE&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr class=&quot;odd&quot;&gt;
-&lt;td align=&quot;left&quot;&gt;Reconstructing Genetic History of Siberian and Northeastern European Populations&lt;/td&gt;
+&lt;td align=&quot;right&quot;&gt;Reconstructing Genetic History of Siberian and Northeastern European Populations&lt;/td&gt;
 &lt;td align=&quot;right&quot;&gt;2079&lt;/td&gt;
 &lt;td align=&quot;right&quot;&gt;2410&lt;/td&gt;
-&lt;td align=&quot;left&quot;&gt;134 days&lt;/td&gt;
-&lt;td align=&quot;left&quot;&gt;TRUE&lt;/td&gt;
+&lt;td align=&quot;right&quot;&gt;134 days&lt;/td&gt;
+&lt;td align=&quot;right&quot;&gt;TRUE&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr class=&quot;even&quot;&gt;
-&lt;td align=&quot;left&quot;&gt;Genome variation and meiotic recombination in Plasmodium falciparum: insights from deep sequencing of genetic crosses&lt;/td&gt;
+&lt;td align=&quot;right&quot;&gt;Genome variation and meiotic recombination in Plasmodium falciparum: insights from deep sequencing of genetic crosses&lt;/td&gt;
 &lt;td align=&quot;right&quot;&gt;559&lt;/td&gt;
 &lt;td align=&quot;right&quot;&gt;2408&lt;/td&gt;
-&lt;td align=&quot;left&quot;&gt;206 days&lt;/td&gt;
-&lt;td align=&quot;left&quot;&gt;TRUE&lt;/td&gt;
+&lt;td align=&quot;right&quot;&gt;206 days&lt;/td&gt;
+&lt;td align=&quot;right&quot;&gt;TRUE&lt;/td&gt;
 &lt;/tr&gt;
 &lt;/tbody&gt;
 &lt;/table&gt;

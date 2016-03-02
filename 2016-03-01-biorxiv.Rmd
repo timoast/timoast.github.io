@@ -72,7 +72,8 @@ bioRxiv allows you to submit a revision at any time (until the paper is publishe
 ```{r revised}
 data %>%
   group_by(Revised) %>%
-  summarise(n = n(), `%` = n/nrow(data) * 100)
+  summarise(Count = n(), Percentage = Count/nrow(data) * 100) %>%
+  knitr::kable(., align = 'c')
 ```
 
 So only 28% are ever revised.
@@ -93,11 +94,11 @@ The mean seems to be pulled up by some outliers with very high numbers of views.
 ### Top 10 bioRxiv preprints
 
 ```{r top}
-top10 <- data %>%
+data %>%
   arrange(-`PDF views`) %>%
   select(Title, `Abstract views`, `PDF views`, Age, Revised) %>%
-  head(., 10)
-knitr::kable(top10)  # output as nicely formatted table
+  head(., 10) %>%
+  knitr::kable(., align = 'l')
 ```
 
 All interesting papers, most of which are now published in journals.
