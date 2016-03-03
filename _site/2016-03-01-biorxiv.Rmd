@@ -163,7 +163,7 @@ data %>%
 All interesting papers, most of which are still not published in journals.
 
 ### Distribution of views
-
+gather(data=data,key=,value=,na.rm=FALSE,)
 Let's first filter out preprints less than 10 days old, as these probably have an artificially low number of views.
 
 ```{r dist, echo=TRUE, fig.height=4, fig.width=5, message=FALSE, warning=FALSE}
