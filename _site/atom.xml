@@ -4,7 +4,7 @@
  <title>Tim Stuart</title>
  <link href="/atom.xml" rel="self"/>
  <link href="/"/>
- <updated>2016-03-03T14:31:35+08:00</updated>
+ <updated>2016-03-04T14:24:10+08:00</updated>
  <id></id>
  <author>
    <name>Tim Stuart</name>
@@ -366,6 +366,10 @@ $(document).ready(function () {
    <updated>2016-02-23T00:00:00+08:00</updated>
    <id>/2016/02/23/Papers</id>
    <content type="html">&lt;p&gt;In an effort to read more papers this year, I’m going to read a paper (or something paper-like) each day for the remainder of the year, and post each paper below as I go.&lt;/p&gt;
+
+&lt;h3 id=&quot;mar-4&quot;&gt;Mar 4&lt;/h3&gt;
+
+&lt;p&gt;Hsi-Yang Fritz M, Leinonen R, Cochrane G, Birney E. 2011. Efficient storage of high throughput DNA sequencing data using reference-based compression. Genome Research 21: 734–740. &lt;a href=&quot;http://genome.cshlp.org/content/21/5/734.long&quot;&gt;doi:10.1101/gr.114819.110.&lt;/a&gt;&lt;/p&gt;
 
 &lt;h3 id=&quot;mar-3&quot;&gt;Mar 3&lt;/h3&gt;
 
