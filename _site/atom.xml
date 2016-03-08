@@ -4,7 +4,7 @@
  <title>Tim Stuart</title>
  <link href="/atom.xml" rel="self"/>
  <link href="/"/>
- <updated>2016-03-07T13:16:30+08:00</updated>
+ <updated>2016-03-08T10:32:27+08:00</updated>
  <id></id>
  <author>
    <name>Tim Stuart</name>
@@ -366,6 +366,10 @@ $(document).ready(function () {
    <updated>2016-02-23T00:00:00+08:00</updated>
    <id>/2016/02/23/Papers</id>
    <content type="html">&lt;p&gt;In an effort to read more papers this year, I’m going to read a paper (or something paper-like) each day for the remainder of the year, and post each paper below as I go.&lt;/p&gt;
+
+&lt;h3 id=&quot;mar-8&quot;&gt;Mar 8&lt;/h3&gt;
+
+&lt;p&gt;Rosenthal R, Fode KL. 2007. The effect of experimenter bias on the performance of the albino rat. Syst Res 8: 183–189. &lt;a href=&quot;http://onlinelibrary.wiley.com/doi/10.1002/bs.3830080302/abstract&quot;&gt;doi:10.1002/bs.3830080302&lt;/a&gt;&lt;/p&gt;
 
 &lt;h3 id=&quot;mar-7&quot;&gt;Mar 7&lt;/h3&gt;
 
