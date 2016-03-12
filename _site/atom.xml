@@ -4,7 +4,7 @@
  <title>Tim Stuart</title>
  <link href="/atom.xml" rel="self"/>
  <link href="/"/>
- <updated>2016-03-11T21:15:43+08:00</updated>
+ <updated>2016-03-12T13:51:28+08:00</updated>
  <id></id>
  <author>
    <name>Tim Stuart</name>
@@ -366,6 +366,10 @@ $(document).ready(function () {
    <updated>2016-02-23T00:00:00+08:00</updated>
    <id>/2016/02/23/Papers</id>
    <content type="html">&lt;p&gt;In an effort to read more papers this year, I’m going to read a paper (or something paper-like) each day for the remainder of the year, and post each paper below as I go.&lt;/p&gt;
+
+&lt;h3 id=&quot;mar-12&quot;&gt;Mar 12&lt;/h3&gt;
+
+&lt;p&gt;Loose M, Malla S, Stout M. 2016. Real time selective sequencing using nanopore technology. bioRxiv 038760. &lt;a href=&quot;http://biorxiv.org/content/early/2016/02/03/038760&quot;&gt;doi: 10.1101/038760&lt;/a&gt;&lt;/p&gt;
 
 &lt;h3 id=&quot;mar-11&quot;&gt;Mar 11&lt;/h3&gt;
 
