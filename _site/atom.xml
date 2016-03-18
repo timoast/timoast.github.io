@@ -4,7 +4,7 @@
  <title>Tim Stuart</title>
  <link href="/atom.xml" rel="self"/>
  <link href="/"/>
- <updated>2016-03-17T11:46:34+08:00</updated>
+ <updated>2016-03-18T10:26:48+08:00</updated>
  <id></id>
  <author>
    <name>Tim Stuart</name>
@@ -366,6 +366,10 @@ $(document).ready(function () {
    <updated>2016-02-23T00:00:00+08:00</updated>
    <id>/2016/02/23/Papers</id>
    <content type="html">&lt;p&gt;In an effort to read more papers this year, I’m going to read a paper (or something paper-like) each day for the remainder of the year, and post each paper below as I go.&lt;/p&gt;
+
+&lt;h3 id=&quot;mar-18&quot;&gt;Mar 18&lt;/h3&gt;
+
+&lt;p&gt;Elvira-Matelot E, Hachet M, Shamandi N, Comella P, Saez-Vásquez J, Zytnicki M, Vaucheret H. 2016. Arabidopsis RNASE THREE LIKE2 Modulates the Expression of Protein-Coding Genes via 24-Nucleotide Small Interfering RNA-Directed DNA Methylation. The Plant Cell 28: 406–425. &lt;a href=&quot;http://www.plantcell.org/content/28/2/406.short?rss=1&quot;&gt;doi:10.1105/tpc.15.00540&lt;/a&gt;&lt;/p&gt;
 
 &lt;h3 id=&quot;mar-17&quot;&gt;Mar 17&lt;/h3&gt;
 
