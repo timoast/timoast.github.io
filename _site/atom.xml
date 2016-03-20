@@ -4,7 +4,7 @@
  <title>Tim Stuart</title>
  <link href="/atom.xml" rel="self"/>
  <link href="/"/>
- <updated>2016-03-19T22:32:56+08:00</updated>
+ <updated>2016-03-20T21:37:40+08:00</updated>
  <id></id>
  <author>
    <name>Tim Stuart</name>
@@ -366,6 +366,14 @@ $(document).ready(function () {
    <updated>2016-02-23T00:00:00+08:00</updated>
    <id>/2016/02/23/Papers</id>
    <content type="html">&lt;p&gt;In an effort to read more papers this year, I’m going to read a paper (or something paper-like) each day for the remainder of the year, and post each paper below as I go.&lt;/p&gt;
+
+&lt;h3 id=&quot;mar-20&quot;&gt;Mar 20&lt;/h3&gt;
+
+&lt;p&gt;Saito Y, Tsuji J, Mituyama T. 2014. Bisulfighter: accurate detection of methylated cytosines and differentially methylated regions. Nucleic Acids Research. &lt;a href=&quot;http://www.ncbi.nlm.nih.gov/pubmed/24423865&quot;&gt;doi:10.1093/nar/gkt1373&lt;/a&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;mar-19&quot;&gt;Mar 19&lt;/h3&gt;
+
+&lt;p&gt;Guo W, Fiziev P, Yan W, Cokus S, Sun X, Zhang MQ, Chen P-Y, Pellegrini M. 2013. BS-Seeker2: a versatile aligning pipeline for bisulfite sequencing data. BMC Genomics 14: 774. &lt;a href=&quot;http://bmcgenomics.biomedcentral.com/articles/10.1186/1471-2164-14-774&quot;&gt;DOI: 10.1186/1471-2164-14-774&lt;/a&gt;&lt;/p&gt;
 
 &lt;h3 id=&quot;mar-18&quot;&gt;Mar 18&lt;/h3&gt;
 
