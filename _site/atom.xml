@@ -4,7 +4,7 @@
  <title>Tim Stuart</title>
  <link href="/atom.xml" rel="self"/>
  <link href="/"/>
- <updated>2016-03-20T21:37:40+08:00</updated>
+ <updated>2016-03-21T18:23:23+08:00</updated>
  <id></id>
  <author>
    <name>Tim Stuart</name>
@@ -366,6 +366,10 @@ $(document).ready(function () {
    <updated>2016-02-23T00:00:00+08:00</updated>
    <id>/2016/02/23/Papers</id>
    <content type="html">&lt;p&gt;In an effort to read more papers this year, I’m going to read a paper (or something paper-like) each day for the remainder of the year, and post each paper below as I go.&lt;/p&gt;
+
+&lt;h3 id=&quot;mar-21&quot;&gt;Mar 21&lt;/h3&gt;
+
+&lt;p&gt;Yamamuro C, Miki D, Zheng Z, Ma J, Wang J, Yang Z, Dong J, Zhu J-K. 1AD. Overproduction of stomatal lineage cells in Arabidopsis mutants defective in active DNA demethylation. Nature Communications 5: 1–7. &lt;a href=&quot;http://www.nature.com/ncomms/2014/140605/ncomms5062/full/ncomms5062.html&quot;&gt;DOI: 10.1038/ncomms5062&lt;/a&gt;&lt;/p&gt;
 
 &lt;h3 id=&quot;mar-20&quot;&gt;Mar 20&lt;/h3&gt;
 
