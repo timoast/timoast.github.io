@@ -4,7 +4,7 @@
  <title>Tim Stuart</title>
  <link href="/atom.xml" rel="self"/>
  <link href="/"/>
- <updated>2016-03-21T18:23:23+08:00</updated>
+ <updated>2016-03-22T18:06:26+08:00</updated>
  <id></id>
  <author>
    <name>Tim Stuart</name>
@@ -366,6 +366,10 @@ $(document).ready(function () {
    <updated>2016-02-23T00:00:00+08:00</updated>
    <id>/2016/02/23/Papers</id>
    <content type="html">&lt;p&gt;In an effort to read more papers this year, I’m going to read a paper (or something paper-like) each day for the remainder of the year, and post each paper below as I go.&lt;/p&gt;
+
+&lt;h3 id=&quot;mar-22&quot;&gt;Mar 22&lt;/h3&gt;
+
+&lt;p&gt;Martínez G, Panda K, Köhler C, Slotkin RK. 2016. Silencing in sperm cells is directed by RNA movement from the surrounding nurse cell. Nature Plants 1–8. &lt;a href=&quot;http://www.nature.com/articles/nplants201630&quot;&gt;DOI: 10.1038/NPLANTS.2016.30&lt;/a&gt;&lt;/p&gt;
 
 &lt;h3 id=&quot;mar-21&quot;&gt;Mar 21&lt;/h3&gt;
 
