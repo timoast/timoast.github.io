@@ -4,7 +4,7 @@
  <title>Tim Stuart</title>
  <link href="/atom.xml" rel="self"/>
  <link href="/"/>
- <updated>2016-03-24T22:48:39+08:00</updated>
+ <updated>2016-03-25T17:26:27+08:00</updated>
  <id></id>
  <author>
    <name>Tim Stuart</name>
@@ -366,6 +366,14 @@ $(document).ready(function () {
    <updated>2016-02-23T00:00:00+08:00</updated>
    <id>/2016/02/23/Papers</id>
    <content type="html">&lt;p&gt;In an effort to read more papers this year, I’m going to read a paper (or something paper-like) each day for the remainder of the year, and post each paper below as I go.&lt;/p&gt;
+
+&lt;h3 id=&quot;mar-25&quot;&gt;Mar 25&lt;/h3&gt;
+
+&lt;p&gt;Groszmann M, Greaves IK, Albertyn ZI, Scofield GN, Peacock WJ, Dennis ES. 2011. Changes in 24-nt siRNA levels in Arabidopsis hybrids suggest an epigenetic contribution to hybrid vigor. Proceedings of the National Academy of Sciences 108: 2617–2622. &lt;a href=&quot;http://www.pnas.org/content/108/6/2617.full&quot;&gt;doi: 10.1073/pnas.1019217108&lt;/a&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;mar-24&quot;&gt;Mar 24&lt;/h3&gt;
+
+&lt;p&gt;Fang X, Qi Y. 2016. RNAi in Plants: An Argonaute-Centered View. Plant Cell. Advance Publication February 11, 2016. &lt;a href=&quot;http://www.plantcell.org/content/early/2016/02/11/tpc.15.00920.abstract&quot;&gt;doi: 10.​1105/​tpc.​15.​00920&lt;/a&gt;&lt;/p&gt;
 
 &lt;h3 id=&quot;mar-23&quot;&gt;Mar 23&lt;/h3&gt;
 
