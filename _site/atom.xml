@@ -4,7 +4,7 @@
  <title>Tim Stuart</title>
  <link href="/atom.xml" rel="self"/>
  <link href="/"/>
- <updated>2016-03-26T23:28:27+08:00</updated>
+ <updated>2016-03-27T21:59:28+08:00</updated>
  <id></id>
  <author>
    <name>Tim Stuart</name>
@@ -366,6 +366,14 @@ $(document).ready(function () {
    <updated>2016-02-23T00:00:00+08:00</updated>
    <id>/2016/02/23/Papers</id>
    <content type="html">&lt;p&gt;In an effort to read more papers this year, I’m going to read a paper (or something paper-like) each day for the remainder of the year, and post each paper below as I go.&lt;/p&gt;
+
+&lt;h3 id=&quot;mar-27&quot;&gt;Mar 27&lt;/h3&gt;
+
+&lt;p&gt;Greaves IK, Groszmann M, Ying H, Taylor JM, Peacock WJ, Dennis ES. 2012. Trans Chromosomal Methylation in Arabidopsis hybrids. Proc Natl Acad Sci USA 109: 3570–3575. &lt;a href=&quot;http://www.pnas.org/content/109/9/3570.full&quot;&gt;doi:10.1073/pnas.1201043109&lt;/a&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;mar-26&quot;&gt;Mar 26&lt;/h3&gt;
+
+&lt;p&gt;Rigal M, Becker C, Pélissier T, Pogorelcnik R, Devos J, Ikeda Y, Weigel D, Mathieu O. 2016. Epigenome confrontation triggers immediate reprogramming of DNA methylation and transposon silencing in Arabidopsis thaliana F1 epihybrids. Proceedings of the National Academy of Sciences 201600672–10. &lt;a href=&quot;http://www.pnas.org/content/early/2016/03/16/1600672113.full&quot;&gt;doi: 10.1073/pnas.1600672113&lt;/a&gt;&lt;/p&gt;
 
 &lt;h3 id=&quot;mar-25&quot;&gt;Mar 25&lt;/h3&gt;
 
