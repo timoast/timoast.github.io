@@ -4,7 +4,7 @@
  <title>Tim Stuart</title>
  <link href="/atom.xml" rel="self"/>
  <link href="/"/>
- <updated>2016-03-27T21:59:28+08:00</updated>
+ <updated>2016-03-28T14:40:16+08:00</updated>
  <id></id>
  <author>
    <name>Tim Stuart</name>
@@ -366,6 +366,10 @@ $(document).ready(function () {
    <updated>2016-02-23T00:00:00+08:00</updated>
    <id>/2016/02/23/Papers</id>
    <content type="html">&lt;p&gt;In an effort to read more papers this year, I’m going to read a paper (or something paper-like) each day for the remainder of the year, and post each paper below as I go.&lt;/p&gt;
+
+&lt;h3 id=&quot;mar-28&quot;&gt;Mar 28&lt;/h3&gt;
+
+&lt;p&gt;Hill T, Schlötterer C, Betancourt AJ. 2016. Hybrid Dysgenesis in Drosophila simulans Associated with a Rapid Invasion of the P-Element ed. H.S. Malik. PLoS Genetics 12: e1005920. &lt;a href=&quot;http://journals.plos.org/plosgenetics/article?id=10.1371%2Fjournal.pgen.1005920&amp;amp;utm_source=feedburner&amp;amp;utm_medium=feed&amp;amp;utm_campaign=Feed%3A+plosgenetics%2FNewArticles+%28PLOS+Genetics+-+New+Articles%29&quot;&gt;doi: 10.1371/journal.pgen.1005920&lt;/a&gt;&lt;/p&gt;
 
 &lt;h3 id=&quot;mar-27&quot;&gt;Mar 27&lt;/h3&gt;
 
