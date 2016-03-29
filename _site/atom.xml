@@ -4,7 +4,7 @@
  <title>Tim Stuart</title>
  <link href="/atom.xml" rel="self"/>
  <link href="/"/>
- <updated>2016-03-29T11:15:51+08:00</updated>
+ <updated>2016-03-29T11:17:31+08:00</updated>
  <id></id>
  <author>
    <name>Tim Stuart</name>
@@ -49,7 +49,8 @@ python bs_seeker2-build.py -f tair10_lambda.fa --aligner=bowtie2
 &lt;h3 id=&quot;align&quot;&gt;3.2: Align&lt;/h3&gt;
 
 &lt;p&gt;&lt;code&gt;
-python bs_seeker2-align.py -g tair10_lambda.fa --aligner=bowtie2 -u unmapped.fa -o mapped.bam --bt2-p 4 -i filtered_reads.fq.gz
+python bs_seeker2-align.py -g tair10_lambda.fa --aligner=bowtie2 \
+-u unmapped.fa -o mapped.bam --bt2-p 4 -i filtered_reads.fq.gz
 &lt;/code&gt;&lt;/p&gt;
 
 &lt;h2 id=&quot;step-4-post-processing-of-alignment-files&quot;&gt;Step 4: Post-processing of alignment files&lt;/h2&gt;
@@ -58,16 +59,14 @@ python bs_seeker2-align.py -g tair10_lambda.fa --aligner=bowtie2 -u unmapped.fa 
 
 &lt;p&gt;&lt;code&gt;
 samtools sort -@ 10 mapped.bam sorted
-&lt;/code&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;code&gt;
 picard MarkDuplicates I=sorted.bam O=filtered.bam M=dup_metrics.txt REMOVE_DUPLICATES=true AS=true
 &lt;/code&gt;&lt;/p&gt;
 
 &lt;h2 id=&quot;step-5-call-methylation&quot;&gt;Step 5: Call methylation&lt;/h2&gt;
 
 &lt;p&gt;&lt;code&gt;
-python bs_seeker2-call_methylation.py -i filtered.bam -o sample_name --db /home/tstuart/working_data/GitHub/BSseeker2/bs_utils/reference_genomes/tair10_lambda.fa_bowtie2/
+python bs_seeker2-call_methylation.py -i filtered.bam -o sample_name \
+--db /home/tstuart/working_data/GitHub/BSseeker2/bs_utils/reference_genomes/tair10_lambda.fa_bowtie2/
 &lt;/code&gt;&lt;/p&gt;
 
 &lt;h3 id=&quot;program-versions&quot;&gt;Program versions:&lt;/h3&gt;

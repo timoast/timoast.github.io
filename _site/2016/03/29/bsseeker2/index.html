@@ -100,7 +100,8 @@ python bs_seeker2-build.py -f tair10_lambda.fa --aligner=bowtie2
 <h3 id="align">3.2: Align</h3>
 
 <p><code>
-python bs_seeker2-align.py -g tair10_lambda.fa --aligner=bowtie2 -u unmapped.fa -o mapped.bam --bt2-p 4 -i filtered_reads.fq.gz
+python bs_seeker2-align.py -g tair10_lambda.fa --aligner=bowtie2 \
+-u unmapped.fa -o mapped.bam --bt2-p 4 -i filtered_reads.fq.gz
 </code></p>
 
 <h2 id="step-4-post-processing-of-alignment-files">Step 4: Post-processing of alignment files</h2>
@@ -109,16 +110,14 @@ python bs_seeker2-align.py -g tair10_lambda.fa --aligner=bowtie2 -u unmapped.fa 
 
 <p><code>
 samtools sort -@ 10 mapped.bam sorted
-</code></p>
-
-<p><code>
 picard MarkDuplicates I=sorted.bam O=filtered.bam M=dup_metrics.txt REMOVE_DUPLICATES=true AS=true
 </code></p>
 
 <h2 id="step-5-call-methylation">Step 5: Call methylation</h2>
 
 <p><code>
-python bs_seeker2-call_methylation.py -i filtered.bam -o sample_name --db /home/tstuart/working_data/GitHub/BSseeker2/bs_utils/reference_genomes/tair10_lambda.fa_bowtie2/
+python bs_seeker2-call_methylation.py -i filtered.bam -o sample_name \
+--db /home/tstuart/working_data/GitHub/BSseeker2/bs_utils/reference_genomes/tair10_lambda.fa_bowtie2/
 </code></p>
 
 <h3 id="program-versions">Program versions:</h3>
