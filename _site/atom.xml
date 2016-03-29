@@ -4,7 +4,7 @@
  <title>Tim Stuart</title>
  <link href="/atom.xml" rel="self"/>
  <link href="/"/>
- <updated>2016-03-29T11:17:31+08:00</updated>
+ <updated>2016-03-29T11:18:46+08:00</updated>
  <id></id>
  <author>
    <name>Tim Stuart</name>
@@ -20,7 +20,7 @@
    <content type="html">&lt;h2 id=&quot;whole-genome-bisulfite-sequencing-analysis-notes-for-bs-seeker2&quot;&gt;Whole genome bisulfite sequencing analysis notes for BS-seeker2.&lt;/h2&gt;
 
 &lt;h2 id=&quot;step-1-trim-adapters-and-low-quality-bases&quot;&gt;Step 1: Trim adapters and low quality bases&lt;/h2&gt;
-&lt;p&gt;Illimina TruSeq adapter sequence: &lt;code&gt;GATCGGAAGAGCACACGTCTGAACTCCAGTCAC&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;Illumina TruSeq adapter sequence: &lt;code&gt;GATCGGAAGAGCACACGTCTGAACTCCAGTCAC&lt;/code&gt;&lt;/p&gt;
 
 &lt;p&gt;&lt;code&gt;
 cutadapt -a AGATCGGAAGAGCACACGTCTGAACTCCAGTCAC -m 50 reads.fastq \
