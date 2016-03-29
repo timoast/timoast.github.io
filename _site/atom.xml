@@ -4,7 +4,7 @@
  <title>Tim Stuart</title>
  <link href="/atom.xml" rel="self"/>
  <link href="/"/>
- <updated>2016-03-29T11:18:46+08:00</updated>
+ <updated>2016-03-29T11:22:06+08:00</updated>
  <id></id>
  <author>
    <name>Tim Stuart</name>
@@ -65,7 +65,7 @@ picard MarkDuplicates I=sorted.bam O=filtered.bam M=dup_metrics.txt REMOVE_DUPLI
 &lt;h2 id=&quot;step-5-call-methylation&quot;&gt;Step 5: Call methylation&lt;/h2&gt;
 
 &lt;p&gt;&lt;code&gt;
-python bs_seeker2-call_methylation.py -i filtered.bam -o sample_name \
+python bs_seeker2-call_methylation.py -i filtered.bam --sorted -o sample_name \
 --db /home/tstuart/working_data/GitHub/BSseeker2/bs_utils/reference_genomes/tair10_lambda.fa_bowtie2/
 &lt;/code&gt;&lt;/p&gt;
 

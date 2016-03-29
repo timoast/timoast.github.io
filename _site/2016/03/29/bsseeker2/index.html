@@ -116,7 +116,7 @@ picard MarkDuplicates I=sorted.bam O=filtered.bam M=dup_metrics.txt REMOVE_DUPLI
 <h2 id="step-5-call-methylation">Step 5: Call methylation</h2>
 
 <p><code>
-python bs_seeker2-call_methylation.py -i filtered.bam -o sample_name \
+python bs_seeker2-call_methylation.py -i filtered.bam --sorted -o sample_name \
 --db /home/tstuart/working_data/GitHub/BSseeker2/bs_utils/reference_genomes/tair10_lambda.fa_bowtie2/
 </code></p>
 
