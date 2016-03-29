@@ -4,13 +4,86 @@
  <title>Tim Stuart</title>
  <link href="/atom.xml" rel="self"/>
  <link href="/"/>
- <updated>2016-03-28T14:40:16+08:00</updated>
+ <updated>2016-03-29T11:15:51+08:00</updated>
  <id></id>
  <author>
    <name>Tim Stuart</name>
    <email>timstuart90@gmail.com</email>
  </author>
 
+ 
+ <entry>
+   <title>WGBS Analysis notes -- BS-seeker2</title>
+   <link href="//2016/03/29/bsseeker2/"/>
+   <updated>2016-03-29T00:00:00+08:00</updated>
+   <id>/2016/03/29/bsseeker2</id>
+   <content type="html">&lt;h2 id=&quot;whole-genome-bisulfite-sequencing-analysis-notes-for-bs-seeker2&quot;&gt;Whole genome bisulfite sequencing analysis notes for BS-seeker2.&lt;/h2&gt;
+
+&lt;h2 id=&quot;step-1-trim-adapters-and-low-quality-bases&quot;&gt;Step 1: Trim adapters and low quality bases&lt;/h2&gt;
+&lt;p&gt;Illimina TruSeq adapter sequence: &lt;code&gt;GATCGGAAGAGCACACGTCTGAACTCCAGTCAC&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;
+cutadapt -a AGATCGGAAGAGCACACGTCTGAACTCCAGTCAC -m 50 reads.fastq \
+| seqtk trimfq -l 50 - \
+| pigz &amp;gt; filtered_reads.fq.gz
+&lt;/code&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;step-2-quality-control&quot;&gt;Step 2: Quality control&lt;/h2&gt;
+
+&lt;p&gt;This step can also be performed on the unfiltered fastq file to compare output before and after read trimming.&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;
+fastqc filtered_reads.fq.gz
+&lt;/code&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;step-3-alignment&quot;&gt;Step 3: Alignment&lt;/h2&gt;
+
+&lt;h3 id=&quot;build-genome-index&quot;&gt;3.1: Build genome index&lt;/h3&gt;
+
+&lt;p&gt;I added the lambda genome as an extra chromosome, L, to calculate the bisulfite nonconversion rate.&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;
+python bs_seeker2-build.py -f tair10_lambda.fa --aligner=bowtie2
+&lt;/code&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;align&quot;&gt;3.2: Align&lt;/h3&gt;
+
+&lt;p&gt;&lt;code&gt;
+python bs_seeker2-align.py -g tair10_lambda.fa --aligner=bowtie2 -u unmapped.fa -o mapped.bam --bt2-p 4 -i filtered_reads.fq.gz
+&lt;/code&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;step-4-post-processing-of-alignment-files&quot;&gt;Step 4: Post-processing of alignment files&lt;/h2&gt;
+
+&lt;p&gt;Sort and remove PCR duplicates&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;
+samtools sort -@ 10 mapped.bam sorted
+&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;
+picard MarkDuplicates I=sorted.bam O=filtered.bam M=dup_metrics.txt REMOVE_DUPLICATES=true AS=true
+&lt;/code&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;step-5-call-methylation&quot;&gt;Step 5: Call methylation&lt;/h2&gt;
+
+&lt;p&gt;&lt;code&gt;
+python bs_seeker2-call_methylation.py -i filtered.bam -o sample_name --db /home/tstuart/working_data/GitHub/BSseeker2/bs_utils/reference_genomes/tair10_lambda.fa_bowtie2/
+&lt;/code&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;program-versions&quot;&gt;Program versions:&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;python 2.7.10&lt;/li&gt;
+  &lt;li&gt;cutadapt 1.9.1&lt;/li&gt;
+  &lt;li&gt;seqtk 1.0-r82-dirty&lt;/li&gt;
+  &lt;li&gt;fastqc 0.11.5&lt;/li&gt;
+  &lt;li&gt;BS-seeker2 v2.0.10&lt;/li&gt;
+  &lt;li&gt;samtools 1.2&lt;/li&gt;
+  &lt;li&gt;hstlib 1.2.1&lt;/li&gt;
+  &lt;li&gt;picard 2.1.1&lt;/li&gt;
+&lt;/ul&gt;
+</content>
+ </entry>
  
  <entry>
    <title>Biorxiv</title>
@@ -366,6 +439,8 @@ $(document).ready(function () {
    <updated>2016-02-23T00:00:00+08:00</updated>
    <id>/2016/02/23/Papers</id>
    <content type="html">&lt;p&gt;In an effort to read more papers this year, I’m going to read a paper (or something paper-like) each day for the remainder of the year, and post each paper below as I go.&lt;/p&gt;
+
+&lt;h3 id=&quot;mar-29&quot;&gt;Mar 29&lt;/h3&gt;
 
 &lt;h3 id=&quot;mar-28&quot;&gt;Mar 28&lt;/h3&gt;
 

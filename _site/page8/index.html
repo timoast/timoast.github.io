@@ -69,335 +69,162 @@
   
   <div class="post">
     <h1 class="post-title">
-      <a href="/2014/08/24/UsefulCommands/">
-        Useful Linux/Unix commands
+      <a href="/2014/08/25/UsefulPython/">
+        Useful python code
       </a>
     </h1>
 
-    <span class="post-date">24 Aug 2014</span>
+    <span class="post-date">25 Aug 2014</span>
 
-    <h2 id="go-back-to-last-directory">go back to last directory</h2>
-
-<p><code>
-cd -
-</code></p>
-
-<h2 id="do-something-in-a-range">Do something in a range</h2>
-<p>Move files</p>
-
-<p><code>bash
-for i in $(seq 10); do mv chr$i ../genomes/; done
-</code></p>
-
-<p><code>bash
-for directory in ./*; do
-    if [ -d "$directory" ]; then
-        cd $directory
-        for myfile in $(ls -d *.sra);do
-            mv $myfile /home/tstuart/working_data/1000genomes/$myfile
-        done
-        cd ..
-    fi
-done
-</code></p>
-
-<h2 id="take-command-line-arguments">Take command-line arguments</h2>
-
-<p>Required flags are followed by <code>:</code></p>
-
-<p>```bash
-index=  proc=  path=</p>
-
-<p>while getopts x:pA opt; do
-  case $opt in
-  x)
-      index=$OPTARG
-      ;;
-  p)
-      proc=$OPTARG
-      ;;
-  A)
-      path=${OPTARG%/}
-      ;;
-  esac
-done
-shift $((OPTIND - 1))
-```</p>
-
-<h2 id="strip-trailing-slash-from-string">Strip trailing slash from string</h2>
-
-<p><code>bash
-path=${OPTARG%/}
-</code></p>
-
-<h2 id="gnu-screen">GNU Screen</h2>
-
-<p>Start screen: <code>screen -S [screen name]</code><br />
-List screens: <code>screen -list</code><br />
-Detach: <code>screen -d</code><br />
-Attach: <code>screen -r</code><br />
-Close screen: <code>ctr-a-d</code><br />
-Kill screen: <code>ctr-a :quit</code></p>
-
-<h2 id="human-readable-path">Human-readable path</h2>
-
-<p><code>bash
-echo -e ${PATH//:/'\n'}
-</code></p>
-
-<h2 id="searching">Searching</h2>
-
-<p><code>bash
-grep 'text' filename
-grep 'text' file1 file2 file3
-grep 'text1 text2' filename
-grep --color 'text' filename
-</code></p>
-
-<p>Search all files in a directory, show output in less</p>
-
-<p><code>bash
-grep -r 'text' /home/usr/ | less
-</code></p>
-
-<p>Search for multiple strings</p>
-
-<p><code>bash
-egrep '(AT4G40030)|(AT4G40040)|(AT5G10980)' * &gt; h3.3
-</code></p>
-
-<h2 id="pipe-output-into-file">Pipe output into file</h2>
-
-<h4 id="overwrite-contents-of-file">Overwrite contents of file</h4>
-
-<p><code>bash
-grep "text" filename.txt &gt; output.txt
-</code></p>
-
-<h4 id="append-to-file">Append to file</h4>
-
-<p><code>bash
-grep "text" filename.txt &gt;&gt; output.txt
-</code></p>
-
-<h2 id="counting">Counting</h2>
-<p>Count lines in chr1 file</p>
-
-<p><code>bash
-wc -l chr1
-</code></p>
-
-<p>Count characters in chr1 file</p>
-
-<p><code>bash
-wc -c chr1
-</code></p>
-
-<h2 id="list">List</h2>
-
-<p>List and sort</p>
-
-<p><code>bash
-ls -ls
-</code></p>
-
-<p>List and sort by size</p>
-
-<p><code>bash
-ls -ls -S
-</code></p>
-
-<p>Count number of directories in current directory</p>
-
-<p><code>bash
-ls -l | grep ^d | wc -l
-</code></p>
-
-<h2 id="sorting">Sorting</h2>
-
-<p>Sort file by numerical order of first column, save as sorted_list.txt</p>
-
-<p><code>bash
-sort -nk 1 list.txt &gt; sorted_list.txt
-</code></p>
-
-<p>Sort file by order of first column, then numerical order of second column, save as sorted_list.txt</p>
-
-<p><code>bash
-sort -k1,1 -nk2,2 list.txt &gt; sorted_list.txt
-</code></p>
-
-<p>Sort descending</p>
-
-<p><code>bash
-sort -rn -k3 file.txt &gt; sorted.txt
-</code></p>
-
-<p>overwrite</p>
-
-<p><code>bash
-sort -rn -k3 -o file.txt file.txt
-</code></p>
-
-<h2 id="rows">Rows</h2>
-<p>Delete first line</p>
-
-<p><code>bash
-sed 1d file.txt &gt; headerless_file.txt
-</code></p>
-
-<p>Delete lines 1-3 inclusive</p>
-
-<p><code>bash
-sed 1,3d file.txt &gt; newfile.txt
-</code></p>
-
-<p>Delete lines containing string</p>
-
-<p><code>bash
-sed '/ATC/d' file.txt &gt; file_mod.txt
-</code></p>
-
-<p>Overwrite file</p>
-
-<p><code>bash
-sed -i.bak 1d file.txt
-</code></p>
-
-<h2 id="columns">Columns</h2>
-<p>Write columns to new file. Can also reorder columns.</p>
-
-<p><code>bash
-awk 'BEGIN {FS=OFS="\t"} {print $2,$4,$5,$6,$7,$8,$1,$3}' file.txt &gt; outfile.txt
-awk 'BEGIN {FS=OFS="\t"} {print $7,$1,$8,$2,$3,$4,$5,$6}' cmt2_targets.tsv &gt; cmt2_targets_ordered.tsv
-</code></p>
-
-<p>Add column</p>
-
-<p><code>bash
-awk '{print $0, "cmt2"}' cmt2_targets_ordered.tsv &gt; newfile.tsv
-</code></p>
-
-<p>Remove first column from all files</p>
-
-<p><code>bash
-for myfile in $(ls);do
-    awk 'BEGIN {FS=OFS="\t"} {$1="";sub("\t","")}1' $myfile &gt; mod_$myfile
-done
-</code></p>
-
-<p>Search only in one column</p>
-
-<p><code>bash
-awk '{if ($1 == 1) print $2}' p1 &gt; chr1_p1
-</code></p>
-
-<p>Add string prefix to a column, eg. add ‘chr’ to the first column</p>
-
-<p><code>bash
-awk 'BEGIN {FS=OFS="\t"} {$1="chr"$1; print $0}' input_file.txt &gt; output_file.txt
-</code></p>
-
-<h2 id="joining-files">Joining files</h2>
-
-<p>Join files with each starting on a new line</p>
-
-<p><code>bash
-for filename in *.fa; do
-    cat "${filename}"
-    echo
-done &gt; output.fa
-</code>
-Merge files of the same format</p>
-
-<p><code>bash
-cat p1_* | sort -nk1,1 -k2,2 | uniq &gt; p1
-</code></p>
-
-<h2 id="comparing-files">Comparing Files</h2>
-
-<p>Files should first be sorted</p>
-
-<p>Find lines that are common or different between two files</p>
-
-<p><code>bash
-comm -i file1 file2 &gt; output.txt
-</code></p>
-
-<ul>
-  <li><code>-i</code> is case-insensitive</li>
-  <li>outputs three columns. First is lines only in file1, second is lines only in file2, third is lines common in both.</li>
-</ul>
-
-<h2 id="compressing-files">Compressing files</h2>
-
-<p>Compress recursively and store all files in a single compressed folder</p>
-
-<p><code>bash
-tar cvfz slam.tgz slam/
-</code></p>
-
-<p>Compress recursively</p>
-
-<p><code>bash
-gzip -r directory/
-</code></p>
-
-<p>Decompress files</p>
-
-<p><code>bash
-tar -x -f file.tar
-tar -x -z -f file.tgz
-gunzip file.gz
-</code></p>
-
-<h2 id="download-data-from-sra">Download data from SRA</h2>
-
-<h3 id="using-wget">Using wget</h3>
-
-<p><code>
-wget -r --no-parent --reject "index.html*" ftp://ftp-trace.ncbi.nih.gov/sra/sra-instant/reads/ByStudy/sra/SRP/SRP005/SRP005399/
-</code>
-Alternatively, you can download a list of accessions from the SRA website and use that file to call <code>wget</code> for all the accessions.</p>
+    <h3 id="take-command-line-arguments">Take command-line arguments</h3>
 
 <p>```python
+from argparse import ArgumentParser</p>
+
+<p>version = pkg_resources.require(“program”)[0].version
+parser = ArgumentParser(description=’program description’)
+group = parser.add_mutually_exclusive_group()
+parser.add_argument(‘–version’, action=’version’, version=’%(prog)s ‘+str(version))
+parser.add_argument(‘–option’, help=’option description’, required=False, default=False, action=’store_true’)
+parser.add_argument(‘-n’, ‘–name’, help=’sample name’, required=True)
+```</p>
+
+<h2 id="lists">Lists</h2>
+
+<h3 id="list-comprehension">List comprehension</h3>
+
+<p>If ever declaring and empty list then using <code>.append</code>, can be done with list comprehension.</p>
+
+<p>```python
+list3 = []
+for x in list2:
+    if x[0] in list1:
+        list3.append(x)</p>
+
+<p>list3 = [x for x in list2 if x[0] in list1]
+```</p>
+
+<p>Can also use this to read from a file in one line, eg to read column 4 in a file into a list in python:</p>
+
+<p><code>python
+all_TEs = [line.rsplit()[4] for line in open("TAIR9_TE.bed", "r")]
+</code></p>
+
+<p>Or read all lines into a list:</p>
+
+<p><code>python
+all_lines = [line.strip("\n") for line in open("filename", "r")]
+</code></p>
+
+<h3 id="join-items-in-list">Join items in list</h3>
+
+<p><code>python
+outfile.write('{l}\n'.format(l='\t'.join(list)))
+</code></p>
+
+<p>If list items are not strings</p>
+
+<p><code>python
+outfile.write('{l}\n'.format(l=map(str, list)))
+</code></p>
+
+<p>Or using list comprehension</p>
+
+<p><code>python
+stringVersion = [str(x) for x in inputList]
+</code></p>
+
+<h2 id="printing">Printing</h2>
+
+<h3 id="print-in-colour">Print in colour</h3>
+
+<p>```python
+class colour:
+    PURPLE = ‘\033[95m’
+    CYAN = ‘\033[96m’
+    DARKCYAN = ‘\033[36m’
+    BLUE = ‘\033[94m’
+    GREEN = ‘\033[92m’
+    YELLOW = ‘\033[93m’
+    RED = ‘\033[91m’
+    BOLD = ‘\033[1m’
+    UNDERLINE = ‘\033[4m’
+    END = ‘\033[0m’</p>
+
+<p>print colour.CYAN + ‘This is blue’ + colour.END
+```</p>
+
+<h3 id="format-text-wrapping-correctly-in-terminal">Format text wrapping correctly in terminal</h3>
+
+<p><code>python
+import textwrap
+print textwrap.dedent('print message')
+</code></p>
+
+<h2 id="strings">Strings</h2>
+
+<h3 id="split-strings-by-multiple-delimiters">Split strings by multiple delimiters</h3>
+
+<p><code>python
+accession_name = f.replace('calls_', '.').split('.')
+</code></p>
+
+<h2 id="file-reading--writing">File reading / writing</h2>
+
+<h3 id="read-lines-in-tsvcsv-file">Read lines in tsv/csv file</h3>
+
+<p><code>python
+with open('merged_dmrs.bed', 'r') as f:
+    for line in f:
+        line = line.rsplit() # each item in line is now part of a list
+</code></p>
+
+<h2 id="find-if-coordinates-overlap">Find if coordinates overlap</h2>
+
+<p><code>python
+def overlap(start1, stop1, start2, stop2):
+    """returns True if sets of coordinates overlap. Assumes coordinates are on same chromosome"""
+    for y in xrange(start2, stop2+1):
+        if start1 &lt;= y &lt;= stop1:
+            return True
+        else:
+            pass
+</code></p>
+
+<h2 id="functions-for-mapping-ngs-reads">Functions for mapping NGS reads</h2>
+
+<p>```python
+import os
 from subprocess import call</p>
 
-<p>with open(‘SraAccList.txt’, ‘r’) as accessions:
-    for row in accessions:
-        acc = row.strip(‘\n’)
-        prefix = acc[:6]
-        print “Downloading {a}”.format(a=acc)
-        call([“wget”,
-              “-r”,
-              “–no-parent”,
-              “ftp://ftp-trace.ncbi.nih.gov/sra/sra-instant/reads/ByRun/sra/SRR/{pre}/{acc}/*“.format(pre=prefix, acc=acc)])</p>
+<p>def peMap(proc):
+    “””
+    paired-end reads
+    “””
+    for filename in os.listdir(‘.’):
+        if filename.endswith(“<em>1.fastq”):
+            sam = filename.split(‘</em>’)
+            sam = sam[0]
+            call([“bowtie2”, “-p{x}”.format(x=proc), “-q”, “-x /dd_stage/userdata/lister/data/genomes/bowtie2_indexes/tair9”,
+                  “-1 {f}”.format(f=sam + ‘_1.fastq’), “-2 {f}”.format(f=sam + ‘_2.fastq’), “-S {s}”.format(s=sam + ‘.sam’)])
+        else:
+            pass</p>
 
-<p>```</p>
+<p>def seMap(proc):
+    “””
+    single-end reads
+    “””
+    for filename in os.listdir(‘.’):
+        if filename.endswith(“.fastq”):
+            sam = filename.split(‘.’)
+            sam = sam[0]
+            call([“bowtie2”, “-p{x}”.format(x=proc), “-q”, “-x /dd_stage/userdata/lister/data/genomes/bowtie2_indexes/tair9”,
+                  “-U {f}”.format(f=filename), “-S {s}”.format(s=sam + ‘.sam’)])
+        else:
+            pass
+```</p>
 
-<h4 id="split-into-fastq-files">Split into fastq files</h4>
-
-<p><code>bash
-fastq-dump --split-3 ./SRP005399/*
-</code></p>
-
-<p><code>--split-3</code> causes PE files to be split into <code>*_1.fastq</code> and <code>*_2.fastq</code></p>
-
-<p>bash loop</p>
-
-<p><code>bash
-for directory in ./*; do
-    if [ -d "$directory" ]; then
-        cd $directory
-        for myfile in $(ls -d *.sra);do
-            fastq-dump --split-3 -v $myfile
-        done
-        cd ..
-    fi
-done
-</code></p>
-
-<p>Python function</p>
+<h2 id="split-sra-files-into-fastq">Split sra files into fastq</h2>
 
 <p>```python
 import os
@@ -411,97 +238,6 @@ from subprocess import call</p>
         else:
             pass
 ```</p>
-
-<h3 id="using-sra-toolkit">Using SRA toolkit</h3>
-
-<p>SRA toolkit doesn’t seem to work well for downloading bulk data. <code>wget</code> is a much better option as it allows download of whole folders, gives more descriptive output as it goes. SRA often fails and sometimes gives no error. Download with <code>wget</code> and use <code>fastq-split</code> to get fastq files.</p>
-
-<p><code>bash
-fastq-dump SRR534224 &amp;
-</code></p>
-
-<h2 id="rna-seq">RNA-seq</h2>
-
-<h3 id="mapping">Mapping</h3>
-
-<p><code>
-tophat -p8 -G /home/lister/working_data/data/genomes/annotations/tair10/TAIR10_gene_TE_illumina.gtf --transcriptome-index=transcript_index/tair10 /home/lister/working_data/data/genomes/bowtie2_indexes/tair9 SRR501604.fastq,SRR501605.fastq
-</code>
-* <code>--transcriptome-index=transcript_index/tair10</code> creates transcriptome index file saved in transcript_index/ with name <code>tair10.*</code>. This can be reused if mapping to the same transcriptome (ie. gff file)<br />
-* <code>-p8</code> uses 8 cores<br />
-* <code>-G</code> specifies gff file. Optional<br />
-* If using PE reads check manual</p>
-
-<h2 id="bedtools">Bedtools</h2>
-
-<p><a href="http://quinlanlab.org/tutorials/cshl2014/bedtools.html">Good tutorial from the Quinlan lab</a></p>
-
-<p>Need to order files so that chromosome, start, stop and first three columns (BED format). Also need to remove header. Can do these steps with <code>awk</code> and <code>sed 1d</code>.</p>
-
-<h3 id="merge">Merge</h3>
-
-<p><code>bash
-bedtools merge -i dmrs_ddc.tsv -d 100 &gt; dmrs_ddc_merged.tsv
-</code>
-* <code>-d</code> is distance between coordinates that will still be merged<br />
-* <code>-i</code> is input file</p>
-
-<h3 id="intersect">Intersect</h3>
-
-<p><code>bash
-bedtools intersect -a tair10_tes.txt -b dmrs_ddc_merged.tsv -wa -f 0.50 &gt; ddc_targets.tsv
-</code>
-* <code>-a</code> is file a<br />
-* <code>-b</code> is file b<br />
-* <code>-wa</code> is write a<br />
-* <code>-f</code> is minimum overlap percentage</p>
-
-<h2 id="bowtie">Bowtie</h2>
-
-<h3 id="mapping-pe-data">Mapping PE data</h3>
-
-<p><code>
-bowtie2 -p8 --local --fr -q -R 5 -N 1 -x [path/to/bowtie2/index] -X 1000 -1 [mate1.fq] -2 [mate2.fq] -S [alignment.sam] --un-conc ./discordant/
-</code>
-* <code>-p</code> is number of processors<br />
-* <code>--local</code> allows soft-clipping of reads to improve alignment<br />
-* <code>-q</code> specifies that reads are in fastq format<br />
-* <code>-x</code> gives path to index<br />
-* <code>-S</code> gives name of output file<br />
-* <code>-R</code> is number of times bowtie will try to ‘re-seed’ repetitive seeds. Default 2<br />
-* <code>-N</code> is number of mismatches allowed in seed. 0 or 1.<br />
-* <code>--no-mixed</code> tells bowtie to find alignments only when both pairs can be aligned.<br />
-* <code>--fr</code> means mate pairs are ordered in forward then reverse orientation. Can do <code>--ff</code>, <code>--rf</code>.<br />
-* <code>-X</code> specifies maximum insert size. Default 500.<br />
-* <code>-I</code> specifies minimum insert size. Default 0 (no minimum).<br />
-* <code>--un-conc</code> specifies path and file to write discordant alignments to. Note that these are just the <code>fastq</code> reads, not alignments.</p>
-
-<h2 id="samtools">Samtools</h2>
-
-<p>samtools can read from a stream, so can pipe output in from other tools (eg bowtie to get <code>.bam</code> output) or other samtools commands.</p>
-
-<h3 id="convert-from-sam-to-bam">Convert from <code>sam</code> to <code>bam</code></h3>
-<p><code>
-samtools view -bS file.sam &gt; file.bam
-</code></p>
-
-<h3 id="sort-bamfile">Sort bamfile</h3>
-<p><code>
-samtools sort file.bam sorted
-</code>
-* outputs <code>sorted.bam</code> file</p>
-
-<h3 id="samblaster">Samblaster</h3>
-
-<p>Extracts reads from <code>.sam</code> alignment files</p>
-
-<h4 id="get-discordant-reads">Get discordant reads</h4>
-<p><code>
-bowtie2 [options] | samblaster -e -d file.sam | samtools view -bS - &gt; file.bam
-</code>
-* Print output from bowtie to stderr to pipe directly into samblaster
-* Saves having to search through sam or bam file later to extract discordant reads
-* Pipe output directly into <code>samtools view</code> to save as <code>.bam</code> file (these won’t be the reads in the samblaster output)</p>
 
   </div>
   
