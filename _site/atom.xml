@@ -4,7 +4,7 @@
  <title>Tim Stuart</title>
  <link href="/atom.xml" rel="self"/>
  <link href="/"/>
- <updated>2016-03-29T11:22:06+08:00</updated>
+ <updated>2016-03-30T17:11:21+08:00</updated>
  <id></id>
  <author>
    <name>Tim Stuart</name>
@@ -439,7 +439,13 @@ $(document).ready(function () {
    <id>/2016/02/23/Papers</id>
    <content type="html">&lt;p&gt;In an effort to read more papers this year, I’m going to read a paper (or something paper-like) each day for the remainder of the year, and post each paper below as I go.&lt;/p&gt;
 
+&lt;h3 id=&quot;mar-30&quot;&gt;Mar 30&lt;/h3&gt;
+
+&lt;p&gt;Berry S, Hartley M, Olsson TSG, Dean C, Howard M. 2015. Local chromatin environment of a Polycomb target gene instructs its own epigenetic inheritance ed. D. Zilberman. eLife 4: e07205. &lt;a href=&quot;http://elifesciences.org/content/4/e07205v2&quot;&gt;doi:10.7554/eLife.07205&lt;/a&gt;&lt;/p&gt;
+
 &lt;h3 id=&quot;mar-29&quot;&gt;Mar 29&lt;/h3&gt;
+
+&lt;p&gt;Sánchez-Gracia A, Maside X, Charlesworth B. High rate of horizontal transfer of transposable elements in Drosophila. Trends in Genetics 21: 200–203. &lt;a href=&quot;http://www.sciencedirect.com/science/article/pii/S0168952505000417&quot;&gt;doi:10.1016/j.tig.2005.02.001&lt;/a&gt;&lt;/p&gt;
 
 &lt;h3 id=&quot;mar-28&quot;&gt;Mar 28&lt;/h3&gt;
 
