@@ -4,7 +4,7 @@
  <title>Tim Stuart</title>
  <link href="/atom.xml" rel="self"/>
  <link href="/"/>
- <updated>2016-03-30T17:11:21+08:00</updated>
+ <updated>2016-03-31T10:23:27+08:00</updated>
  <id></id>
  <author>
    <name>Tim Stuart</name>
@@ -438,6 +438,10 @@ $(document).ready(function () {
    <updated>2016-02-23T00:00:00+08:00</updated>
    <id>/2016/02/23/Papers</id>
    <content type="html">&lt;p&gt;In an effort to read more papers this year, I’m going to read a paper (or something paper-like) each day for the remainder of the year, and post each paper below as I go.&lt;/p&gt;
+
+&lt;h3 id=&quot;mar-31&quot;&gt;Mar 31&lt;/h3&gt;
+
+&lt;p&gt;McClintock B. 1950. The origin and behavior of mutable loci in maize. Proc Natl Acad Sci USA 36: 344–355. &lt;a href=&quot;http://www.ncbi.nlm.nih.gov/pmc/articles/PMC1063197/&quot;&gt;PMC1063197&lt;/a&gt;&lt;/p&gt;
 
 &lt;h3 id=&quot;mar-30&quot;&gt;Mar 30&lt;/h3&gt;
 
