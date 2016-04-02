@@ -4,7 +4,7 @@
  <title>Tim Stuart</title>
  <link href="/atom.xml" rel="self"/>
  <link href="/"/>
- <updated>2016-04-01T12:49:06+08:00</updated>
+ <updated>2016-04-02T17:40:32+08:00</updated>
  <id></id>
  <author>
    <name>Tim Stuart</name>
@@ -438,6 +438,10 @@ $(document).ready(function () {
    <updated>2016-02-23T00:00:00+08:00</updated>
    <id>/2016/02/23/Papers</id>
    <content type="html">&lt;p&gt;In an effort to read more papers this year, I’m going to read a paper (or something paper-like) each day for the remainder of the year, and post each paper below as I go.&lt;/p&gt;
+
+&lt;h3 id=&quot;apr-2&quot;&gt;Apr 2&lt;/h3&gt;
+
+&lt;p&gt;Ben-Moshe S, Itzkovitz S. 2016. Bursting through the cell cycle. eLife 5: e14953. &lt;a href=&quot;http://elifesciences.org/content/5/e14953v1&quot;&gt;doi:10.7554/eLife.14953&lt;/a&gt;&lt;/p&gt;
 
 &lt;h3 id=&quot;apr-1&quot;&gt;Apr 1&lt;/h3&gt;
 
