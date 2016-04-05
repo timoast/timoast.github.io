@@ -4,7 +4,7 @@
  <title>Tim Stuart</title>
  <link href="/atom.xml" rel="self"/>
  <link href="/"/>
- <updated>2016-04-04T16:33:38+08:00</updated>
+ <updated>2016-04-05T16:19:22+08:00</updated>
  <id></id>
  <author>
    <name>Tim Stuart</name>
@@ -438,6 +438,10 @@ $(document).ready(function () {
    <updated>2016-02-23T00:00:00+08:00</updated>
    <id>/2016/02/23/Papers</id>
    <content type="html">&lt;p&gt;In an effort to read more papers this year, I’m going to read a paper (or something paper-like) each day for the remainder of the year, and post each paper below as I go.&lt;/p&gt;
+
+&lt;h3 id=&quot;apr-5&quot;&gt;Apr 5&lt;/h3&gt;
+
+&lt;p&gt;Toomajian C, Ajioka RS, Jorde LB, Kushner JP, Kreitman M. 2003. A method for detecting recent selection in the human genome from allele age estimates. Genetics 165: 287–297. &lt;a href=&quot;http://www.ncbi.nlm.nih.gov/pubmed/14504236&quot;&gt;PMC1462736&lt;/a&gt;&lt;/p&gt;
 
 &lt;h3 id=&quot;apr-4&quot;&gt;Apr 4&lt;/h3&gt;
 
