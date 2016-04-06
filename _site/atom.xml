@@ -4,7 +4,7 @@
  <title>Tim Stuart</title>
  <link href="/atom.xml" rel="self"/>
  <link href="/"/>
- <updated>2016-04-05T16:19:22+08:00</updated>
+ <updated>2016-04-06T13:38:52+08:00</updated>
  <id></id>
  <author>
    <name>Tim Stuart</name>
@@ -68,6 +68,24 @@ picard MarkDuplicates I=sorted.bam O=filtered.bam M=dup_metrics.txt REMOVE_DUPLI
 python bs_seeker2-call_methylation.py -i filtered.bam --sorted -o sample_name \
 --db /home/tstuart/working_data/GitHub/BSseeker2/bs_utils/reference_genomes/tair10_lambda.fa_bowtie2/
 &lt;/code&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;step-6-build-database&quot;&gt;Step 6: Build database&lt;/h2&gt;
+
+&lt;p&gt;I like to have the methylation data in a SQL database indexed by position so that it can be easily and quickly be queried.&lt;/p&gt;
+
+&lt;p&gt;First create an empty MySQL database that will contain the data tables. In MySQL type:&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;
+create database DATABASE_NAME
+&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;Now run the build_tables.py script that will create and index a table from the BS-Seeker2 CGMap file&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;
+python build_tables.py --host HOST_ADDRESS -p PASSWORD -u USER -d DATABASE_NAME -f CG_MAP_FILE -n SAMPLE_NAME
+&lt;/code&gt;&lt;/p&gt;
+
+&lt;script src=&quot;https://gist.github.com/timoast/ff6cf2d7a87d262f7151ecb51071a1d7.js&quot;&gt;&lt;/script&gt;
 
 &lt;h3 id=&quot;program-versions&quot;&gt;Program versions:&lt;/h3&gt;
 
@@ -438,6 +456,8 @@ $(document).ready(function () {
    <updated>2016-02-23T00:00:00+08:00</updated>
    <id>/2016/02/23/Papers</id>
    <content type="html">&lt;p&gt;In an effort to read more papers this year, I’m going to read a paper (or something paper-like) each day for the remainder of the year, and post each paper below as I go.&lt;/p&gt;
+
+&lt;h3 id=&quot;apr-6&quot;&gt;Apr 6&lt;/h3&gt;
 
 &lt;h3 id=&quot;apr-5&quot;&gt;Apr 5&lt;/h3&gt;
 

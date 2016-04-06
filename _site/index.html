@@ -128,6 +128,24 @@ python bs_seeker2-call_methylation.py -i filtered.bam --sorted -o sample_name \
 --db /home/tstuart/working_data/GitHub/BSseeker2/bs_utils/reference_genomes/tair10_lambda.fa_bowtie2/
 </code></p>
 
+<h2 id="step-6-build-database">Step 6: Build database</h2>
+
+<p>I like to have the methylation data in a SQL database indexed by position so that it can be easily and quickly be queried.</p>
+
+<p>First create an empty MySQL database that will contain the data tables. In MySQL type:</p>
+
+<p><code>
+create database DATABASE_NAME
+</code></p>
+
+<p>Now run the build_tables.py script that will create and index a table from the BS-Seeker2 CGMap file</p>
+
+<p><code>
+python build_tables.py --host HOST_ADDRESS -p PASSWORD -u USER -d DATABASE_NAME -f CG_MAP_FILE -n SAMPLE_NAME
+</code></p>
+
+<script src="https://gist.github.com/timoast/ff6cf2d7a87d262f7151ecb51071a1d7.js"></script>
+
 <h3 id="program-versions">Program versions:</h3>
 
 <ul>
