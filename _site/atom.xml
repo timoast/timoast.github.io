@@ -4,7 +4,7 @@
  <title>Tim Stuart</title>
  <link href="/atom.xml" rel="self"/>
  <link href="/"/>
- <updated>2016-04-06T17:57:18+08:00</updated>
+ <updated>2016-04-06T18:11:22+08:00</updated>
  <id></id>
  <author>
    <name>Tim Stuart</name>
@@ -460,6 +460,8 @@ $(document).ready(function () {
 &lt;h3 id=&quot;apr-6&quot;&gt;Apr 6&lt;/h3&gt;
 
 &lt;p&gt;Simpson JT, Workman R, Zuzarte PC, David M, Dursi LJ, Timp W. 2016. Detecting DNA Methylation using the Oxford Nanopore Technologies MinION sequencer. Cold Spring Harbor Labs Journals. &lt;a href=&quot;http://biorxiv.org/content/biorxiv/early/2016/04/04/047142&quot;&gt;doi: 10.1101/047142&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;Rand AC, Jain M, Eizenga J, Musselman-Brown A, Olsen HE, Akeson M, Paten B. 2016. Cytosine Variant Calling with High-throughput Nanopore Sequencing. &lt;a href=&quot;http://biorxiv.org/content/biorxiv/early/2016/04/04/047134&quot;&gt;doi:10.1101/047134&lt;/a&gt;&lt;/p&gt;
 
 &lt;h3 id=&quot;apr-5&quot;&gt;Apr 5&lt;/h3&gt;
 
