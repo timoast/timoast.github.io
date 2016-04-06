@@ -4,7 +4,7 @@
  <title>Tim Stuart</title>
  <link href="/atom.xml" rel="self"/>
  <link href="/"/>
- <updated>2016-04-06T13:38:52+08:00</updated>
+ <updated>2016-04-06T17:57:18+08:00</updated>
  <id></id>
  <author>
    <name>Tim Stuart</name>
@@ -458,6 +458,8 @@ $(document).ready(function () {
    <content type="html">&lt;p&gt;In an effort to read more papers this year, I’m going to read a paper (or something paper-like) each day for the remainder of the year, and post each paper below as I go.&lt;/p&gt;
 
 &lt;h3 id=&quot;apr-6&quot;&gt;Apr 6&lt;/h3&gt;
+
+&lt;p&gt;Simpson JT, Workman R, Zuzarte PC, David M, Dursi LJ, Timp W. 2016. Detecting DNA Methylation using the Oxford Nanopore Technologies MinION sequencer. Cold Spring Harbor Labs Journals. &lt;a href=&quot;http://biorxiv.org/content/biorxiv/early/2016/04/04/047142&quot;&gt;doi: 10.1101/047142&lt;/a&gt;&lt;/p&gt;
 
 &lt;h3 id=&quot;apr-5&quot;&gt;Apr 5&lt;/h3&gt;
 
