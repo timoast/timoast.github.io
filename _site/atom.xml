@@ -4,7 +4,7 @@
  <title>Tim Stuart</title>
  <link href="/atom.xml" rel="self"/>
  <link href="/"/>
- <updated>2016-04-10T20:11:51+08:00</updated>
+ <updated>2016-04-11T18:11:15+08:00</updated>
  <id></id>
  <author>
    <name>Tim Stuart</name>
@@ -456,6 +456,10 @@ $(document).ready(function () {
    <updated>2016-02-23T00:00:00+08:00</updated>
    <id>/2016/02/23/Papers</id>
    <content type="html">&lt;p&gt;In an effort to read more papers this year, I’m going to read a paper (or something paper-like) each day for the remainder of the year, and post each paper below as I go.&lt;/p&gt;
+
+&lt;h3 id=&quot;apr-11&quot;&gt;Apr 11&lt;/h3&gt;
+
+&lt;p&gt;Muñoz-Lopez M, Garcia-Perez JL. 2010. DNA Transposons: Nature and Applications in Genomics. Curr Genomics 11: 115–128. &lt;a href=&quot;http://www.ncbi.nlm.nih.gov/pmc/articles/PMC2874221/&quot;&gt;doi: 10.2174/138920210790886871&lt;/a&gt;&lt;/p&gt;
 
 &lt;h3 id=&quot;apr-10&quot;&gt;Apr 10&lt;/h3&gt;
 
