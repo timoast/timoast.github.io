@@ -4,7 +4,7 @@
  <title>Tim Stuart</title>
  <link href="/atom.xml" rel="self"/>
  <link href="/"/>
- <updated>2016-04-11T18:11:15+08:00</updated>
+ <updated>2016-04-12T11:39:35+08:00</updated>
  <id></id>
  <author>
    <name>Tim Stuart</name>
@@ -456,6 +456,10 @@ $(document).ready(function () {
    <updated>2016-02-23T00:00:00+08:00</updated>
    <id>/2016/02/23/Papers</id>
    <content type="html">&lt;p&gt;In an effort to read more papers this year, I’m going to read a paper (or something paper-like) each day for the remainder of the year, and post each paper below as I go.&lt;/p&gt;
+
+&lt;h3 id=&quot;apr-12&quot;&gt;Apr 12&lt;/h3&gt;
+
+&lt;p&gt;Lee HC, Lai K, Lorenc MT, Imelfort M, Duran C, Edwards D. 2011. Bioinformatics tools and databases for analysis of next-generation sequence data. Briefings in Functional Genomics. &lt;a href=&quot;http://bfg.oxfordjournals.org/content/early/2011/12/18/bfgp.elr037.full&quot;&gt;doi:10.1093/bfgp/elr037&lt;/a&gt;&lt;/p&gt;
 
 &lt;h3 id=&quot;apr-11&quot;&gt;Apr 11&lt;/h3&gt;
 
