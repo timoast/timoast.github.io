@@ -4,7 +4,7 @@
  <title>Tim Stuart</title>
  <link href="/atom.xml" rel="self"/>
  <link href="/"/>
- <updated>2016-04-13T15:52:23+08:00</updated>
+ <updated>2016-04-14T17:36:39+08:00</updated>
  <id></id>
  <author>
    <name>Tim Stuart</name>
@@ -456,6 +456,10 @@ $(document).ready(function () {
    <updated>2016-02-23T00:00:00+08:00</updated>
    <id>/2016/02/23/Papers</id>
    <content type="html">&lt;p&gt;In an effort to read more papers this year, I’m going to read a paper (or something paper-like) each day for the remainder of the year, and post each paper below as I go.&lt;/p&gt;
+
+&lt;h3 id=&quot;apr-14&quot;&gt;Apr 14&lt;/h3&gt;
+
+&lt;p&gt;Linheiro RS, Bergman CM. 2012. Whole Genome Resequencing Reveals Natural Target Site Preferences of Transposable Elements in Drosophila melanogaster ed. J.E. Stajich. PLoS ONE 7: e30008. &lt;a href=&quot;http://journals.plos.org/plosone/article?id=10.1371/journal.pone.0030008&quot;&gt;doi: 10.1371/journal.pone.0030008&lt;/a&gt;&lt;/p&gt;
 
 &lt;h3 id=&quot;apr-13&quot;&gt;Apr 13&lt;/h3&gt;
 
