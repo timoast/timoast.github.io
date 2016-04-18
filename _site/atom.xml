@@ -4,7 +4,7 @@
  <title>Tim Stuart</title>
  <link href="/atom.xml" rel="self"/>
  <link href="/"/>
- <updated>2016-04-17T20:26:39+08:00</updated>
+ <updated>2016-04-18T18:42:16+08:00</updated>
  <id></id>
  <author>
    <name>Tim Stuart</name>
@@ -457,7 +457,13 @@ $(document).ready(function () {
    <id>/2016/02/23/Papers</id>
    <content type="html">&lt;p&gt;In an effort to read more papers this year, I’m going to read a paper (or something paper-like) each day for the remainder of the year, and post each paper below as I go.&lt;/p&gt;
 
+&lt;h3 id=&quot;apr-18&quot;&gt;Apr 18&lt;/h3&gt;
+
+&lt;p&gt;Diehl WE, Patel N, Halm K, Johnson WE. Tracking interspecies transmission and long-term evolution of an ancient retrovirus using the genomes of modern mammals. Goff SP, editor. eLife. 2016;5: e12704. &lt;a href=&quot;http://elifesciences.org/content/5/e12704v1&quot;&gt;doi:10.7554/eLife.12704&lt;/a&gt;&lt;/p&gt;
+
 &lt;h3 id=&quot;apr-17&quot;&gt;Apr 17&lt;/h3&gt;
+
+&lt;p&gt;Chen R, Shi L, Hakenberg J, Naughton B, Sklar P, Zhang J, et al. Analysis of 589,306 genomes identifies individuals resilient to severe Mendelian childhood diseases. Nature Biotechnology. &lt;a href=&quot;http://www.nature.com/nbt/journal/vaop/ncurrent/full/nbt.3514.html&quot;&gt;doi:10.1038/nbt.3514&lt;/a&gt;&lt;/p&gt;
 
 &lt;h3 id=&quot;apr-16&quot;&gt;Apr 16&lt;/h3&gt;
 
