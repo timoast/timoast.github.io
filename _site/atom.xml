@@ -4,7 +4,7 @@
  <title>Tim Stuart</title>
  <link href="/atom.xml" rel="self"/>
  <link href="/"/>
- <updated>2016-04-18T18:42:16+08:00</updated>
+ <updated>2016-04-19T17:45:39+08:00</updated>
  <id></id>
  <author>
    <name>Tim Stuart</name>
@@ -456,6 +456,10 @@ $(document).ready(function () {
    <updated>2016-02-23T00:00:00+08:00</updated>
    <id>/2016/02/23/Papers</id>
    <content type="html">&lt;p&gt;In an effort to read more papers this year, I’m going to read a paper (or something paper-like) each day for the remainder of the year, and post each paper below as I go.&lt;/p&gt;
+
+&lt;h3 id=&quot;apr-19&quot;&gt;Apr 19&lt;/h3&gt;
+
+&lt;p&gt;Zhang Z, Liu X, Guo X, Wang X-J, Zhang X. Arabidopsis AGO3 predominantly recruits 24-nt small RNAs to regulate epigenetic silencing. Nature Plants. &lt;a href=&quot;http://www.nature.com/articles/nplants201649&quot;&gt;doi:10.1038/nplants.2016.49&lt;/a&gt;&lt;/p&gt;
 
 &lt;h3 id=&quot;apr-18&quot;&gt;Apr 18&lt;/h3&gt;
 
