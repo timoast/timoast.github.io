@@ -4,7 +4,7 @@
  <title>Tim Stuart</title>
  <link href="/atom.xml" rel="self"/>
  <link href="/"/>
- <updated>2016-04-23T18:31:57+08:00</updated>
+ <updated>2016-04-24T18:46:59+08:00</updated>
  <id></id>
  <author>
    <name>Tim Stuart</name>
@@ -456,6 +456,10 @@ $(document).ready(function () {
    <updated>2016-02-23T00:00:00+08:00</updated>
    <id>/2016/02/23/Papers</id>
    <content type="html">&lt;p&gt;In an effort to read more papers this year, I’m going to read a paper (or something paper-like) each day for the remainder of the year, and post each paper below as I go.&lt;/p&gt;
+
+&lt;h3 id=&quot;apr-24&quot;&gt;Apr 24&lt;/h3&gt;
+
+&lt;p&gt;Sanjana NE, Wright J, Zheng K, Shalem O, Fontanillas P, Joung J, et al. High-resolution interrogation of functional elements in the noncoding genome. bioRxiv. 2016 Apr p. 049130. &lt;a href=&quot;http://dx.doi.org/10.1101/049130&quot;&gt;doi:10.1101/049130&lt;/a&gt;&lt;/p&gt;
 
 &lt;h3 id=&quot;apr-23&quot;&gt;Apr 23&lt;/h3&gt;
 
