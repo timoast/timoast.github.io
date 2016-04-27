@@ -4,7 +4,7 @@
  <title>Tim Stuart</title>
  <link href="/atom.xml" rel="self"/>
  <link href="/"/>
- <updated>2016-04-27T10:31:23+08:00</updated>
+ <updated>2016-04-27T12:16:26+08:00</updated>
  <id></id>
  <author>
    <name>Tim Stuart</name>
@@ -458,6 +458,8 @@ $(document).ready(function () {
    <content type="html">&lt;p&gt;In an effort to read more papers this year, I’m going to read a paper (or something paper-like) each day for the remainder of the year, and post each paper below as I go.&lt;/p&gt;
 
 &lt;h3 id=&quot;apr-27&quot;&gt;Apr 27&lt;/h3&gt;
+
+&lt;p&gt;Flutre T, Permal E, Quesneville H. Transposable element annotation in completely sequenced eukaryote genomes. Plant Transposable Elements. Springer; 2012. pp. 17–39. &lt;a href=&quot;http://link.springer.com/chapter/10.1007/978-3-642-31842-9_2&quot;&gt;ISBN: 978-3-642-31841-2&lt;/a&gt;&lt;/p&gt;
 
 &lt;h3 id=&quot;apr-26&quot;&gt;Apr 26&lt;/h3&gt;
 
