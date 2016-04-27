@@ -4,7 +4,7 @@
  <title>Tim Stuart</title>
  <link href="/atom.xml" rel="self"/>
  <link href="/"/>
- <updated>2016-04-26T12:14:17+08:00</updated>
+ <updated>2016-04-27T10:31:23+08:00</updated>
  <id></id>
  <author>
    <name>Tim Stuart</name>
@@ -456,6 +456,8 @@ $(document).ready(function () {
    <updated>2016-02-23T00:00:00+08:00</updated>
    <id>/2016/02/23/Papers</id>
    <content type="html">&lt;p&gt;In an effort to read more papers this year, I’m going to read a paper (or something paper-like) each day for the remainder of the year, and post each paper below as I go.&lt;/p&gt;
+
+&lt;h3 id=&quot;apr-27&quot;&gt;Apr 27&lt;/h3&gt;
 
 &lt;h3 id=&quot;apr-26&quot;&gt;Apr 26&lt;/h3&gt;
 
@@ -1236,6 +1238,18 @@ for directory in ./*; do
         cd ..
     fi
 done
+&lt;/code&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;split-fasta-file-into-a-new-file-for-each-entry&quot;&gt;Split fasta file into a new file for each entry&lt;/h2&gt;
+
+&lt;p&gt;&lt;code&gt;
+awk &#39;/&amp;gt;/{x=&quot;file_&quot;++i;}{print &amp;gt; x&quot;.txt&quot;;}&#39; input
+&lt;/code&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;split-coordinate-file-into-different-files-for-each-chromosome&quot;&gt;Split coordinate file into different files for each chromosome&lt;/h2&gt;
+
+&lt;p&gt;&lt;code&gt;
+awk  &#39;{print &amp;gt; $1&quot;.txt&quot;}&#39;&#39; input
 &lt;/code&gt;&lt;/p&gt;
 
 &lt;h2 id=&quot;take-command-line-arguments&quot;&gt;Take command-line arguments&lt;/h2&gt;

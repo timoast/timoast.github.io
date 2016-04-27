@@ -101,6 +101,18 @@ for directory in ./*; do
 done
 </code></p>
 
+<h2 id="split-fasta-file-into-a-new-file-for-each-entry">Split fasta file into a new file for each entry</h2>
+
+<p><code>
+awk '/&gt;/{x="file_"++i;}{print &gt; x".txt";}' input
+</code></p>
+
+<h2 id="split-coordinate-file-into-different-files-for-each-chromosome">Split coordinate file into different files for each chromosome</h2>
+
+<p><code>
+awk  '{print &gt; $1".txt"}'' input
+</code></p>
+
 <h2 id="take-command-line-arguments">Take command-line arguments</h2>
 
 <p>Required flags are followed by <code>:</code></p>

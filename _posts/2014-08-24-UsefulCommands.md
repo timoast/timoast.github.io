@@ -27,6 +27,18 @@ for directory in ./*; do
 done
 ```
 
+## Split fasta file into a new file for each entry
+
+```
+awk '/>/{x="file_"++i;}{print > x".txt";}' input
+```
+
+## Split coordinate file into different files for each chromosome
+
+```
+awk  '{print > $1".txt"}'' input
+```
+
 ## Take command-line arguments
 
 Required flags are followed by `:`
