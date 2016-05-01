@@ -4,7 +4,7 @@
  <title>Tim Stuart</title>
  <link href="/atom.xml" rel="self"/>
  <link href="/"/>
- <updated>2016-04-30T17:08:04+08:00</updated>
+ <updated>2016-05-01T17:48:01+08:00</updated>
  <id></id>
  <author>
    <name>Tim Stuart</name>
@@ -456,6 +456,14 @@ $(document).ready(function () {
    <updated>2016-02-23T00:00:00+08:00</updated>
    <id>/2016/02/23/Papers</id>
    <content type="html">&lt;p&gt;In an effort to read more papers this year, I’m going to read a paper (or something paper-like) each day for the remainder of the year, and post each paper below as I go.&lt;/p&gt;
+
+&lt;h3 id=&quot;may-1&quot;&gt;May 1&lt;/h3&gt;
+
+&lt;p&gt;Maumus, F. &amp;amp; Quesneville, H. Ancestral repeats have shaped epigenome and genome composition for millions of years in Arabidopsis thaliana. Nature Communications 5, (2014). &lt;a href=&quot;http://dx.doi.org/10.1038/ncomms5104&quot;&gt;doi:10.1038/ncomms5104&lt;/a&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;apr-30&quot;&gt;Apr 30&lt;/h3&gt;
+
+&lt;p&gt;Altman, N. &amp;amp; Krzywinski, M. Points of Significance: Regression diagnostics. Nat Meth 13, 385–386. &lt;a href=&quot;http://dx.doi.org/10.1038/nmeth.3854&quot;&gt;doi:10.1038/nmeth.3854&lt;/a&gt;&lt;/p&gt;
 
 &lt;h3 id=&quot;apr-29&quot;&gt;Apr 29&lt;/h3&gt;
 
