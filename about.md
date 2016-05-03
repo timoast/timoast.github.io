@@ -8,3 +8,5 @@ I’m Tim Stuart, a PhD student studying in the [Lister lab](http://listerlab.or
 My PhD focuses on the epigenetic regulation of transposable elements in plant genomes.
 
 Twitter: [@timoast](https://twitter.com/timoast)
+
+[Google Scholar](https://scholar.google.com.au/citations?user=ZlHdCnoAAAAJ&hl=en)
