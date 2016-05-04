@@ -4,7 +4,7 @@
  <title>Tim Stuart</title>
  <link href="/atom.xml" rel="self"/>
  <link href="/"/>
- <updated>2016-05-03T15:33:20+08:00</updated>
+ <updated>2016-05-04T15:36:22+08:00</updated>
  <id></id>
  <author>
    <name>Tim Stuart</name>
@@ -458,6 +458,8 @@ $(document).ready(function () {
    <content type="html">&lt;p&gt;In an effort to read more papers this year, I’m going to read a paper (or something paper-like) each day for the remainder of the year, and post each paper below as I go.&lt;/p&gt;
 
 &lt;h3 id=&quot;may-4&quot;&gt;May 4&lt;/h3&gt;
+
+&lt;p&gt;Teng M, Love MI, Davis CA, Djebali S, Dobin A, Graveley BR, et al. A benchmark for RNA-seq quantification pipelines. Genome Biology. 2016;17: 636–12. &lt;a href=&quot;http://dx.doi.org/10.1186/s13059-016-0940-1&quot;&gt;doi:10.1186/s13059-016-0940-1&lt;/a&gt;&lt;/p&gt;
 
 &lt;h3 id=&quot;may-3&quot;&gt;May 3&lt;/h3&gt;
 
