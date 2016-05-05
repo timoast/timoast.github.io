@@ -4,7 +4,7 @@
  <title>Tim Stuart</title>
  <link href="/atom.xml" rel="self"/>
  <link href="/"/>
- <updated>2016-05-04T15:36:22+08:00</updated>
+ <updated>2016-05-05T17:49:31+08:00</updated>
  <id></id>
  <author>
    <name>Tim Stuart</name>
@@ -456,6 +456,10 @@ $(document).ready(function () {
    <updated>2016-02-23T00:00:00+08:00</updated>
    <id>/2016/02/23/Papers</id>
    <content type="html">&lt;p&gt;In an effort to read more papers this year, I’m going to read a paper (or something paper-like) each day for the remainder of the year, and post each paper below as I go.&lt;/p&gt;
+
+&lt;h3 id=&quot;may-5&quot;&gt;May 5&lt;/h3&gt;
+
+&lt;p&gt;Pelsy F, Dumas V, Bévilacqua L, Hocquigny S, Merdinoglu D. Chromosome Replacement and Deletion Lead to Clonal Polymorphism of Berry Color in Grapevine. PLoS Genetics. 2015;11: e1005081. &lt;a href=&quot;http://dx.doi.org/10.1371/journal.pgen.1005081&quot;&gt;doi:10.1371/journal.pgen.1005081&lt;/a&gt;&lt;/p&gt;
 
 &lt;h3 id=&quot;may-4&quot;&gt;May 4&lt;/h3&gt;
 
