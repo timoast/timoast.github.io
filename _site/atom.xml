@@ -4,7 +4,7 @@
  <title>Tim Stuart</title>
  <link href="/atom.xml" rel="self"/>
  <link href="/"/>
- <updated>2016-05-06T16:55:08+08:00</updated>
+ <updated>2016-05-07T18:32:16+08:00</updated>
  <id></id>
  <author>
    <name>Tim Stuart</name>
@@ -456,6 +456,10 @@ $(document).ready(function () {
    <updated>2016-02-23T00:00:00+08:00</updated>
    <id>/2016/02/23/Papers</id>
    <content type="html">&lt;p&gt;In an effort to read more papers this year, I’m going to read a paper (or something paper-like) each day for the remainder of the year, and post each paper below as I go.&lt;/p&gt;
+
+&lt;h3 id=&quot;may-7&quot;&gt;May 7&lt;/h3&gt;
+
+&lt;p&gt;Hunt KA, Mistry V, Bockett NA, Ahmad T, Ban M, Barker JN, et al. Negligible impact of rare autoimmune-locus coding-region variants on missing heritability. Nature; 498: 232–235. &lt;a href=&quot;http://dx.doi.org/10.1038/nature12170&quot;&gt;doi:10.1038/nature12170&lt;/a&gt;&lt;/p&gt;
 
 &lt;h3 id=&quot;may-6&quot;&gt;May 6&lt;/h3&gt;
 
