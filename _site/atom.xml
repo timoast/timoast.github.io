@@ -4,7 +4,7 @@
  <title>Tim Stuart</title>
  <link href="/atom.xml" rel="self"/>
  <link href="/"/>
- <updated>2016-05-19T17:58:39+08:00</updated>
+ <updated>2016-05-19T18:02:34+08:00</updated>
  <id></id>
  <author>
    <name>Tim Stuart</name>
@@ -457,6 +457,8 @@ $(document).ready(function () {
    <id>/2016/02/23/Papers</id>
    <content type="html">&lt;p&gt;In an effort to read more papers this year, I’m going to read a paper (or something paper-like) each day for the remainder of the year, and post each paper below as I go.&lt;/p&gt;
 
+&lt;h3 id=&quot;may-20&quot;&gt;May 20&lt;/h3&gt;
+
 &lt;h3 id=&quot;may-19&quot;&gt;May 19&lt;/h3&gt;
 
 &lt;p&gt;Moreno-Romero J, Jiang H, Santos-González J, Köhler C. Parental epigenetic asymmetry of PRC2-mediated histone modifications in the Arabidopsis endosperm. EMBO. 2016;: 1–14. &lt;a href=&quot;http://dx.doi.org/10.15252/embj.201593534&quot;&gt;doi:10.15252/embj.201593534&lt;/a&gt;&lt;/p&gt;
@@ -789,7 +791,7 @@ $(document).ready(function () {
 
 &lt;h3 id=&quot;feb-27&quot;&gt;Feb 27&lt;/h3&gt;
 
-&lt;p&gt;Slaughter A, Daniel X, Flors V, Luna E, Hohn B, Mauch-Mani B. 2012. Descendants of Primed Arabidopsis Plants Exhibit Resistance to Biotic Stress. Plant Physiology 158: 835–843. &lt;a href=&quot;http:/​/​dx.​doi.​org/​10.​1104/​pp.​111.​191593&quot;&gt;http:/​/​dx.​doi.​org/​10.​1104/​pp.​111.​191593&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Slaughter A, Daniel X, Flors V, Luna E, Hohn B, Mauch-Mani B. 2012. Descendants of Primed Arabidopsis Plants Exhibit Resistance to Biotic Stress. Plant Physiology 158: 835–843. &lt;a href=&quot;http:/​/​dx.​doi.​org/​10.​1104/​pp.​111.​191593&quot;&gt;doi:​10.​1104/​pp.​111.​191593&lt;/a&gt;&lt;/p&gt;
 
 &lt;h3 id=&quot;feb-26&quot;&gt;Feb 26&lt;/h3&gt;
 
