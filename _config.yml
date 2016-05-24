@@ -25,3 +25,6 @@ pages_list:
   Code: '/code'
   Publications: '/publications'
   Feed: '/atom.xml'
+
+gems:
+- jekyll-sitemap

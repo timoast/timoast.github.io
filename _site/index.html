@@ -69,95 +69,142 @@
   
   <div class="post">
     <h1 class="post-title">
-      <a href="/2016/03/29/bsseeker2/">
-        WGBS Analysis notes -- BS-seeker2
+      <a href="/2016/05/24/smRNA/">
+        TE annotation using smRNAs
       </a>
     </h1>
 
-    <span class="post-date">29 Mar 2016</span>
+    <span class="post-date">24 May 2016</span>
 
-    <h2 id="whole-genome-bisulfite-sequencing-analysis-notes-for-bs-seeker2">Whole genome bisulfite sequencing analysis notes for BS-seeker2.</h2>
+    <p>I want to annotate TEs in the Landsberg <em>erecta de novo</em> assembly genome (made with PacBio data). This is to address some reviewer comments for a paper I’m currently <a href="http://biorxiv.org/content/early/2016/02/21/039511">working on</a>.</p>
 
-<h2 id="step-1-trim-adapters-and-low-quality-bases">Step 1: Trim adapters and low quality bases</h2>
-<p>Illumina TruSeq adapter sequence: <code>GATCGGAAGAGCACACGTCTGAACTCCAGTCAC</code></p>
+<p>There are several possible ways to do this, and one is using smRNA reads that mark TE positions in the genome. This approach was described in a recent paper, which also include code to perform the TE annotation given smRNA data (1).</p>
 
-<p><code>
-cutadapt -a AGATCGGAAGAGCACACGTCTGAACTCCAGTCAC -m 50 reads.fastq \
-| seqtk trimfq -l 50 - \
-| pigz &gt; filtered_reads.fq.gz
-</code></p>
+<p>According to the paper, this works best using smRNA libraries pooled from lots of different tissues, as some TEs accumulate smRNAs only in certain tissues (eg. the vegetative cell nucleus of the pollen, endosperm, or columella cells).</p>
 
-<h2 id="step-2-quality-control">Step 2: Quality control</h2>
+<p>I looked for as much L<em>er</em> smRNA data I could, and found a few different experiments that provide suitable data. These are 2 week old whole seedlings (2), 15 day old whole seedlings (3), and whole seed smRNAs 6 days after pollination (4). For experiments with multiple replicates, I will just use one replicate as the diversity in the library rather than smRNA abundance is important (1).</p>
 
-<p>This step can also be performed on the unfiltered fastq file to compare output before and after read trimming.</p>
+<p>To download data:</p>
 
-<p><code>
-fastqc filtered_reads.fq.gz
-</code></p>
+<p>```
+wget ftp://ftp-trace.ncbi.nlm.nih.gov/sra/sra-instant/reads/ByExp/sra/SRX%2FSRX029%2FSRX029679/SRR070690/SRR070690.sra # Groszmann, ref 2
+wget ftp://ftp-trace.ncbi.nlm.nih.gov/sra/sra-instant/reads/ByExp/sra/SRX%2FSRX112%2FSRX112870/SRR392134/SRR392134.sra # Shen, ref 3
+wget ftp://ftp-trace.ncbi.nlm.nih.gov/sra/sra-instant/reads/ByExp/sra/SRX%2FSRX384%2FSRX384740/SRR1039937/SRR1039937.sra # Pignatta, ref 4</p>
 
-<h2 id="step-3-alignment">Step 3: Alignment</h2>
+<p>fastq-dump *.sra
+rm *.sra
+pigz *.fastq
+```</p>
 
-<h3 id="build-genome-index">3.1: Build genome index</h3>
+<p>The seed data from (4) is much bigger than the others, perhaps because it is the newest.</p>
 
-<p>I added the lambda genome as an extra chromosome, L, to calculate the bisulfite nonconversion rate.</p>
+<h2 id="qc-and-adapter-trimming">QC and adapter trimming</h2>
 
-<p><code>
-python bs_seeker2-build.py -f tair10_lambda.fa --aligner=bowtie2
-</code></p>
+<p>Much of what I’m doing in this step comes from this guide:</p>
 
-<h3 id="align">3.2: Align</h3>
+<p>http://www.ark-genomics.org/events-online-training-eu-training-course/adapter-and-quality-trimming-illumina-data</p>
 
-<p><code>
-python bs_seeker2-align.py -g tair10_lambda.fa --aligner=bowtie2 \
--u unmapped.fa -o mapped.bam --bt2-p 4 -i filtered_reads.fq.gz
-</code></p>
-
-<h2 id="step-4-post-processing-of-alignment-files">Step 4: Post-processing of alignment files</h2>
-
-<p>Sort and remove PCR duplicates</p>
+<p>Run fastqc to check the adapter sequence</p>
 
 <p><code>
-samtools sort -@ 10 mapped.bam sorted
-picard MarkDuplicates I=sorted.bam O=filtered.bam M=dup_metrics.txt REMOVE_DUPLICATES=true AS=true
+fastqc *.fastq.gz
 </code></p>
 
-<h2 id="step-5-call-methylation">Step 5: Call methylation</h2>
+<p>Looking at the overrepresented sequences section of the report, we can find the adapter sequence:</p>
+
+<p>For the Groszmann data:</p>
 
 <p><code>
-python bs_seeker2-call_methylation.py -i filtered.bam --sorted -o sample_name \
---db /home/tstuart/working_data/GitHub/BSseeker2/bs_utils/reference_genomes/tair10_lambda.fa_bowtie2/
-</code></p>
-
-<h2 id="step-6-build-database">Step 6: Build database</h2>
-
-<p>I like to have the methylation data in a SQL database indexed by position so that it can be easily and quickly be queried.</p>
-
-<p>First create an empty MySQL database that will contain the data tables. In MySQL type:</p>
+TCGTATGCCGTCTTCTGCTTGAAAAAAAAAAAAAAA    13924   0.2724698598318295  Illumina Single End Adapter 1 (100% over 21bp)
+</code>
+The poly A sequence at the end is not part of the adapter (as far as I know), but it shouldn’t be in our read either. We can take a look at some reads with adapters:</p>
 
 <p><code>
-create database DATABASE_NAME
+zcat SRR070690.fastq.gz | head -n 40000 | grep --color=always TCGTATGCCGTCTTCTGCTTG
 </code></p>
 
-<p>Now run the build_tables.py script that will create and index a table from the BS-Seeker2 CGMap file</p>
+<p><img src="/Users/timstuart/Documents/GitHub/timoast.github.io/assets/smRNA_terminal.png" alt="grep_output" /></p>
+
+<p>This shows that many of the reads are adapter dimers, which is expected in a smRNA library.</p>
+
+<p>The full sequence of this adapter can be found here:</p>
+
+<p>https://github.com/csf-ngs/fastqc/blob/master/Contaminants/contaminant_list.txt</p>
+
+<p>Or in the FastQC folder under FastQC/Configuration/contaminant_list.txt.</p>
+
+<p>Running cutadapt will trim the adapter sequences.</p>
 
 <p><code>
-python build_tables.py --host HOST_ADDRESS -p PASSWORD -u USER -d DATABASE_NAME -f CG_MAP_FILE -n SAMPLE_NAME
+cutadapt -a TCGTATGCCGTCTTCTGCTTG -i SRR070690.fastq.gz -o SRR070690.trim.fq.gz
 </code></p>
 
-<script src="https://gist.github.com/timoast/ff6cf2d7a87d262f7151ecb51071a1d7.js"></script>
+<p>Running sickle will trim low quality bases. The default minimum length read kept by sickle is 20 bp. I’m using the <code>-l</code> flag to set this to 10, as smRNA data will naturally have shorter reads in it, although I’m not sure how useful it really is to keep anything less than 20.</p>
 
-<h3 id="program-versions">Program versions:</h3>
+<p><code>
+sickle se -f SRR070690.trim.fq.gz -t sanger -o SRR070690_qc.fq.gz -l 10 -g
+</code></p>
 
-<ul>
-  <li>python 2.7.10</li>
-  <li>cutadapt 1.9.1</li>
-  <li>seqtk 1.0-r82-dirty</li>
-  <li>fastqc 0.11.5</li>
-  <li>BS-seeker2 v2.0.10</li>
-  <li>samtools 1.2</li>
-  <li>hstlib 1.2.1</li>
-  <li>picard 2.1.1</li>
-</ul>
+<p>If we then look at the fastqc output for the trimmed reads, we can see peaks in read lengths at 21 and 24 nt, corresponding to the most abundant smRNA size classes in plants.</p>
+
+<p><img src="/Users/timstuart/Documents/GitHub/timoast.github.io/assets/fastqc.png" alt="fastqc_output" /></p>
+
+<h2 id="run-tasr">Run TASR</h2>
+
+<p>TASR is the analysis pipeline for smRNA-based annotation of TEs, descibed in (1). It can be downloaded from https://sourceforge.net/projects/tasr-pipeline/</p>
+
+<p>The TASR pipeline wants smRNA data in fasta rather than fastq format. To convert, we do:</p>
+
+<p><code>
+seqtk seq -A SRR070690_qc.fq.gz &gt; SRR070690_qc.fa
+</code></p>
+
+<p>First make sure the dependencies are installed. I had to install <a href="http://www.drive5.com/usearch/">usearch</a>, <a href="https://tandem.bu.edu/trf/trf.download.html">trf</a> (the legacy version for glibc &lt;= 2.12), and <a href="ftp://pbil.univ-lyon1.fr/pub/logiciel/silix/">silix</a>. All were fairly simple, only silix requires compilation.</p>
+
+<p>I also had to change line 237 from</p>
+
+<p><code>
+SAMTOBED("tmp$time/24.sirna.sam");
+system(
+    "sort --parallel$CPU -k1,1 -k2,2n tmp$time/24.sirna.sam.bed &gt;tmp$time/24.sirna.sam.sorted.bed"
+);
+</code></p>
+
+<p>To</p>
+
+<p><code>
+SAMTOBED("tmp$time/24.sirna.sam");
+system(
+    "sort -k1,1 -k2,2n tmp$time/24.sirna.sam.bed &gt;tmp$time/24.sirna.sam.sorted.bed"
+);
+</code></p>
+
+<p>As I have an old version of sort without the parallel option. Now run:</p>
+
+<p><code>
+TASR.v.1.1.pl -ref ler_pacbio.fa -sfile SRR070690_qc.fa -usearchv /home/tstuart/working_data/Tools/usearch -cpu 10
+</code></p>
+
+<p>I’m just using the default values for all parameters to start with.</p>
+
+<p>This gives the following output:</p>
+
+<h2 id="references">References</h2>
+
+<ol>
+  <li>
+    <p>Baidouri El M, Kim KD, Abernathy B, Arikit S, Maumus F, Panaud O, et al. A new approach for annotation of transposable elements using small RNA mapping. Nucleic Acids Research. 2015;43: e84–e84.</p>
+  </li>
+  <li>
+    <p>Groszmann M, Greaves IK, Albertyn ZI, Scofield GN, Peacock WJ, Dennis ES. Changes in 24-nt siRNA levels in Arabidopsis hybrids suggest an epigenetic contribution to hybrid vigor. Proceedings of the National Academy of Sciences. National Acad Sciences; 2011;108: 2617–2622. doi:10.1073/pnas.1019217108</p>
+  </li>
+  <li>
+    <p>Shen H, He H, Li J, Chen W, Wang X, Guo L, et al. Genome-Wide Analysis of DNA Methylation and Gene Expression Changes in Two Arabidopsis Ecotypes and Their Reciprocal Hybrids. The Plant Cell. American Society of Plant Biologists; 2012;24: 875–892. doi:10.1105/tpc.111.094870</p>
+  </li>
+  <li>
+    <p>Pignatta D, Erdmann RM, Scheer E, Picard CL, Bell GW, Gehring M. Natural epigenetic polymorphisms lead to intraspecific variation in Arabidopsis gene imprinting. eLife. 2014;3: e03198. doi:10.7554/eLife.03198</p>
+  </li>
+</ol>
 
   </div>
   

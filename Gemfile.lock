@@ -140,6 +140,7 @@ PLATFORMS
 DEPENDENCIES
   github-pages
   hpricot
+  jekyll-sitemap
 
 BUNDLED WITH
    1.11.2
