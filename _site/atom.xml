@@ -4,7 +4,7 @@
  <title>Tim Stuart</title>
  <link href="/atom.xml" rel="self"/>
  <link href="/"/>
- <updated>2016-05-24T18:57:29+08:00</updated>
+ <updated>2016-05-25T17:27:44+08:00</updated>
  <id></id>
  <author>
    <name>Tim Stuart</name>
@@ -19,7 +19,7 @@
    <id>/2016/05/24/smRNA</id>
    <content type="html">&lt;p&gt;I want to annotate TEs in the Landsberg &lt;em&gt;erecta de novo&lt;/em&gt; assembly genome (made with PacBio data). This is to address some reviewer comments for a paper I’m currently &lt;a href=&quot;http://biorxiv.org/content/early/2016/02/21/039511&quot;&gt;working on&lt;/a&gt;.&lt;/p&gt;
 
-&lt;p&gt;There are several possible ways to do this, and one is using smRNA reads that mark TE positions in the genome. This approach was described in a recent paper, which also include code to perform the TE annotation given smRNA data (1).&lt;/p&gt;
+&lt;p&gt;There are several possible ways to do this, and one is using smRNA reads that mark TE positions in the genome. This approach was described in a recent paper, which also includes code to perform the TE annotation given smRNA data (1).&lt;/p&gt;
 
 &lt;p&gt;According to the paper, this works best using smRNA libraries pooled from lots of different tissues, as some TEs accumulate smRNAs only in certain tissues (eg. the vegetative cell nucleus of the pollen, endosperm, or columella cells).&lt;/p&gt;
 
@@ -60,30 +60,69 @@ TCGTATGCCGTCTTCTGCTTGAAAAAAAAAAAAAAA    13924   0.2724698598318295  Illumina Sin
 &lt;/code&gt;
 The poly A sequence at the end is not part of the adapter (as far as I know), but it shouldn’t be in our read either. We can take a look at some reads with adapters:&lt;/p&gt;
 
+&lt;p&gt;The Pignatta data has lots of different sequences identified:&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;
+GTTCTACAGTCCGACGATCTCGTATGCCGTCTTCTGCTTGAAAAAAAAAA  3163237 7.821875679772812   Illumina PCR Primer Index 1 (96% over 28bp)
+TTCTACAGTCCGACGATCTCGTATGCCGTCTTCTGCTTGAAAAAAAAAAA  2062049 5.0989195319856995  RNA PCR Primer, Index 47 (96% over 29bp)
+AGTTCTACAGTCCGACGATCTCGTATGCCGTCTTCTGCTTGAAAAAAAAA  2028870 5.016876354955594   Illumina PCR Primer Index 1 (96% over 28bp)
+...
+&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;Really these are all the same thing, and they all look a bit like all of the illumina RNA-seq PCR primers &lt;code&gt;CAAGCAGAAGACGGCATACGAGAT[6baseIndex]GTGACTGGAGTTCCTTGGCACCCGAGAATTCCA&lt;/code&gt;.
+In the paper, they say they trimmed using “TCGTATGCCGTCTTCTGCTTG”.&lt;/p&gt;
+
+&lt;p&gt;TGGAATTCTCGGGTGCCAAGGAACTCCAGTCAC
+ATCTCGTATGCCGTCTTCTGCTTG&lt;/p&gt;
+
+&lt;p&gt;Mostly            TCAGAGTTCTACAGTCCGACGATCTCGTATGCCGTCTTCTGCTTG (primer index 1?)
+                       GTTCTACANTCCGACGATCTCGTATGCCGTCTTCTGCTTGTAAAAAAATN
+TGGAATTCTCGGGTGCCAAGGAACTCCAGTCACATCACGATCTCGTATGCCGTCTTCTGCTTG&lt;/p&gt;
+
+&lt;p&gt;This may be because the reads are longer (50 bp). Mostly it’s Illumina PCR Primer Index 1, RNA PCR Primer Index 47, Illumina Single End Adapter 1, RNA PCR Primer Index 30, and Illumina Single End Adapter 2.&lt;/p&gt;
+
+&lt;p&gt;FastQC doesn’t find any adapters for the Shen data, and the most “overrepresented” sequences are relatively lowly abundant (0.87% compared to 7.82% for the Pignatta data). Not sure what’s going on there. I tried BLASTing the most abundant sequences, but nothing turned up. Details of the adapter sequence is not in the paper, and without the adapters I can’t properly process the data, so I will exclude this dataset from the analysis and proceed only with data from Groszmann (3) and Pignatta (4).&lt;/p&gt;
+
+&lt;p&gt;We can also look for the adapter sequences in some of the data:&lt;/p&gt;
+
 &lt;p&gt;&lt;code&gt;
 zcat SRR070690.fastq.gz | head -n 40000 | grep --color=always TCGTATGCCGTCTTCTGCTTG
 &lt;/code&gt;&lt;/p&gt;
 
 &lt;p&gt;&lt;img src=&quot;/Users/timstuart/Documents/GitHub/timoast.github.io/assets/smRNA_terminal.png&quot; alt=&quot;grep_output&quot; /&gt;&lt;/p&gt;
 
-&lt;p&gt;This shows that many of the reads are adapter dimers, which is expected in a smRNA library.&lt;/p&gt;
+&lt;p&gt;This shows that many of the reads are adapter dimers, which is expected in a smRNA library. Doing a similar thing with the Pignatta data shows a similar result.&lt;/p&gt;
 
-&lt;p&gt;The full sequence of this adapter can be found here:&lt;/p&gt;
-
-&lt;p&gt;https://github.com/csf-ngs/fastqc/blob/master/Contaminants/contaminant_list.txt&lt;/p&gt;
-
-&lt;p&gt;Or in the FastQC folder under FastQC/Configuration/contaminant_list.txt.&lt;/p&gt;
+&lt;p&gt;The full sequence of this adapter can be found in the FastQC folder under FastQC/Configuration/contaminant_list.txt.&lt;/p&gt;
 
 &lt;p&gt;Running cutadapt will trim the adapter sequences.&lt;/p&gt;
 
-&lt;p&gt;&lt;code&gt;
-cutadapt -a TCGTATGCCGTCTTCTGCTTG -i SRR070690.fastq.gz -o SRR070690.trim.fq.gz
-&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;```
+# Groszmann data
+cutadapt -a TCGTATGCCGTCTTCTGCTTG -o SRR070690.trim.fq.gz SRR070690.fastq.gz&lt;/p&gt;
+
+&lt;h1 id=&quot;pignatta-data&quot;&gt;Pignatta data&lt;/h1&gt;
+&lt;p&gt;cutadapt -a TCGTATGCCGTCTTCTGCTTG -o SRR1039937.trim.fq.gz SRR1039937.fastq.gz&lt;/p&gt;
+
+&lt;p&gt;cutadapt -a GTTCTACAGTCCGACGATCTCGTATGCCGTCTTCTGCTTG \
+         -a TTCTACAGTCCGACGATCTCGTATGCCGTCTTCTGCTTG \
+         -a GTTCTACAGTCCGACGGATCTCGTATGCCGTCTTCTGCTTG \
+         -a AGTTCTACAGTCCGACGGATCTCGTATGCCGTCTTCTGCTTG \
+         -a ATTAACGCGGCCGCTCTACAATAGTGATCGTATGCCGTCTTCTGCTTG \
+         -a GTGTAGGGATCCAAATCGTATGCCGTCTTCTGCTTG \
+         -a CAGTCCGACGATCTCGTATGCCGTCTTCTGCTTG\
+         -a ACAGTCCGACGATCTCGTATGCCGTCTTCTGCTTG \
+         -a GCCGCTCTACAATAGTGATCGTATGCCGTCTTCTGCTTG \
+         -a TCGTATGCCGTCTTCTGCTTG \
+         -m 10 \
+         -o SRR1039937.trim.fq.gz SRR1039937.fastq.gz 
+```&lt;/p&gt;
 
 &lt;p&gt;Running sickle will trim low quality bases. The default minimum length read kept by sickle is 20 bp. I’m using the &lt;code&gt;-l&lt;/code&gt; flag to set this to 10, as smRNA data will naturally have shorter reads in it, although I’m not sure how useful it really is to keep anything less than 20.&lt;/p&gt;
 
 &lt;p&gt;&lt;code&gt;
 sickle se -f SRR070690.trim.fq.gz -t sanger -o SRR070690_qc.fq.gz -l 10 -g
+sickle se -f SRR1039937.trim.fq.gz -t sanger -o SRR1039937_qc.fq.gz -l 10 -g
 &lt;/code&gt;&lt;/p&gt;
 
 &lt;p&gt;If we then look at the fastqc output for the trimmed reads, we can see peaks in read lengths at 21 and 24 nt, corresponding to the most abundant smRNA size classes in plants.&lt;/p&gt;
@@ -98,6 +137,8 @@ sickle se -f SRR070690.trim.fq.gz -t sanger -o SRR070690_qc.fq.gz -l 10 -g
 
 &lt;p&gt;&lt;code&gt;
 seqtk seq -A SRR070690_qc.fq.gz &amp;gt; SRR070690_qc.fa
+seqtk seq -A SRR1039937_qc.fq.gz &amp;gt; SRR1039937_qc.fa
+cat SRR1039937_qc.fa SRR070690_qc.fa &amp;gt; reads.fq
 &lt;/code&gt;&lt;/p&gt;
 
 &lt;p&gt;First make sure the dependencies are installed. I had to install &lt;a href=&quot;http://www.drive5.com/usearch/&quot;&gt;usearch&lt;/a&gt;, &lt;a href=&quot;https://tandem.bu.edu/trf/trf.download.html&quot;&gt;trf&lt;/a&gt; (the legacy version for glibc &amp;lt;= 2.12), and &lt;a href=&quot;ftp://pbil.univ-lyon1.fr/pub/logiciel/silix/&quot;&gt;silix&lt;/a&gt;. All were fairly simple, only silix requires compilation.&lt;/p&gt;
@@ -123,7 +164,7 @@ system(
 &lt;p&gt;As I have an old version of sort without the parallel option. Now run:&lt;/p&gt;
 
 &lt;p&gt;&lt;code&gt;
-TASR.v.1.1.pl -ref ler_pacbio.fa -sfile SRR070690_qc.fa -usearchv /home/tstuart/working_data/Tools/usearch -cpu 10
+TASR.v.1.1.pl -ref ler_pacbio.fa -sfile reads.fa -usearchv /home/tstuart/working_data/Tools/usearch -cpu 10
 &lt;/code&gt;&lt;/p&gt;
 
 &lt;p&gt;I’m just using the default values for all parameters to start with.&lt;/p&gt;
@@ -594,9 +635,13 @@ $(document).ready(function () {
    <id>/2016/02/23/Papers</id>
    <content type="html">&lt;p&gt;In an effort to read more papers this year, I’m going to read a paper (or something paper-like) each day for the remainder of the year, and post each paper below as I go.&lt;/p&gt;
 
+&lt;h3 id=&quot;may-25&quot;&gt;May 25&lt;/h3&gt;
+
+&lt;p&gt;Greb T, Mylne JS, Crevillén P, Geraldo N, An H, Gendall AR, et al. The PHD finger protein VRN5 functions in the epigenetic silencing of Arabidopsis FLC. Current Biology. 2007;17: 73–78. &lt;a href=&quot;http://dx.doi.org/10.1016/j.cub.2006.11.052&quot;&gt;doi:10.1016/j.cub.2006.11.052&lt;/a&gt;&lt;/p&gt;
+
 &lt;h3 id=&quot;may-24&quot;&gt;May 24&lt;/h3&gt;
 
-&lt;p&gt;Wang J, Yu Y, Tao F, Zhang J, Copetti D, Kudrna D, et al. DNA methylation changes facilitated evolution of genes derived from Mutator-like transposable elements. Genome Biology. Genome Biology; 2016;: 1–20. &lt;a href=&quot;http://dx.doi.org/10.1186/s13059-016-0954-8&quot;&gt;doi:10.1186/s13059-016-0954-8&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Wang J, Yu Y, Tao F, Zhang J, Copetti D, Kudrna D, et al. DNA methylation changes facilitated evolution of genes derived from Mutator-like transposable elements. Genome Biology. 2016;: 1–20. &lt;a href=&quot;http://dx.doi.org/10.1186/s13059-016-0954-8&quot;&gt;doi:10.1186/s13059-016-0954-8&lt;/a&gt;&lt;/p&gt;
 
 &lt;h3 id=&quot;may-23&quot;&gt;May 23&lt;/h3&gt;
 
