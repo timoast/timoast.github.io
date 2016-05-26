@@ -80,31 +80,26 @@
 
 <p>There are several possible ways to do this, and one is using smRNA reads that mark TE positions in the genome. This approach was described in a recent paper, which also includes code to perform the TE annotation given smRNA data (1).</p>
 
-<p>According to the paper, this works best using smRNA libraries pooled from lots of different tissues, as some TEs accumulate smRNAs only in certain tissues (eg. the vegetative cell nucleus of the pollen, endosperm, or columella cells).</p>
+<p>According to the paper, this works best using smRNA libraries pooled from lots of different tissues, as the diversity in the library is most important, and some TEs accumulate smRNAs only in certain tissues (eg. the vegetative cell nucleus of the pollen, endosperm, or columella cells).</p>
 
-<p>I looked for as much L<em>er</em> smRNA data I could, and found a few different experiments that provide suitable data. These are 2 week old whole seedlings (2), 15 day old whole seedlings (3), and whole seed smRNAs 6 days after pollination (4). For experiments with multiple replicates, I will just use one replicate as the diversity in the library rather than smRNA abundance is important (1).</p>
+<p>Looking for as L<em>er</em> smRNA data, I found two different experiments that I will pool together and use. These are 2 week old whole seedlings (2) and whole seed smRNAs 6 days after pollination (3).</p>
 
 <p>To download data:</p>
 
 <p>```
 wget ftp://ftp-trace.ncbi.nlm.nih.gov/sra/sra-instant/reads/ByExp/sra/SRX%2FSRX029%2FSRX029679/SRR070690/SRR070690.sra # Groszmann, ref 2
-wget ftp://ftp-trace.ncbi.nlm.nih.gov/sra/sra-instant/reads/ByExp/sra/SRX%2FSRX112%2FSRX112870/SRR392134/SRR392134.sra # Shen, ref 3
-wget ftp://ftp-trace.ncbi.nlm.nih.gov/sra/sra-instant/reads/ByExp/sra/SRX%2FSRX384%2FSRX384740/SRR1039937/SRR1039937.sra # Pignatta, ref 4</p>
+wget ftp://ftp-trace.ncbi.nlm.nih.gov/sra/sra-instant/reads/ByExp/sra/SRX%2FSRX384%2FSRX384740/SRR1039937/SRR1039937.sra # Pignatta, ref 3</p>
 
 <p>fastq-dump *.sra
 rm *.sra
 pigz *.fastq
 ```</p>
 
-<p>The seed data from (4) is much bigger than the others, perhaps because it is the newest.</p>
-
 <h2 id="qc-and-adapter-trimming">QC and adapter trimming</h2>
 
-<p>Much of what I’m doing in this step comes from this guide:</p>
+<p>Much of what I’m doing in this step comes from <a href="http://www.ark-genomics.org/events-online-training-eu-training-course/adapter-and-quality-trimming-illumina-data">this guide</a>.</p>
 
-<p>http://www.ark-genomics.org/events-online-training-eu-training-course/adapter-and-quality-trimming-illumina-data</p>
-
-<p>Run fastqc to check the adapter sequence</p>
+<p>First we’ll run FastQC:</p>
 
 <p><code>
 fastqc *.fastq.gz
@@ -112,35 +107,12 @@ fastqc *.fastq.gz
 
 <p>Looking at the overrepresented sequences section of the report, we can find the adapter sequence:</p>
 
-<p>For the Groszmann data:</p>
+<p>For the Groszmann (2) data:</p>
 
 <p><code>
 TCGTATGCCGTCTTCTGCTTGAAAAAAAAAAAAAAA    13924   0.2724698598318295  Illumina Single End Adapter 1 (100% over 21bp)
 </code>
 The poly A sequence at the end is not part of the adapter (as far as I know), but it shouldn’t be in our read either. We can take a look at some reads with adapters:</p>
-
-<p>The Pignatta data has lots of different sequences identified:</p>
-
-<p><code>
-GTTCTACAGTCCGACGATCTCGTATGCCGTCTTCTGCTTGAAAAAAAAAA  3163237 7.821875679772812   Illumina PCR Primer Index 1 (96% over 28bp)
-TTCTACAGTCCGACGATCTCGTATGCCGTCTTCTGCTTGAAAAAAAAAAA  2062049 5.0989195319856995  RNA PCR Primer, Index 47 (96% over 29bp)
-AGTTCTACAGTCCGACGATCTCGTATGCCGTCTTCTGCTTGAAAAAAAAA  2028870 5.016876354955594   Illumina PCR Primer Index 1 (96% over 28bp)
-...
-</code></p>
-
-<p>Really these are all the same thing, and they all look a bit like all of the illumina RNA-seq PCR primers <code>CAAGCAGAAGACGGCATACGAGAT[6baseIndex]GTGACTGGAGTTCCTTGGCACCCGAGAATTCCA</code>.
-In the paper, they say they trimmed using “TCGTATGCCGTCTTCTGCTTG”.</p>
-
-<p>TGGAATTCTCGGGTGCCAAGGAACTCCAGTCAC
-ATCTCGTATGCCGTCTTCTGCTTG</p>
-
-<p>Mostly            TCAGAGTTCTACAGTCCGACGATCTCGTATGCCGTCTTCTGCTTG (primer index 1?)
-                       GTTCTACANTCCGACGATCTCGTATGCCGTCTTCTGCTTGTAAAAAAATN
-TGGAATTCTCGGGTGCCAAGGAACTCCAGTCACATCACGATCTCGTATGCCGTCTTCTGCTTG</p>
-
-<p>This may be because the reads are longer (50 bp). Mostly it’s Illumina PCR Primer Index 1, RNA PCR Primer Index 47, Illumina Single End Adapter 1, RNA PCR Primer Index 30, and Illumina Single End Adapter 2.</p>
-
-<p>FastQC doesn’t find any adapters for the Shen data, and the most “overrepresented” sequences are relatively lowly abundant (0.87% compared to 7.82% for the Pignatta data). Not sure what’s going on there. I tried BLASTing the most abundant sequences, but nothing turned up. Details of the adapter sequence is not in the paper, and without the adapters I can’t properly process the data, so I will exclude this dataset from the analysis and proceed only with data from Groszmann (3) and Pignatta (4).</p>
 
 <p>We can also look for the adapter sequences in some of the data:</p>
 
@@ -150,21 +122,30 @@ zcat SRR070690.fastq.gz | head -n 40000 | grep --color=always TCGTATGCCGTCTTCTGC
 
 <p><img src="/Users/timstuart/Documents/GitHub/timoast.github.io/assets/smRNA_terminal.png" alt="grep_output" /></p>
 
-<p>This shows that many of the reads are adapter dimers, which is expected in a smRNA library. Doing a similar thing with the Pignatta data shows a similar result.</p>
+<p>This shows that many of the reads are adapter dimers, since lots of reads start with adapter, which is expected in a smRNA library. The full sequence of this adapter can be found in the FastQC folder under FastQC/Configuration/contaminant_list.txt.</p>
 
-<p>The full sequence of this adapter can be found in the FastQC folder under FastQC/Configuration/contaminant_list.txt.</p>
+<p>The Pignatta (3) data has lots of different sequences identified:</p>
 
-<p>Running cutadapt will trim the adapter sequences.</p>
+<p><code>
+GTTCTACAGTCCGACGATCTCGTATGCCGTCTTCTGCTTGAAAAAAAAAA  3163237 7.821875679772812   Illumina PCR Primer Index 1 (96% over 28bp)
+TTCTACAGTCCGACGATCTCGTATGCCGTCTTCTGCTTGAAAAAAAAAAA  2062049 5.0989195319856995  RNA PCR Primer, Index 47 (96% over 29bp)
+AGTTCTACAGTCCGACGATCTCGTATGCCGTCTTCTGCTTGAAAAAAAAA  2028870 5.016876354955594   Illumina PCR Primer Index 1 (96% over 28bp)
+...
+</code></p>
+
+<p>This may be because the reads are longer (50 bp). Mostly it’s Illumina PCR Primer Index 1, RNA PCR Primer Index 47, Illumina Single End Adapter 1, RNA PCR Primer Index 30, and Illumina Single End Adapter 2.</p>
+
+<p>In the paper, they say they trimmed using “TCGTATGCCGTCTTCTGCTTG”, but I tried that and found there was still a lot of adapter content. They were using <code>fastx_clipper</code> which is a bit more aggressive, which could explain the difference.</p>
+
+<p>Running cutadapt will trim the adapter sequences. I had to play around for a while before I was able to remove most of the adapter sequences from the Pignatta data with some aggressive trimming. It’s not pretty but it gets the job done.</p>
 
 <p>```
 # Groszmann data
 cutadapt -a TCGTATGCCGTCTTCTGCTTG -o SRR070690.trim.fq.gz SRR070690.fastq.gz</p>
 
 <h1 id="pignatta-data">Pignatta data</h1>
-<p>cutadapt -a TCGTATGCCGTCTTCTGCTTG -o SRR1039937.trim.fq.gz SRR1039937.fastq.gz</p>
-
 <p>cutadapt -a GTTCTACAGTCCGACGATCTCGTATGCCGTCTTCTGCTTG \
-         -a TTCTACAGTCCGACGATCTCGTATGCCGTCTTCTGCTTG \
+         -a TCTACAGTCCGACGATCTCGTATGCCGTCTTCTGCTTG \
          -a GTTCTACAGTCCGACGGATCTCGTATGCCGTCTTCTGCTTG \
          -a AGTTCTACAGTCCGACGGATCTCGTATGCCGTCTTCTGCTTG \
          -a ATTAACGCGGCCGCTCTACAATAGTGATCGTATGCCGTCTTCTGCTTG \
@@ -173,11 +154,10 @@ cutadapt -a TCGTATGCCGTCTTCTGCTTG -o SRR070690.trim.fq.gz SRR070690.fastq.gz</p>
          -a ACAGTCCGACGATCTCGTATGCCGTCTTCTGCTTG \
          -a GCCGCTCTACAATAGTGATCGTATGCCGTCTTCTGCTTG \
          -a TCGTATGCCGTCTTCTGCTTG \
-         -m 10 \
          -o SRR1039937.trim.fq.gz SRR1039937.fastq.gz 
 ```</p>
 
-<p>Running sickle will trim low quality bases. The default minimum length read kept by sickle is 20 bp. I’m using the <code>-l</code> flag to set this to 10, as smRNA data will naturally have shorter reads in it, although I’m not sure how useful it really is to keep anything less than 20.</p>
+<p>Running sickle will trim low quality bases. The default minimum length read kept by sickle is 20 bp. I’m using the <code>-l</code> flag to set this to 10, as smRNA data will naturally have shorter reads in it, although I’m not sure how useful it really is to keep anything less than 20. For what I’m using this data for, only 24 nt smRNAs are used.</p>
 
 <p><code>
 sickle se -f SRR070690.trim.fq.gz -t sanger -o SRR070690_qc.fq.gz -l 10 -g
@@ -186,18 +166,18 @@ sickle se -f SRR1039937.trim.fq.gz -t sanger -o SRR1039937_qc.fq.gz -l 10 -g
 
 <p>If we then look at the fastqc output for the trimmed reads, we can see peaks in read lengths at 21 and 24 nt, corresponding to the most abundant smRNA size classes in plants.</p>
 
-<p><img src="/Users/timstuart/Documents/GitHub/timoast.github.io/assets/fastqc.png" alt="fastqc_output" /></p>
+<p><img src="/Users/timstuart/Documents/GitHub/timoast.github.io/assets/Groszmann_fastqc.png" alt="Groszmann_fastqc" /> <img src="/Users/timstuart/Documents/GitHub/timoast.github.io/assets/Pignatta_fastqc.png" alt="pignatta_fastqc" /></p>
 
 <h2 id="run-tasr">Run TASR</h2>
 
-<p>TASR is the analysis pipeline for smRNA-based annotation of TEs, descibed in (1). It can be downloaded from https://sourceforge.net/projects/tasr-pipeline/</p>
+<p>TASR is the analysis pipeline for smRNA-based annotation of TEs, descibed in (1). It can be downloaded from <a href="https://sourceforge.net/projects/tasr-pipeline/">https://sourceforge.net/projects/tasr-pipeline/</a></p>
 
 <p>The TASR pipeline wants smRNA data in fasta rather than fastq format. To convert, we do:</p>
 
 <p><code>
 seqtk seq -A SRR070690_qc.fq.gz &gt; SRR070690_qc.fa
 seqtk seq -A SRR1039937_qc.fq.gz &gt; SRR1039937_qc.fa
-cat SRR1039937_qc.fa SRR070690_qc.fa &gt; reads.fq
+cat SRR1039937_qc.fa SRR070690_qc.fa &gt; reads.fa
 </code></p>
 
 <p>First make sure the dependencies are installed. I had to install <a href="http://www.drive5.com/usearch/">usearch</a>, <a href="https://tandem.bu.edu/trf/trf.download.html">trf</a> (the legacy version for glibc &lt;= 2.12), and <a href="ftp://pbil.univ-lyon1.fr/pub/logiciel/silix/">silix</a>. All were fairly simple, only silix requires compilation.</p>
@@ -238,9 +218,6 @@ TASR.v.1.1.pl -ref ler_pacbio.fa -sfile reads.fa -usearchv /home/tstuart/working
   </li>
   <li>
     <p>Groszmann M, Greaves IK, Albertyn ZI, Scofield GN, Peacock WJ, Dennis ES. Changes in 24-nt siRNA levels in Arabidopsis hybrids suggest an epigenetic contribution to hybrid vigor. Proceedings of the National Academy of Sciences. National Acad Sciences; 2011;108: 2617–2622. doi:10.1073/pnas.1019217108</p>
-  </li>
-  <li>
-    <p>Shen H, He H, Li J, Chen W, Wang X, Guo L, et al. Genome-Wide Analysis of DNA Methylation and Gene Expression Changes in Two Arabidopsis Ecotypes and Their Reciprocal Hybrids. The Plant Cell. American Society of Plant Biologists; 2012;24: 875–892. doi:10.1105/tpc.111.094870</p>
   </li>
   <li>
     <p>Pignatta D, Erdmann RM, Scheer E, Picard CL, Bell GW, Gehring M. Natural epigenetic polymorphisms lead to intraspecific variation in Arabidopsis gene imprinting. eLife. 2014;3: e03198. doi:10.7554/eLife.03198</p>
