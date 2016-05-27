@@ -4,7 +4,7 @@
  <title>Tim Stuart</title>
  <link href="/atom.xml" rel="self"/>
  <link href="/"/>
- <updated>2016-05-26T11:25:37+08:00</updated>
+ <updated>2016-05-27T16:59:41+08:00</updated>
  <id></id>
  <author>
    <name>Tim Stuart</name>
@@ -121,9 +121,13 @@ seqtk seq -A SRR1039937_qc.fq.gz &amp;gt; SRR1039937_qc.fa
 cat SRR1039937_qc.fa SRR070690_qc.fa &amp;gt; reads.fa
 &lt;/code&gt;&lt;/p&gt;
 
-&lt;p&gt;First make sure the dependencies are installed. I had to install &lt;a href=&quot;http://www.drive5.com/usearch/&quot;&gt;usearch&lt;/a&gt;, &lt;a href=&quot;https://tandem.bu.edu/trf/trf.download.html&quot;&gt;trf&lt;/a&gt; (the legacy version for glibc &amp;lt;= 2.12), and &lt;a href=&quot;ftp://pbil.univ-lyon1.fr/pub/logiciel/silix/&quot;&gt;silix&lt;/a&gt;. All were fairly simple, only silix requires compilation.&lt;/p&gt;
+&lt;p&gt;It also wants just the unique smRNAs, so we need to collapse our fasta file:&lt;/p&gt;
 
-&lt;p&gt;I also had to change line 237 from&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;
+fastx_collapser -i reads.fa -o collapsed_reads.fa
+&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;First make sure the dependencies are installed. I had to install &lt;a href=&quot;http://www.drive5.com/usearch/&quot;&gt;usearch&lt;/a&gt;, &lt;a href=&quot;https://tandem.bu.edu/trf/trf.download.html&quot;&gt;trf&lt;/a&gt; (the legacy version for glibc &amp;lt;= 2.12), and &lt;a href=&quot;ftp://pbil.univ-lyon1.fr/pub/logiciel/silix/&quot;&gt;silix&lt;/a&gt;. Make sure you have both silix and silix-split in your path. Also, you need to make sure your version of sort has the parallel option, or remove the –parallel flag from all the sort calls in the perl script like this (there are more):&lt;/p&gt;
 
 &lt;p&gt;&lt;code&gt;
 SAMTOBED(&quot;tmp$time/24.sirna.sam&quot;);
@@ -141,10 +145,10 @@ system(
 );
 &lt;/code&gt;&lt;/p&gt;
 
-&lt;p&gt;As I have an old version of sort without the parallel option. Now run:&lt;/p&gt;
+&lt;p&gt;Now run:&lt;/p&gt;
 
 &lt;p&gt;&lt;code&gt;
-TASR.v.1.1.pl -ref ler_pacbio.fa -sfile reads.fa -usearchv /home/tstuart/working_data/Tools/usearch -cpu 10
+TASR.v.1.1.pl -ref ler_pacbio.fa -sfile collapsed_reads.fa -usearchv /home/tstuart/working_data/Tools/usearch -cpu 10
 &lt;/code&gt;&lt;/p&gt;
 
 &lt;p&gt;I’m just using the default values for all parameters to start with.&lt;/p&gt;
@@ -611,6 +615,10 @@ $(document).ready(function () {
    <updated>2016-02-23T00:00:00+08:00</updated>
    <id>/2016/02/23/Papers</id>
    <content type="html">&lt;p&gt;In an effort to read more papers this year, I’m going to read a paper (or something paper-like) each day for the remainder of the year, and post each paper below as I go.&lt;/p&gt;
+
+&lt;h3 id=&quot;may-27&quot;&gt;May 27&lt;/h3&gt;
+
+&lt;p&gt;Liu C, Wang C, Wang G, Becker C, Zaidem M, Weigel D. Genome-wide analysis of chromatin packing in Arabidopsis thaliana at single-gene resolution. Genome Research. 2016. &lt;a href=&quot;http://dx.doi.org/10.1101/gr.204032.116&quot;&gt;doi:10.1101/gr.204032.116&lt;/a&gt;&lt;/p&gt;
 
 &lt;h3 id=&quot;may-26&quot;&gt;May 26&lt;/h3&gt;
 
