@@ -4,7 +4,7 @@
  <title>Tim Stuart</title>
  <link href="/atom.xml" rel="self"/>
  <link href="/"/>
- <updated>2016-05-28T16:31:45+08:00</updated>
+ <updated>2016-05-29T13:31:45+08:00</updated>
  <id></id>
  <author>
    <name>Tim Stuart</name>
@@ -616,9 +616,13 @@ $(document).ready(function () {
    <id>/2016/02/23/Papers</id>
    <content type="html">&lt;p&gt;In an effort to read more papers this year, I’m going to read a paper (or something paper-like) each day for the remainder of the year, and post each paper below as I go.&lt;/p&gt;
 
+&lt;h3 id=&quot;may-29&quot;&gt;May 29&lt;/h3&gt;
+
+&lt;p&gt;Li C, Gu L, Gao L, Chen C, Wei C-Q, Qiu Q, et al. Concerted genomic targeting of H3K27 demethylase REF6 and chromatin-remodeling ATPase BRM in Arabidopsis. Nature Genetics; 2016;48: 687–693. &lt;a href=&quot;http://dx.doi.org/10.1038/ng.3555&quot;&gt;doi:10.1038/ng.3555&lt;/a&gt;&lt;/p&gt;
+
 &lt;h3 id=&quot;may-28&quot;&gt;May 28&lt;/h3&gt;
 
-&lt;p&gt;Cui X, Lu F, Qiu Q, Zhou B, Gu L, Zhang S, et al. REF6 recognizes a specific DNA sequence to demethylate H3K27me3 and regulate organ boundary formation in Arabidopsis. Nature Publishing Group. Nature Publishing Group; 2016;48: 694–699. &lt;a href=&quot;http://dx.doi.org/10.1038/ng.3556&quot;&gt;doi:10.1038/ng.3556&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Cui X, Lu F, Qiu Q, Zhou B, Gu L, Zhang S, et al. REF6 recognizes a specific DNA sequence to demethylate H3K27me3 and regulate organ boundary formation in Arabidopsis. Nature Genetics; 2016;48: 694–699. &lt;a href=&quot;http://dx.doi.org/10.1038/ng.3556&quot;&gt;doi:10.1038/ng.3556&lt;/a&gt;&lt;/p&gt;
 
 &lt;h3 id=&quot;may-27&quot;&gt;May 27&lt;/h3&gt;
 
