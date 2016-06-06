@@ -4,7 +4,7 @@
  <title>Tim Stuart</title>
  <link href="/atom.xml" rel="self"/>
  <link href="/"/>
- <updated>2016-06-05T18:44:09+08:00</updated>
+ <updated>2016-06-06T22:15:23+08:00</updated>
  <id></id>
  <author>
    <name>Tim Stuart</name>
@@ -615,6 +615,10 @@ $(document).ready(function () {
    <updated>2016-02-23T00:00:00+08:00</updated>
    <id>/2016/02/23/Papers</id>
    <content type="html">&lt;p&gt;In an effort to read more papers this year, I’m going to read a paper (or something paper-like) each day for the remainder of the year, and post each paper below as I go.&lt;/p&gt;
+
+&lt;h3 id=&quot;jun-6&quot;&gt;Jun 6&lt;/h3&gt;
+
+&lt;p&gt;Chin C-S, Peluso P, Sedlazeck FJ, Nattestad M, Concepcion GT, Clum A, et al. Phased Diploid Genome Assembly with Single Molecule Real-Time Sequencing. bioRxiv. 2016 Jun p. 056887. &lt;a href=&quot;http:/dx.doi.org/10.1101/056887&quot;&gt;doi:10.1101/056887&lt;/a&gt;&lt;/p&gt;
 
 &lt;h3 id=&quot;jun-5&quot;&gt;Jun 5&lt;/h3&gt;
 
