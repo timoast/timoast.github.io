@@ -4,7 +4,7 @@
  <title>Tim Stuart</title>
  <link href="/atom.xml" rel="self"/>
  <link href="/"/>
- <updated>2016-06-08T17:29:44+08:00</updated>
+ <updated>2016-06-09T16:28:49+08:00</updated>
  <id></id>
  <author>
    <name>Tim Stuart</name>
@@ -616,9 +616,13 @@ $(document).ready(function () {
    <id>/2016/02/23/Papers</id>
    <content type="html">&lt;p&gt;In an effort to read more papers this year, I’m going to read a paper (or something paper-like) each day for the remainder of the year, and post each paper below as I go.&lt;/p&gt;
 
+&lt;h3 id=&quot;jun-9&quot;&gt;Jun 9&lt;/h3&gt;
+
+&lt;p&gt;Schübeler D. Function and information content of DNA methylation. 2015;: 1–6. &lt;a href=&quot;http://dx.doi.org/10.1038/nature14192&quot;&gt;doi:10.1038/nature14192&lt;/a&gt;&lt;/p&gt;
+
 &lt;h3 id=&quot;jun-8&quot;&gt;Jun 8&lt;/h3&gt;
 
-&lt;p&gt;Hale CJ, Potok ME, Lopez J, Do T, Liu A, Gallego-Bartolome J, et al. Identification of Multiple Proteins Coupling Transcriptional Gene Silencing to Genome Stability in Arabidopsis thaliana. Mittelsten Scheid O, editor. PLoS Genetics. 2016;12: e1006092. &lt;a href=&quot;http://dx.doi.org/10.1371/journal.pgen.1006092&quot;&gt;doi:10.1371/journal.pgen.1006092&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Hale CJ, Potok ME, Lopez J, Do T, Liu A, Gallego-Bartolome J, et al. Identification of Multiple Proteins Coupling Transcriptional Gene Silencing to Genome Stability in Arabidopsis thaliana. PLoS Genetics. 2016;12: e1006092. &lt;a href=&quot;http://dx.doi.org/10.1371/journal.pgen.1006092&quot;&gt;doi:10.1371/journal.pgen.1006092&lt;/a&gt;&lt;/p&gt;
 
 &lt;h3 id=&quot;jun-7&quot;&gt;Jun 7&lt;/h3&gt;
 
