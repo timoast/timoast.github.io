@@ -4,7 +4,7 @@
  <title>Tim Stuart</title>
  <link href="/atom.xml" rel="self"/>
  <link href="/"/>
- <updated>2016-06-09T16:28:49+08:00</updated>
+ <updated>2016-06-10T13:02:27+08:00</updated>
  <id></id>
  <author>
    <name>Tim Stuart</name>
@@ -615,6 +615,10 @@ $(document).ready(function () {
    <updated>2016-02-23T00:00:00+08:00</updated>
    <id>/2016/02/23/Papers</id>
    <content type="html">&lt;p&gt;In an effort to read more papers this year, I’m going to read a paper (or something paper-like) each day for the remainder of the year, and post each paper below as I go.&lt;/p&gt;
+
+&lt;h3 id=&quot;jun-10&quot;&gt;Jun 10&lt;/h3&gt;
+
+&lt;p&gt;Alonso-Blanco C, Andrade J, Becker C, Bemm F, Bergelson J, Borgwardt KM, et al. 1,135 Genomes Reveal the Global Pattern of Polymorphism in &lt;em&gt;Arabidopsis thaliana&lt;/em&gt;. Cell. 2016. &lt;a href=&quot;http://dx.doi.org/10.1016/j.cell.2016.05.063&quot;&gt;doi:10.1016/j.cell.2016.05.063&lt;/a&gt;&lt;/p&gt;
 
 &lt;h3 id=&quot;jun-9&quot;&gt;Jun 9&lt;/h3&gt;
 
