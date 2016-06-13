@@ -4,7 +4,7 @@
  <title>Tim Stuart</title>
  <link href="/atom.xml" rel="self"/>
  <link href="/"/>
- <updated>2016-06-13T15:00:24+08:00</updated>
+ <updated>2016-06-13T15:34:06+08:00</updated>
  <id></id>
  <author>
    <name>Tim Stuart</name>
@@ -619,6 +619,8 @@ $(document).ready(function () {
 &lt;h3 id=&quot;jun-13&quot;&gt;Jun 13&lt;/h3&gt;
 
 &lt;p&gt;Wasserstein RL, Lazar NA. The ASA’s Statement on p-Values: Context, Process, and Purpose. The American Statistician. 2016;70: 129–133. &lt;a href=&quot;http://dx.doi.org/10.1080/00031305.2016.1154108&quot;&gt;doi:10.1080/00031305.2016.1154108&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;Nuzzo R. Scientific method: statistical errors. Nature. 2014.: 150–152. &lt;a href=&quot;http://dx.doi.org/10.1038/506150a&quot;&gt;doi:10.1038/506150a&lt;/a&gt;&lt;/p&gt;
 
 &lt;h3 id=&quot;jun-12&quot;&gt;Jun 12&lt;/h3&gt;
 
