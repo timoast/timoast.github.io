@@ -4,7 +4,7 @@
  <title>Tim Stuart</title>
  <link href="/atom.xml" rel="self"/>
  <link href="/"/>
- <updated>2016-06-15T15:28:31+08:00</updated>
+ <updated>2016-06-19T15:19:15+08:00</updated>
  <id></id>
  <author>
    <name>Tim Stuart</name>
@@ -629,6 +629,22 @@ $(document).ready(function () {
    <updated>2016-02-23T00:00:00+08:00</updated>
    <id>/2016/02/23/Papers</id>
    <content type="html">&lt;p&gt;In an effort to read more papers this year, I’m going to read a paper (or something paper-like) each day for the remainder of the year, and post each paper below as I go.&lt;/p&gt;
+
+&lt;h3 id=&quot;jun-19&quot;&gt;Jun 19&lt;/h3&gt;
+
+&lt;p&gt;Huang W, Lyman RF, Lyman RA, Carbone MA, Harbison ST, Magwire MM, et al. Spontaneous mutations and the origin and maintenance of quantitative genetic variation. Przeworski M, editor. eLife. 2016;5: e14625. &lt;a href=&quot;http://dx.doi.org/10.7554/eLife.14625&quot;&gt;doi:10.7554/eLife.14625&lt;/a&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;jun-18&quot;&gt;Jun 18&lt;/h3&gt;
+
+&lt;p&gt;Poznik GD, Xue Y, Mendez FL, Willems TF, Massaia A, Wilson Sayres MA, et al. Punctuated bursts in human male demography inferred from 1,244 worldwide Y-chromosome sequences. Nat Genet. 48: 593–599. &lt;a href=&quot;http://dx.doi.org/10.1038/ng.3559&quot;&gt;doi:10.1038/ng.3559&lt;/a&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;jun-17&quot;&gt;Jun 17&lt;/h3&gt;
+
+&lt;p&gt;Ronan T, Qi Z, Naegle KM. Avoiding common pitfalls when clustering biological data. Science Signaling. 2016;9: re6–re6. &lt;a href=&quot;http://dx.doi.org/10.1126/scisignal.aad1932&quot;&gt;doi:10.1126/scisignal.aad1932&lt;/a&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;jun-16&quot;&gt;Jun 16&lt;/h3&gt;
+
+&lt;p&gt;Ellegren H, Galtier N. Determinants of genetic diversity. Nature Reviews Genetics. 17: 422–433. &lt;a href=&quot;http://dx.doi.org/10.1038/nrg.2016.58&quot;&gt;doi:10.1038/nrg.2016.58&lt;/a&gt;&lt;/p&gt;
 
 &lt;h3 id=&quot;jun-15&quot;&gt;Jun 15&lt;/h3&gt;
 
