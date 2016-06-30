@@ -4,7 +4,7 @@
  <title>Tim Stuart</title>
  <link href="/atom.xml" rel="self"/>
  <link href="/"/>
- <updated>2016-06-19T15:19:15+08:00</updated>
+ <updated>2016-06-30T18:10:12+08:00</updated>
  <id></id>
  <author>
    <name>Tim Stuart</name>
@@ -629,6 +629,50 @@ $(document).ready(function () {
    <updated>2016-02-23T00:00:00+08:00</updated>
    <id>/2016/02/23/Papers</id>
    <content type="html">&lt;p&gt;In an effort to read more papers this year, I’m going to read a paper (or something paper-like) each day for the remainder of the year, and post each paper below as I go.&lt;/p&gt;
+
+&lt;h3 id=&quot;jun-30&quot;&gt;Jun 30&lt;/h3&gt;
+
+&lt;p&gt;Zapata L, Ding J, Willing E-M, Hartwig B, Bezdan D, Jiao W-B, et al. Chromosome-level assembly of Arabidopsis thaliana Ler reveals the extent of translocation and inversion polymorphisms. Proceedings of the National Academy of Sciences. 2016. &lt;a href=&quot;http://dx.doi.org/10.1073/pnas.1607532113&quot;&gt;doi: 10.1073/pnas.1607532113&lt;/a&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;jun-29&quot;&gt;Jun 29&lt;/h3&gt;
+
+&lt;p&gt;Hutchins BI, Yuan X, Anderson JM, Santangelo GM. Relative Citation Ratio (RCR): A new metric that uses citation rates to measure influence at the article level. bioRxiv. 2015 Oct p. 029629. &lt;a href=&quot;http://dx.doi.org/10.1101/029629&quot;&gt;doi:10.1101/029629&lt;/a&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;jun-28&quot;&gt;Jun 28&lt;/h3&gt;
+
+&lt;p&gt;Libertini E, Heath SC, Hamoudi RA, Gut M, Ziller MJ, Herrero J, et al. Saturation analysis for whole-genome bisulfite sequencing data. Nat Biotech. &lt;a href=&quot;http://dx.doi.org/10.1038/nbt.3524&quot;&gt;doi:10.1038/nbt.3524&lt;/a&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;jun-27&quot;&gt;Jun 27&lt;/h3&gt;
+
+&lt;p&gt;Vale RD, Hyman AA. Priority of discovery in the life sciences. eLife. 2016;5: e16931. &lt;a href=&quot;http://dx.doi.org/10.7554/eLife.16931&quot;&gt;doi:10.7554/eLife.16931&lt;/a&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;jun-26&quot;&gt;Jun 26&lt;/h3&gt;
+
+&lt;p&gt;Davydov EV, Goode DL, Sirota M, Cooper GM, Sidow A, Batzoglou S. Identifying a High Fraction of the Human Genome to be under Selective Constraint Using GERP++. PLoS Comput Biol. 2010;6: e1001025. &lt;a href=&quot;http://dx.doi.org/10.1371/journal.pcbi.1001025&quot;&gt;doi:10.1371/journal.pcbi.1001025&lt;/a&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;jun-25&quot;&gt;Jun 25&lt;/h3&gt;
+
+&lt;p&gt;Morris ER, Grey H, McKenzie G, Jones AC, Richardson JM. A bend, flip and trap mechanism for transposon integration. eLife. 2016;5: e15537. &lt;a href=&quot;http://dx.doi.org/10.7554/eLife.15537&quot;&gt;doi:10.7554/eLife.15537&lt;/a&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;jun-24&quot;&gt;Jun 24&lt;/h3&gt;
+
+&lt;p&gt;Rahman R, Chirn G-W, Kanodia A, Sytnikova YA, Brembs B, Bergman CM, et al. Unique transposon landscapes are pervasive across Drosophila melanogaster genomes. Nucleic Acids Research. 2015;43: 10655–10672. &lt;a href=&quot;http://dx.doi.org/10.1093/nar/gkv1193&quot;&gt;doi:10.1093/nar/gkv1193&lt;/a&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;jun-23&quot;&gt;Jun 23&lt;/h3&gt;
+
+&lt;p&gt;Dolle D-D, Liu Z, Cotten ML, Simpson JT, Iqbal Z, Durbin R, et al. Using reference-free compressed data structures to analyse sequencing reads from thousands of human genomes. bioRxiv. 2016. &lt;a href=&quot;http://dx.doi.org/10.1101/060186&quot;&gt;doi:10.1101/060186&lt;/a&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;jun-22&quot;&gt;Jun 22&lt;/h3&gt;
+
+&lt;p&gt;Hough J, Williamson RJ, Wright SI. Patterns of selection in plant genomes. Annual Review of Ecology. 2013. &lt;a href=&quot;http://dx.doi.org/10.1146/annurev-ecolsys-110512-135851&quot;&gt;doi:10.1146/annurev-ecolsys-110512-135851&lt;/a&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;jun-21&quot;&gt;Jun 21&lt;/h3&gt;
+
+&lt;p&gt;Beissinger TM, Wang L, Crosby K, Durvasula A, Hufford MB, Ross-Ibarra J. Recent demography drives changes in linked selection across the maize genome. Nature Plants. 2: 16084 EP –. &lt;a href=&quot;http://dx.doi.org/10.1038/nplants.2016.84&quot;&gt;doi:10.1038/nplants.2016.84&lt;/a&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;jun-20&quot;&gt;Jun 20&lt;/h3&gt;
+
+&lt;p&gt;Platzer A, Nizhynska V, Long Q. TE-Locate: A Tool to Locate and Group Transposable Element Occurrences Using Paired-End Next-Generation Sequencing Data. Biology. 2012;1: 395–410. &lt;a href=&quot;http://dx.doi.org/10.3390/biology1020395&quot;&gt;doi:10.3390/biology1020395&lt;/a&gt;&lt;/p&gt;
 
 &lt;h3 id=&quot;jun-19&quot;&gt;Jun 19&lt;/h3&gt;
 
