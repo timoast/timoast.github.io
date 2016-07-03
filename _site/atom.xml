@@ -4,7 +4,7 @@
  <title>Tim Stuart</title>
  <link href="/atom.xml" rel="self"/>
  <link href="/"/>
- <updated>2016-06-30T18:10:12+08:00</updated>
+ <updated>2016-07-03T13:17:23+08:00</updated>
  <id></id>
  <author>
    <name>Tim Stuart</name>
@@ -629,6 +629,22 @@ $(document).ready(function () {
    <updated>2016-02-23T00:00:00+08:00</updated>
    <id>/2016/02/23/Papers</id>
    <content type="html">&lt;p&gt;In an effort to read more papers this year, I’m going to read a paper (or something paper-like) each day for the remainder of the year, and post each paper below as I go.&lt;/p&gt;
+
+&lt;h3 id=&quot;jul-3&quot;&gt;Jul 3&lt;/h3&gt;
+
+&lt;p&gt;Tufte, ER. Visual and Statistical Thinking: Displays of Evidence for Making Decisions.&lt;/p&gt;
+
+&lt;h3 id=&quot;jul-2&quot;&gt;Jul 2&lt;/h3&gt;
+
+&lt;p&gt;Lynch M, Conery JS. The origins of genome complexity. Science. 2003;302: 1401–1404. &lt;a href=&quot;http://dx.doi.org/10.1126/science.1089370&quot;&gt;doi:10.1126/science.1089370&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;Daubin V. Comment on “The Origins of Genome Complexity.” Science. 2004;306: 978a–978a. &lt;a href=&quot;http://dx.doi.org/10.1126/science.1098469&quot;&gt;doi:10.1126/science.1098469&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;Lynch M. Response to Comment on “The Origins of Genome Complexity.” Science. 2004;306: 978b–978b. &lt;a href=&quot;http://dx.doi.org/10.1126/science.1100559&quot;&gt;doi:10.1126/science.1100559&lt;/a&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;jul-1&quot;&gt;Jul 1&lt;/h3&gt;
+
+&lt;p&gt;Lever J, Krzywinski M, Altman N. Points of Significance: Logistic regression. Nat Meth. 13: 541–542. &lt;a href=&quot;http://dx.doi.org/10.1038/nmeth.3904&quot;&gt;doi:10.1038/nmeth.3904&lt;/a&gt;&lt;/p&gt;
 
 &lt;h3 id=&quot;jun-30&quot;&gt;Jun 30&lt;/h3&gt;
 
