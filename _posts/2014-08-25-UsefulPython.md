@@ -60,31 +60,14 @@ Or using list comprehension
 stringVersion = [str(x) for x in inputList]
 ```
 
-## Printing
-
-### Print in colour
+Intersect two lists
 
 ```python
-class colour:
-    PURPLE = '\033[95m'
-    CYAN = '\033[96m'
-    DARKCYAN = '\033[36m'
-    BLUE = '\033[94m'
-    GREEN = '\033[92m'
-    YELLOW = '\033[93m'
-    RED = '\033[91m'
-    BOLD = '\033[1m'
-    UNDERLINE = '\033[4m'
-    END = '\033[0m'
+l1 = ["a", "b", "c"]
+l2 = ["c", "d", "e"]
 
-print colour.CYAN + 'This is blue' + colour.END
-```
-
-### Format text wrapping correctly in terminal
-
-```python
-import textwrap
-print textwrap.dedent('print message')
+list(set(l1).intersection(l2))
+## ['c']
 ```
 
 ## Strings
@@ -115,55 +98,4 @@ def overlap(start1, stop1, start2, stop2):
             return True
         else:
             pass
-```
-
-## Functions for mapping NGS reads
-
-```python
-import os
-from subprocess import call
-
-
-def peMap(proc):
-    """
-    paired-end reads
-    """
-    for filename in os.listdir('.'):
-        if filename.endswith("_1.fastq"):
-            sam = filename.split('_')
-            sam = sam[0]
-            call(["bowtie2", "-p{x}".format(x=proc), "-q", "-x /dd_stage/userdata/lister/data/genomes/bowtie2_indexes/tair9",
-                  "-1 {f}".format(f=sam + '_1.fastq'), "-2 {f}".format(f=sam + '_2.fastq'), "-S {s}".format(s=sam + '.sam')])
-        else:
-            pass
-
-
-def seMap(proc):
-    """
-    single-end reads
-    """
-    for filename in os.listdir('.'):
-        if filename.endswith(".fastq"):
-            sam = filename.split('.')
-            sam = sam[0]
-            call(["bowtie2", "-p{x}".format(x=proc), "-q", "-x /dd_stage/userdata/lister/data/genomes/bowtie2_indexes/tair9",
-                  "-U {f}".format(f=filename), "-S {s}".format(s=sam + '.sam')])
-        else:
-            pass
-```
-
-## Split sra files into fastq
-
-```python
-import os
-from subprocess import call
-
-
-def fastqSplit():
-    for filename in os.listdir('.'):
-        if filename.endswith('.sra'):
-            print 'processing {n}'.format(n=filename)
-            call(['fastq-dump', '--split-3', '-v', filename])
-        else:
-            pass
-```
+```å
