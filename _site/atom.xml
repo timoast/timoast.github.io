@@ -4,7 +4,7 @@
  <title>Tim Stuart</title>
  <link href="/atom.xml" rel="self"/>
  <link href="/"/>
- <updated>2016-07-03T13:17:23+08:00</updated>
+ <updated>2016-07-11T23:39:35+08:00</updated>
  <id></id>
  <author>
    <name>Tim Stuart</name>
@@ -13,175 +13,195 @@
 
  
  <entry>
-   <title>TE annotation using smRNAs</title>
-   <link href="//2016/05/24/smRNA/"/>
-   <updated>2016-05-24T00:00:00+08:00</updated>
-   <id>/2016/05/24/smRNA</id>
-   <content type="html">&lt;p&gt;I want to annotate TEs in the Landsberg &lt;em&gt;erecta de novo&lt;/em&gt; assembly genome (made with PacBio data). This is to address some reviewer comments for a paper I’m currently &lt;a href=&quot;http://biorxiv.org/content/early/2016/02/21/039511&quot;&gt;working on&lt;/a&gt;.&lt;/p&gt;
+   <title>smRNA analysis notes</title>
+   <link href="//2016/07/12/smRNA-analysis/"/>
+   <updated>2016-07-12T00:00:00+08:00</updated>
+   <id>/2016/07/12/smRNA-analysis</id>
+   <content type="html">&lt;p&gt;I recently analysed some smRNA data for a paper I’m working on. These are my analysis notes.&lt;/p&gt;
 
-&lt;p&gt;There are several possible ways to do this, and one is using smRNA reads that mark TE positions in the genome. This approach was described in a recent paper, which also includes code to perform the TE annotation given smRNA data (1).&lt;/p&gt;
+&lt;p&gt;I used previously published data for Brachypodium, from this paper:&lt;/p&gt;
 
-&lt;p&gt;According to the paper, this works best using smRNA libraries pooled from lots of different tissues, as the diversity in the library is most important, and some TEs accumulate smRNAs only in certain tissues (eg. the vegetative cell nucleus of the pollen, endosperm, or columella cells).&lt;/p&gt;
+&lt;p&gt;Garvin DF, Schmutz J, Rokhsar D, Bevan MW, Barry K, Lucas S, et al. Genome sequencing and analysis of the model grass Brachypodium distachyon. Nature. 2010;463: 763–768. doi:10.1038/nature08747&lt;/p&gt;
 
-&lt;p&gt;Looking for as L&lt;em&gt;er&lt;/em&gt; smRNA data, I found two different experiments that I will pool together and use. These are 2 week old whole seedlings (2) and whole seed smRNAs 6 days after pollination (3).&lt;/p&gt;
+&lt;p&gt;First step is to download the data:&lt;/p&gt;
 
-&lt;p&gt;To download data:&lt;/p&gt;
-
-&lt;p&gt;```
-wget ftp://ftp-trace.ncbi.nlm.nih.gov/sra/sra-instant/reads/ByExp/sra/SRX%2FSRX029%2FSRX029679/SRR070690/SRR070690.sra # Groszmann, ref 2
-wget ftp://ftp-trace.ncbi.nlm.nih.gov/sra/sra-instant/reads/ByExp/sra/SRX%2FSRX384%2FSRX384740/SRR1039937/SRR1039937.sra # Pignatta, ref 3&lt;/p&gt;
-
-&lt;p&gt;fastq-dump *.sra
-rm *.sra
-pigz *.fastq
-```&lt;/p&gt;
-
-&lt;h2 id=&quot;qc-and-adapter-trimming&quot;&gt;QC and adapter trimming&lt;/h2&gt;
-
-&lt;p&gt;Much of what I’m doing in this step comes from &lt;a href=&quot;http://www.ark-genomics.org/events-online-training-eu-training-course/adapter-and-quality-trimming-illumina-data&quot;&gt;this guide&lt;/a&gt;.&lt;/p&gt;
-
-&lt;p&gt;First we’ll run FastQC:&lt;/p&gt;
-
-&lt;p&gt;&lt;code&gt;
-fastqc *.fastq.gz
+&lt;p&gt;&lt;code&gt;bash
+$ wget ftp://ftp-trace.ncbi.nlm.nih.gov//sra/sra-instant/reads/ByStudy/sra/SRP/SRP001/SRP001895/SRR035616/SRR035616.sra
+$ fastq-dump SRR035616.sra
+$ pigz SRR035616.fastq
 &lt;/code&gt;&lt;/p&gt;
 
-&lt;p&gt;Looking at the overrepresented sequences section of the report, we can find the adapter sequence:&lt;/p&gt;
+&lt;p&gt;It is essential that the reads are trimmed correctly to be able to get useful data out of the reads. To do that, we first need to work out what the adapter sequence is. The easiest way to do that is to run fastqc and see what sequences are overrepresented.&lt;/p&gt;
 
-&lt;p&gt;For the Groszmann (2) data:&lt;/p&gt;
-
-&lt;p&gt;&lt;code&gt;
-TCGTATGCCGTCTTCTGCTTGAAAAAAAAAAAAAAA    13924   0.2724698598318295  Illumina Single End Adapter 1 (100% over 21bp)
+&lt;p&gt;&lt;code&gt;bash
+$ fastqc SRR035616.fastq.gz
 &lt;/code&gt;
-The poly A sequence at the end is not part of the adapter (as far as I know), but it shouldn’t be in our read either. We can take a look at some reads with adapters:&lt;/p&gt;
+Then we can do a multiple sequence alignment of overrepresented sequences to find the adapter sequence:&lt;/p&gt;
 
-&lt;p&gt;We can also look for the adapter sequences in some of the data:&lt;/p&gt;
+&lt;p&gt;```bash
+CLUSTAL multiple sequence alignment by MUSCLE (3.8)&lt;/p&gt;
 
-&lt;p&gt;&lt;code&gt;
-zcat SRR070690.fastq.gz | head -n 40000 | grep --color=always TCGTATGCCGTCTTCTGCTTG
-&lt;/code&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/Users/timstuart/Documents/GitHub/timoast.github.io/assets/smRNA_terminal.png&quot; alt=&quot;grep_output&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;This shows that many of the reads are adapter dimers, since lots of reads start with adapter, which is expected in a smRNA library. The full sequence of this adapter can be found in the FastQC folder under FastQC/Configuration/contaminant_list.txt.&lt;/p&gt;
-
-&lt;p&gt;The Pignatta (3) data has lots of different sequences identified:&lt;/p&gt;
-
-&lt;p&gt;&lt;code&gt;
-GTTCTACAGTCCGACGATCTCGTATGCCGTCTTCTGCTTGAAAAAAAAAA  3163237 7.821875679772812   Illumina PCR Primer Index 1 (96% over 28bp)
-TTCTACAGTCCGACGATCTCGTATGCCGTCTTCTGCTTGAAAAAAAAAAA  2062049 5.0989195319856995  RNA PCR Primer, Index 47 (96% over 29bp)
-AGTTCTACAGTCCGACGATCTCGTATGCCGTCTTCTGCTTGAAAAAAAAA  2028870 5.016876354955594   Illumina PCR Primer Index 1 (96% over 28bp)
-...
-&lt;/code&gt;&lt;/p&gt;
-
-&lt;p&gt;This may be because the reads are longer (50 bp). Mostly it’s Illumina PCR Primer Index 1, RNA PCR Primer Index 47, Illumina Single End Adapter 1, RNA PCR Primer Index 30, and Illumina Single End Adapter 2.&lt;/p&gt;
-
-&lt;p&gt;In the paper, they say they trimmed using “TCGTATGCCGTCTTCTGCTTG”, but I tried that and found there was still a lot of adapter content. They were using &lt;code&gt;fastx_clipper&lt;/code&gt; which is a bit more aggressive, which could explain the difference.&lt;/p&gt;
-
-&lt;p&gt;Running cutadapt will trim the adapter sequences. I had to play around for a while before I was able to remove most of the adapter sequences from the Pignatta data with some aggressive trimming. It’s not pretty but it gets the job done.&lt;/p&gt;
-
-&lt;p&gt;```
-# Groszmann data
-cutadapt -a TCGTATGCCGTCTTCTGCTTG -o SRR070690.trim.fq.gz SRR070690.fastq.gz&lt;/p&gt;
-
-&lt;h1 id=&quot;pignatta-data&quot;&gt;Pignatta data&lt;/h1&gt;
-&lt;p&gt;cutadapt -a GTTCTACAGTCCGACGATCTCGTATGCCGTCTTCTGCTTG \
-         -a TCTACAGTCCGACGATCTCGTATGCCGTCTTCTGCTTG \
-         -a GTTCTACAGTCCGACGGATCTCGTATGCCGTCTTCTGCTTG \
-         -a AGTTCTACAGTCCGACGGATCTCGTATGCCGTCTTCTGCTTG \
-         -a ATTAACGCGGCCGCTCTACAATAGTGATCGTATGCCGTCTTCTGCTTG \
-         -a GTGTAGGGATCCAAATCGTATGCCGTCTTCTGCTTG \
-         -a CAGTCCGACGATCTCGTATGCCGTCTTCTGCTTG\
-         -a ACAGTCCGACGATCTCGTATGCCGTCTTCTGCTTG \
-         -a GCCGCTCTACAATAGTGATCGTATGCCGTCTTCTGCTTG \
-         -a TCGTATGCCGTCTTCTGCTTG \
-         -o SRR1039937.trim.fq.gz SRR1039937.fastq.gz 
+&lt;p&gt;12              GGTAGTTCGACCGCGGA————ACTGTAGGCACCATCAATT————
+15              GGTAGTTCGACCGCGGAA———–TCTGTAGGCACCATCAAT————-
+14              ——-TCGCTTGGTGCAGATCGGGA–CCTGTAGGCACCCTCA—————
+18              —TTCATGGACGTTGATAAGATCCTT–CCTGTATGCACC——————-
+1               ——-TCGCTTGGTGCAGATCGGGA–CCTGTAGGCACCATCA—————
+13              ——-TGATTGAGCCGTGCCAATAT–CCTGTAGGCACCATCA—————
+3               ————GGGGGTGTAGCTCAT–ACTGTAGGCACCATCAATTCG———-
+10              ————GGGGATGTAGCTCAG–ACTGTAGGCACCATCAATTCG———-
+2               ————GGGGATGTAGCTCAA–ACTGTAGGCACCATCAATTCG———-
+11              ——–GACCGCATAGCGCAGTGG—ACTGTAGGCACCATCAAT————-
+9               ———ATTGAGTGCAGCGTTGATGAACTGTAGGCACCATCA—————
+19              —–ACTGGTTGG–ATCATGCTTCT–ACTGTAGGCACCATCA—————
+8               —-TTTGGATTGAAGGGAGCTCT—–GCTGTAGGCACCATCA—————
+7               ———TCCACAGGCTTTCTTGAACTGCTGTAGGCACCATCA—————
+17              —–TTGGACTGAAGGGTGCTCCC—-TCTGTAGGCACCATCA—————
+4               —–TGAAGCTGCCAGCATGATCTG—ACTGTAGGCACCATC—————-
+16              —-ACCTGCTCTGATACCATGTTGTG–ACTGTAGGCACCA——————
+6               —TTCATGGACGTTGATAAGATCCTT–CCTGTAGGCACC——————-
+5               ——————————CTGTAGGCACCATCAATTCGTATGCCGTCT
+                                              &lt;strong&gt;*** **&lt;/strong&gt;*      &lt;br /&gt;
 ```&lt;/p&gt;
 
-&lt;p&gt;Running sickle will trim low quality bases. The default minimum length read kept by sickle is 20 bp. I’m using the &lt;code&gt;-l&lt;/code&gt; flag to set this to 10, as smRNA data will naturally have shorter reads in it, although I’m not sure how useful it really is to keep anything less than 20. For what I’m using this data for, only 24 nt smRNAs are used.&lt;/p&gt;
+&lt;p&gt;From this it becomes obvious that the adapter is &lt;code&gt;CTGTAGGCACCATCA...&lt;/code&gt;. Next step is to trim the adapters, and we will also discard any reads that were not trimmed, as these reads are longer than the longest smRNA (so every read should need trimming). We will also retain a minumum read length of 15 nt.&lt;/p&gt;
 
-&lt;p&gt;&lt;code&gt;
-sickle se -f SRR070690.trim.fq.gz -t sanger -o SRR070690_qc.fq.gz -l 10 -g
-sickle se -f SRR1039937.trim.fq.gz -t sanger -o SRR1039937_qc.fq.gz -l 10 -g
+&lt;h2 id=&quot;adapter-trimming&quot;&gt;Adapter trimming&lt;/h2&gt;
+
+&lt;p&gt;```bash
+$ cutadapt –discard-untrimmed -m 15 -a CTGTAGGCACCATCAATTCG -o adapertrim.fq SRR035616.fastq.gz&lt;/p&gt;
+
+&lt;p&gt;This is cutadapt 1.10 with Python 2.7.10
+Command line parameters: –discard-untrimmed -m 15 -a CTGTAGGCACCATCAATTCG -o adapertrim.fq SRR035616.fastq.gz
+Trimming 1 adapter with at most 10.0% errors in single-end mode …
+Finished in 68.63 s (15 us/read; 3.94 M reads/minute).&lt;/p&gt;
+
+&lt;p&gt;=== Summary ===&lt;/p&gt;
+
+&lt;p&gt;Total reads processed:               4,501,847
+Reads with adapters:                 3,325,787 (73.9%)
+Reads that were too short:              57,000 (1.3%)
+Reads written (passing filters):     3,268,787 (72.6%)&lt;/p&gt;
+
+&lt;p&gt;Total basepairs processed:   162,066,492 bp
+Total written (filtered):     70,887,548 bp (43.7%)&lt;/p&gt;
+
+&lt;p&gt;=== Adapter 1 ===&lt;/p&gt;
+
+&lt;p&gt;Sequence: CTGTAGGCACCATCAATTCG; Type: regular 3’; Length: 20; Trimmed: 3325787 times.&lt;/p&gt;
+
+&lt;p&gt;No. of allowed errors:
+0-9 bp: 0; 10-19 bp: 1; 20 bp: 2&lt;/p&gt;
+
+&lt;p&gt;Bases preceding removed adapters:
+  A: 35.9%
+  C: 26.7%
+  G: 15.9%
+  T: 20.4%
+  none/other: 1.0%&lt;/p&gt;
+
+&lt;p&gt;Overview of removed sequences
+length	count	expect	max.err	error counts
+3	1307	70341.4	0	1307
+4	503	17585.3	0	503
+5	832	4396.3	0	832
+6	2505	1099.1	0	2505
+7	7373	274.8	0	7373
+8	10601	68.7	0	10601
+9	23318	17.2	0	20283 3035
+10	50136	4.3	1	29746 20390
+11	128352	1.1	1	72611 55741
+12	1185903	0.3	1	680195 505708
+13	272422	0.1	1	168709 103713
+14	154255	0.0	1	97083 57172
+15	526293	0.0	1	345638 180655
+16	140755	0.0	1	84107 56648
+17	163358	0.0	1	102567 60791
+18	149275	0.0	1	94982 54248 45
+19	135400	0.0	1	83441 51271 688
+20	251034	0.0	2	120106 89305 41623
+21	65165	0.0	2	35913 20238 9014
+22	11648	0.0	2	6752 3502 1394
+23	3309	0.0	2	2054 876 379
+24	2179	0.0	2	1456 518 205
+25	1963	0.0	2	1398 416 149
+26	1404	0.0	2	983 309 112
+27	979	0.0	2	714 193 72
+28	768	0.0	2	572 137 59
+29	628	0.0	2	496 102 30
+30	365	0.0	2	301 52 12
+31	192	0.0	2	167 19 6
+32	133	0.0	2	97 27 9
+33	61	0.0	2	49 10 2
+34	39	0.0	2	30 3 6
+35	39	0.0	2	29 6 4
+36	33293	0.0	2	27424 5411 458
+```&lt;/p&gt;
+
+&lt;p&gt;Now rerun fastqc&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;bash
+$ fastqc adapertrim.fq
 &lt;/code&gt;&lt;/p&gt;
 
-&lt;p&gt;If we then look at the fastqc output for the trimmed reads, we can see peaks in read lengths at 21 and 24 nt, corresponding to the most abundant smRNA size classes in plants.&lt;/p&gt;
+&lt;p&gt;We can see peaks at 21 and 24 nt, which are the most abundant smRNA size classes:&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;/Users/timstuart/Documents/GitHub/timoast.github.io/assets/Groszmann_fastqc.png&quot; alt=&quot;Groszmann_fastqc&quot; /&gt; &lt;img src=&quot;/Users/timstuart/Documents/GitHub/timoast.github.io/assets/Pignatta_fastqc.png&quot; alt=&quot;pignatta_fastqc&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;../assets/brachy_smrna.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
-&lt;h2 id=&quot;run-tasr&quot;&gt;Run TASR&lt;/h2&gt;
+&lt;h2 id=&quot;mapping&quot;&gt;Mapping&lt;/h2&gt;
 
-&lt;p&gt;TASR is the analysis pipeline for smRNA-based annotation of TEs, descibed in (1). It can be downloaded from &lt;a href=&quot;https://sourceforge.net/projects/tasr-pipeline/&quot;&gt;https://sourceforge.net/projects/tasr-pipeline/&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Map with bowtie, pipe to samtools to convert the output sam file to a bam file. Using the &lt;code&gt;-a&lt;/code&gt; flag will tell bowtie to report all alignments.&lt;/p&gt;
 
-&lt;p&gt;The TASR pipeline wants smRNA data in fasta rather than fastq format. To convert, we do:&lt;/p&gt;
-
-&lt;p&gt;&lt;code&gt;
-seqtk seq -A SRR070690_qc.fq.gz &amp;gt; SRR070690_qc.fa
-seqtk seq -A SRR1039937_qc.fq.gz &amp;gt; SRR1039937_qc.fa
-cat SRR1039937_qc.fa SRR070690_qc.fa &amp;gt; reads.fa
+&lt;p&gt;&lt;code&gt;bash
+bowtie -p 20 -q -n 0 -l 20 -a -S /home/tstuart/working_data_01/genomes/Bdistachyon/v2.1/assembly/BowtieIndex/bd21 adapertrim.fq \
+| samtools view -b - &amp;gt; mapped.bam
 &lt;/code&gt;&lt;/p&gt;
 
-&lt;p&gt;It also wants just the unique smRNAs, so we need to collapse our fasta file:&lt;/p&gt;
+&lt;h2 id=&quot;post-processing&quot;&gt;Post-processing&lt;/h2&gt;
 
-&lt;p&gt;&lt;code&gt;
-fastx_collapser -i reads.fa -o collapsed_reads.fa
+&lt;p&gt;It’s important to know the length of the smRNA, its mapping position in the genome, and whether it was uniquely mapped or not. First, we can convert the bam file to a bed file and add a column showing the smRNA length:&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;bash
+$ bedtools bamtobed -i mapped.bam \
+| awk &#39;BEGIN {FS=OFS=&quot;\t&quot;} {$7 = $3 - $2; print $0}&#39; - | pigz - &amp;gt; mapped.bed.gz
 &lt;/code&gt;&lt;/p&gt;
 
-&lt;p&gt;First make sure the dependencies are installed. I had to install &lt;a href=&quot;http://www.drive5.com/usearch/&quot;&gt;usearch&lt;/a&gt;, &lt;a href=&quot;https://tandem.bu.edu/trf/trf.download.html&quot;&gt;trf&lt;/a&gt; (the legacy version for glibc &amp;lt;= 2.12), and &lt;a href=&quot;ftp://pbil.univ-lyon1.fr/pub/logiciel/silix/&quot;&gt;silix&lt;/a&gt;. Make sure you have both silix and silix-split in your path. Also, you need to make sure your version of sort has the parallel option, or remove the –parallel flag from all the sort calls in the perl script like this (there are more):&lt;/p&gt;
+&lt;p&gt;Now we add a column showing the number of mapping positions for each smRNA (in R):&lt;/p&gt;
 
-&lt;p&gt;&lt;code&gt;
-SAMTOBED(&quot;tmp$time/24.sirna.sam&quot;);
-system(
-    &quot;sort --parallel$CPU -k1,1 -k2,2n tmp$time/24.sirna.sam.bed &amp;gt;tmp$time/24.sirna.sam.sorted.bed&quot;
-);
+&lt;p&gt;```r
+library(dplyr)
+library(data.table)
+library(readr)&lt;/p&gt;
+
+&lt;p&gt;smrna &amp;lt;- fread(“~/Downloads/mapped.bed”, header = F, sep = “\t”,
+               col.names = c(“chromosome”, “start”, “stop”, “readName”, “q”, “strand”, “length”))&lt;/p&gt;
+
+&lt;p&gt;smrna &amp;lt;- smrna %&amp;gt;%
+  group_by(readName) %&amp;gt;%
+  mutate(positions = n()) %&amp;gt;%
+  ungroup() %&amp;gt;%
+  select(-q) %&amp;gt;%
+  mutate(unique = ifelse(positions &amp;gt; 1, FALSE, TRUE)) %&amp;gt;%
+  arrange(chromosome, start)&lt;/p&gt;
+
+&lt;p&gt;write_tsv(smrna, “~/Desktop/brachy_smrna.tsv”)
+system(“gzip ~/Desktop/brachy_smrna.tsv”)
+```&lt;/p&gt;
+
+&lt;p&gt;That’s it! We now have a file that looks like this:&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;bash
+$ zcat brachy_smrna.tsv.gz | head
+chromosome	start	stop	readName	strand	length	positions	unique
+Bd1	3	27	SRR035616.1254270	-	24	143	FALSE
+Bd1	5	26	SRR035616.1862694	-	21	153	FALSE
+Bd1	6	21	SRR035616.3527272	-	15	218	FALSE
+Bd1	10	34	SRR035616.1254270	-	24	143	FALSE
+Bd1	12	33	SRR035616.1862694	-	21	153	FALSE
+Bd1	13	28	SRR035616.3527272	-	15	218	FALSE
+Bd1	17	41	SRR035616.1254270	-	24	143	FALSE
+Bd1	19	40	SRR035616.1862694	-	21	153	FALSE
+Bd1	20	35	SRR035616.3527272	-	15	218	FALSE
 &lt;/code&gt;&lt;/p&gt;
-
-&lt;p&gt;To&lt;/p&gt;
-
-&lt;p&gt;&lt;code&gt;
-SAMTOBED(&quot;tmp$time/24.sirna.sam&quot;);
-system(
-    &quot;sort -k1,1 -k2,2n tmp$time/24.sirna.sam.bed &amp;gt;tmp$time/24.sirna.sam.sorted.bed&quot;
-);
-&lt;/code&gt;&lt;/p&gt;
-
-&lt;p&gt;Now run:&lt;/p&gt;
-
-&lt;p&gt;&lt;code&gt;
-TASR.v.1.1.pl -ref ler_pacbio.fa -sfile collapsed_reads.fa -usearchv /home/tstuart/working_data/Tools/usearch -cpu 10
-&lt;/code&gt;&lt;/p&gt;
-
-&lt;p&gt;I’m just using the default values for all parameters to start with.&lt;/p&gt;
-
-&lt;p&gt;This gives a set of fasta files with TE consensus sequences that can then be given to RepeatMasker as a custom library.&lt;/p&gt;
-
-&lt;p&gt;&lt;code&gt;
-[tstuart@cpebmachete smrna]$  head ler_tasr/24.sirna.merged.150.4.mask.final_FAM000011.fasta.fa
-&amp;gt;scf7180000001931|quiver_4003_15127
-ACATATCAAAGACTCATAAGGACTTTGGCTACACCATGAAAGCTTTGAGAAGCAAGAAGA
-AGGTTGGTTAGTGTATTGGAGTCGAATATGACTTGATGTCATGTGTATGATTGAGTATAA
-CAACTTAAACCACGACCCGATCTTAAAAGCCTAAGTAGTGTTTCCTTGTTAGAAGACACA
-AAGCCAAAGACTCATACAGACTTTGGCTACATCATGAAAGCTTTGAGAAGCTAGAAGAAG
-GTTGGTTAGTGTTTTGGAGTCGAATATGACTTGATGTCATGTGTATGATTGAGTATAACA
-ACGTAAACCATAACCCGATCTTAAAAGCCTAAGTAGTGTTTCCTTGTTAGAAGACACAAA
-GCCAAAGACTCATACAGACTTTGGCTACATCATGAAAGCTTTTAGAAGCTAGAAGAAGGT
-TGGTTAGTGTTTTGGAGTAGAAATATGACTTGATGTCATGTGTATGATTGAGTATAACAA
-CTTAAACCGCAACCCGATCTTAAAAGCCTAAGTAGTGTTTCCTTGTTAGAAGACACAAAG
-&lt;/code&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;references&quot;&gt;References&lt;/h2&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;
-    &lt;p&gt;Baidouri El M, Kim KD, Abernathy B, Arikit S, Maumus F, Panaud O, et al. A new approach for annotation of transposable elements using small RNA mapping. Nucleic Acids Research. 2015;43: e84–e84.&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;Groszmann M, Greaves IK, Albertyn ZI, Scofield GN, Peacock WJ, Dennis ES. Changes in 24-nt siRNA levels in Arabidopsis hybrids suggest an epigenetic contribution to hybrid vigor. Proceedings of the National Academy of Sciences. National Acad Sciences; 2011;108: 2617–2622. doi:10.1073/pnas.1019217108&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;Pignatta D, Erdmann RM, Scheer E, Picard CL, Bell GW, Gehring M. Natural epigenetic polymorphisms lead to intraspecific variation in Arabidopsis gene imprinting. eLife. 2014;3: e03198. doi:10.7554/eLife.03198&lt;/p&gt;
-  &lt;/li&gt;
-&lt;/ol&gt;
 </content>
  </entry>
  
@@ -629,6 +649,40 @@ $(document).ready(function () {
    <updated>2016-02-23T00:00:00+08:00</updated>
    <id>/2016/02/23/Papers</id>
    <content type="html">&lt;p&gt;In an effort to read more papers this year, I’m going to read a paper (or something paper-like) each day for the remainder of the year, and post each paper below as I go.&lt;/p&gt;
+
+&lt;h3 id=&quot;jul-12&quot;&gt;Jul 12&lt;/h3&gt;
+
+&lt;h3 id=&quot;jul-11&quot;&gt;Jul 11&lt;/h3&gt;
+
+&lt;p&gt;McKiernan EC, Bourne PE, Brown CT, Buck S, Kenall A, Lin J, et al. How open science helps researchers succeed. eLife; 2016;5: e16800. &lt;a href=&quot;http://dx.doi.org/10.7554/eLife.16800&quot;&gt;doi:10.7554/eLife.16800&lt;/a&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;jul-10&quot;&gt;Jul 10&lt;/h3&gt;
+
+&lt;p&gt;Zhang Q, Wang D, Lang Z, He L, Yang L, Zeng L, et al. Methylation interactions in Arabidopsis hybrids require RNA-directed DNA methylation and are influenced by genetic variation. Proceedings of the National Academy of Sciences. 2016;: 201607851. &lt;a href=&quot;http://dx.doi.org/10.1073/pnas.1607851113&quot;&gt;doi:10.1073/pnas.1607851113&lt;/a&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;jul-9&quot;&gt;Jul 9&lt;/h3&gt;
+
+&lt;p&gt;del Olmo I, López JA, Vázquez J, Raynaud C, Piñeiro M, Jarillo JA. Arabidopsis DNA polymerase ϵ recruits components of Polycomb repressor complex to mediate epigenetic gene silencing. Nucleic Acids Research. 2016;44: gkw156–5614. &lt;a href=&quot;http://dx.doi.org/10.1093/nar/gkw156&quot;&gt;doi:10.1093/nar/gkw156&lt;/a&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;jul-8&quot;&gt;Jul 8&lt;/h3&gt;
+
+&lt;p&gt;Seymour M, Ji L, Santos AM, Kamei M, Sasaki T, Basenko EY, et al. Histone H1 Limits DNA Methylation in Neurospora crassa. G3. 2016. &lt;a href=&quot;http://dx.doi.org/10.1534/g3.116.028324&quot;&gt;doi:10.1534/g3.116.028324&lt;/a&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;jul-7&quot;&gt;Jul 7&lt;/h3&gt;
+
+&lt;p&gt;Chen X, Ge X, Wang J, Tan C, King GJ, Liu K. Genome-wide DNA methylation profiling by modified reduced representation bisulfite sequencing in Brassica rapa suggests that epigenetic modifications play a key role in polyploid genome evolution. Front Plant Sci. Frontiers; 2015;6: 1030. &lt;a href=&quot;http://dx.doi.org/10.3389/fpls.2015.00836&quot;&gt;doi:10.3389/fpls.2015.00836&lt;/a&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;jul-6&quot;&gt;Jul 6&lt;/h3&gt;
+
+&lt;p&gt;Yong W-S, Hsu F-M, Chen P-Y. Profiling genome-wide DNA methylation. Epigenetics &amp;amp; Chromatin. 2016;9: 1–16. &lt;a href=&quot;http://dx.doi.org/10.1186/s13072-016-0075-3&quot;&gt;doi:10.1186/s13072-016-0075-3&lt;/a&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;jul-5&quot;&gt;Jul 5&lt;/h3&gt;
+
+&lt;p&gt;Shewry PR, Pellny TK, Lovegrove A. Is modern wheat bad for health? Nature Plants. 2016;2: 16097. &lt;a href=&quot;http://dx.doi.org/10.1038/nplants.2016.97&quot;&gt;doi:10.1038/nplants.2016.97&lt;/a&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;jul-4&quot;&gt;Jul 4&lt;/h3&gt;
+
+&lt;p&gt;Lynch M. The frailty of adaptive hypotheses for the origins of organismal complexity. PNAS. 2007; &lt;a href=&quot;http://dx.doi.org/10.1073/pnas.0702207104&quot;&gt;doi:10.1073/pnas.0702207104&lt;/a&gt;&lt;/p&gt;
 
 &lt;h3 id=&quot;jul-3&quot;&gt;Jul 3&lt;/h3&gt;
 
@@ -1552,32 +1606,15 @@ outfile.write(&#39;{l}\n&#39;.format(l=map(str, list)))
 stringVersion = [str(x) for x in inputList]
 &lt;/code&gt;&lt;/p&gt;
 
-&lt;h2 id=&quot;printing&quot;&gt;Printing&lt;/h2&gt;
-
-&lt;h3 id=&quot;print-in-colour&quot;&gt;Print in colour&lt;/h3&gt;
+&lt;p&gt;Intersect two lists&lt;/p&gt;
 
 &lt;p&gt;```python
-class colour:
-    PURPLE = ‘\033[95m’
-    CYAN = ‘\033[96m’
-    DARKCYAN = ‘\033[36m’
-    BLUE = ‘\033[94m’
-    GREEN = ‘\033[92m’
-    YELLOW = ‘\033[93m’
-    RED = ‘\033[91m’
-    BOLD = ‘\033[1m’
-    UNDERLINE = ‘\033[4m’
-    END = ‘\033[0m’&lt;/p&gt;
+l1 = [“a”, “b”, “c”]
+l2 = [“c”, “d”, “e”]&lt;/p&gt;
 
-&lt;p&gt;print colour.CYAN + ‘This is blue’ + colour.END
+&lt;p&gt;list(set(l1).intersection(l2))
+## [‘c’]
 ```&lt;/p&gt;
-
-&lt;h3 id=&quot;format-text-wrapping-correctly-in-terminal&quot;&gt;Format text wrapping correctly in terminal&lt;/h3&gt;
-
-&lt;p&gt;&lt;code&gt;python
-import textwrap
-print textwrap.dedent(&#39;print message&#39;)
-&lt;/code&gt;&lt;/p&gt;
 
 &lt;h2 id=&quot;strings&quot;&gt;Strings&lt;/h2&gt;
 
@@ -1607,55 +1644,8 @@ def overlap(start1, stop1, start2, stop2):
             return True
         else:
             pass
+    return False
 &lt;/code&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;functions-for-mapping-ngs-reads&quot;&gt;Functions for mapping NGS reads&lt;/h2&gt;
-
-&lt;p&gt;```python
-import os
-from subprocess import call&lt;/p&gt;
-
-&lt;p&gt;def peMap(proc):
-    “””
-    paired-end reads
-    “””
-    for filename in os.listdir(‘.’):
-        if filename.endswith(“&lt;em&gt;1.fastq”):
-            sam = filename.split(‘&lt;/em&gt;’)
-            sam = sam[0]
-            call([“bowtie2”, “-p{x}”.format(x=proc), “-q”, “-x /dd_stage/userdata/lister/data/genomes/bowtie2_indexes/tair9”,
-                  “-1 {f}”.format(f=sam + ‘_1.fastq’), “-2 {f}”.format(f=sam + ‘_2.fastq’), “-S {s}”.format(s=sam + ‘.sam’)])
-        else:
-            pass&lt;/p&gt;
-
-&lt;p&gt;def seMap(proc):
-    “””
-    single-end reads
-    “””
-    for filename in os.listdir(‘.’):
-        if filename.endswith(“.fastq”):
-            sam = filename.split(‘.’)
-            sam = sam[0]
-            call([“bowtie2”, “-p{x}”.format(x=proc), “-q”, “-x /dd_stage/userdata/lister/data/genomes/bowtie2_indexes/tair9”,
-                  “-U {f}”.format(f=filename), “-S {s}”.format(s=sam + ‘.sam’)])
-        else:
-            pass
-```&lt;/p&gt;
-
-&lt;h2 id=&quot;split-sra-files-into-fastq&quot;&gt;Split sra files into fastq&lt;/h2&gt;
-
-&lt;p&gt;```python
-import os
-from subprocess import call&lt;/p&gt;
-
-&lt;p&gt;def fastqSplit():
-    for filename in os.listdir(‘.’):
-        if filename.endswith(‘.sra’):
-            print ‘processing {n}’.format(n=filename)
-            call([‘fastq-dump’, ‘–split-3’, ‘-v’, filename])
-        else:
-            pass
-```&lt;/p&gt;
 </content>
  </entry>
  

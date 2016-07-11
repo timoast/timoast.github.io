@@ -126,32 +126,15 @@ outfile.write('{l}\n'.format(l=map(str, list)))
 stringVersion = [str(x) for x in inputList]
 </code></p>
 
-<h2 id="printing">Printing</h2>
-
-<h3 id="print-in-colour">Print in colour</h3>
+<p>Intersect two lists</p>
 
 <p>```python
-class colour:
-    PURPLE = ‘\033[95m’
-    CYAN = ‘\033[96m’
-    DARKCYAN = ‘\033[36m’
-    BLUE = ‘\033[94m’
-    GREEN = ‘\033[92m’
-    YELLOW = ‘\033[93m’
-    RED = ‘\033[91m’
-    BOLD = ‘\033[1m’
-    UNDERLINE = ‘\033[4m’
-    END = ‘\033[0m’</p>
+l1 = [“a”, “b”, “c”]
+l2 = [“c”, “d”, “e”]</p>
 
-<p>print colour.CYAN + ‘This is blue’ + colour.END
+<p>list(set(l1).intersection(l2))
+## [‘c’]
 ```</p>
-
-<h3 id="format-text-wrapping-correctly-in-terminal">Format text wrapping correctly in terminal</h3>
-
-<p><code>python
-import textwrap
-print textwrap.dedent('print message')
-</code></p>
 
 <h2 id="strings">Strings</h2>
 
@@ -181,55 +164,8 @@ def overlap(start1, stop1, start2, stop2):
             return True
         else:
             pass
+    return False
 </code></p>
-
-<h2 id="functions-for-mapping-ngs-reads">Functions for mapping NGS reads</h2>
-
-<p>```python
-import os
-from subprocess import call</p>
-
-<p>def peMap(proc):
-    “””
-    paired-end reads
-    “””
-    for filename in os.listdir(‘.’):
-        if filename.endswith(“<em>1.fastq”):
-            sam = filename.split(‘</em>’)
-            sam = sam[0]
-            call([“bowtie2”, “-p{x}”.format(x=proc), “-q”, “-x /dd_stage/userdata/lister/data/genomes/bowtie2_indexes/tair9”,
-                  “-1 {f}”.format(f=sam + ‘_1.fastq’), “-2 {f}”.format(f=sam + ‘_2.fastq’), “-S {s}”.format(s=sam + ‘.sam’)])
-        else:
-            pass</p>
-
-<p>def seMap(proc):
-    “””
-    single-end reads
-    “””
-    for filename in os.listdir(‘.’):
-        if filename.endswith(“.fastq”):
-            sam = filename.split(‘.’)
-            sam = sam[0]
-            call([“bowtie2”, “-p{x}”.format(x=proc), “-q”, “-x /dd_stage/userdata/lister/data/genomes/bowtie2_indexes/tair9”,
-                  “-U {f}”.format(f=filename), “-S {s}”.format(s=sam + ‘.sam’)])
-        else:
-            pass
-```</p>
-
-<h2 id="split-sra-files-into-fastq">Split sra files into fastq</h2>
-
-<p>```python
-import os
-from subprocess import call</p>
-
-<p>def fastqSplit():
-    for filename in os.listdir(‘.’):
-        if filename.endswith(‘.sra’):
-            print ‘processing {n}’.format(n=filename)
-            call([‘fastq-dump’, ‘–split-3’, ‘-v’, filename])
-        else:
-            pass
-```</p>
 
 </div>
 
