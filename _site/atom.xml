@@ -4,7 +4,7 @@
  <title>Tim Stuart</title>
  <link href="/atom.xml" rel="self"/>
  <link href="/"/>
- <updated>2016-07-12T08:07:06+08:00</updated>
+ <updated>2016-07-24T14:30:42+08:00</updated>
  <id></id>
  <author>
    <name>Tim Stuart</name>
@@ -650,7 +650,57 @@ $(document).ready(function () {
    <id>/2016/02/23/Papers</id>
    <content type="html">&lt;p&gt;In an effort to read more papers this year, I’m going to read a paper (or something paper-like) each day for the remainder of the year, and post each paper below as I go.&lt;/p&gt;
 
+&lt;h3 id=&quot;jul-24&quot;&gt;Jul 24&lt;/h3&gt;
+
+&lt;p&gt;Gibson G. Rare and common variants: twenty arguments. Nature Reviews Genetics. 2012. &lt;a href=&quot;http://dx.doi.org/10.1038/nrg3118&quot;&gt;doi:10.1038/nrg3118&lt;/a&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;jul-23&quot;&gt;Jul 23&lt;/h3&gt;
+
+&lt;p&gt;Wang H-Q, Tuominen LK, Tsai C-J. SLIM: a sliding linear model for estimating the proportion of true null hypotheses in datasets with dependence structures. Bioinformatics. 2011. &lt;a href=&quot;http://dx.doi.org/10.1093/bioinformatics/btq650&quot;&gt;doi:10.1093/bioinformatics/btq650&lt;/a&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;jul-22&quot;&gt;Jul 22&lt;/h3&gt;
+
+&lt;p&gt;Goldman AD, Landweber LF. What Is a Genome? PLoS Genetics. 2016. &lt;a href=&quot;http://dx.doi.org/10.1371/journal.pgen.1006181&quot;&gt;doi:10.1371/journal.pgen.1006181&lt;/a&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;jul-21&quot;&gt;Jul 21&lt;/h3&gt;
+
+&lt;p&gt;Krzywinski M, Altman N. Analysis of variance andblocking. Nat Meth. 2014. &lt;a href=&quot;http://dx.doi.org/10.1038/nmeth.3005&quot;&gt;doi:10.1038/nmeth.3005&lt;/a&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;jul-20&quot;&gt;Jul 20&lt;/h3&gt;
+
+&lt;p&gt;Krzywinski M, Altman N. Nonparametric tests. Nat Meth. 2014. &lt;a href=&quot;http://dx.doi.org/10.1038/nmeth.2937&quot;&gt;doi:10.1038/nmeth.2937&lt;/a&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;jul-19&quot;&gt;Jul 19&lt;/h3&gt;
+
+&lt;p&gt;Krzywinski M, Altman N. Comparing samples—part II. Nat Meth. 2014. &lt;a href=&quot;http://dx.doi.org/10.1038/nmeth.2900&quot;&gt;doi:10.1038/nmeth.2900&lt;/a&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;jul-18&quot;&gt;Jul 18&lt;/h3&gt;
+
+&lt;p&gt;Krzywinski M, Altman N. Comparing samples—part I. Nat Meth. 2014. &lt;a href=&quot;http://dx.doi.org/10.1038/nmeth.2858&quot;&gt;doi:10.1038/nmeth.2858&lt;/a&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;jul-17&quot;&gt;Jul 17&lt;/h3&gt;
+
+&lt;p&gt;Grolemund G, Wickham H. A Cognitive Interpretation of Data Analysis. International Statistical Review. 2014. &lt;a href=&quot;http://dx.doi.org/10.1111/insr.12028&quot;&gt;doi:10.1111/insr.12028&lt;/a&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;jul-16&quot;&gt;Jul 16&lt;/h3&gt;
+
+&lt;p&gt;Ure K, Lu H, Wang W, Ito-Ishida A, Wu Z, He L-J, et al. Restoration of Mecp2 expression in GABAergic neurons is sufficient to rescue multiple disease features in a mouse model of Rett syndrome. eLife. 2016. &lt;a href=&quot;http://dx.doi.org/10.7554/eLife.14198&quot;&gt;doi:10.7554/eLife.14198&lt;/a&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;jul-15&quot;&gt;Jul 15&lt;/h3&gt;
+
+&lt;p&gt;Kawakatsu T, Huang S-SC, Jupe F, Sasaki E, Schmitz RJ, Urich MA, et al. Epigenomic Diversity in a Global Collection of Arabidopsis thaliana Accessions. Cell. 2016;166: 492–505. &lt;a href=&quot;http://dx.doi.org/10.1016/j.cell.2016.06.044&quot;&gt;doi:10.1016/j.cell.2016.06.044&lt;/a&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;jul-14&quot;&gt;Jul 14&lt;/h3&gt;
+
+&lt;p&gt;Iqbal K, Tran DA, Li AX, Warden C, Bai AY, Singh P, et al. Deleterious effects of endocrine disruptors are corrected in the mammalian germline by epigenome reprogramming. Genome Biology. 2015;16: 1–24. &lt;a href=&quot;http://dx.doi.org/10.1186/s13059-015-0619-z&quot;&gt;doi:10.1186/s13059-015-0619-z&lt;/a&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;jul-13&quot;&gt;Jul 13&lt;/h3&gt;
+
+&lt;p&gt;Teperek M, Simeone A, Gaggioli V, Miyamoto K, Allen GE, Erkek S, et al. Sperm is epigenetically programmed to regulate gene transcription in embryos. Genome Research. 2016. &lt;a href=&quot;http://dx.doi.org/10.1101/gr.201541.115&quot;&gt;doi:10.1101/gr.201541.115&lt;/a&gt;&lt;/p&gt;
+
 &lt;h3 id=&quot;jul-12&quot;&gt;Jul 12&lt;/h3&gt;
+
+&lt;p&gt;Meng D, Dubin M, Zhang P, Osborne EJ, Stegle O, Clark RM, et al. Limited Contribution of DNA Methylation Variation to Expression Regulation in Arabidopsis thaliana. PLoS Genetics. 2016;12: e1006141. &lt;a href=&quot;http://dx.doi.org/10.1371/journal.pgen.1006141&quot;&gt;doi:10.1371/journal.pgen.1006141&lt;/a&gt;&lt;/p&gt;
 
 &lt;h3 id=&quot;jul-11&quot;&gt;Jul 11&lt;/h3&gt;
 
