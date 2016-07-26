@@ -4,7 +4,7 @@
  <title>Tim Stuart</title>
  <link href="/atom.xml" rel="self"/>
  <link href="/"/>
- <updated>2016-07-24T14:30:42+08:00</updated>
+ <updated>2016-07-26T14:43:44+08:00</updated>
  <id></id>
  <author>
    <name>Tim Stuart</name>
@@ -649,6 +649,14 @@ $(document).ready(function () {
    <updated>2016-02-23T00:00:00+08:00</updated>
    <id>/2016/02/23/Papers</id>
    <content type="html">&lt;p&gt;In an effort to read more papers this year, I’m going to read a paper (or something paper-like) each day for the remainder of the year, and post each paper below as I go.&lt;/p&gt;
+
+&lt;h3 id=&quot;jul-26&quot;&gt;Jul 26&lt;/h3&gt;
+
+&lt;p&gt;&lt;a href=&quot;http://www.johnmyleswhite.com/notebook/2016/07/23/why-im-not-a-fan-of-r-squared/&quot;&gt;http://www.johnmyleswhite.com/notebook/2016/07/23/why-im-not-a-fan-of-r-squared/&lt;/a&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;jul-25&quot;&gt;Jul 25&lt;/h3&gt;
+
+&lt;p&gt;Pedersen BS, Eyring K, De S, Yang IV, Schwartz DA. Fast and accurate alignment of long bisulfite-seq reads. arXiv. 2014. &lt;a href=&quot;http://arxiv.org/abs/1401.1129&quot;&gt;arXiv:1401.1129&lt;/a&gt;&lt;/p&gt;
 
 &lt;h3 id=&quot;jul-24&quot;&gt;Jul 24&lt;/h3&gt;
 
