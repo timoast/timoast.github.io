@@ -4,7 +4,7 @@
  <title>Tim Stuart</title>
  <link href="/atom.xml" rel="self"/>
  <link href="/"/>
- <updated>2016-08-01T12:36:45+08:00</updated>
+ <updated>2016-08-02T16:32:59+08:00</updated>
  <id></id>
  <author>
    <name>Tim Stuart</name>
@@ -649,6 +649,10 @@ $(document).ready(function () {
    <updated>2016-02-23T00:00:00+08:00</updated>
    <id>/2016/02/23/Papers</id>
    <content type="html">&lt;p&gt;In an effort to read more papers this year, I’m going to read a paper (or something paper-like) each day for the remainder of the year, and post each paper below as I go.&lt;/p&gt;
+
+&lt;h3 id=&quot;aug-2&quot;&gt;Aug 2&lt;/h3&gt;
+
+&lt;p&gt;Wickham H. The split-apply-combine strategy for data analysis. Journal of Statistical Software. &lt;a href=&quot;https://www.jstatsoft.org/article/view/v040i01&quot;&gt;2011&lt;/a&gt;&lt;/p&gt;
 
 &lt;h3 id=&quot;aug-1&quot;&gt;Aug 1&lt;/h3&gt;
 
