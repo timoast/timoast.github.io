@@ -4,7 +4,7 @@
  <title>Tim Stuart</title>
  <link href="/atom.xml" rel="self"/>
  <link href="/"/>
- <updated>2016-08-05T16:25:12+08:00</updated>
+ <updated>2016-08-08T17:01:39+08:00</updated>
  <id></id>
  <author>
    <name>Tim Stuart</name>
@@ -650,6 +650,18 @@ $(document).ready(function () {
    <id>/2016/02/23/Papers</id>
    <content type="html">&lt;p&gt;In an effort to read more papers this year, I’m going to read a paper (or something paper-like) each day for the remainder of the year, and post each 
 paper below as I go.&lt;/p&gt;
+
+&lt;h3 id=&quot;aug-8&quot;&gt;Aug 8&lt;/h3&gt;
+
+&lt;p&gt;Rowan BA, Patel V, Weigel D, Schneeberger K. Rapid and Inexpensive Whole-Genome Genotyping-by-Sequencing for Crossover Localization and Fine-Scale Genetic Mapping. G3: Genes | Genomes | Genetics. 2015. &lt;a href=&quot;http://dx.doi.org/10.1534/g3.114.016501&quot;&gt;doi:10.1534/g3.114.016501&lt;/a&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;aug-7&quot;&gt;Aug 7&lt;/h3&gt;
+
+&lt;p&gt;Puga JL, Krzywinski M, Altman N. Points of significance: Bayesian statistics. Nat Meth. 2015. &lt;a href=&quot;http://dx.doi.org/10.1038/nmeth.3368&quot;&gt;doi:10.1038/nmeth.3368&lt;/a&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;aug-6&quot;&gt;Aug 6&lt;/h3&gt;
+
+&lt;p&gt;Eddy SR. What is Bayesian statistics? Nature Biotechnology. 2004. &lt;a href=&quot;http://dx.doi.org/10.1038/nbt0904-1177&quot;&gt;doi:10.1038/nbt0904-1177&lt;/a&gt;&lt;/p&gt;
 
 &lt;h3 id=&quot;aug-5&quot;&gt;Aug 5&lt;/h3&gt;
 
