@@ -4,7 +4,7 @@
  <title>Tim Stuart</title>
  <link href="/atom.xml" rel="self"/>
  <link href="/"/>
- <updated>2016-08-08T17:01:39+08:00</updated>
+ <updated>2016-08-30T10:42:03+08:00</updated>
  <id></id>
  <author>
    <name>Tim Stuart</name>
@@ -67,7 +67,7 @@ CLUSTAL multiple sequence alignment by MUSCLE (3.8)&lt;/p&gt;
 
 &lt;h2 id=&quot;adapter-trimming&quot;&gt;Adapter trimming&lt;/h2&gt;
 
-&lt;p&gt;```bash
+&lt;p&gt;```
 $ cutadapt –discard-untrimmed -m 15 -a CTGTAGGCACCATCAATTCG -o adapertrim.fq SRR035616.fastq.gz&lt;/p&gt;
 
 &lt;p&gt;This is cutadapt 1.10 with Python 2.7.10
@@ -650,6 +650,88 @@ $(document).ready(function () {
    <id>/2016/02/23/Papers</id>
    <content type="html">&lt;p&gt;In an effort to read more papers this year, I’m going to read a paper (or something paper-like) each day for the remainder of the year, and post each 
 paper below as I go.&lt;/p&gt;
+
+&lt;h3 id=&quot;aug-29&quot;&gt;Aug 29&lt;/h3&gt;
+
+&lt;h3 id=&quot;aug-28&quot;&gt;Aug 28&lt;/h3&gt;
+
+&lt;p&gt;Maumus F, Quesneville H. Ancestral repeats have shaped epigenome and genome composition for millions of years in Arabidopsis thaliana. Nature Communications. 2014. &lt;a href=&quot;http://dx.doi.org/10.1038/ncomms5104&quot;&gt;doi:10.1038/ncomms5104&lt;/a&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;aug-27&quot;&gt;Aug 27&lt;/h3&gt;
+
+&lt;p&gt;Takuno S, Ran J-H, Gaut BS. Evolutionary patterns of genic DNA methylation vary across land plants. Nature Plants. 2016. &lt;a href=&quot;http:///dx.doi.org/10.1038/nplants.2015.222&quot;&gt;doi:10.1038/nplants.2015.222&lt;/a&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;aug-26&quot;&gt;Aug 26&lt;/h3&gt;
+
+&lt;p&gt;&lt;a href=&quot;http://simplystatistics.org/2016/08/24/replication-crisis/&quot;&gt;http://simplystatistics.org/2016/08/24/replication-crisis/&lt;/a&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;aug-25&quot;&gt;Aug 25&lt;/h3&gt;
+
+&lt;p&gt;Altman DG, Bland JM. How to obtain the confidence interval from a P value. BMJ. 2011. &lt;a href=&quot;http://dx.doi.org/10.1136/bmj.d2090&quot;&gt;doi:10.1136/bmj.d2090&lt;/a&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;aug-24&quot;&gt;Aug 24&lt;/h3&gt;
+
+&lt;p&gt;Hollister JD, Gaut BS. Epigenetic silencing of transposable elements: a trade-off between reduced transposition and deleterious effects on neighboring gene expression. Genome Research. 2009. &lt;a href=&quot;http://dx.doi.org/10.1101/gr.091678.109&quot;&gt;doi:10.1101/gr.091678.109&lt;/a&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;aug-23&quot;&gt;Aug 23&lt;/h3&gt;
+
+&lt;p&gt;Cano-Rodriguez D, Gjaltema RAF, Jilderda LJ, Jellema P, Dokter-Fokkens J, Ruiters MHJ, et al. Writing of H3K4Me3 overcomes epigenetic silencing in a sustained but context-dependent manner. Nature Communications. 2016. &lt;a href=&quot;http://dx.doi.org/10.1038/ncomms12284&quot;&gt;doi:10.1038/ncomms12284&lt;/a&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;aug-22&quot;&gt;Aug 22&lt;/h3&gt;
+
+&lt;p&gt;Yang D-L, Zhang G, Tang K, Li J, Yang L, Huang H, et al. Dicer-independent RNA-directed DNA methylation in Arabidopsis. Cell Res. 2016. &lt;a href=&quot;http://dx.doi.org/10.1038/cr.2015.145&quot;&gt;doi:10.1038/cr.2015.145&lt;/a&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;aug-21&quot;&gt;Aug 21&lt;/h3&gt;
+
+&lt;p&gt;Walley JW, Sartor RC, Shen Z, Schmitz RJ, Wu KJ, Urich MA, et al. Integration of omic networks in a developmental atlas of maize. Science. 2016. &lt;a href=&quot;http://dx.doi.org/10.1126/science.aag1125&quot;&gt;doi:10.1126/science.aag1125&lt;/a&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;aug-20&quot;&gt;Aug 20&lt;/h3&gt;
+
+&lt;p&gt;Elyashiv E, Sattath S, Hu TT, Strutsovsky A, McVicker G, Andolfatto P, et al. A Genomic Map of the Effects of Linked Selection in Drosophila. PLoS Genetics. 2016. &lt;a href=&quot;http://dx.doi.org/10.1371/journal.pgen.1006130&quot;&gt;doi:10.1371/journal.pgen.1006130&lt;/a&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;aug-19&quot;&gt;Aug 19&lt;/h3&gt;
+
+&lt;p&gt;Keren L, Hausser J, Lotan-Pompan M, Vainberg Slutskin I, Alisar H, Kaminski S, et al. Massively Parallel Interrogation of the Effects of Gene Expression Levels on Fitness. Cell. 2016. &lt;a href=&quot;http://dx.doi.org/10.1016/j.cell.2016.07.024&quot;&gt;doi:10.1016/j.cell.2016.07.024&lt;/a&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;aug-18&quot;&gt;Aug 18&lt;/h3&gt;
+
+&lt;p&gt;Wei B, Liu H, Liu X, Xiao Q, Wang Y, Zhang J, et al. Genome-wide characterization of non-reference transposons in crops suggests non-random insertion. BMC Genomics. &lt;a href=&quot;http://dx.doi.org/10.1186/s12864-016-2847-3&quot;&gt;doi:10.1186/s12864-016-2847-3&lt;/a&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;aug-17&quot;&gt;Aug 17&lt;/h3&gt;
+
+&lt;p&gt;Weir W, Capewell P, Foth B, Clucas C, Pountain A, Steketee P, et al. Population genomics reveals the origin and asexual evolution of human infective trypanosomes. eLife. 2016. &lt;a href=&quot;http://dx.doi.org/10.7554/eLife.11473&quot;&gt;doi:10.7554/eLife.11473&lt;/a&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;aug-16&quot;&gt;Aug 16&lt;/h3&gt;
+
+&lt;p&gt;Altman N, Krzywinski M. Points of Significance: Association, correlation and causation. Nat Meth. &lt;a href=&quot;http://dx.doi.org/10.1038/nmeth.3587&quot;&gt;doi:10.1038/nmeth.3587&lt;/a&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;aug-15&quot;&gt;Aug 15&lt;/h3&gt;
+
+&lt;p&gt;Altman N, Krzywinski M. Points of Significance: Simple linear regression. Nat Meth. &lt;a href=&quot;http://dx.doi.org/10.1038/nmeth.3627&quot;&gt;doi:10.1038/nmeth.3627&lt;/a&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;aug-14&quot;&gt;Aug 14&lt;/h3&gt;
+
+&lt;p&gt;Garalde DR, Snell EA, Jachimowicz D, Heron AJ, Bruce M, Lloyd J, et al. Highly parallel direct RNA sequencing on an array of nanopores. bioRxiv. 2016. &lt;a href=&quot;http://dx.doi.org/10.1101/068809&quot;&gt;doi:10.1101/068809&lt;/a&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;aug-13&quot;&gt;Aug 13&lt;/h3&gt;
+
+&lt;p&gt;Merenciano M, Ullastres A, de Cara MAR, Barrón MG, González J. Multiple Independent Retroelement Insertions in the Promoter of a Stress Response Gene Have Variable Molecular and Functional Effects in Drosophila. PLoS Genet. 2016. &lt;a href=&quot;http://dx.doi.org/10.1371/journal.pgen.1006249&quot;&gt;doi:10.1371/journal.pgen.1006249&lt;/a&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;aug-12&quot;&gt;Aug 12&lt;/h3&gt;
+
+&lt;p&gt;Kulesa A, Krzywinski M, Blainey P, Altman N. Points of Significance: Sampling distributions and the bootstrap. Nat Meth. 2015. &lt;a href=&quot;http://dx.doi.org/10.1038/nmeth.3414&quot;&gt;doi:10.1038/nmeth.3414&lt;/a&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;aug-11&quot;&gt;Aug 11&lt;/h3&gt;
+
+&lt;p&gt;Puga JL, Krzywinski M, Altman N. Points of Significance: Bayesian networks. Nat Meth. 2015. &lt;a href=&quot;http://dx.doi.org/10.1038/nmeth.3550&quot;&gt;doi:10.1038/nmeth.3550&lt;/a&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;aug-10&quot;&gt;Aug 10&lt;/h3&gt;
+
+&lt;p&gt;Panda K, Ji L, Neumann DA, Daron J, Schmitz RJ, Slotkin RK. Full-length autonomous transposable elements are preferentially targeted by expression-dependent forms of RNA-directed DNA methylation. Genome Biology. 2016. &lt;a href=&quot;http://dx.doi.org/10.1186/s13059-016-103&quot;&gt;doi:10.1186/s13059-016-1032-y&lt;/a&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;aug-9&quot;&gt;Aug 9&lt;/h3&gt;
+
+&lt;p&gt;Dickson, A. Introduction to Graph Theory. Utah Math. 2006. &lt;a href=&quot;https://www.math.utah.edu/mathcircle/notes/MC_Graph_Theory.pdf&quot;&gt;pdf&lt;/a&gt;&lt;/p&gt;
 
 &lt;h3 id=&quot;aug-8&quot;&gt;Aug 8&lt;/h3&gt;
 
@@ -1805,7 +1887,7 @@ awk &#39;/&amp;gt;/{x=&quot;file_&quot;++i;}{print &amp;gt; x&quot;.txt&quot;;}&
 &lt;h2 id=&quot;split-coordinate-file-into-different-files-for-each-chromosome&quot;&gt;Split coordinate file into different files for each chromosome&lt;/h2&gt;
 
 &lt;p&gt;&lt;code&gt;
-awk  &#39;{print &amp;gt; $1&quot;.txt&quot;}&#39;&#39; input
+awk  &#39;{print &amp;gt; $1&quot;.txt&quot;}&#39; input
 &lt;/code&gt;&lt;/p&gt;
 
 &lt;h2 id=&quot;take-command-line-arguments&quot;&gt;Take command-line arguments&lt;/h2&gt;

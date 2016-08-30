@@ -36,7 +36,7 @@ awk '/>/{x="file_"++i;}{print > x".txt";}' input
 ## Split coordinate file into different files for each chromosome
 
 ```
-awk  '{print > $1".txt"}'' input
+awk  '{print > $1".txt"}' input
 ```
 
 ## Take command-line arguments

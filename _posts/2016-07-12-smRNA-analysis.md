@@ -54,7 +54,7 @@ From this it becomes obvious that the adapter is `CTGTAGGCACCATCA...`. Next step
 
 ## Adapter trimming
 
-```bash
+```
 $ cutadapt --discard-untrimmed -m 15 -a CTGTAGGCACCATCAATTCG -o adapertrim.fq SRR035616.fastq.gz
 
 This is cutadapt 1.10 with Python 2.7.10

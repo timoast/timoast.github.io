@@ -102,7 +102,7 @@ awk '/&gt;/{x="file_"++i;}{print &gt; x".txt";}' input
 <h2 id="split-coordinate-file-into-different-files-for-each-chromosome">Split coordinate file into different files for each chromosome</h2>
 
 <p><code>
-awk  '{print &gt; $1".txt"}'' input
+awk  '{print &gt; $1".txt"}' input
 </code></p>
 
 <h2 id="take-command-line-arguments">Take command-line arguments</h2>
