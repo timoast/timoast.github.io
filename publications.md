@@ -7,6 +7,6 @@ Kawakatsu T\*, **Stuart T\***, Valdes M\*, Breakfield N, Schmitz RJ, Nery JR, Ur
 
 **Stuart, T.**, Eichten, S. R., Cahn, J., Borevitz, J. O. & Lister, R. Population scale mapping of novel transposable element diversity reveals links to gene regulation and epigenomic variation. bioRxiv (2016). [doi:10.1101/039511](http://biorxiv.org/content/early/2016/02/21/039511)
 
-Eichten, S. R., **Stuart, T.**, Srivastava, A., Lister, R. & Borevitz, J. O. DNA Methylation profiles of diverse Brachypodium distachyon aligns with underlying genetic diversity. bioRxiv (2016). [doi:10.1101/039602](http://biorxiv.org/content/early/2016/02/17/039602)
+Eichten, S. R., **Stuart, T.**, Srivastava, A., Lister, R. & Borevitz, J. O. DNA Methylation profiles of diverse Brachypodium distachyon aligns with underlying genetic diversity. Genome Research (2016). [doi:10.1101/gr.205468.116](http://dx.doi.org/10.1101/gr.205468.116)
 
 \* denotes equal contribution
