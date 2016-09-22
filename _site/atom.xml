@@ -4,7 +4,7 @@
  <title>Tim Stuart</title>
  <link href="/atom.xml" rel="self"/>
  <link href="/"/>
- <updated>2016-09-22T15:20:59+08:00</updated>
+ <updated>2016-09-22T15:30:15+08:00</updated>
  <id></id>
  <author>
    <name>Tim Stuart</name>
@@ -17,7 +17,21 @@
    <link href="//2016/09/22/r_demo/"/>
    <updated>2016-09-22T00:00:00+08:00</updated>
    <id>/2016/09/22/r_demo</id>
-   <content type="html">&lt;h2 id=&quot;getting-started&quot;&gt;Getting started&lt;/h2&gt;
+   <content type="html">&lt;p&gt;&lt;strong&gt;Table of Contents&lt;/strong&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;#getting-started&quot;&gt;Getting started&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#importing-data&quot;&gt;Importing Data&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#tidying-data&quot;&gt;Tidying data&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#manipulating-data&quot;&gt;Manipulating data&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#put-it-all-together&quot;&gt;Put it all together&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#plotting&quot;&gt;Plotting&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#reporting&quot;&gt;Reporting&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#further-reading&quot;&gt;Further reading&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#session-info&quot;&gt;Session info&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;getting-started&quot;&gt;Getting started&lt;/h2&gt;
 
 &lt;p&gt;Clone the repo if you haven’t already:&lt;/p&gt;
 
