@@ -4,7 +4,7 @@
  <title>Tim Stuart</title>
  <link href="/atom.xml" rel="self"/>
  <link href="/"/>
- <updated>2016-09-22T15:30:15+08:00</updated>
+ <updated>2016-09-22T15:36:36+08:00</updated>
  <id></id>
  <author>
    <name>Tim Stuart</name>
@@ -425,42 +425,6 @@ unite(new_mc, coords, chr, start, end, sep = &quot;,&quot;)
 
 &lt;p&gt;&lt;code&gt;r
 library(dplyr)
-&lt;/code&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;code&gt;
-## -------------------------------------------------------------------------
-&lt;/code&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;code&gt;
-## data.table + dplyr code now lives in dtplyr.
-## Please library(dtplyr)!
-&lt;/code&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;code&gt;
-## -------------------------------------------------------------------------
-&lt;/code&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;code&gt;
-## 
-## Attaching package: &#39;dplyr&#39;
-&lt;/code&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;code&gt;
-## The following objects are masked from &#39;package:data.table&#39;:
-## 
-##     between, last
-&lt;/code&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;code&gt;
-## The following objects are masked from &#39;package:stats&#39;:
-## 
-##     filter, lag
-&lt;/code&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;code&gt;
-## The following objects are masked from &#39;package:base&#39;:
-## 
-##     intersect, setdiff, setequal, union
 &lt;/code&gt;&lt;/p&gt;
 
 &lt;p&gt;&lt;code&gt;r
