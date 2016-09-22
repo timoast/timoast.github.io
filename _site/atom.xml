@@ -4,7 +4,7 @@
  <title>Tim Stuart</title>
  <link href="/atom.xml" rel="self"/>
  <link href="/"/>
- <updated>2016-09-22T15:36:36+08:00</updated>
+ <updated>2016-09-22T20:21:50+08:00</updated>
  <id></id>
  <author>
    <name>Tim Stuart</name>
@@ -1184,7 +1184,7 @@ $ fastqc adapertrim.fq
 
 &lt;p&gt;We can see peaks at 21 and 24 nt, which are the most abundant smRNA size classes:&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;../assets/brachy_smrna.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/brachy_smrna.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
 &lt;h2 id=&quot;mapping&quot;&gt;Mapping&lt;/h2&gt;
 
@@ -1689,6 +1689,10 @@ $(document).ready(function () {
    <id>/2016/02/23/Papers</id>
    <content type="html">&lt;p&gt;In an effort to read more papers this year, I’m going to read a paper (or something paper-like) each day for the remainder of the year, and post each 
 paper below as I go.&lt;/p&gt;
+
+&lt;h3 id=&quot;sep-22&quot;&gt;Sep 22&lt;/h3&gt;
+
+&lt;p&gt;Yang G, Nagel DH, Feschotte C, Hancock CN, Wessler SR. Tuned for Transposition: Molecular Determinants Underlying the Hyperactivity of a Stowaway MITE. Science. 2009. &lt;a href=&quot;http://dx.doi.org/10.1126/science.1175688&quot;&gt;doi:10.1126/science.1175688&lt;/a&gt;&lt;/p&gt;
 
 &lt;h3 id=&quot;sep-21&quot;&gt;Sep 21&lt;/h3&gt;
 

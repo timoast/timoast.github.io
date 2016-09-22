@@ -132,7 +132,7 @@ $ fastqc adapertrim.fq
 
 We can see peaks at 21 and 24 nt, which are the most abundant smRNA size classes:  
 
-![](../assets/brachy_smrna.png)
+![](/assets/brachy_smrna.png)
 
 ## Mapping
 
