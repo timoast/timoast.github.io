@@ -4,7 +4,7 @@
  <title>Tim Stuart</title>
  <link href="/atom.xml" rel="self"/>
  <link href="/"/>
- <updated>2016-09-22T15:16:23+08:00</updated>
+ <updated>2016-09-22T15:17:48+08:00</updated>
  <id></id>
  <author>
    <name>Tim Stuart</name>
@@ -209,7 +209,7 @@ densities &amp;lt;- hist(centromere_distance$V7, breaks = 500, plot = F)
 image(as.matrix(densities$counts))
 &lt;/code&gt;&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;/figure/r_demo/plotting_example-2.png&quot; alt=&quot;plot of chunk plotting_example&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/figure/./r_demo/plotting_example-2.png&quot; alt=&quot;plot of chunk plotting_example&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;&lt;code&gt;r
 library(RColorBrewer)
