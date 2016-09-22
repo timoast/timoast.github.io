@@ -4,7 +4,7 @@
  <title>Tim Stuart</title>
  <link href="/atom.xml" rel="self"/>
  <link href="/"/>
- <updated>2016-09-22T15:17:48+08:00</updated>
+ <updated>2016-09-22T15:20:59+08:00</updated>
  <id></id>
  <author>
    <name>Tim Stuart</name>
@@ -399,12 +399,15 @@ unite(new_mc, coords, chr, start, end, sep = &quot;,&quot;)
 
 &lt;h2 id=&quot;manipulating-data&quot;&gt;Manipulating data&lt;/h2&gt;
 
-&lt;p&gt;The &lt;a href=&quot;https://cran.rstudio.com/web/packages/dplyr/vignettes/introduction.html&quot;&gt;dplyr&lt;/a&gt; package:&lt;br /&gt;
-* &lt;code&gt;filter&lt;/code&gt; rows&lt;br /&gt;
-* &lt;code&gt;select&lt;/code&gt; columns&lt;br /&gt;
-* &lt;code&gt;mutate&lt;/code&gt; columns&lt;br /&gt;
-* &lt;code&gt;arrange&lt;/code&gt; rows&lt;br /&gt;
-* &lt;code&gt;group_by&lt;/code&gt; variables&lt;/p&gt;
+&lt;p&gt;The &lt;a href=&quot;https://cran.rstudio.com/web/packages/dplyr/vignettes/introduction.html&quot;&gt;dplyr&lt;/a&gt; package:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;code&gt;filter&lt;/code&gt; rows&lt;/li&gt;
+  &lt;li&gt;&lt;code&gt;select&lt;/code&gt; columns&lt;/li&gt;
+  &lt;li&gt;&lt;code&gt;mutate&lt;/code&gt; columns&lt;/li&gt;
+  &lt;li&gt;&lt;code&gt;arrange&lt;/code&gt; rows&lt;/li&gt;
+  &lt;li&gt;&lt;code&gt;group_by&lt;/code&gt; variables&lt;/li&gt;
+&lt;/ul&gt;
 
 &lt;p&gt;&lt;code&gt;r
 library(dplyr)
@@ -685,7 +688,7 @@ arrange(dmrs, chr, desc(start))
 &lt;p&gt;&lt;code&gt;dplyr&lt;/code&gt; also has join functions.&lt;/p&gt;
 
 &lt;!-- ![](../images/joins.png) --&gt;
-&lt;p&gt;&lt;img src=&quot;../images/joins.png&quot; width=&quot;500&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/figure/./r_demo/joins.png&quot; width=&quot;500&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;&lt;code&gt;r
 te_insertion_counts &amp;lt;- read_tsv(&quot;../data/insertion_counts.tsv&quot;, col_names = c(&quot;Accession&quot;, &quot;Insertions&quot;))

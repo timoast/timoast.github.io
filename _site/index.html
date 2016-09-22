@@ -458,12 +458,15 @@ unite(new_mc, coords, chr, start, end, sep = ",")
 
 <h2 id="manipulating-data">Manipulating data</h2>
 
-<p>The <a href="https://cran.rstudio.com/web/packages/dplyr/vignettes/introduction.html">dplyr</a> package:<br />
-* <code>filter</code> rows<br />
-* <code>select</code> columns<br />
-* <code>mutate</code> columns<br />
-* <code>arrange</code> rows<br />
-* <code>group_by</code> variables</p>
+<p>The <a href="https://cran.rstudio.com/web/packages/dplyr/vignettes/introduction.html">dplyr</a> package:</p>
+
+<ul>
+  <li><code>filter</code> rows</li>
+  <li><code>select</code> columns</li>
+  <li><code>mutate</code> columns</li>
+  <li><code>arrange</code> rows</li>
+  <li><code>group_by</code> variables</li>
+</ul>
 
 <p><code>r
 library(dplyr)
@@ -744,7 +747,7 @@ arrange(dmrs, chr, desc(start))
 <p><code>dplyr</code> also has join functions.</p>
 
 <!-- ![](../images/joins.png) -->
-<p><img src="../images/joins.png" width="500" /></p>
+<p><img src="/figure/./r_demo/joins.png" width="500" /></p>
 
 <p><code>r
 te_insertion_counts &lt;- read_tsv("../data/insertion_counts.tsv", col_names = c("Accession", "Insertions"))
