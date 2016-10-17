@@ -1,6 +1,7 @@
 ---
 layout: page
 title: About
+comments: true
 ---
 
 I’m Tim Stuart, a PhD student studying in the [Lister lab](http://listerlab.org) at the University of Western Australia.
