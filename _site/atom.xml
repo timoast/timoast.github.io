@@ -4,7 +4,7 @@
  <title>Tim Stuart</title>
  <link href="/atom.xml" rel="self"/>
  <link href="/"/>
- <updated>2016-10-17T17:23:49+08:00</updated>
+ <updated>2016-10-17T17:28:27+08:00</updated>
  <id></id>
  <author>
    <name>Tim Stuart</name>
@@ -1486,18 +1486,18 @@ data %&amp;gt;%
   knitr::kable(., align = &#39;l&#39;)
 &lt;/code&gt;&lt;/p&gt;
 
-&lt;p&gt;Title                                                                                                                               Abstract views   PDF views   Age        Revised 
+&lt;p&gt;Title                                                                                                                              | Abstract views |  PDF views |  Age  |   Revised 
 ———————————————————————————————————————————-  —————  ———-  ———  ——–
-Massive migration from the steppe is a source for Indo-European languages in Europe                                                 17385            15170       384 days   FALSE &lt;br /&gt;
-Revised estimates for the number of human and bacteria cells in the body                                                            23174            9625        54 days    FALSE &lt;br /&gt;
-Accelerating Scientific Publication in Biology                                                                                      12206            5504        233 days   TRUE  &lt;br /&gt;
-The genome of the tardigrade Hypsibius dujardini                                                                                    22074            4084        90 days    TRUE  &lt;br /&gt;
-Real time selective sequencing using nanopore technology.                                                                           6906             4039        26 days    FALSE &lt;br /&gt;
-Simple multi-trait analysis identifies novel loci associated with growth and obesity measures                                       4362             2905        236 days   FALSE &lt;br /&gt;
-A vision for ubiquitous sequencing                                                                                                  2435             2735        298 days   TRUE  &lt;br /&gt;
-￼TP53 copy number expansion correlates with the evolution of increased body size and an enhanced DNA damage response in elephants   12275            2502        146 days   TRUE  &lt;br /&gt;
-Reconstructing Genetic History of Siberian and Northeastern European Populations                                                    2079             2410        134 days   TRUE  &lt;br /&gt;
-Genome variation and meiotic recombination in Plasmodium falciparum: insights from deep sequencing of genetic crosses               559              2408        206 days   TRUE&lt;/p&gt;
+Massive migration from the steppe is a source for Indo-European languages in Europe                                                 |17385            |15170      | 384 days |  FALSE &lt;br /&gt;
+Revised estimates for the number of human and bacteria cells in the body                                                            |23174            |9625       | 54 days  |  FALSE &lt;br /&gt;
+Accelerating Scientific Publication in Biology                                                                                      |12206            |5504       | 233 days |  TRUE  &lt;br /&gt;
+The genome of the tardigrade Hypsibius dujardini                                                                                    |22074            |4084       | 90 days  |  TRUE  &lt;br /&gt;
+Real time selective sequencing using nanopore technology.                                                                           |6906             |4039       | 26 days  |  FALSE &lt;br /&gt;
+Simple multi-trait analysis identifies novel loci associated with growth and obesity measures                                       |4362             |2905       | 236 days |  FALSE &lt;br /&gt;
+A vision for ubiquitous sequencing                                                                                                  |2435             |2735       | 298 days |  TRUE  &lt;br /&gt;
+￼TP53 copy number expansion correlates with the evolution of increased body size and an enhanced DNA damage response in elephants   |12275            |2502       | 146 days |  TRUE  &lt;br /&gt;
+Reconstructing Genetic History of Siberian and Northeastern European Populations                                                    |2079             |2410       | 134 days |  TRUE  &lt;br /&gt;
+Genome variation and meiotic recombination in Plasmodium falciparum: insights from deep sequencing of genetic crosses               |559              |2408       | 206 days |  TRUE&lt;/p&gt;
 
 &lt;p&gt;All interesting papers, most of which are still not published in journals.&lt;/p&gt;
 
