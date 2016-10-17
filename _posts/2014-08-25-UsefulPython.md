@@ -15,6 +15,8 @@ parser.add_argument('--option', help='option description', required=False, defau
 parser.add_argument('-n', '--name', help='sample name', required=True)
 ```
 
+<!--break-->
+
 ## Lists
 
 ### List comprehension

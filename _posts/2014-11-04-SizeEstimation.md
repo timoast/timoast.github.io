@@ -19,4 +19,6 @@ $ samtools view mapped.bam | head -10000 | python mean_size.py
 220 35
 ```
 
+<!--break-->
+
 <script src="https://gist.github.com/timoast/af73c0e9fac00187ee49.js"></script>

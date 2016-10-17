@@ -27,6 +27,8 @@ for directory in ./*; do
 done
 ```
 
+<!--break-->
+
 ## Split fasta file into a new file for each entry
 
 ```

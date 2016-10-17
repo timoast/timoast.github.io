@@ -1,6 +1,7 @@
 ---
 title: smRNA analysis notes
 layout: post
+comments: true
 ---
 
 I recently analysed some smRNA data for a paper I'm working on. These are my analysis notes.  
@@ -16,6 +17,8 @@ $ wget ftp://ftp-trace.ncbi.nlm.nih.gov//sra/sra-instant/reads/ByStudy/sra/SRP/S
 $ fastq-dump SRR035616.sra
 $ pigz SRR035616.fastq
 ```
+
+<!--break-->
 
 It is essential that the reads are trimmed correctly to be able to get useful data out of the reads. To do that, we first need to work out what the adapter sequence is. The easiest way to do that is to run fastqc and see what sequences are overrepresented.
 

@@ -67,16 +67,11 @@
 
       <div class="posts">
   
-  <div class="post">
-    <h1 class="post-title">
-      <a href="/2016/09/22/r_demo/">
-        R demo
-      </a>
-    </h1>
-
-    <span class="post-date">22 Sep 2016</span>
-
-    <p><strong>Table of Contents</strong></p>
+   <div class="post-preview">
+   <h2><a href="/2016/09/22/r_demo/">R demo</a></h2>
+   <span class="post-date">September 22, 2016</span>
+   
+     <p><strong>Table of Contents</strong></p>
 
 <ul>
   <li><a href="#getting-started">Getting started</a></li>
@@ -102,1014 +97,212 @@ git clone https://github.com/timoast/dac.git
 
 <p>Install the following packages:</p>
 
-<p><code>r
-install.packages(c("readr", "tidyr", "data.table", "dplyr", "ggplot2"))
+
+     <a href="/2016/09/22/r_demo/">read more</a>
+   
+   </div>
+   <hr>
+   
+   <div class="post-preview">
+   <h2><a href="/2016/07/12/smRNA-analysis/">smRNA analysis notes</a></h2>
+   <span class="post-date">July 12, 2016</span>
+   
+     <p>I recently analysed some smRNA data for a paper I’m working on. These are my analysis notes.</p>
+
+<p>I used previously published data for Brachypodium, from this paper:</p>
+
+<p>Garvin DF, Schmutz J, Rokhsar D, Bevan MW, Barry K, Lucas S, et al. Genome sequencing and analysis of the model grass Brachypodium distachyon. Nature. 2010;463: 763–768. doi:10.1038/nature08747</p>
+
+<p>First step is to download the data:</p>
+
+<p><code>bash
+$ wget ftp://ftp-trace.ncbi.nlm.nih.gov//sra/sra-instant/reads/ByStudy/sra/SRP/SRP001/SRP001895/SRR035616/SRR035616.sra
+$ fastq-dump SRR035616.sra
+$ pigz SRR035616.fastq
 </code></p>
 
-<p>All the following code will assume you are in the directory that holds this file (<code>r_demo.rmd</code>) in the github repo (ie <code>dac/code/</code>).</p>
 
-<h2 id="importing-data">Importing Data</h2>
+     <a href="/2016/07/12/smRNA-analysis/">read more</a>
+   
+   </div>
+   <hr>
+   
+   <div class="post-preview">
+   <h2><a href="/2016/03/29/bsseeker2/">WGBS Analysis notes -- BS-seeker2</a></h2>
+   <span class="post-date">March 29, 2016</span>
+   
+     <h2 id="whole-genome-bisulfite-sequencing-analysis-notes-for-bs-seeker2">Whole genome bisulfite sequencing analysis notes for BS-seeker2.</h2>
 
-<h3 id="the-readr-way">The <code>readr</code> way</h3>
+<h2 id="step-1-trim-adapters-and-low-quality-bases">Step 1: Trim adapters and low quality bases</h2>
+<p>Illumina TruSeq adapter sequence: <code>GATCGGAAGAGCACACGTCTGAACTCCAGTCAC</code></p>
 
-<p><a href="https://blog.rstudio.org/2016/08/05/readr-1-0-0/">Some docs</a></p>
+<p><code>
+cutadapt -a AGATCGGAAGAGCACACGTCTGAACTCCAGTCAC -m 50 reads.fastq \
+| seqtk trimfq -l 50 - \
+| pigz &gt; filtered_reads.fq.gz
+</code></p>
 
-<p>```r
-library(readr)</p>
 
-<p>read_tsv(“../data/coverages.tsv”, col_names = c(“Accession”, “Coverage”))
+     <a href="/2016/03/29/bsseeker2/">read more</a>
+   
+   </div>
+   <hr>
+   
+   <div class="post-preview">
+   <h2><a href="/2016/03/01/biorxiv/">Biorxiv</a></h2>
+   <span class="post-date">March 01, 2016</span>
+   
+     A look at bioRxiv preprints A look at bioRxiv preprints Tim Stuart 2 March 2016 Submissions over time Some bioRxiv metrics Top 10 bioRxiv preprints Distribution of views After posting a my first preprint to bioRxiv a few weeks ago, I have been periodically checking the number of views and PDF downloads. I became interested to see how many downloads or views the preprints on bioRxiv typically get, but this type of information isn’t actually available. What are the all-time top bioRxiv preprints? How many people are reading bioRxiv preprints on average? No-one knows! Altmetric must track this data, as it will tell you how a particular preprint ranks in relation to others, but that data hasn’t been made publicly available (as far as I can tell). Not to worry, a little python script I wrote will scrape this information from the biorxiv website and record it in a file. I ran it on the 29th February this year and collected a snapshot of biorxiv metrics at that time. Let’s take a look at the data. library(dplyr) library(ggplot2) library(readr) library(lubridate) data &lt;- read_tsv(&quot;./data/biorxiv_data_2016_2_29.tsv&quot;) collection_date &lt;- ymd(&quot;2016_2_29&quot;) str(data) ## Classes 'tbl_df', 'tbl' and 'data.frame': 3095 obs. of 6 variables: ## $ Title : chr &quot;Copy number variants in the sheep genome detected using multiple approaches&quot; &quot;Productive infection of field strains of avian coronavirus infectious bronchitis virus in chicken peripheral blood-derived mono&quot;| __truncated__ &quot;Recurrent selection explains genomic regions of high relative but low absolute differentiation in the greenish warbler ring spe&quot;| __truncated__ &quot;A watershed model of individual differences in fluid intelligence&quot; ... ## $ URL : chr &quot;http://biorxiv.org/content/early/2016/02/26/041475&quot; &quot;http://biorxiv.org/content/early/2016/02/26/041558&quot; &quot;http://biorxiv.org/content/early/2016/02/26/041467&quot; &quot;http://biorxiv.org/content/early/2016/02/26/041368&quot; ... ## $ Abstract views : int 131 NA 321 70 161 570 714 276 428 318 ... ## $ PDF views : int 10 NA 14 3 8 102 106...
+     <a href="/2016/03/01/biorxiv/">read more</a>
+   
+   </div>
+   <hr>
+   
+   <div class="post-preview">
+   <h2><a href="/2016/02/23/Papers/">A paper a day</a></h2>
+   <span class="post-date">February 23, 2016</span>
+   
+     <p>In an effort to read more papers this year, I’m going to read a paper (or something paper-like) each day for the remainder of the year, and post each 
+paper below as I go.</p>
+
+<h3 id="oct-17">Oct 17</h3>
+
+<p>Pietzenuk B, Markus C, Gaubert H, Bagwan N, Merotto A, Bucher E, et al. Recurrent evolution of heat-responsiveness in Brassicaceae COPIA elements. Genome Biology. 2016. <a href="http://dx.doi.org/10.1186/s13059-016-1072-3">doi:10.1186/s13059-016-1072-3</a></p>
+
+<h3 id="oct-16">Oct 16</h3>
+
+<p>D’haeseleer P. How does DNA sequence motif discovery work? Nature Biotechnology. 2006. <a href="http://dx.doi.org/10.1038/nbt0806-959">doi:10.1038/nbt0806-959</a></p>
+
+<h3 id="oct-15">Oct 15</h3>
+
+<p>Trapnell C, Salzberg SL. How to map billions of short reads onto genomes. Nature Biotechnology. 2009. <a href="http://dx.doi.org/10.1038/nbt0509-455">doi:10.1038/nbt0509-455</a></p>
+
+
+     <a href="/2016/02/23/Papers/">read more</a>
+   
+   </div>
+   <hr>
+   
+   <div class="post-preview">
+   <h2><a href="/2016/02/18/Lorne/">Lorne Genome 2016 presentation</a></h2>
+   <span class="post-date">February 18, 2016</span>
+   
+     <p>This week I presented some recent work at the Lorne Genome conference. It was my first time at Lorne and it’s a fantastic meeting with lots of interesting talks. It was great to see so many people getting interested in transposon biology too!</p>
+
+<p>Here are a few links to the work I was presenting:</p>
+
+<p>TEPID TE presence/absence variant discovery software:</p>
+
+<p><a href="https://github.com/ListerLab/TEPID">https://github.com/ListerLab/TEPID</a></p>
+
+<p>Poster:</p>
+
+<p><a href="https://dx.doi.org/10.6084/m9.figshare.2082757.v1">https://dx.doi.org/10.6084/m9.figshare.2082757.v1</a></p>
+
+<p>Manuscript:</p>
+
+<p><a href="http://biorxiv.org/content/early/2016/02/11/039511">http://dx.doi.org/10.1101/039511</a></p>
+
+
+     <a href="/2016/02/18/Lorne/">read more</a>
+   
+   </div>
+   <hr>
+   
+   <div class="post-preview">
+   <h2><a href="/2015/10/12/ExtractReads/">Extract reads from bam file by read name</a></h2>
+   <span class="post-date">October 12, 2015</span>
+   
+     <p>While there are very fast and easy ways to extract reads from a bam file according to mapping location, extracting reads by read name is more difficult.</p>
+
+<p>Simple methods, like using <code>grep</code>, are incredibly slow if you want to look for more than a few reads.</p>
+
+<p>Luckily, <code>pysam</code> allows you to index a bam file by read name (using <code>pysam.IndexedReads(AlignmentFile)</code>) while keeping the sort order. However, the index is stored in memory so this can use a lot of RAM (my tests with a 5.7 GB bam file used about 9 GB RAM).</p>
+
+<p>I wrote a small python script (below) that uses pysam to extract reads by read name from a bam file.</p>
+
+<p>Extracting 10 reads from a 5.7 GB bam file, just using <code>grep</code> is slightly faster than the python script:</p>
+
+
+     <a href="/2015/10/12/ExtractReads/">read more</a>
+   
+   </div>
+   <hr>
+   
+   <div class="post-preview">
+   <h2><a href="/2014/11/04/SizeEstimation/">Estimation of insert size from sam / bam files</a></h2>
+   <span class="post-date">November 04, 2014</span>
+   
+     <p>I’ve been looking for a simple way to estimate paired-end insert sizes from mapped data. There are a few more complicated tools available (I think picard will do it), as well as simple scripts different people have written that don’t exclude outliers. However outliers due to discordant read alignments will hugely change the mean, so need to be removed.</p>
+
+<p>As I couldn’t find anything that was a nice middle ground, I ended up writing my own simple python script that will take input from stdin and exclude outliers more that two standard deviations from the median, and print the mean and standard deviation to stdout.</p>
+
+<p>It can be used to estimate the insert size from sam or bam files:</p>
+
+<p><code>
+$ head -10000 mapped.sam | python mean_size.py
+220 35
+</code></p>
+
+<p><code>
+$ samtools view mapped.bam | head -10000 | python mean_size.py
+220 35
+</code></p>
+
+
+     <a href="/2014/11/04/SizeEstimation/">read more</a>
+   
+   </div>
+   <hr>
+   
+   <div class="post-preview">
+   <h2><a href="/2014/10/29/MethyC-Analysis/">MethyC-Seq Analysis Notes</a></h2>
+   <span class="post-date">October 29, 2014</span>
+   
+     <h2 id="preliminary-steps">Preliminary steps</h2>
+
+<h3 id="bcl-conversion">Bcl-conversion</h3>
+
+<ol>
+  <li>Enter a screen</li>
+</ol>
+
+<p><code>bash
+screen -S bcl-conversion
+</code>
+2. Navigate to directory with run (eg. 130909_SNL119_0105_AC2GYKACXX)
+3. Check sample sheet configured correctly. If only one adapter in lane, remove adapter sequence from sample sheet.
+4. Run the following (modified with correct run name, sample sheet etc). Can change final value to change number of reads in files:</p>
+
+
+     <a href="/2014/10/29/MethyC-Analysis/">read more</a>
+   
+   </div>
+   <hr>
+   
+   <div class="post-preview">
+   <h2><a href="/2014/08/25/UsefulPython/">Useful python code</a></h2>
+   <span class="post-date">August 25, 2014</span>
+   
+     <h3 id="take-command-line-arguments">Take command-line arguments</h3>
+
+<p>```python
+from argparse import ArgumentParser</p>
+
+<p>version = pkg_resources.require(“program”)[0].version
+parser = ArgumentParser(description=’program description’)
+group = parser.add_mutually_exclusive_group()
+parser.add_argument(‘–version’, action=’version’, version=’%(prog)s ‘+str(version))
+parser.add_argument(‘–option’, help=’option description’, required=False, default=False, action=’store_true’)
+parser.add_argument(‘-n’, ‘–name’, help=’sample name’, required=True)
 ```</p>
 
-<p><code>
-## Parsed with column specification:
-## cols(
-##   Accession = col_character(),
-##   Coverage = col_integer()
-## )
-</code></p>
 
-<p><code>
-## # A tibble: 216 × 2
-##    Accession Coverage
-##        &lt;chr&gt;    &lt;int&gt;
-## 1       Aa-0       41
-## 2      Abd-0       67
-## 3       Ag-0       47
-## 4       Ak-1       38
-## 5     Alst-1       42
-## 6    Altai-5       42
-## 7     Amel-1       60
-## 8       An-1       39
-## 9      Ang-0       48
-## 10  Anholt-1       53
-## # ... with 206 more rows
-</code></p>
-
-<p><code>r
-# also works for gzipped files
-read_tsv("../data/mc_data.bed.gz")
-</code></p>
-
-<p><code>
-## Parsed with column specification:
-## cols(
-##   coords = col_character(),
-##   ins0 = col_double(),
-##   ins1 = col_double()
-## )
-</code></p>
-
-<p><code>
-## # A tibble: 999 × 3
-##              coords        ins0        ins1
-##               &lt;chr&gt;       &lt;dbl&gt;       &lt;dbl&gt;
-## 1    chr1,8668,8746 0.000000000 0.005366726
-## 2  chr1,17024,18924 0.005193408 0.004104893
-## 3  chr1,18331,18642 0.003720434 0.008686003
-## 4  chr1,23022,23145 0.000000000 0.004184100
-## 5  chr1,55676,56576 0.004172405 0.012852597
-## 6  chr1,69022,69135 0.008230453 0.004237288
-## 7  chr1,69025,69143 0.003484013 0.003608475
-## 8  chr1,69025,69148 0.002777778 0.007604563
-## 9  chr1,69028,69133 0.005494505 0.000000000
-## 10 chr1,76844,77500 0.003282397 0.003786529
-## # ... with 989 more rows
-</code></p>
-
-<h3 id="the-datatable-way">The <code>data.table</code> way</h3>
-
-<p><a href="https://github.com/Rdatatable/data.table/wiki">Some docs</a></p>
-
-<p>```r
-library(data.table)</p>
-
-<p>fread(“../data/coverages.tsv”, header = FALSE, col.names = c(“Accession”, “Coverage”))
-```</p>
-
-<p><code>
-##      Accession Coverage
-##   1:      Aa-0       41
-##   2:     Abd-0       67
-##   3:      Ag-0       47
-##   4:      Ak-1       38
-##   5:    Alst-1       42
-##  ---                   
-## 212:      Ws-2       52
-## 213:      Wt-5       29
-## 214:      Yo-0       78
-## 215:     Zal-1       41
-## 216:     Zdr-1       19
-</code></p>
-
-<p><code>r
-fread("gzip -dc ../data/mc_data.bed.gz")
-</code></p>
-
-<p><code>
-##                      coords        ins0        ins1
-##   1:         chr1,8668,8746 0.000000000 0.005366726
-##   2:       chr1,17024,18924 0.005193408 0.004104893
-##   3:       chr1,18331,18642 0.003720434 0.008686003
-##   4:       chr1,23022,23145 0.000000000 0.004184100
-##   5:       chr1,55676,56576 0.004172405 0.012852597
-##  ---                                               
-## 995: chr1,12566243,12568303 0.264952130 0.076252087
-## 996: chr1,12581911,12582918 0.251092213 0.248537692
-## 997: chr1,12584274,12584300 0.082298985 0.096469517
-## 998: chr1,12594543,12594591 0.333835719 0.404032186
-## 999: chr1,12612939,12613280 0.357346865 0.024760132
-</code></p>
-
-<p><code>r
-fread("seq 25 | xargs -n 5 echo")
-</code></p>
-
-<p><code>
-##    V1 V2 V3 V4 V5
-## 1:  1  2  3  4  5
-## 2:  6  7  8  9 10
-## 3: 11 12 13 14 15
-## 4: 16 17 18 19 20
-## 5: 21 22 23 24 25
-</code></p>
-
-<p><code>r
-fread("curl https://raw.githubusercontent.com/timoast/Arabidopsis-TE-variants/master/ProcessedData/coverages.tsv")
-</code></p>
-
-<p><code>
-##          V1 V2
-##   1:   Aa-0 41
-##   2:  Abd-0 67
-##   3:   Ag-0 47
-##   4:   Ak-1 38
-##   5: Alst-1 42
-##  ---          
-## 212:   Ws-2 52
-## 213:   Wt-5 29
-## 214:   Yo-0 78
-## 215:  Zal-1 41
-## 216:  Zdr-1 19
-</code></p>
-
-<p><code>r
-fread("bedtools intersect -a ../data/a.bed -b ../data/b.bed")
-</code></p>
-
-<p><code>
-##      V1 V2  V3
-## 1: chr1 20 100
-## 2: chr1 50 100
-## 3: chr1 20  50
-</code></p>
-
-<p><code>data.table</code> has lots of other useful functions, see <a href="https://www.datacamp.com/courses/data-table-data-manipulation-r-tutorial">datacamp course</a></p>
-
-<h3 id="brief-tangent----using-fread-to-eliminate-intermediate-files">Brief tangent – using fread to eliminate intermediate files</h3>
-
-<p>```r
-centromere_distance &lt;- fread(“bedtools closest -d -a ../data/c_dmrs.tsv.gz -b ../data/centromere_positions.txt”)</p>
-
-<p>hist(centromere_distance$V7 / 1000, breaks = 100, col = “blue”,
-     main = “C-DMR distances to centromere”,
-     xlab = “Distance (kb)”)
-```</p>
-
-<p><img src="/figure/./r_demo/plotting_example-1.png" alt="plot of chunk plotting_example" /></p>
-
-<p><code>r
-densities &lt;- hist(centromere_distance$V7, breaks = 500, plot = F)
-image(as.matrix(densities$counts))
-</code></p>
-
-<p><img src="/figure/./r_demo/plotting_example-2.png" alt="plot of chunk plotting_example" /></p>
-
-<p><code>r
-library(RColorBrewer)
-colors &lt;- colorRampPalette(brewer.pal(9,"RdYlBu"))(100)
-image(as.matrix(densities$counts), col = rev(colors))
-</code></p>
-
-<p><img src="/figure/./r_demo/plotting_example-3.png" alt="plot of chunk plotting_example" /></p>
-
-<p><code>r
-# create a scale bar
-image(matrix(seq(100)), col = rev(colors))
-</code></p>
-
-<p><img src="/figure/./r_demo/plotting_example-4.png" alt="plot of chunk plotting_example" /></p>
-
-<h2 id="tidying-data">Tidying data</h2>
-
-<p>Some background: <a href="https://www.jstatsoft.org/article/view/v059i10">Tidy data, Wickham 2014</a></p>
-
-<p>Variables go in the columns, observations go in the rows.</p>
-
-<p>Four main operations in tidying data:</p>
-
-<ul>
-  <li>Move observations from the column names to rows</li>
-  <li>Move variables from rows to columns</li>
-  <li>Separate multiple variables into multiple columns</li>
-  <li>Gather single variable from many columns into one column</li>
-</ul>
-
-<p>```r
-library(tidyr)</p>
-
-<p>data &lt;- read_tsv(“../data/experiment.tsv”)
-```</p>
-
-<p><code>
-## Parsed with column specification:
-## cols(
-##   position = col_integer(),
-##   experiment_1 = col_double(),
-##   experiment_2 = col_double(),
-##   experiment_3 = col_double(),
-##   experiment_4 = col_double()
-## )
-</code></p>
-
-<p><code>r
-data
-</code></p>
-
-<p><code>
-## # A tibble: 500 × 5
-##    position experiment_1 experiment_2 experiment_3 experiment_4
-##       &lt;int&gt;        &lt;dbl&gt;        &lt;dbl&gt;        &lt;dbl&gt;        &lt;dbl&gt;
-## 1         1    0.2947252    0.0000000   0.69056274    0.2240412
-## 2         2    0.2624428    0.1944636   0.02995589    0.2823043
-## 3         3    0.2227268    0.1696682   0.64657079    0.3024177
-## 4         4    0.1863447    0.3532347   0.67337368    0.2075265
-## 5         5    0.2532761    0.7560800   0.52507202    0.2844748
-## 6         6    0.1269957    0.0000000   0.69156885    0.3399855
-## 7         7    0.1476328    0.3013359   0.19931927    0.4005465
-## 8         8    0.2202941    0.1325935   0.31909674    0.3487259
-## 9         9    0.1886488    0.4738528   0.69180550    0.4154950
-## 10       10    0.1971425    0.4245025   0.99153173    0.3800341
-## # ... with 490 more rows
-</code></p>
-
-<p><code>r
-tidy_data &lt;- gather(data, experiment, mC, experiment_1:experiment_4)
-tidy_data
-</code></p>
-
-<p><code>
-## # A tibble: 2,000 × 3
-##    position   experiment        mC
-##       &lt;int&gt;        &lt;chr&gt;     &lt;dbl&gt;
-## 1         1 experiment_1 0.2947252
-## 2         2 experiment_1 0.2624428
-## 3         3 experiment_1 0.2227268
-## 4         4 experiment_1 0.1863447
-## 5         5 experiment_1 0.2532761
-## 6         6 experiment_1 0.1269957
-## 7         7 experiment_1 0.1476328
-## 8         8 experiment_1 0.2202941
-## 9         9 experiment_1 0.1886488
-## 10       10 experiment_1 0.1971425
-## # ... with 1,990 more rows
-</code></p>
-
-<p><code>r
-spread(tidy_data, experiment, mC)
-</code></p>
-
-<p><code>
-## # A tibble: 500 × 5
-##    position experiment_1 experiment_2 experiment_3 experiment_4
-## *     &lt;int&gt;        &lt;dbl&gt;        &lt;dbl&gt;        &lt;dbl&gt;        &lt;dbl&gt;
-## 1         1    0.2947252    0.0000000   0.69056274    0.2240412
-## 2         2    0.2624428    0.1944636   0.02995589    0.2823043
-## 3         3    0.2227268    0.1696682   0.64657079    0.3024177
-## 4         4    0.1863447    0.3532347   0.67337368    0.2075265
-## 5         5    0.2532761    0.7560800   0.52507202    0.2844748
-## 6         6    0.1269957    0.0000000   0.69156885    0.3399855
-## 7         7    0.1476328    0.3013359   0.19931927    0.4005465
-## 8         8    0.2202941    0.1325935   0.31909674    0.3487259
-## 9         9    0.1886488    0.4738528   0.69180550    0.4154950
-## 10       10    0.1971425    0.4245025   0.99153173    0.3800341
-## # ... with 490 more rows
-</code></p>
-
-<p>Unite and separate columns</p>
-
-<p><code>r
-mc &lt;- read_tsv("../data/mc_data.bed.gz")
-</code></p>
-
-<p><code>
-## Parsed with column specification:
-## cols(
-##   coords = col_character(),
-##   ins0 = col_double(),
-##   ins1 = col_double()
-## )
-</code></p>
-
-<p><code>r
-head(mc)
-</code></p>
-
-<p><code>
-## # A tibble: 6 × 3
-##             coords        ins0        ins1
-##              &lt;chr&gt;       &lt;dbl&gt;       &lt;dbl&gt;
-## 1   chr1,8668,8746 0.000000000 0.005366726
-## 2 chr1,17024,18924 0.005193408 0.004104893
-## 3 chr1,18331,18642 0.003720434 0.008686003
-## 4 chr1,23022,23145 0.000000000 0.004184100
-## 5 chr1,55676,56576 0.004172405 0.012852597
-## 6 chr1,69022,69135 0.008230453 0.004237288
-</code></p>
-
-<p><code>r
-# first column has three variables: chromsome, start, end
-new_mc &lt;- separate(mc, coords, c("chr", "start", "end"))
-new_mc
-</code></p>
-
-<p><code>
-## # A tibble: 999 × 5
-##      chr start   end        ins0        ins1
-## *  &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;       &lt;dbl&gt;       &lt;dbl&gt;
-## 1   chr1  8668  8746 0.000000000 0.005366726
-## 2   chr1 17024 18924 0.005193408 0.004104893
-## 3   chr1 18331 18642 0.003720434 0.008686003
-## 4   chr1 23022 23145 0.000000000 0.004184100
-## 5   chr1 55676 56576 0.004172405 0.012852597
-## 6   chr1 69022 69135 0.008230453 0.004237288
-## 7   chr1 69025 69143 0.003484013 0.003608475
-## 8   chr1 69025 69148 0.002777778 0.007604563
-## 9   chr1 69028 69133 0.005494505 0.000000000
-## 10  chr1 76844 77500 0.003282397 0.003786529
-## # ... with 989 more rows
-</code></p>
-
-<p><code>r
-unite(new_mc, coords, chr, start, end, sep = ",")
-</code></p>
-
-<p><code>
-## # A tibble: 999 × 3
-##              coords        ins0        ins1
-## *             &lt;chr&gt;       &lt;dbl&gt;       &lt;dbl&gt;
-## 1    chr1,8668,8746 0.000000000 0.005366726
-## 2  chr1,17024,18924 0.005193408 0.004104893
-## 3  chr1,18331,18642 0.003720434 0.008686003
-## 4  chr1,23022,23145 0.000000000 0.004184100
-## 5  chr1,55676,56576 0.004172405 0.012852597
-## 6  chr1,69022,69135 0.008230453 0.004237288
-## 7  chr1,69025,69143 0.003484013 0.003608475
-## 8  chr1,69025,69148 0.002777778 0.007604563
-## 9  chr1,69028,69133 0.005494505 0.000000000
-## 10 chr1,76844,77500 0.003282397 0.003786529
-## # ... with 989 more rows
-</code></p>
-
-<h2 id="manipulating-data">Manipulating data</h2>
-
-<p>The <a href="https://cran.rstudio.com/web/packages/dplyr/vignettes/introduction.html">dplyr</a> package:</p>
-
-<ul>
-  <li><code>filter</code> rows</li>
-  <li><code>select</code> columns</li>
-  <li><code>mutate</code> columns</li>
-  <li><code>arrange</code> rows</li>
-  <li><code>group_by</code> variables</li>
-</ul>
-
-<p><code>r
-library(dplyr)
-</code></p>
-
-<p><code>r
-# from earlier
-coverages &lt;- read_tsv("../data/coverages.tsv", col_names = c("Accession", "Coverage"))
-</code></p>
-
-<p><code>
-## Parsed with column specification:
-## cols(
-##   Accession = col_character(),
-##   Coverage = col_integer()
-## )
-</code></p>
-
-<p><code>r
-# use mutate to create new columns
-cov &lt;- mutate(coverages, high = Coverage &gt; 50)
-cov
-</code></p>
-
-<p><code>
-## # A tibble: 216 × 3
-##    Accession Coverage  high
-##        &lt;chr&gt;    &lt;int&gt; &lt;lgl&gt;
-## 1       Aa-0       41 FALSE
-## 2      Abd-0       67  TRUE
-## 3       Ag-0       47 FALSE
-## 4       Ak-1       38 FALSE
-## 5     Alst-1       42 FALSE
-## 6    Altai-5       42 FALSE
-## 7     Amel-1       60  TRUE
-## 8       An-1       39 FALSE
-## 9      Ang-0       48 FALSE
-## 10  Anholt-1       53  TRUE
-## # ... with 206 more rows
-</code></p>
-
-<p><code>r
-# group rows by common variables
-cov &lt;- group_by(cov, high)
-cov &lt;- mutate(cov, group_average = mean(Coverage))
-cov
-</code></p>
-
-<p><code>
-## Source: local data frame [216 x 4]
-## Groups: high [2]
-## 
-##    Accession Coverage  high group_average
-##        &lt;chr&gt;    &lt;int&gt; &lt;lgl&gt;         &lt;dbl&gt;
-## 1       Aa-0       41 FALSE      37.32609
-## 2      Abd-0       67  TRUE      70.79487
-## 3       Ag-0       47 FALSE      37.32609
-## 4       Ak-1       38 FALSE      37.32609
-## 5     Alst-1       42 FALSE      37.32609
-## 6    Altai-5       42 FALSE      37.32609
-## 7     Amel-1       60  TRUE      70.79487
-## 8       An-1       39 FALSE      37.32609
-## 9      Ang-0       48 FALSE      37.32609
-## 10  Anholt-1       53  TRUE      70.79487
-## # ... with 206 more rows
-</code></p>
-
-<p><code>r
-# use select to choose columns
-select(cov, Accession, group_average)
-</code></p>
-
-<p><code>
-## Adding missing grouping variables: `high`
-</code></p>
-
-<p><code>
-## Source: local data frame [216 x 3]
-## Groups: high [2]
-## 
-##     high Accession group_average
-##    &lt;lgl&gt;     &lt;chr&gt;         &lt;dbl&gt;
-## 1  FALSE      Aa-0      37.32609
-## 2   TRUE     Abd-0      70.79487
-## 3  FALSE      Ag-0      37.32609
-## 4  FALSE      Ak-1      37.32609
-## 5  FALSE    Alst-1      37.32609
-## 6  FALSE   Altai-5      37.32609
-## 7   TRUE    Amel-1      70.79487
-## 8  FALSE      An-1      37.32609
-## 9  FALSE     Ang-0      37.32609
-## 10  TRUE  Anholt-1      70.79487
-## # ... with 206 more rows
-</code></p>
-
-<p><code>r
-# won't let you drop a column if the data is grouped by that column
-cov &lt;- ungroup(cov)
-select(cov, Accession, group_average)
-</code></p>
-
-<p><code>
-## # A tibble: 216 × 2
-##    Accession group_average
-##        &lt;chr&gt;         &lt;dbl&gt;
-## 1       Aa-0      37.32609
-## 2      Abd-0      70.79487
-## 3       Ag-0      37.32609
-## 4       Ak-1      37.32609
-## 5     Alst-1      37.32609
-## 6    Altai-5      37.32609
-## 7     Amel-1      70.79487
-## 8       An-1      37.32609
-## 9      Ang-0      37.32609
-## 10  Anholt-1      70.79487
-## # ... with 206 more rows
-</code></p>
-
-<p><code>r
-# can alse choose what NOT to include
-select(cov, -high)
-</code></p>
-
-<p><code>
-## # A tibble: 216 × 3
-##    Accession Coverage group_average
-##        &lt;chr&gt;    &lt;int&gt;         &lt;dbl&gt;
-## 1       Aa-0       41      37.32609
-## 2      Abd-0       67      70.79487
-## 3       Ag-0       47      37.32609
-## 4       Ak-1       38      37.32609
-## 5     Alst-1       42      37.32609
-## 6    Altai-5       42      37.32609
-## 7     Amel-1       60      70.79487
-## 8       An-1       39      37.32609
-## 9      Ang-0       48      37.32609
-## 10  Anholt-1       53      70.79487
-## # ... with 206 more rows
-</code></p>
-
-<p><code>r
-# sort using arrange
-arrange(cov, Coverage)
-</code></p>
-
-<p><code>
-## # A tibble: 216 × 4
-##        Accession Coverage  high group_average
-##            &lt;chr&gt;    &lt;int&gt; &lt;lgl&gt;         &lt;dbl&gt;
-## 1           Koln       11 FALSE      37.32609
-## 2           Se-0       15 FALSE      37.32609
-## 3           Ra-0       17 FALSE      37.32609
-## 4          Wei-0       17 FALSE      37.32609
-## 5          Old-1       18 FALSE      37.32609
-## 6          Pu2-8       19 FALSE      37.32609
-## 7         Ragl-1       19 FALSE      37.32609
-## 8          Zdr-1       19 FALSE      37.32609
-## 9           Bg-2       20 FALSE      37.32609
-## 10 Buckhorn-Pass       20 FALSE      37.32609
-## # ... with 206 more rows
-</code></p>
-
-<p><code>r
-arrange(cov, desc(Coverage))
-</code></p>
-
-<p><code>
-## # A tibble: 216 × 4
-##    Accession Coverage  high group_average
-##        &lt;chr&gt;    &lt;int&gt; &lt;lgl&gt;         &lt;dbl&gt;
-## 1       Br-0      133  TRUE      70.79487
-## 2      Lan-0      127  TRUE      70.79487
-## 3       Kb-0      110  TRUE      70.79487
-## 4       El-0      107  TRUE      70.79487
-## 5       La-0      102  TRUE      70.79487
-## 6       Kl-5      100  TRUE      70.79487
-## 7      Kar-1       97  TRUE      70.79487
-## 8      Gel-1       96  TRUE      70.79487
-## 9      Nok-3       96  TRUE      70.79487
-## 10  Rennes-1       96  TRUE      70.79487
-## # ... with 206 more rows
-</code></p>
-
-<p><code>r
-# useful for coordinates
-dmrs &lt;- read_tsv("../data/c_dmrs.tsv.gz", col_names = c("chr", "start", "end"))
-</code></p>
-
-<p><code>
-## Parsed with column specification:
-## cols(
-##   chr = col_character(),
-##   start = col_integer(),
-##   end = col_integer()
-## )
-</code></p>
-
-<p><code>r
-dmrs
-</code></p>
-
-<p><code>
-## # A tibble: 13,484 × 3
-##      chr  start    end
-##    &lt;chr&gt;  &lt;int&gt;  &lt;int&gt;
-## 1   chr1    792    911
-## 2   chr1  22665  22807
-## 3   chr1  41392  41445
-## 4   chr1  71457  71476
-## 5   chr1  76839  77252
-## 6   chr1 193333 193525
-## 7   chr1 255844 255893
-## 8   chr1 291887 291998
-## 9   chr1 355668 356037
-## 10  chr1 428072 428073
-## # ... with 13,474 more rows
-</code></p>
-
-<p><code>r
-arrange(dmrs, chr, desc(start))
-</code></p>
-
-<p><code>
-## # A tibble: 13,484 × 3
-##      chr    start      end
-##    &lt;chr&gt;    &lt;int&gt;    &lt;int&gt;
-## 1   chr1 30417725 30417837
-## 2   chr1 30416592 30416901
-## 3   chr1 30416104 30416138
-## 4   chr1 30391058 30391076
-## 5   chr1 30390110 30390285
-## 6   chr1 30388868 30389254
-## 7   chr1 30388263 30388288
-## 8   chr1 30376878 30377010
-## 9   chr1 30345730 30346096
-## 10  chr1 30295026 30295310
-## # ... with 13,474 more rows
-</code></p>
-
-<h3 id="joining-tables">Joining tables</h3>
-
-<p><code>dplyr</code> also has join functions.</p>
-
-<!-- ![](../images/joins.png) -->
-<p><img src="/figure/./r_demo/joins.png" width="500" /></p>
-
-<p><code>r
-te_insertion_counts &lt;- read_tsv("../data/insertion_counts.tsv", col_names = c("Accession", "Insertions"))
-</code></p>
-
-<p><code>
-## Parsed with column specification:
-## cols(
-##   Accession = col_character(),
-##   Insertions = col_integer()
-## )
-</code></p>
-
-<p><code>r
-left_join(coverages, te_insertion_counts)
-</code></p>
-
-<p><code>
-## Joining, by = "Accession"
-</code></p>
-
-<p><code>
-## # A tibble: 216 × 3
-##    Accession Coverage Insertions
-##        &lt;chr&gt;    &lt;int&gt;      &lt;int&gt;
-## 1       Aa-0       41        367
-## 2      Abd-0       67        420
-## 3       Ag-0       47        443
-## 4       Ak-1       38        305
-## 5     Alst-1       42        379
-## 6    Altai-5       42        417
-## 7     Amel-1       60        330
-## 8       An-1       39        313
-## 9      Ang-0       48        350
-## 10  Anholt-1       53        343
-## # ... with 206 more rows
-</code></p>
-
-<h2 id="put-it-all-together">Put it all together</h2>
-
-<p>In unix, the pipe lets you use output from one program/function as input to another. This lets you chain together commands an eliminate intermediate files. It also provides the ability to start one process before the previous has finished. For example you can pipe the output of bowtie into samtools and convert straight to bam without having to wait for the mapping to finish.</p>
-
-<p>The same can be done in R with any function that takes and returns a dataframe. In unix the pipe character is <code>|</code>, in R it is <code>%&gt;%</code>. The pipe is part of the <code>magrittr</code> package, but is also loaded any time you load <code>readr</code>, <code>dplyr</code>, or <code>tidyr</code>.</p>
-
-<p><code>r
-df &lt;- read_tsv("../data/coverages.tsv", col_names = c("Accession", "Coverage")) %&gt;%
-  mutate(high = Coverage &gt; 50) %&gt;%
-  group_by(high) %&gt;%
-  mutate(group_av = mean(Coverage)) %&gt;%
-  left_join(te_insertion_counts)
-</code></p>
-
-<p><code>
-## Parsed with column specification:
-## cols(
-##   Accession = col_character(),
-##   Coverage = col_integer()
-## )
-</code></p>
-
-<p><code>
-## Joining, by = "Accession"
-</code></p>
-
-<p><code>r
-df
-</code></p>
-
-<p><code>
-## Source: local data frame [216 x 5]
-## Groups: high [?]
-## 
-##    Accession Coverage  high group_av Insertions
-##        &lt;chr&gt;    &lt;int&gt; &lt;lgl&gt;    &lt;dbl&gt;      &lt;int&gt;
-## 1       Aa-0       41 FALSE 37.32609        367
-## 2      Abd-0       67  TRUE 70.79487        420
-## 3       Ag-0       47 FALSE 37.32609        443
-## 4       Ak-1       38 FALSE 37.32609        305
-## 5     Alst-1       42 FALSE 37.32609        379
-## 6    Altai-5       42 FALSE 37.32609        417
-## 7     Amel-1       60  TRUE 70.79487        330
-## 8       An-1       39 FALSE 37.32609        313
-## 9      Ang-0       48 FALSE 37.32609        350
-## 10  Anholt-1       53  TRUE 70.79487        343
-## # ... with 206 more rows
-</code></p>
-
-<h2 id="plotting">Plotting</h2>
-
-<p>```r
-library(ggplot2)</p>
-
-<p>ggplot(df, aes(Coverage, Insertions)) +
-  geom_point() + geom_smooth(method = “lm”)
-```</p>
-
-<p><img src="/figure/./r_demo/ggplot-1.png" alt="plot of chunk ggplot" /></p>
-
-<p><code>r
-ggplot(df, aes(Coverage, Insertions, color = high)) +
-  geom_point() + geom_smooth(method = "lm")
-</code></p>
-
-<p><img src="/figure/./r_demo/ggplot-2.png" alt="plot of chunk ggplot" /></p>
-
-<p><code>r
-ggplot(df, aes(Coverage, Insertions)) +
-  geom_point() + facet_wrap(~high) +
-  theme_bw()
-</code></p>
-
-<p><img src="/figure/./r_demo/ggplot-3.png" alt="plot of chunk ggplot" /></p>
-
-<p><code>r
-ggplot(tidy_data, aes(experiment, mC)) +
-  geom_jitter(alpha = 0.5) + theme_bw()
-</code></p>
-
-<p><img src="/figure/./r_demo/ggplot-4.png" alt="plot of chunk ggplot" /></p>
-
-<p>Easily create interactive graphics</p>
-
-<p><code>r
-library(plotly)
-</code></p>
-
-<p><code>
-## 
-## Attaching package: 'plotly'
-</code></p>
-
-<p><code>
-## The following object is masked from 'package:ggplot2':
-## 
-##     last_plot
-</code></p>
-
-<p><code>
-## The following object is masked from 'package:graphics':
-## 
-##     layout
-</code></p>
-
-<p>```r
-p &lt;- ggplot(df, aes(Coverage, Insertions, label=Accession)) +
-  geom_point() +
-  theme_bw()</p>
-
-<p>ggplotly(p)
-```</p>
-
-<p><code>
-## Error in loadNamespace(name): there is no package called 'webshot'
-</code></p>
-
-<p><code>r
-# from earlier
-dmrs
-</code></p>
-
-<p><code>
-## # A tibble: 13,484 × 3
-##      chr  start    end
-##    &lt;chr&gt;  &lt;int&gt;  &lt;int&gt;
-## 1   chr1    792    911
-## 2   chr1  22665  22807
-## 3   chr1  41392  41445
-## 4   chr1  71457  71476
-## 5   chr1  76839  77252
-## 6   chr1 193333 193525
-## 7   chr1 255844 255893
-## 8   chr1 291887 291998
-## 9   chr1 355668 356037
-## 10  chr1 428072 428073
-## # ... with 13,474 more rows
-</code></p>
-
-<p><code>r
-ggplot(dmrs, aes(start)) +
-  geom_density() + facet_wrap(~chr)
-</code></p>
-
-<p><img src="/figure/./r_demo/more_plots-1.png" alt="plot of chunk more_plots" /></p>
-
-<p><code>r
-# cleaned up
-ggplot(dmrs, aes(start/1000)) +
-  geom_density(adjust = 1/10, fill = "blue", alpha = 0.5) +
-  facet_wrap(~chr, scales = "free") + theme_classic() +
-  xlab("Position (kb)") + ggtitle("C-DMR Positions") +
-  theme(axis.text.x = element_text(angle = 45, hjust = 1))
-</code></p>
-
-<p><img src="/figure/./r_demo/more_plots-2.png" alt="plot of chunk more_plots" /></p>
-
-<h2 id="reporting">Reporting</h2>
-
-<p>Use <a href="http://rmarkdown.rstudio.com/">RMarkdown</a> (included in RStudio). Press Knit HTML / Knit PDF to render the output document.</p>
-
-<h3 id="displaying-nice-tables">Displaying nice tables</h3>
-
-<p><code>r
-# from before
-data
-</code></p>
-
-<p><code>
-## # A tibble: 500 × 5
-##    position experiment_1 experiment_2 experiment_3 experiment_4
-##       &lt;int&gt;        &lt;dbl&gt;        &lt;dbl&gt;        &lt;dbl&gt;        &lt;dbl&gt;
-## 1         1    0.2947252    0.0000000   0.69056274    0.2240412
-## 2         2    0.2624428    0.1944636   0.02995589    0.2823043
-## 3         3    0.2227268    0.1696682   0.64657079    0.3024177
-## 4         4    0.1863447    0.3532347   0.67337368    0.2075265
-## 5         5    0.2532761    0.7560800   0.52507202    0.2844748
-## 6         6    0.1269957    0.0000000   0.69156885    0.3399855
-## 7         7    0.1476328    0.3013359   0.19931927    0.4005465
-## 8         8    0.2202941    0.1325935   0.31909674    0.3487259
-## 9         9    0.1886488    0.4738528   0.69180550    0.4154950
-## 10       10    0.1971425    0.4245025   0.99153173    0.3800341
-## # ... with 490 more rows
-</code></p>
-
-<p><code>r
-# using kable
-head(data) %&gt;% knitr::kable()
-</code></p>
-
-<table>
-  <thead>
-    <tr>
-      <th style="text-align: right">position</th>
-      <th style="text-align: right">experiment_1</th>
-      <th style="text-align: right">experiment_2</th>
-      <th style="text-align: right">experiment_3</th>
-      <th style="text-align: right">experiment_4</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td style="text-align: right">1</td>
-      <td style="text-align: right">0.2947252</td>
-      <td style="text-align: right">0.0000000</td>
-      <td style="text-align: right">0.6905627</td>
-      <td style="text-align: right">0.2240412</td>
-    </tr>
-    <tr>
-      <td style="text-align: right">2</td>
-      <td style="text-align: right">0.2624428</td>
-      <td style="text-align: right">0.1944636</td>
-      <td style="text-align: right">0.0299559</td>
-      <td style="text-align: right">0.2823043</td>
-    </tr>
-    <tr>
-      <td style="text-align: right">3</td>
-      <td style="text-align: right">0.2227268</td>
-      <td style="text-align: right">0.1696682</td>
-      <td style="text-align: right">0.6465708</td>
-      <td style="text-align: right">0.3024177</td>
-    </tr>
-    <tr>
-      <td style="text-align: right">4</td>
-      <td style="text-align: right">0.1863447</td>
-      <td style="text-align: right">0.3532347</td>
-      <td style="text-align: right">0.6733737</td>
-      <td style="text-align: right">0.2075265</td>
-    </tr>
-    <tr>
-      <td style="text-align: right">5</td>
-      <td style="text-align: right">0.2532761</td>
-      <td style="text-align: right">0.7560800</td>
-      <td style="text-align: right">0.5250720</td>
-      <td style="text-align: right">0.2844748</td>
-    </tr>
-    <tr>
-      <td style="text-align: right">6</td>
-      <td style="text-align: right">0.1269957</td>
-      <td style="text-align: right">0.0000000</td>
-      <td style="text-align: right">0.6915689</td>
-      <td style="text-align: right">0.3399855</td>
-    </tr>
-  </tbody>
-</table>
-
-<h3 id="code-block-options">Code block options</h3>
-
-<p>Can choose to show everything, show only output (eg plots), show nothing, show only warnings, etc..</p>
-
-<h3 id="output-options">Output options</h3>
-
-<p>Output can be rendered as html, pdf, or word. You can also choose a theme, and whether to show a table of contents. One important feature is the ability to have self-contained html documents by including  <code>self_contained: true</code> in the rmarkdown header. This will let you send the html file to others and still have all the plots appear correct. This should be set as the default for html output.</p>
-
-<h3 id="running-code-in-other-languages">Running code in other languages</h3>
-
-<p>It is possible to have code chunks that run in languages other than R. If you look at the first code chunk in this document, you will see that it runs a shell command (git). To find out more, read about <a href="http://yihui.name/knitr/demo/engines/">language engines in knitr</a>.</p>
-
-<p>Here is an example running python:</p>
-
-<p><code>python
-chromosomes = ["chr" + str(i) for i in xrange(1, 6)]
-print(chromosomes)
-</code></p>
-
-<p><code>
-## ['chr1', 'chr2', 'chr3', 'chr4', 'chr5']
-</code></p>
-
-<p>To use objects created by running code in other languages (for example, if we wanted to use the <code>chromosomes</code> variable created in the above python chunk), you will usually need to write the results to a file and then read into R from the file. There are complicated environment variable things you can do to <a href="https://raw.githubusercontent.com/yihui/knitr-examples/master/106-polyglot.Rmd">share objects</a> between languages, but these may not be worth the extra effort.</p>
-
-<h2 id="further-reading">Further reading</h2>
-
-<p><a href="http://r4ds.had.co.nz/">http://r4ds.had.co.nz/</a></p>
-
-<h2 id="session-info">Session info</h2>
-
-<p><code>r
-devtools::session_info()
-</code></p>
-
-<p><code>
-## Session info --------------------------------------------------------------
-</code></p>
-
-<p><code>
-##  setting  value                       
-##  version  R version 3.3.1 (2016-06-21)
-##  system   x86_64, darwin15.5.0        
-##  ui       unknown                     
-##  language (EN)                        
-##  collate  en_AU.UTF-8                 
-##  tz       Australia/Perth             
-##  date     2016-09-22
-</code></p>
-
-<p><code>
-## Packages ------------------------------------------------------------------
-</code></p>
-
-<p><code>
-##  package      * version date       source                      
-##  assertthat     0.1     2013-12-06 CRAN (R 3.3.0)              
-##  base64enc      0.1-3   2015-07-28 CRAN (R 3.3.1)              
-##  chron          2.3-47  2015-06-24 CRAN (R 3.3.0)              
-##  colorspace     1.2-6   2015-03-11 CRAN (R 3.3.0)              
-##  data.table   * 1.9.6   2015-09-19 CRAN (R 3.3.1)              
-##  DBI            0.5-1   2016-09-10 CRAN (R 3.3.1)              
-##  devtools       1.12.0  2016-06-24 CRAN (R 3.3.1)              
-##  digest         0.6.10  2016-08-02 CRAN (R 3.3.1)              
-##  dplyr        * 0.5.0   2016-06-24 CRAN (R 3.3.1)              
-##  evaluate       0.9     2016-04-29 CRAN (R 3.3.0)              
-##  formatR        1.4     2016-05-09 CRAN (R 3.3.1)              
-##  ggplot2      * 2.1.0   2016-03-01 CRAN (R 3.3.1)              
-##  gridExtra      2.2.1   2016-02-29 CRAN (R 3.3.1)              
-##  gtable         0.2.0   2016-02-26 CRAN (R 3.3.0)              
-##  highr          0.6     2016-05-09 CRAN (R 3.3.0)              
-##  htmltools      0.3.5   2016-03-21 CRAN (R 3.3.0)              
-##  htmlwidgets    0.7     2016-08-02 CRAN (R 3.3.1)              
-##  httr           1.2.1   2016-07-03 CRAN (R 3.3.1)              
-##  jsonlite       1.1     2016-09-14 CRAN (R 3.3.1)              
-##  knitr          1.14.4  2016-09-22 Github (yihui/knitr@54ea64f)
-##  labeling       0.3     2014-08-23 CRAN (R 3.3.0)              
-##  lazyeval       0.2.0   2016-06-12 CRAN (R 3.3.0)              
-##  magrittr       1.5     2014-11-22 CRAN (R 3.3.0)              
-##  memoise        1.0.0   2016-01-29 CRAN (R 3.3.0)              
-##  munsell        0.4.3   2016-02-13 CRAN (R 3.3.0)              
-##  plotly       * 3.6.0   2016-05-18 CRAN (R 3.3.1)              
-##  plyr           1.8.4   2016-06-08 CRAN (R 3.3.0)              
-##  R6             2.1.3   2016-08-19 CRAN (R 3.3.1)              
-##  RColorBrewer * 1.1-2   2014-12-07 CRAN (R 3.3.0)              
-##  Rcpp           0.12.7  2016-09-05 CRAN (R 3.3.1)              
-##  readr        * 1.0.0   2016-08-03 CRAN (R 3.3.1)              
-##  scales         0.4.0   2016-02-26 CRAN (R 3.3.0)              
-##  stringi        1.1.1   2016-05-27 CRAN (R 3.3.0)              
-##  stringr        1.1.0   2016-08-19 CRAN (R 3.3.1)              
-##  tibble         1.2     2016-08-26 CRAN (R 3.3.1)              
-##  tidyr        * 0.6.0   2016-08-12 CRAN (R 3.3.1)              
-##  viridis        0.3.4   2016-03-12 CRAN (R 3.3.1)              
-##  withr          1.0.2   2016-06-20 CRAN (R 3.3.1)              
-##  yaml           2.1.13  2014-06-12 CRAN (R 3.3.0)
-</code></p>
-
-
-  </div>
-  
+     <a href="/2014/08/25/UsefulPython/">read more</a>
+   
+   </div>
+   <hr>
+   
 </div>
 
 <div class="pagination">

@@ -83,6 +83,8 @@ screen -S bcl-conversion
 3. Check sample sheet configured correctly. If only one adapter in lane, remove adapter sequence from sample sheet.
 4. Run the following (modified with correct run name, sample sheet etc). Can change final value to change number of reads in files:</p>
 
+<!--break-->
+
 <p><code>bash
 /usr/local/packages/CASAVA_v1.8.2/bcl2fastq/build/bin/configureBclToFastq.pl --input-dir /dd_rundata/hiseq/Runs/130909_SNL119_0105_AC2GYKACXX/Data/Intensities/BaseCalls/ --sample-sheet /dd_rundata/hiseq/Runs/130909_SNL119_0105_AC2GYKACXX/SampleSheet.csv --fastq-cluster-count 50000000
 </code></p>

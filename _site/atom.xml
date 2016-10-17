@@ -4,7 +4,7 @@
  <title>Tim Stuart</title>
  <link href="/atom.xml" rel="self"/>
  <link href="/"/>
- <updated>2016-10-17T16:38:28+08:00</updated>
+ <updated>2016-10-17T17:10:01+08:00</updated>
  <id></id>
  <author>
    <name>Tim Stuart</name>
@@ -42,6 +42,8 @@ git clone https://github.com/timoast/dac.git
 &lt;p&gt;Install &lt;a href=&quot;https://www.rstudio.com/&quot;&gt;RStudio&lt;/a&gt;.&lt;/p&gt;
 
 &lt;p&gt;Install the following packages:&lt;/p&gt;
+
+&lt;!--break--&gt;
 
 &lt;p&gt;&lt;code&gt;r
 install.packages(c(&quot;readr&quot;, &quot;tidyr&quot;, &quot;data.table&quot;, &quot;dplyr&quot;, &quot;ggplot2&quot;))
@@ -1070,6 +1072,8 @@ $ fastq-dump SRR035616.sra
 $ pigz SRR035616.fastq
 &lt;/code&gt;&lt;/p&gt;
 
+&lt;!--break--&gt;
+
 &lt;p&gt;It is essential that the reads are trimmed correctly to be able to get useful data out of the reads. To do that, we first need to work out what the adapter sequence is. The easiest way to do that is to run fastqc and see what sequences are overrepresented.&lt;/p&gt;
 
 &lt;p&gt;&lt;code&gt;bash
@@ -1259,6 +1263,8 @@ cutadapt -a AGATCGGAAGAGCACACGTCTGAACTCCAGTCAC -m 50 reads.fastq \
 | seqtk trimfq -l 50 - \
 | pigz &amp;gt; filtered_reads.fq.gz
 &lt;/code&gt;&lt;/p&gt;
+
+&lt;!--break--&gt;
 
 &lt;h2 id=&quot;step-2-quality-control&quot;&gt;Step 2: Quality control&lt;/h2&gt;
 
@@ -1701,6 +1707,8 @@ paper below as I go.&lt;/p&gt;
 &lt;h3 id=&quot;oct-15&quot;&gt;Oct 15&lt;/h3&gt;
 
 &lt;p&gt;Trapnell C, Salzberg SL. How to map billions of short reads onto genomes. Nature Biotechnology. 2009. &lt;a href=&quot;http://dx.doi.org/10.1038/nbt0509-455&quot;&gt;doi:10.1038/nbt0509-455&lt;/a&gt;&lt;/p&gt;
+
+&lt;!--break--&gt;
 
 &lt;h3 id=&quot;oct-14&quot;&gt;Oct 14&lt;/h3&gt;
 
@@ -2691,6 +2699,8 @@ paper below as I go.&lt;/p&gt;
 &lt;p&gt;Manuscript:&lt;/p&gt;
 
 &lt;p&gt;&lt;a href=&quot;http://biorxiv.org/content/early/2016/02/11/039511&quot;&gt;http://dx.doi.org/10.1101/039511&lt;/a&gt;&lt;/p&gt;
+
+&lt;!--break--&gt;
 </content>
  </entry>
  
@@ -2708,6 +2718,8 @@ paper below as I go.&lt;/p&gt;
 &lt;p&gt;I wrote a small python script (below) that uses pysam to extract reads by read name from a bam file.&lt;/p&gt;
 
 &lt;p&gt;Extracting 10 reads from a 5.7 GB bam file, just using &lt;code&gt;grep&lt;/code&gt; is slightly faster than the python script:&lt;/p&gt;
+
+&lt;!--break--&gt;
 
 &lt;p&gt;```shell
 timstuart Altai-5$  time samtools view Altai-5_filtered.bam | grep -f reads.txt &amp;gt; extracted&lt;/p&gt;
@@ -2760,6 +2772,8 @@ $ samtools view mapped.bam | head -10000 | python mean_size.py
 220 35
 &lt;/code&gt;&lt;/p&gt;
 
+&lt;!--break--&gt;
+
 &lt;script src=&quot;https://gist.github.com/timoast/af73c0e9fac00187ee49.js&quot;&gt;&lt;/script&gt;
 
 </content>
@@ -2784,6 +2798,8 @@ screen -S bcl-conversion
 2. Navigate to directory with run (eg. 130909_SNL119_0105_AC2GYKACXX)
 3. Check sample sheet configured correctly. If only one adapter in lane, remove adapter sequence from sample sheet.
 4. Run the following (modified with correct run name, sample sheet etc). Can change final value to change number of reads in files:&lt;/p&gt;
+
+&lt;!--break--&gt;
 
 &lt;p&gt;&lt;code&gt;bash
 /usr/local/packages/CASAVA_v1.8.2/bcl2fastq/build/bin/configureBclToFastq.pl --input-dir /dd_rundata/hiseq/Runs/130909_SNL119_0105_AC2GYKACXX/Data/Intensities/BaseCalls/ --sample-sheet /dd_rundata/hiseq/Runs/130909_SNL119_0105_AC2GYKACXX/SampleSheet.csv --fastq-cluster-count 50000000
@@ -2997,6 +3013,8 @@ parser.add_argument(‘–option’, help=’option description’, required=Fal
 parser.add_argument(‘-n’, ‘–name’, help=’sample name’, required=True)
 ```&lt;/p&gt;
 
+&lt;!--break--&gt;
+
 &lt;h2 id=&quot;lists&quot;&gt;Lists&lt;/h2&gt;
 
 &lt;h3 id=&quot;list-comprehension&quot;&gt;List comprehension&lt;/h3&gt;
@@ -3114,6 +3132,8 @@ for directory in ./*; do
     fi
 done
 &lt;/code&gt;&lt;/p&gt;
+
+&lt;!--break--&gt;
 
 &lt;h2 id=&quot;split-fasta-file-into-a-new-file-for-each-entry&quot;&gt;Split fasta file into a new file for each entry&lt;/h2&gt;
 

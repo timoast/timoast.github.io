@@ -82,6 +82,8 @@ $ fastq-dump SRR035616.sra
 $ pigz SRR035616.fastq
 </code></p>
 
+<!--break-->
+
 <p>It is essential that the reads are trimmed correctly to be able to get useful data out of the reads. To do that, we first need to work out what the adapter sequence is. The easiest way to do that is to run fastqc and see what sequences are overrepresented.</p>
 
 <p><code>bash
@@ -256,6 +258,27 @@ Bd1	20	35	SRR035616.3527272	-	15	218	FALSE
 
 </div>
 
+
+<div id="disqus_thread"></div>
+<script>
+
+  /**
+  *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+  *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+  /*
+  var disqus_config = function () {
+  this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+  this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+  };
+  */
+  (function() { // DON'T EDIT BELOW THIS LINE
+  var d = document, s = d.createElement('script');
+  s.src = '//timoast-github-io.disqus.com/embed.js';
+  s.setAttribute('data-timestamp', +new Date());
+  (d.head || d.body).appendChild(s);
+  })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
 
 
 

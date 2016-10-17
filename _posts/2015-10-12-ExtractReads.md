@@ -13,6 +13,8 @@ I wrote a small python script (below) that uses pysam to extract reads by read n
 
 Extracting 10 reads from a 5.7 GB bam file, just using `grep` is slightly faster than the python script:
 
+<!--break-->
+
 ```shell
 timstuart Altai-5$  time samtools view Altai-5_filtered.bam | grep -f reads.txt > extracted
 

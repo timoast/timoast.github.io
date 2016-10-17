@@ -67,16 +67,127 @@
 
       <div class="posts">
   
-  <div class="post">
-    <h1 class="post-title">
-      <a href="/2016/02/18/Lorne/">
-        Lorne Genome 2016 presentation
-      </a>
-    </h1>
+   <div class="post-preview">
+   <h2><a href="/2016/09/22/r_demo/">R demo</a></h2>
+   <span class="post-date">September 22, 2016</span>
+   
+     <p><strong>Table of Contents</strong></p>
 
-    <span class="post-date">18 Feb 2016</span>
+<ul>
+  <li><a href="#getting-started">Getting started</a></li>
+  <li><a href="#importing-data">Importing Data</a></li>
+  <li><a href="#tidying-data">Tidying data</a></li>
+  <li><a href="#manipulating-data">Manipulating data</a></li>
+  <li><a href="#put-it-all-together">Put it all together</a></li>
+  <li><a href="#plotting">Plotting</a></li>
+  <li><a href="#reporting">Reporting</a></li>
+  <li><a href="#further-reading">Further reading</a></li>
+  <li><a href="#session-info">Session info</a></li>
+</ul>
 
-    <p>This week I presented some recent work at the Lorne Genome conference. It was my first time at Lorne and it’s a fantastic meeting with lots of interesting talks. It was great to see so many people getting interested in transposon biology too!</p>
+<h2 id="getting-started">Getting started</h2>
+
+<p>Clone the repo if you haven’t already:</p>
+
+<p><code>bash
+git clone https://github.com/timoast/dac.git
+</code></p>
+
+<p>Install <a href="https://www.rstudio.com/">RStudio</a>.</p>
+
+<p>Install the following packages:</p>
+
+
+     <a href="/2016/09/22/r_demo/">read more</a>
+   
+   </div>
+   <hr>
+   
+   <div class="post-preview">
+   <h2><a href="/2016/07/12/smRNA-analysis/">smRNA analysis notes</a></h2>
+   <span class="post-date">July 12, 2016</span>
+   
+     <p>I recently analysed some smRNA data for a paper I’m working on. These are my analysis notes.</p>
+
+<p>I used previously published data for Brachypodium, from this paper:</p>
+
+<p>Garvin DF, Schmutz J, Rokhsar D, Bevan MW, Barry K, Lucas S, et al. Genome sequencing and analysis of the model grass Brachypodium distachyon. Nature. 2010;463: 763–768. doi:10.1038/nature08747</p>
+
+<p>First step is to download the data:</p>
+
+<p><code>bash
+$ wget ftp://ftp-trace.ncbi.nlm.nih.gov//sra/sra-instant/reads/ByStudy/sra/SRP/SRP001/SRP001895/SRR035616/SRR035616.sra
+$ fastq-dump SRR035616.sra
+$ pigz SRR035616.fastq
+</code></p>
+
+
+     <a href="/2016/07/12/smRNA-analysis/">read more</a>
+   
+   </div>
+   <hr>
+   
+   <div class="post-preview">
+   <h2><a href="/2016/03/29/bsseeker2/">WGBS Analysis notes -- BS-seeker2</a></h2>
+   <span class="post-date">March 29, 2016</span>
+   
+     <h2 id="whole-genome-bisulfite-sequencing-analysis-notes-for-bs-seeker2">Whole genome bisulfite sequencing analysis notes for BS-seeker2.</h2>
+
+<h2 id="step-1-trim-adapters-and-low-quality-bases">Step 1: Trim adapters and low quality bases</h2>
+<p>Illumina TruSeq adapter sequence: <code>GATCGGAAGAGCACACGTCTGAACTCCAGTCAC</code></p>
+
+<p><code>
+cutadapt -a AGATCGGAAGAGCACACGTCTGAACTCCAGTCAC -m 50 reads.fastq \
+| seqtk trimfq -l 50 - \
+| pigz &gt; filtered_reads.fq.gz
+</code></p>
+
+
+     <a href="/2016/03/29/bsseeker2/">read more</a>
+   
+   </div>
+   <hr>
+   
+   <div class="post-preview">
+   <h2><a href="/2016/03/01/biorxiv/">Biorxiv</a></h2>
+   <span class="post-date">March 01, 2016</span>
+   
+     A look at bioRxiv preprints A look at bioRxiv preprints Tim Stuart 2 March 2016 Submissions over time Some bioRxiv metrics Top 10 bioRxiv preprints Distribution of views After posting a my first preprint to bioRxiv a few weeks ago, I have been periodically checking the number of views and PDF downloads. I became interested to see how many downloads or views the preprints on bioRxiv typically get, but this type of information isn’t actually available. What are the all-time top bioRxiv preprints? How many people are reading bioRxiv preprints on average? No-one knows! Altmetric must track this data, as it will tell you how a particular preprint ranks in relation to others, but that data hasn’t been made publicly available (as far as I can tell). Not to worry, a little python script I wrote will scrape this information from the biorxiv website and record it in a file. I ran it on the 29th February this year and collected a snapshot of biorxiv metrics at that time. Let’s take a look at the data. library(dplyr) library(ggplot2) library(readr) library(lubridate) data &lt;- read_tsv(&quot;./data/biorxiv_data_2016_2_29.tsv&quot;) collection_date &lt;- ymd(&quot;2016_2_29&quot;) str(data) ## Classes 'tbl_df', 'tbl' and 'data.frame': 3095 obs. of 6 variables: ## $ Title : chr &quot;Copy number variants in the sheep genome detected using multiple approaches&quot; &quot;Productive infection of field strains of avian coronavirus infectious bronchitis virus in chicken peripheral blood-derived mono&quot;| __truncated__ &quot;Recurrent selection explains genomic regions of high relative but low absolute differentiation in the greenish warbler ring spe&quot;| __truncated__ &quot;A watershed model of individual differences in fluid intelligence&quot; ... ## $ URL : chr &quot;http://biorxiv.org/content/early/2016/02/26/041475&quot; &quot;http://biorxiv.org/content/early/2016/02/26/041558&quot; &quot;http://biorxiv.org/content/early/2016/02/26/041467&quot; &quot;http://biorxiv.org/content/early/2016/02/26/041368&quot; ... ## $ Abstract views : int 131 NA 321 70 161 570 714 276 428 318 ... ## $ PDF views : int 10 NA 14 3 8 102 106...
+     <a href="/2016/03/01/biorxiv/">read more</a>
+   
+   </div>
+   <hr>
+   
+   <div class="post-preview">
+   <h2><a href="/2016/02/23/Papers/">A paper a day</a></h2>
+   <span class="post-date">February 23, 2016</span>
+   
+     <p>In an effort to read more papers this year, I’m going to read a paper (or something paper-like) each day for the remainder of the year, and post each 
+paper below as I go.</p>
+
+<h3 id="oct-17">Oct 17</h3>
+
+<p>Pietzenuk B, Markus C, Gaubert H, Bagwan N, Merotto A, Bucher E, et al. Recurrent evolution of heat-responsiveness in Brassicaceae COPIA elements. Genome Biology. 2016. <a href="http://dx.doi.org/10.1186/s13059-016-1072-3">doi:10.1186/s13059-016-1072-3</a></p>
+
+<h3 id="oct-16">Oct 16</h3>
+
+<p>D’haeseleer P. How does DNA sequence motif discovery work? Nature Biotechnology. 2006. <a href="http://dx.doi.org/10.1038/nbt0806-959">doi:10.1038/nbt0806-959</a></p>
+
+<h3 id="oct-15">Oct 15</h3>
+
+<p>Trapnell C, Salzberg SL. How to map billions of short reads onto genomes. Nature Biotechnology. 2009. <a href="http://dx.doi.org/10.1038/nbt0509-455">doi:10.1038/nbt0509-455</a></p>
+
+
+     <a href="/2016/02/23/Papers/">read more</a>
+   
+   </div>
+   <hr>
+   
+   <div class="post-preview">
+   <h2><a href="/2016/02/18/Lorne/">Lorne Genome 2016 presentation</a></h2>
+   <span class="post-date">February 18, 2016</span>
+   
+     <p>This week I presented some recent work at the Lorne Genome conference. It was my first time at Lorne and it’s a fantastic meeting with lots of interesting talks. It was great to see so many people getting interested in transposon biology too!</p>
 
 <p>Here are a few links to the work I was presenting:</p>
 
@@ -92,8 +203,106 @@
 
 <p><a href="http://biorxiv.org/content/early/2016/02/11/039511">http://dx.doi.org/10.1101/039511</a></p>
 
-  </div>
-  
+
+     <a href="/2016/02/18/Lorne/">read more</a>
+   
+   </div>
+   <hr>
+   
+   <div class="post-preview">
+   <h2><a href="/2015/10/12/ExtractReads/">Extract reads from bam file by read name</a></h2>
+   <span class="post-date">October 12, 2015</span>
+   
+     <p>While there are very fast and easy ways to extract reads from a bam file according to mapping location, extracting reads by read name is more difficult.</p>
+
+<p>Simple methods, like using <code>grep</code>, are incredibly slow if you want to look for more than a few reads.</p>
+
+<p>Luckily, <code>pysam</code> allows you to index a bam file by read name (using <code>pysam.IndexedReads(AlignmentFile)</code>) while keeping the sort order. However, the index is stored in memory so this can use a lot of RAM (my tests with a 5.7 GB bam file used about 9 GB RAM).</p>
+
+<p>I wrote a small python script (below) that uses pysam to extract reads by read name from a bam file.</p>
+
+<p>Extracting 10 reads from a 5.7 GB bam file, just using <code>grep</code> is slightly faster than the python script:</p>
+
+
+     <a href="/2015/10/12/ExtractReads/">read more</a>
+   
+   </div>
+   <hr>
+   
+   <div class="post-preview">
+   <h2><a href="/2014/11/04/SizeEstimation/">Estimation of insert size from sam / bam files</a></h2>
+   <span class="post-date">November 04, 2014</span>
+   
+     <p>I’ve been looking for a simple way to estimate paired-end insert sizes from mapped data. There are a few more complicated tools available (I think picard will do it), as well as simple scripts different people have written that don’t exclude outliers. However outliers due to discordant read alignments will hugely change the mean, so need to be removed.</p>
+
+<p>As I couldn’t find anything that was a nice middle ground, I ended up writing my own simple python script that will take input from stdin and exclude outliers more that two standard deviations from the median, and print the mean and standard deviation to stdout.</p>
+
+<p>It can be used to estimate the insert size from sam or bam files:</p>
+
+<p><code>
+$ head -10000 mapped.sam | python mean_size.py
+220 35
+</code></p>
+
+<p><code>
+$ samtools view mapped.bam | head -10000 | python mean_size.py
+220 35
+</code></p>
+
+
+     <a href="/2014/11/04/SizeEstimation/">read more</a>
+   
+   </div>
+   <hr>
+   
+   <div class="post-preview">
+   <h2><a href="/2014/10/29/MethyC-Analysis/">MethyC-Seq Analysis Notes</a></h2>
+   <span class="post-date">October 29, 2014</span>
+   
+     <h2 id="preliminary-steps">Preliminary steps</h2>
+
+<h3 id="bcl-conversion">Bcl-conversion</h3>
+
+<ol>
+  <li>Enter a screen</li>
+</ol>
+
+<p><code>bash
+screen -S bcl-conversion
+</code>
+2. Navigate to directory with run (eg. 130909_SNL119_0105_AC2GYKACXX)
+3. Check sample sheet configured correctly. If only one adapter in lane, remove adapter sequence from sample sheet.
+4. Run the following (modified with correct run name, sample sheet etc). Can change final value to change number of reads in files:</p>
+
+
+     <a href="/2014/10/29/MethyC-Analysis/">read more</a>
+   
+   </div>
+   <hr>
+   
+   <div class="post-preview">
+   <h2><a href="/2014/08/25/UsefulPython/">Useful python code</a></h2>
+   <span class="post-date">August 25, 2014</span>
+   
+     <h3 id="take-command-line-arguments">Take command-line arguments</h3>
+
+<p>```python
+from argparse import ArgumentParser</p>
+
+<p>version = pkg_resources.require(“program”)[0].version
+parser = ArgumentParser(description=’program description’)
+group = parser.add_mutually_exclusive_group()
+parser.add_argument(‘–version’, action=’version’, version=’%(prog)s ‘+str(version))
+parser.add_argument(‘–option’, help=’option description’, required=False, default=False, action=’store_true’)
+parser.add_argument(‘-n’, ‘–name’, help=’sample name’, required=True)
+```</p>
+
+
+     <a href="/2014/08/25/UsefulPython/">read more</a>
+   
+   </div>
+   <hr>
+   
 </div>
 
 <div class="pagination">

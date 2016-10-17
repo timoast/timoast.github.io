@@ -67,456 +67,242 @@
 
       <div class="posts">
   
-  <div class="post">
-    <h1 class="post-title">
-      <a href="/2014/08/24/UsefulCommands/">
-        Useful Linux/Unix commands
-      </a>
-    </h1>
-
-    <span class="post-date">24 Aug 2014</span>
-
-    <h2 id="go-back-to-last-directory">go back to last directory</h2>
-
-<p><code>
-cd -
-</code></p>
-
-<h2 id="do-something-in-a-range">Do something in a range</h2>
-<p>Move files</p>
-
-<p><code>bash
-for i in $(seq 10); do mv chr$i ../genomes/; done
-</code></p>
-
-<p><code>bash
-for directory in ./*; do
-    if [ -d "$directory" ]; then
-        cd $directory
-        for myfile in $(ls -d *.sra);do
-            mv $myfile /home/tstuart/working_data/1000genomes/$myfile
-        done
-        cd ..
-    fi
-done
-</code></p>
-
-<h2 id="split-fasta-file-into-a-new-file-for-each-entry">Split fasta file into a new file for each entry</h2>
-
-<p><code>
-awk '/&gt;/{x="file_"++i;}{print &gt; x".txt";}' input
-</code></p>
-
-<h2 id="split-coordinate-file-into-different-files-for-each-chromosome">Split coordinate file into different files for each chromosome</h2>
-
-<p><code>
-awk  '{print &gt; $1".txt"}' input
-</code></p>
-
-<h2 id="take-command-line-arguments">Take command-line arguments</h2>
-
-<p>Required flags are followed by <code>:</code></p>
-
-<p>```bash
-index=  proc=  path=</p>
-
-<p>while getopts x:pA opt; do
-  case $opt in
-  x)
-      index=$OPTARG
-      ;;
-  p)
-      proc=$OPTARG
-      ;;
-  A)
-      path=${OPTARG%/}
-      ;;
-  esac
-done
-shift $((OPTIND - 1))
-```</p>
-
-<h2 id="strip-trailing-slash-from-string">Strip trailing slash from string</h2>
-
-<p><code>bash
-path=${OPTARG%/}
-</code></p>
-
-<h2 id="gnu-screen">GNU Screen</h2>
-
-<p>Start screen: <code>screen -S [screen name]</code><br />
-List screens: <code>screen -list</code><br />
-Detach: <code>screen -d</code><br />
-Attach: <code>screen -r</code><br />
-Close screen: <code>ctr-a-d</code><br />
-Kill screen: <code>ctr-a :quit</code></p>
-
-<h2 id="human-readable-path">Human-readable path</h2>
-
-<p><code>bash
-echo -e ${PATH//:/'\n'}
-</code></p>
-
-<h2 id="searching">Searching</h2>
-
-<p><code>bash
-grep 'text' filename
-grep 'text' file1 file2 file3
-grep 'text1 text2' filename
-grep --color 'text' filename
-</code></p>
-
-<p>Search all files in a directory, show output in less</p>
-
-<p><code>bash
-grep -r 'text' /home/usr/ | less
-</code></p>
-
-<p>Search for multiple strings</p>
-
-<p><code>bash
-egrep '(AT4G40030)|(AT4G40040)|(AT5G10980)' * &gt; h3.3
-</code></p>
-
-<h2 id="pipe-output-into-file">Pipe output into file</h2>
-
-<h4 id="overwrite-contents-of-file">Overwrite contents of file</h4>
-
-<p><code>bash
-grep "text" filename.txt &gt; output.txt
-</code></p>
-
-<h4 id="append-to-file">Append to file</h4>
-
-<p><code>bash
-grep "text" filename.txt &gt;&gt; output.txt
-</code></p>
-
-<h2 id="counting">Counting</h2>
-<p>Count lines in chr1 file</p>
-
-<p><code>bash
-wc -l chr1
-</code></p>
-
-<p>Count characters in chr1 file</p>
-
-<p><code>bash
-wc -c chr1
-</code></p>
-
-<h2 id="list">List</h2>
-
-<p>List and sort</p>
-
-<p><code>bash
-ls -ls
-</code></p>
-
-<p>List and sort by size</p>
-
-<p><code>bash
-ls -ls -S
-</code></p>
-
-<p>Count number of directories in current directory</p>
-
-<p><code>bash
-ls -l | grep ^d | wc -l
-</code></p>
-
-<h2 id="sorting">Sorting</h2>
-
-<p>Sort file by numerical order of first column, save as sorted_list.txt</p>
-
-<p><code>bash
-sort -nk 1 list.txt &gt; sorted_list.txt
-</code></p>
-
-<p>Sort file by order of first column, then numerical order of second column, save as sorted_list.txt</p>
-
-<p><code>bash
-sort -k1,1 -nk2,2 list.txt &gt; sorted_list.txt
-</code></p>
-
-<p>Sort descending</p>
-
-<p><code>bash
-sort -rn -k3 file.txt &gt; sorted.txt
-</code></p>
-
-<p>overwrite</p>
-
-<p><code>bash
-sort -rn -k3 -o file.txt file.txt
-</code></p>
-
-<h2 id="rows">Rows</h2>
-<p>Delete first line</p>
-
-<p><code>bash
-sed 1d file.txt &gt; headerless_file.txt
-</code></p>
-
-<p>Delete lines 1-3 inclusive</p>
-
-<p><code>bash
-sed 1,3d file.txt &gt; newfile.txt
-</code></p>
-
-<p>Delete lines containing string</p>
-
-<p><code>bash
-sed '/ATC/d' file.txt &gt; file_mod.txt
-</code></p>
-
-<p>Overwrite file</p>
-
-<p><code>bash
-sed -i.bak 1d file.txt
-</code></p>
-
-<h2 id="columns">Columns</h2>
-<p>Write columns to new file. Can also reorder columns.</p>
-
-<p><code>bash
-awk 'BEGIN {FS=OFS="\t"} {print $2,$4,$5,$6,$7,$8,$1,$3}' file.txt &gt; outfile.txt
-awk 'BEGIN {FS=OFS="\t"} {print $7,$1,$8,$2,$3,$4,$5,$6}' cmt2_targets.tsv &gt; cmt2_targets_ordered.tsv
-</code></p>
-
-<p>Add column</p>
-
-<p><code>bash
-awk '{print $0, "cmt2"}' cmt2_targets_ordered.tsv &gt; newfile.tsv
-</code></p>
-
-<p>Remove first column from all files</p>
-
-<p><code>bash
-for myfile in $(ls);do
-    awk 'BEGIN {FS=OFS="\t"} {$1="";sub("\t","")}1' $myfile &gt; mod_$myfile
-done
-</code></p>
-
-<p>Search only in one column</p>
-
-<p><code>bash
-awk '{if ($1 == 1) print $2}' p1 &gt; chr1_p1
-</code></p>
-
-<p>Add string prefix to a column, eg. add ‘chr’ to the first column</p>
-
-<p><code>bash
-awk 'BEGIN {FS=OFS="\t"} {$1="chr"$1; print $0}' input_file.txt &gt; output_file.txt
-</code></p>
-
-<h2 id="joining-files">Joining files</h2>
-
-<p>Join files with each starting on a new line</p>
-
-<p><code>bash
-for filename in *.fa; do
-    cat "${filename}"
-    echo
-done &gt; output.fa
-</code>
-Merge files of the same format</p>
-
-<p><code>bash
-cat p1_* | sort -nk1,1 -k2,2 | uniq &gt; p1
-</code></p>
-
-<h2 id="comparing-files">Comparing Files</h2>
-
-<p>Files should first be sorted</p>
-
-<p>Find lines that are common or different between two files</p>
-
-<p><code>bash
-comm -i file1 file2 &gt; output.txt
-</code></p>
+   <div class="post-preview">
+   <h2><a href="/2016/09/22/r_demo/">R demo</a></h2>
+   <span class="post-date">September 22, 2016</span>
+   
+     <p><strong>Table of Contents</strong></p>
 
 <ul>
-  <li><code>-i</code> is case-insensitive</li>
-  <li>outputs three columns. First is lines only in file1, second is lines only in file2, third is lines common in both.</li>
+  <li><a href="#getting-started">Getting started</a></li>
+  <li><a href="#importing-data">Importing Data</a></li>
+  <li><a href="#tidying-data">Tidying data</a></li>
+  <li><a href="#manipulating-data">Manipulating data</a></li>
+  <li><a href="#put-it-all-together">Put it all together</a></li>
+  <li><a href="#plotting">Plotting</a></li>
+  <li><a href="#reporting">Reporting</a></li>
+  <li><a href="#further-reading">Further reading</a></li>
+  <li><a href="#session-info">Session info</a></li>
 </ul>
 
-<h2 id="compressing-files">Compressing files</h2>
+<h2 id="getting-started">Getting started</h2>
 
-<p>Compress recursively and store all files in a single compressed folder</p>
-
-<p><code>bash
-tar cvfz slam.tgz slam/
-</code></p>
-
-<p>Compress recursively</p>
+<p>Clone the repo if you haven’t already:</p>
 
 <p><code>bash
-gzip -r directory/
+git clone https://github.com/timoast/dac.git
 </code></p>
 
-<p>Decompress files</p>
+<p>Install <a href="https://www.rstudio.com/">RStudio</a>.</p>
+
+<p>Install the following packages:</p>
+
+
+     <a href="/2016/09/22/r_demo/">read more</a>
+   
+   </div>
+   <hr>
+   
+   <div class="post-preview">
+   <h2><a href="/2016/07/12/smRNA-analysis/">smRNA analysis notes</a></h2>
+   <span class="post-date">July 12, 2016</span>
+   
+     <p>I recently analysed some smRNA data for a paper I’m working on. These are my analysis notes.</p>
+
+<p>I used previously published data for Brachypodium, from this paper:</p>
+
+<p>Garvin DF, Schmutz J, Rokhsar D, Bevan MW, Barry K, Lucas S, et al. Genome sequencing and analysis of the model grass Brachypodium distachyon. Nature. 2010;463: 763–768. doi:10.1038/nature08747</p>
+
+<p>First step is to download the data:</p>
 
 <p><code>bash
-tar -x -f file.tar
-tar -x -z -f file.tgz
-gunzip file.gz
+$ wget ftp://ftp-trace.ncbi.nlm.nih.gov//sra/sra-instant/reads/ByStudy/sra/SRP/SRP001/SRP001895/SRR035616/SRR035616.sra
+$ fastq-dump SRR035616.sra
+$ pigz SRR035616.fastq
 </code></p>
 
-<h2 id="download-data-from-sra">Download data from SRA</h2>
 
-<h3 id="using-wget">Using wget</h3>
+     <a href="/2016/07/12/smRNA-analysis/">read more</a>
+   
+   </div>
+   <hr>
+   
+   <div class="post-preview">
+   <h2><a href="/2016/03/29/bsseeker2/">WGBS Analysis notes -- BS-seeker2</a></h2>
+   <span class="post-date">March 29, 2016</span>
+   
+     <h2 id="whole-genome-bisulfite-sequencing-analysis-notes-for-bs-seeker2">Whole genome bisulfite sequencing analysis notes for BS-seeker2.</h2>
+
+<h2 id="step-1-trim-adapters-and-low-quality-bases">Step 1: Trim adapters and low quality bases</h2>
+<p>Illumina TruSeq adapter sequence: <code>GATCGGAAGAGCACACGTCTGAACTCCAGTCAC</code></p>
 
 <p><code>
-wget -r --no-parent --reject "index.html*" ftp://ftp-trace.ncbi.nih.gov/sra/sra-instant/reads/ByStudy/sra/SRP/SRP005/SRP005399/
+cutadapt -a AGATCGGAAGAGCACACGTCTGAACTCCAGTCAC -m 50 reads.fastq \
+| seqtk trimfq -l 50 - \
+| pigz &gt; filtered_reads.fq.gz
+</code></p>
+
+
+     <a href="/2016/03/29/bsseeker2/">read more</a>
+   
+   </div>
+   <hr>
+   
+   <div class="post-preview">
+   <h2><a href="/2016/03/01/biorxiv/">Biorxiv</a></h2>
+   <span class="post-date">March 01, 2016</span>
+   
+     A look at bioRxiv preprints A look at bioRxiv preprints Tim Stuart 2 March 2016 Submissions over time Some bioRxiv metrics Top 10 bioRxiv preprints Distribution of views After posting a my first preprint to bioRxiv a few weeks ago, I have been periodically checking the number of views and PDF downloads. I became interested to see how many downloads or views the preprints on bioRxiv typically get, but this type of information isn’t actually available. What are the all-time top bioRxiv preprints? How many people are reading bioRxiv preprints on average? No-one knows! Altmetric must track this data, as it will tell you how a particular preprint ranks in relation to others, but that data hasn’t been made publicly available (as far as I can tell). Not to worry, a little python script I wrote will scrape this information from the biorxiv website and record it in a file. I ran it on the 29th February this year and collected a snapshot of biorxiv metrics at that time. Let’s take a look at the data. library(dplyr) library(ggplot2) library(readr) library(lubridate) data &lt;- read_tsv(&quot;./data/biorxiv_data_2016_2_29.tsv&quot;) collection_date &lt;- ymd(&quot;2016_2_29&quot;) str(data) ## Classes 'tbl_df', 'tbl' and 'data.frame': 3095 obs. of 6 variables: ## $ Title : chr &quot;Copy number variants in the sheep genome detected using multiple approaches&quot; &quot;Productive infection of field strains of avian coronavirus infectious bronchitis virus in chicken peripheral blood-derived mono&quot;| __truncated__ &quot;Recurrent selection explains genomic regions of high relative but low absolute differentiation in the greenish warbler ring spe&quot;| __truncated__ &quot;A watershed model of individual differences in fluid intelligence&quot; ... ## $ URL : chr &quot;http://biorxiv.org/content/early/2016/02/26/041475&quot; &quot;http://biorxiv.org/content/early/2016/02/26/041558&quot; &quot;http://biorxiv.org/content/early/2016/02/26/041467&quot; &quot;http://biorxiv.org/content/early/2016/02/26/041368&quot; ... ## $ Abstract views : int 131 NA 321 70 161 570 714 276 428 318 ... ## $ PDF views : int 10 NA 14 3 8 102 106...
+     <a href="/2016/03/01/biorxiv/">read more</a>
+   
+   </div>
+   <hr>
+   
+   <div class="post-preview">
+   <h2><a href="/2016/02/23/Papers/">A paper a day</a></h2>
+   <span class="post-date">February 23, 2016</span>
+   
+     <p>In an effort to read more papers this year, I’m going to read a paper (or something paper-like) each day for the remainder of the year, and post each 
+paper below as I go.</p>
+
+<h3 id="oct-17">Oct 17</h3>
+
+<p>Pietzenuk B, Markus C, Gaubert H, Bagwan N, Merotto A, Bucher E, et al. Recurrent evolution of heat-responsiveness in Brassicaceae COPIA elements. Genome Biology. 2016. <a href="http://dx.doi.org/10.1186/s13059-016-1072-3">doi:10.1186/s13059-016-1072-3</a></p>
+
+<h3 id="oct-16">Oct 16</h3>
+
+<p>D’haeseleer P. How does DNA sequence motif discovery work? Nature Biotechnology. 2006. <a href="http://dx.doi.org/10.1038/nbt0806-959">doi:10.1038/nbt0806-959</a></p>
+
+<h3 id="oct-15">Oct 15</h3>
+
+<p>Trapnell C, Salzberg SL. How to map billions of short reads onto genomes. Nature Biotechnology. 2009. <a href="http://dx.doi.org/10.1038/nbt0509-455">doi:10.1038/nbt0509-455</a></p>
+
+
+     <a href="/2016/02/23/Papers/">read more</a>
+   
+   </div>
+   <hr>
+   
+   <div class="post-preview">
+   <h2><a href="/2016/02/18/Lorne/">Lorne Genome 2016 presentation</a></h2>
+   <span class="post-date">February 18, 2016</span>
+   
+     <p>This week I presented some recent work at the Lorne Genome conference. It was my first time at Lorne and it’s a fantastic meeting with lots of interesting talks. It was great to see so many people getting interested in transposon biology too!</p>
+
+<p>Here are a few links to the work I was presenting:</p>
+
+<p>TEPID TE presence/absence variant discovery software:</p>
+
+<p><a href="https://github.com/ListerLab/TEPID">https://github.com/ListerLab/TEPID</a></p>
+
+<p>Poster:</p>
+
+<p><a href="https://dx.doi.org/10.6084/m9.figshare.2082757.v1">https://dx.doi.org/10.6084/m9.figshare.2082757.v1</a></p>
+
+<p>Manuscript:</p>
+
+<p><a href="http://biorxiv.org/content/early/2016/02/11/039511">http://dx.doi.org/10.1101/039511</a></p>
+
+
+     <a href="/2016/02/18/Lorne/">read more</a>
+   
+   </div>
+   <hr>
+   
+   <div class="post-preview">
+   <h2><a href="/2015/10/12/ExtractReads/">Extract reads from bam file by read name</a></h2>
+   <span class="post-date">October 12, 2015</span>
+   
+     <p>While there are very fast and easy ways to extract reads from a bam file according to mapping location, extracting reads by read name is more difficult.</p>
+
+<p>Simple methods, like using <code>grep</code>, are incredibly slow if you want to look for more than a few reads.</p>
+
+<p>Luckily, <code>pysam</code> allows you to index a bam file by read name (using <code>pysam.IndexedReads(AlignmentFile)</code>) while keeping the sort order. However, the index is stored in memory so this can use a lot of RAM (my tests with a 5.7 GB bam file used about 9 GB RAM).</p>
+
+<p>I wrote a small python script (below) that uses pysam to extract reads by read name from a bam file.</p>
+
+<p>Extracting 10 reads from a 5.7 GB bam file, just using <code>grep</code> is slightly faster than the python script:</p>
+
+
+     <a href="/2015/10/12/ExtractReads/">read more</a>
+   
+   </div>
+   <hr>
+   
+   <div class="post-preview">
+   <h2><a href="/2014/11/04/SizeEstimation/">Estimation of insert size from sam / bam files</a></h2>
+   <span class="post-date">November 04, 2014</span>
+   
+     <p>I’ve been looking for a simple way to estimate paired-end insert sizes from mapped data. There are a few more complicated tools available (I think picard will do it), as well as simple scripts different people have written that don’t exclude outliers. However outliers due to discordant read alignments will hugely change the mean, so need to be removed.</p>
+
+<p>As I couldn’t find anything that was a nice middle ground, I ended up writing my own simple python script that will take input from stdin and exclude outliers more that two standard deviations from the median, and print the mean and standard deviation to stdout.</p>
+
+<p>It can be used to estimate the insert size from sam or bam files:</p>
+
+<p><code>
+$ head -10000 mapped.sam | python mean_size.py
+220 35
+</code></p>
+
+<p><code>
+$ samtools view mapped.bam | head -10000 | python mean_size.py
+220 35
+</code></p>
+
+
+     <a href="/2014/11/04/SizeEstimation/">read more</a>
+   
+   </div>
+   <hr>
+   
+   <div class="post-preview">
+   <h2><a href="/2014/10/29/MethyC-Analysis/">MethyC-Seq Analysis Notes</a></h2>
+   <span class="post-date">October 29, 2014</span>
+   
+     <h2 id="preliminary-steps">Preliminary steps</h2>
+
+<h3 id="bcl-conversion">Bcl-conversion</h3>
+
+<ol>
+  <li>Enter a screen</li>
+</ol>
+
+<p><code>bash
+screen -S bcl-conversion
 </code>
-Alternatively, you can download a list of accessions from the SRA website and use that file to call <code>wget</code> for all the accessions.</p>
+2. Navigate to directory with run (eg. 130909_SNL119_0105_AC2GYKACXX)
+3. Check sample sheet configured correctly. If only one adapter in lane, remove adapter sequence from sample sheet.
+4. Run the following (modified with correct run name, sample sheet etc). Can change final value to change number of reads in files:</p>
+
+
+     <a href="/2014/10/29/MethyC-Analysis/">read more</a>
+   
+   </div>
+   <hr>
+   
+   <div class="post-preview">
+   <h2><a href="/2014/08/25/UsefulPython/">Useful python code</a></h2>
+   <span class="post-date">August 25, 2014</span>
+   
+     <h3 id="take-command-line-arguments">Take command-line arguments</h3>
 
 <p>```python
-from subprocess import call</p>
+from argparse import ArgumentParser</p>
 
-<p>with open(‘SraAccList.txt’, ‘r’) as accessions:
-    for row in accessions:
-        acc = row.strip(‘\n’)
-        prefix = acc[:6]
-        print “Downloading {a}”.format(a=acc)
-        call([“wget”,
-              “-r”,
-              “–no-parent”,
-              “ftp://ftp-trace.ncbi.nih.gov/sra/sra-instant/reads/ByRun/sra/SRR/{pre}/{acc}/*“.format(pre=prefix, acc=acc)])</p>
-
-<p>```</p>
-
-<h4 id="split-into-fastq-files">Split into fastq files</h4>
-
-<p><code>bash
-fastq-dump --split-3 ./SRP005399/*
-</code></p>
-
-<p><code>--split-3</code> causes PE files to be split into <code>*_1.fastq</code> and <code>*_2.fastq</code></p>
-
-<p>bash loop</p>
-
-<p><code>bash
-for directory in ./*; do
-    if [ -d "$directory" ]; then
-        cd $directory
-        for myfile in $(ls -d *.sra);do
-            fastq-dump --split-3 -v $myfile
-        done
-        cd ..
-    fi
-done
-</code></p>
-
-<p>Python function</p>
-
-<p>```python
-import os
-from subprocess import call</p>
-
-<p>def fastqSplit():
-    for filename in os.listdir(‘.’):
-        if filename.endswith(‘.sra’):
-            print ‘processing {n}’.format(n=filename)
-            call([‘fastq-dump’, ‘–split-3’, ‘-v’, filename])
-        else:
-            pass
+<p>version = pkg_resources.require(“program”)[0].version
+parser = ArgumentParser(description=’program description’)
+group = parser.add_mutually_exclusive_group()
+parser.add_argument(‘–version’, action=’version’, version=’%(prog)s ‘+str(version))
+parser.add_argument(‘–option’, help=’option description’, required=False, default=False, action=’store_true’)
+parser.add_argument(‘-n’, ‘–name’, help=’sample name’, required=True)
 ```</p>
 
-<h3 id="using-sra-toolkit">Using SRA toolkit</h3>
 
-<p>SRA toolkit doesn’t seem to work well for downloading bulk data. <code>wget</code> is a much better option as it allows download of whole folders, gives more descriptive output as it goes. SRA often fails and sometimes gives no error. Download with <code>wget</code> and use <code>fastq-split</code> to get fastq files.</p>
-
-<p><code>bash
-fastq-dump SRR534224 &amp;
-</code></p>
-
-<h2 id="rna-seq">RNA-seq</h2>
-
-<h3 id="mapping">Mapping</h3>
-
-<p><code>
-tophat -p8 -G /home/lister/working_data/data/genomes/annotations/tair10/TAIR10_gene_TE_illumina.gtf --transcriptome-index=transcript_index/tair10 /home/lister/working_data/data/genomes/bowtie2_indexes/tair9 SRR501604.fastq,SRR501605.fastq
-</code>
-* <code>--transcriptome-index=transcript_index/tair10</code> creates transcriptome index file saved in transcript_index/ with name <code>tair10.*</code>. This can be reused if mapping to the same transcriptome (ie. gff file)<br />
-* <code>-p8</code> uses 8 cores<br />
-* <code>-G</code> specifies gff file. Optional<br />
-* If using PE reads check manual</p>
-
-<h2 id="bedtools">Bedtools</h2>
-
-<p><a href="http://quinlanlab.org/tutorials/cshl2014/bedtools.html">Good tutorial from the Quinlan lab</a></p>
-
-<p>Need to order files so that chromosome, start, stop and first three columns (BED format). Also need to remove header. Can do these steps with <code>awk</code> and <code>sed 1d</code>.</p>
-
-<h3 id="merge">Merge</h3>
-
-<p><code>bash
-bedtools merge -i dmrs_ddc.tsv -d 100 &gt; dmrs_ddc_merged.tsv
-</code>
-* <code>-d</code> is distance between coordinates that will still be merged<br />
-* <code>-i</code> is input file</p>
-
-<h3 id="intersect">Intersect</h3>
-
-<p><code>bash
-bedtools intersect -a tair10_tes.txt -b dmrs_ddc_merged.tsv -wa -f 0.50 &gt; ddc_targets.tsv
-</code>
-* <code>-a</code> is file a<br />
-* <code>-b</code> is file b<br />
-* <code>-wa</code> is write a<br />
-* <code>-f</code> is minimum overlap percentage</p>
-
-<h2 id="bowtie">Bowtie</h2>
-
-<h3 id="mapping-pe-data">Mapping PE data</h3>
-
-<p><code>
-bowtie2 -p8 --local --fr -q -R 5 -N 1 -x [path/to/bowtie2/index] -X 1000 -1 [mate1.fq] -2 [mate2.fq] -S [alignment.sam] --un-conc ./discordant/
-</code>
-* <code>-p</code> is number of processors<br />
-* <code>--local</code> allows soft-clipping of reads to improve alignment<br />
-* <code>-q</code> specifies that reads are in fastq format<br />
-* <code>-x</code> gives path to index<br />
-* <code>-S</code> gives name of output file<br />
-* <code>-R</code> is number of times bowtie will try to ‘re-seed’ repetitive seeds. Default 2<br />
-* <code>-N</code> is number of mismatches allowed in seed. 0 or 1.<br />
-* <code>--no-mixed</code> tells bowtie to find alignments only when both pairs can be aligned.<br />
-* <code>--fr</code> means mate pairs are ordered in forward then reverse orientation. Can do <code>--ff</code>, <code>--rf</code>.<br />
-* <code>-X</code> specifies maximum insert size. Default 500.<br />
-* <code>-I</code> specifies minimum insert size. Default 0 (no minimum).<br />
-* <code>--un-conc</code> specifies path and file to write discordant alignments to. Note that these are just the <code>fastq</code> reads, not alignments.</p>
-
-<h2 id="samtools">Samtools</h2>
-
-<p>samtools can read from a stream, so can pipe output in from other tools (eg bowtie to get <code>.bam</code> output) or other samtools commands.</p>
-
-<h3 id="convert-from-sam-to-bam">Convert from <code>sam</code> to <code>bam</code></h3>
-<p><code>
-samtools view -bS file.sam &gt; file.bam
-</code></p>
-
-<h3 id="sort-bamfile">Sort bamfile</h3>
-<p><code>
-samtools sort file.bam sorted
-</code>
-* outputs <code>sorted.bam</code> file</p>
-
-<h3 id="samblaster">Samblaster</h3>
-
-<p>Extracts reads from <code>.sam</code> alignment files</p>
-
-<h4 id="get-discordant-reads">Get discordant reads</h4>
-<p><code>
-bowtie2 [options] | samblaster -e -d file.sam | samtools view -bS - &gt; file.bam
-</code>
-* Print output from bowtie to stderr to pipe directly into samblaster
-* Saves having to search through sam or bam file later to extract discordant reads
-* Pipe output directly into <code>samtools view</code> to save as <code>.bam</code> file (these won’t be the reads in the samblaster output)</p>
-
-  </div>
-  
+     <a href="/2014/08/25/UsefulPython/">read more</a>
+   
+   </div>
+   <hr>
+   
 </div>
 
 <div class="pagination">

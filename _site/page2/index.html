@@ -67,16 +67,47 @@
 
       <div class="posts">
   
-  <div class="post">
-    <h1 class="post-title">
-      <a href="/2016/07/12/smRNA-analysis/">
-        smRNA analysis notes
-      </a>
-    </h1>
+   <div class="post-preview">
+   <h2><a href="/2016/09/22/r_demo/">R demo</a></h2>
+   <span class="post-date">September 22, 2016</span>
+   
+     <p><strong>Table of Contents</strong></p>
 
-    <span class="post-date">12 Jul 2016</span>
+<ul>
+  <li><a href="#getting-started">Getting started</a></li>
+  <li><a href="#importing-data">Importing Data</a></li>
+  <li><a href="#tidying-data">Tidying data</a></li>
+  <li><a href="#manipulating-data">Manipulating data</a></li>
+  <li><a href="#put-it-all-together">Put it all together</a></li>
+  <li><a href="#plotting">Plotting</a></li>
+  <li><a href="#reporting">Reporting</a></li>
+  <li><a href="#further-reading">Further reading</a></li>
+  <li><a href="#session-info">Session info</a></li>
+</ul>
 
-    <p>I recently analysed some smRNA data for a paper I’m working on. These are my analysis notes.</p>
+<h2 id="getting-started">Getting started</h2>
+
+<p>Clone the repo if you haven’t already:</p>
+
+<p><code>bash
+git clone https://github.com/timoast/dac.git
+</code></p>
+
+<p>Install <a href="https://www.rstudio.com/">RStudio</a>.</p>
+
+<p>Install the following packages:</p>
+
+
+     <a href="/2016/09/22/r_demo/">read more</a>
+   
+   </div>
+   <hr>
+   
+   <div class="post-preview">
+   <h2><a href="/2016/07/12/smRNA-analysis/">smRNA analysis notes</a></h2>
+   <span class="post-date">July 12, 2016</span>
+   
+     <p>I recently analysed some smRNA data for a paper I’m working on. These are my analysis notes.</p>
 
 <p>I used previously published data for Brachypodium, from this paper:</p>
 
@@ -90,180 +121,188 @@ $ fastq-dump SRR035616.sra
 $ pigz SRR035616.fastq
 </code></p>
 
-<p>It is essential that the reads are trimmed correctly to be able to get useful data out of the reads. To do that, we first need to work out what the adapter sequence is. The easiest way to do that is to run fastqc and see what sequences are overrepresented.</p>
+
+     <a href="/2016/07/12/smRNA-analysis/">read more</a>
+   
+   </div>
+   <hr>
+   
+   <div class="post-preview">
+   <h2><a href="/2016/03/29/bsseeker2/">WGBS Analysis notes -- BS-seeker2</a></h2>
+   <span class="post-date">March 29, 2016</span>
+   
+     <h2 id="whole-genome-bisulfite-sequencing-analysis-notes-for-bs-seeker2">Whole genome bisulfite sequencing analysis notes for BS-seeker2.</h2>
+
+<h2 id="step-1-trim-adapters-and-low-quality-bases">Step 1: Trim adapters and low quality bases</h2>
+<p>Illumina TruSeq adapter sequence: <code>GATCGGAAGAGCACACGTCTGAACTCCAGTCAC</code></p>
+
+<p><code>
+cutadapt -a AGATCGGAAGAGCACACGTCTGAACTCCAGTCAC -m 50 reads.fastq \
+| seqtk trimfq -l 50 - \
+| pigz &gt; filtered_reads.fq.gz
+</code></p>
+
+
+     <a href="/2016/03/29/bsseeker2/">read more</a>
+   
+   </div>
+   <hr>
+   
+   <div class="post-preview">
+   <h2><a href="/2016/03/01/biorxiv/">Biorxiv</a></h2>
+   <span class="post-date">March 01, 2016</span>
+   
+     A look at bioRxiv preprints A look at bioRxiv preprints Tim Stuart 2 March 2016 Submissions over time Some bioRxiv metrics Top 10 bioRxiv preprints Distribution of views After posting a my first preprint to bioRxiv a few weeks ago, I have been periodically checking the number of views and PDF downloads. I became interested to see how many downloads or views the preprints on bioRxiv typically get, but this type of information isn’t actually available. What are the all-time top bioRxiv preprints? How many people are reading bioRxiv preprints on average? No-one knows! Altmetric must track this data, as it will tell you how a particular preprint ranks in relation to others, but that data hasn’t been made publicly available (as far as I can tell). Not to worry, a little python script I wrote will scrape this information from the biorxiv website and record it in a file. I ran it on the 29th February this year and collected a snapshot of biorxiv metrics at that time. Let’s take a look at the data. library(dplyr) library(ggplot2) library(readr) library(lubridate) data &lt;- read_tsv(&quot;./data/biorxiv_data_2016_2_29.tsv&quot;) collection_date &lt;- ymd(&quot;2016_2_29&quot;) str(data) ## Classes 'tbl_df', 'tbl' and 'data.frame': 3095 obs. of 6 variables: ## $ Title : chr &quot;Copy number variants in the sheep genome detected using multiple approaches&quot; &quot;Productive infection of field strains of avian coronavirus infectious bronchitis virus in chicken peripheral blood-derived mono&quot;| __truncated__ &quot;Recurrent selection explains genomic regions of high relative but low absolute differentiation in the greenish warbler ring spe&quot;| __truncated__ &quot;A watershed model of individual differences in fluid intelligence&quot; ... ## $ URL : chr &quot;http://biorxiv.org/content/early/2016/02/26/041475&quot; &quot;http://biorxiv.org/content/early/2016/02/26/041558&quot; &quot;http://biorxiv.org/content/early/2016/02/26/041467&quot; &quot;http://biorxiv.org/content/early/2016/02/26/041368&quot; ... ## $ Abstract views : int 131 NA 321 70 161 570 714 276 428 318 ... ## $ PDF views : int 10 NA 14 3 8 102 106...
+     <a href="/2016/03/01/biorxiv/">read more</a>
+   
+   </div>
+   <hr>
+   
+   <div class="post-preview">
+   <h2><a href="/2016/02/23/Papers/">A paper a day</a></h2>
+   <span class="post-date">February 23, 2016</span>
+   
+     <p>In an effort to read more papers this year, I’m going to read a paper (or something paper-like) each day for the remainder of the year, and post each 
+paper below as I go.</p>
+
+<h3 id="oct-17">Oct 17</h3>
+
+<p>Pietzenuk B, Markus C, Gaubert H, Bagwan N, Merotto A, Bucher E, et al. Recurrent evolution of heat-responsiveness in Brassicaceae COPIA elements. Genome Biology. 2016. <a href="http://dx.doi.org/10.1186/s13059-016-1072-3">doi:10.1186/s13059-016-1072-3</a></p>
+
+<h3 id="oct-16">Oct 16</h3>
+
+<p>D’haeseleer P. How does DNA sequence motif discovery work? Nature Biotechnology. 2006. <a href="http://dx.doi.org/10.1038/nbt0806-959">doi:10.1038/nbt0806-959</a></p>
+
+<h3 id="oct-15">Oct 15</h3>
+
+<p>Trapnell C, Salzberg SL. How to map billions of short reads onto genomes. Nature Biotechnology. 2009. <a href="http://dx.doi.org/10.1038/nbt0509-455">doi:10.1038/nbt0509-455</a></p>
+
+
+     <a href="/2016/02/23/Papers/">read more</a>
+   
+   </div>
+   <hr>
+   
+   <div class="post-preview">
+   <h2><a href="/2016/02/18/Lorne/">Lorne Genome 2016 presentation</a></h2>
+   <span class="post-date">February 18, 2016</span>
+   
+     <p>This week I presented some recent work at the Lorne Genome conference. It was my first time at Lorne and it’s a fantastic meeting with lots of interesting talks. It was great to see so many people getting interested in transposon biology too!</p>
+
+<p>Here are a few links to the work I was presenting:</p>
+
+<p>TEPID TE presence/absence variant discovery software:</p>
+
+<p><a href="https://github.com/ListerLab/TEPID">https://github.com/ListerLab/TEPID</a></p>
+
+<p>Poster:</p>
+
+<p><a href="https://dx.doi.org/10.6084/m9.figshare.2082757.v1">https://dx.doi.org/10.6084/m9.figshare.2082757.v1</a></p>
+
+<p>Manuscript:</p>
+
+<p><a href="http://biorxiv.org/content/early/2016/02/11/039511">http://dx.doi.org/10.1101/039511</a></p>
+
+
+     <a href="/2016/02/18/Lorne/">read more</a>
+   
+   </div>
+   <hr>
+   
+   <div class="post-preview">
+   <h2><a href="/2015/10/12/ExtractReads/">Extract reads from bam file by read name</a></h2>
+   <span class="post-date">October 12, 2015</span>
+   
+     <p>While there are very fast and easy ways to extract reads from a bam file according to mapping location, extracting reads by read name is more difficult.</p>
+
+<p>Simple methods, like using <code>grep</code>, are incredibly slow if you want to look for more than a few reads.</p>
+
+<p>Luckily, <code>pysam</code> allows you to index a bam file by read name (using <code>pysam.IndexedReads(AlignmentFile)</code>) while keeping the sort order. However, the index is stored in memory so this can use a lot of RAM (my tests with a 5.7 GB bam file used about 9 GB RAM).</p>
+
+<p>I wrote a small python script (below) that uses pysam to extract reads by read name from a bam file.</p>
+
+<p>Extracting 10 reads from a 5.7 GB bam file, just using <code>grep</code> is slightly faster than the python script:</p>
+
+
+     <a href="/2015/10/12/ExtractReads/">read more</a>
+   
+   </div>
+   <hr>
+   
+   <div class="post-preview">
+   <h2><a href="/2014/11/04/SizeEstimation/">Estimation of insert size from sam / bam files</a></h2>
+   <span class="post-date">November 04, 2014</span>
+   
+     <p>I’ve been looking for a simple way to estimate paired-end insert sizes from mapped data. There are a few more complicated tools available (I think picard will do it), as well as simple scripts different people have written that don’t exclude outliers. However outliers due to discordant read alignments will hugely change the mean, so need to be removed.</p>
+
+<p>As I couldn’t find anything that was a nice middle ground, I ended up writing my own simple python script that will take input from stdin and exclude outliers more that two standard deviations from the median, and print the mean and standard deviation to stdout.</p>
+
+<p>It can be used to estimate the insert size from sam or bam files:</p>
+
+<p><code>
+$ head -10000 mapped.sam | python mean_size.py
+220 35
+</code></p>
+
+<p><code>
+$ samtools view mapped.bam | head -10000 | python mean_size.py
+220 35
+</code></p>
+
+
+     <a href="/2014/11/04/SizeEstimation/">read more</a>
+   
+   </div>
+   <hr>
+   
+   <div class="post-preview">
+   <h2><a href="/2014/10/29/MethyC-Analysis/">MethyC-Seq Analysis Notes</a></h2>
+   <span class="post-date">October 29, 2014</span>
+   
+     <h2 id="preliminary-steps">Preliminary steps</h2>
+
+<h3 id="bcl-conversion">Bcl-conversion</h3>
+
+<ol>
+  <li>Enter a screen</li>
+</ol>
 
 <p><code>bash
-$ fastqc SRR035616.fastq.gz
+screen -S bcl-conversion
 </code>
-Then we can do a multiple sequence alignment of overrepresented sequences to find the adapter sequence:</p>
+2. Navigate to directory with run (eg. 130909_SNL119_0105_AC2GYKACXX)
+3. Check sample sheet configured correctly. If only one adapter in lane, remove adapter sequence from sample sheet.
+4. Run the following (modified with correct run name, sample sheet etc). Can change final value to change number of reads in files:</p>
 
-<p>```bash
-CLUSTAL multiple sequence alignment by MUSCLE (3.8)</p>
 
-<p>12              GGTAGTTCGACCGCGGA————ACTGTAGGCACCATCAATT————
-15              GGTAGTTCGACCGCGGAA———–TCTGTAGGCACCATCAAT————-
-14              ——-TCGCTTGGTGCAGATCGGGA–CCTGTAGGCACCCTCA—————
-18              —TTCATGGACGTTGATAAGATCCTT–CCTGTATGCACC——————-
-1               ——-TCGCTTGGTGCAGATCGGGA–CCTGTAGGCACCATCA—————
-13              ——-TGATTGAGCCGTGCCAATAT–CCTGTAGGCACCATCA—————
-3               ————GGGGGTGTAGCTCAT–ACTGTAGGCACCATCAATTCG———-
-10              ————GGGGATGTAGCTCAG–ACTGTAGGCACCATCAATTCG———-
-2               ————GGGGATGTAGCTCAA–ACTGTAGGCACCATCAATTCG———-
-11              ——–GACCGCATAGCGCAGTGG—ACTGTAGGCACCATCAAT————-
-9               ———ATTGAGTGCAGCGTTGATGAACTGTAGGCACCATCA—————
-19              —–ACTGGTTGG–ATCATGCTTCT–ACTGTAGGCACCATCA—————
-8               —-TTTGGATTGAAGGGAGCTCT—–GCTGTAGGCACCATCA—————
-7               ———TCCACAGGCTTTCTTGAACTGCTGTAGGCACCATCA—————
-17              —–TTGGACTGAAGGGTGCTCCC—-TCTGTAGGCACCATCA—————
-4               —–TGAAGCTGCCAGCATGATCTG—ACTGTAGGCACCATC—————-
-16              —-ACCTGCTCTGATACCATGTTGTG–ACTGTAGGCACCA——————
-6               —TTCATGGACGTTGATAAGATCCTT–CCTGTAGGCACC——————-
-5               ——————————CTGTAGGCACCATCAATTCGTATGCCGTCT
-                                              <strong>*** **</strong>*      <br />
+     <a href="/2014/10/29/MethyC-Analysis/">read more</a>
+   
+   </div>
+   <hr>
+   
+   <div class="post-preview">
+   <h2><a href="/2014/08/25/UsefulPython/">Useful python code</a></h2>
+   <span class="post-date">August 25, 2014</span>
+   
+     <h3 id="take-command-line-arguments">Take command-line arguments</h3>
+
+<p>```python
+from argparse import ArgumentParser</p>
+
+<p>version = pkg_resources.require(“program”)[0].version
+parser = ArgumentParser(description=’program description’)
+group = parser.add_mutually_exclusive_group()
+parser.add_argument(‘–version’, action=’version’, version=’%(prog)s ‘+str(version))
+parser.add_argument(‘–option’, help=’option description’, required=False, default=False, action=’store_true’)
+parser.add_argument(‘-n’, ‘–name’, help=’sample name’, required=True)
 ```</p>
 
-<p>From this it becomes obvious that the adapter is <code>CTGTAGGCACCATCA...</code>. Next step is to trim the adapters, and we will also discard any reads that were not trimmed, as these reads are longer than the longest smRNA (so every read should need trimming). We will also retain a minumum read length of 15 nt.</p>
 
-<h2 id="adapter-trimming">Adapter trimming</h2>
-
-<p>```
-$ cutadapt –discard-untrimmed -m 15 -a CTGTAGGCACCATCAATTCG -o adapertrim.fq SRR035616.fastq.gz</p>
-
-<p>This is cutadapt 1.10 with Python 2.7.10
-Command line parameters: –discard-untrimmed -m 15 -a CTGTAGGCACCATCAATTCG -o adapertrim.fq SRR035616.fastq.gz
-Trimming 1 adapter with at most 10.0% errors in single-end mode …
-Finished in 68.63 s (15 us/read; 3.94 M reads/minute).</p>
-
-<p>=== Summary ===</p>
-
-<p>Total reads processed:               4,501,847
-Reads with adapters:                 3,325,787 (73.9%)
-Reads that were too short:              57,000 (1.3%)
-Reads written (passing filters):     3,268,787 (72.6%)</p>
-
-<p>Total basepairs processed:   162,066,492 bp
-Total written (filtered):     70,887,548 bp (43.7%)</p>
-
-<p>=== Adapter 1 ===</p>
-
-<p>Sequence: CTGTAGGCACCATCAATTCG; Type: regular 3’; Length: 20; Trimmed: 3325787 times.</p>
-
-<p>No. of allowed errors:
-0-9 bp: 0; 10-19 bp: 1; 20 bp: 2</p>
-
-<p>Bases preceding removed adapters:
-  A: 35.9%
-  C: 26.7%
-  G: 15.9%
-  T: 20.4%
-  none/other: 1.0%</p>
-
-<p>Overview of removed sequences
-length	count	expect	max.err	error counts
-3	1307	70341.4	0	1307
-4	503	17585.3	0	503
-5	832	4396.3	0	832
-6	2505	1099.1	0	2505
-7	7373	274.8	0	7373
-8	10601	68.7	0	10601
-9	23318	17.2	0	20283 3035
-10	50136	4.3	1	29746 20390
-11	128352	1.1	1	72611 55741
-12	1185903	0.3	1	680195 505708
-13	272422	0.1	1	168709 103713
-14	154255	0.0	1	97083 57172
-15	526293	0.0	1	345638 180655
-16	140755	0.0	1	84107 56648
-17	163358	0.0	1	102567 60791
-18	149275	0.0	1	94982 54248 45
-19	135400	0.0	1	83441 51271 688
-20	251034	0.0	2	120106 89305 41623
-21	65165	0.0	2	35913 20238 9014
-22	11648	0.0	2	6752 3502 1394
-23	3309	0.0	2	2054 876 379
-24	2179	0.0	2	1456 518 205
-25	1963	0.0	2	1398 416 149
-26	1404	0.0	2	983 309 112
-27	979	0.0	2	714 193 72
-28	768	0.0	2	572 137 59
-29	628	0.0	2	496 102 30
-30	365	0.0	2	301 52 12
-31	192	0.0	2	167 19 6
-32	133	0.0	2	97 27 9
-33	61	0.0	2	49 10 2
-34	39	0.0	2	30 3 6
-35	39	0.0	2	29 6 4
-36	33293	0.0	2	27424 5411 458
-```</p>
-
-<p>Now rerun fastqc</p>
-
-<p><code>bash
-$ fastqc adapertrim.fq
-</code></p>
-
-<p>We can see peaks at 21 and 24 nt, which are the most abundant smRNA size classes:</p>
-
-<p><img src="/assets/brachy_smrna.png" alt="" /></p>
-
-<h2 id="mapping">Mapping</h2>
-
-<p>Map with bowtie, pipe to samtools to convert the output sam file to a bam file. Using the <code>-a</code> flag will tell bowtie to report all alignments.</p>
-
-<p><code>bash
-bowtie -p 20 -q -n 0 -l 20 -a -S /home/tstuart/working_data_01/genomes/Bdistachyon/v2.1/assembly/BowtieIndex/bd21 adapertrim.fq \
-| samtools view -b - &gt; mapped.bam
-</code></p>
-
-<h2 id="post-processing">Post-processing</h2>
-
-<p>It’s important to know the length of the smRNA, its mapping position in the genome, and whether it was uniquely mapped or not. First, we can convert the bam file to a bed file and add a column showing the smRNA length:</p>
-
-<p><code>bash
-$ bedtools bamtobed -i mapped.bam \
-| awk 'BEGIN {FS=OFS="\t"} {$7 = $3 - $2; print $0}' - | pigz - &gt; mapped.bed.gz
-</code></p>
-
-<p>Now we add a column showing the number of mapping positions for each smRNA (in R):</p>
-
-<p>```r
-library(dplyr)
-library(data.table)
-library(readr)</p>
-
-<p>smrna &lt;- fread(“~/Downloads/mapped.bed”, header = F, sep = “\t”,
-               col.names = c(“chromosome”, “start”, “stop”, “readName”, “q”, “strand”, “length”))</p>
-
-<p>smrna &lt;- smrna %&gt;%
-  group_by(readName) %&gt;%
-  mutate(positions = n()) %&gt;%
-  ungroup() %&gt;%
-  select(-q) %&gt;%
-  mutate(unique = ifelse(positions &gt; 1, FALSE, TRUE)) %&gt;%
-  arrange(chromosome, start)</p>
-
-<p>write_tsv(smrna, “~/Desktop/brachy_smrna.tsv”)
-system(“gzip ~/Desktop/brachy_smrna.tsv”)
-```</p>
-
-<p>That’s it! We now have a file that looks like this:</p>
-
-<p><code>bash
-$ zcat brachy_smrna.tsv.gz | head
-chromosome	start	stop	readName	strand	length	positions	unique
-Bd1	3	27	SRR035616.1254270	-	24	143	FALSE
-Bd1	5	26	SRR035616.1862694	-	21	153	FALSE
-Bd1	6	21	SRR035616.3527272	-	15	218	FALSE
-Bd1	10	34	SRR035616.1254270	-	24	143	FALSE
-Bd1	12	33	SRR035616.1862694	-	21	153	FALSE
-Bd1	13	28	SRR035616.3527272	-	15	218	FALSE
-Bd1	17	41	SRR035616.1254270	-	24	143	FALSE
-Bd1	19	40	SRR035616.1862694	-	21	153	FALSE
-Bd1	20	35	SRR035616.3527272	-	15	218	FALSE
-</code></p>
-
-  </div>
-  
+     <a href="/2014/08/25/UsefulPython/">read more</a>
+   
+   </div>
+   <hr>
+   
 </div>
 
 <div class="pagination">
