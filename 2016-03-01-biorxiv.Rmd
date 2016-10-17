@@ -6,6 +6,7 @@ layout: post
 output:
   html_document:
     toc: true
+    keep_md: true
     highlight: tango
 ---
 

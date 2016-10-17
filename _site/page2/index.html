@@ -149,10 +149,16 @@ cutadapt -a AGATCGGAAGAGCACACGTCTGAACTCCAGTCAC -m 50 reads.fastq \
    <hr>
    
    <div class="post-preview">
-   <h2><a href="/2016/03/01/biorxiv/">Biorxiv</a></h2>
+   <h2><a href="/2016/03/01/biorxiv/">bioRxiv</a></h2>
    <span class="post-date">March 01, 2016</span>
    
-     A look at bioRxiv preprints A look at bioRxiv preprints Tim Stuart 2 March 2016 Submissions over time Some bioRxiv metrics Top 10 bioRxiv preprints Distribution of views After posting a my first preprint to bioRxiv a few weeks ago, I have been periodically checking the number of views and PDF downloads. I became interested to see how many downloads or views the preprints on bioRxiv typically get, but this type of information isn’t actually available. What are the all-time top bioRxiv preprints? How many people are reading bioRxiv preprints on average? No-one knows! Altmetric must track this data, as it will tell you how a particular preprint ranks in relation to others, but that data hasn’t been made publicly available (as far as I can tell). Not to worry, a little python script I wrote will scrape this information from the biorxiv website and record it in a file. I ran it on the 29th February this year and collected a snapshot of biorxiv metrics at that time. Let’s take a look at the data. library(dplyr) library(ggplot2) library(readr) library(lubridate) data &lt;- read_tsv(&quot;./data/biorxiv_data_2016_2_29.tsv&quot;) collection_date &lt;- ymd(&quot;2016_2_29&quot;) str(data) ## Classes 'tbl_df', 'tbl' and 'data.frame': 3095 obs. of 6 variables: ## $ Title : chr &quot;Copy number variants in the sheep genome detected using multiple approaches&quot; &quot;Productive infection of field strains of avian coronavirus infectious bronchitis virus in chicken peripheral blood-derived mono&quot;| __truncated__ &quot;Recurrent selection explains genomic regions of high relative but low absolute differentiation in the greenish warbler ring spe&quot;| __truncated__ &quot;A watershed model of individual differences in fluid intelligence&quot; ... ## $ URL : chr &quot;http://biorxiv.org/content/early/2016/02/26/041475&quot; &quot;http://biorxiv.org/content/early/2016/02/26/041558&quot; &quot;http://biorxiv.org/content/early/2016/02/26/041467&quot; &quot;http://biorxiv.org/content/early/2016/02/26/041368&quot; ... ## $ Abstract views : int 131 NA 321 70 161 570 714 276 428 318 ... ## $ PDF views : int 10 NA 14 3 8 102 106...
+     <h1 id="a-look-at-biorxiv-preprints">A look at bioRxiv preprints</h1>
+<p>Tim Stuart<br />
+2 March 2016</p>
+
+<p>After posting a my first <a href="http://biorxiv.org/content/early/2016/02/21/039511">preprint</a> to <a href="http://biorxiv.org/">bioRxiv</a> a few weeks ago, I have been periodically checking the number of views and PDF downloads. I became interested to see how many downloads or views the preprints on bioRxiv typically get, but this type of information isn’t actually available. What are the all-time top bioRxiv preprints? How many people are  reading bioRxiv preprints on average? No-one knows! Altmetric must track this data, as it will tell you how a particular preprint ranks in relation to others, but that data hasn’t been made publicly available (as far as I can tell).</p>
+
+
      <a href="/2016/03/01/biorxiv/">read more</a>
    
    </div>
