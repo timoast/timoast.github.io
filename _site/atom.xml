@@ -4,7 +4,7 @@
  <title>Tim Stuart</title>
  <link href="/atom.xml" rel="self"/>
  <link href="/"/>
- <updated>2016-10-17T17:28:27+08:00</updated>
+ <updated>2016-12-03T20:48:10+08:00</updated>
  <id></id>
  <author>
    <name>Tim Stuart</name>
@@ -1558,6 +1558,188 @@ ggplot(older_than_10, aes(log(`Abstract views`))) +
    <content type="html">&lt;p&gt;In an effort to read more papers this year, I’m going to read a paper (or something paper-like) each day for the remainder of the year, and post each 
 paper below as I go.&lt;/p&gt;
 
+&lt;h3 id=&quot;dec-1&quot;&gt;Dec 1&lt;/h3&gt;
+
+&lt;p&gt;Lu Z, Hofmeister BT, Vollmers C, DuBois RM, Schmitz RJ. Combining ATAC-seq with nuclei sorting for discovery of cis-regulatory regions in plant genomes. Nucleic Acids Research. 2016. &lt;a href=&quot;http://dx.doi.org/10.1093/nar/gkw1179&quot;&gt;doi:10.1093/nar/gkw1179&lt;/a&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;nov-30&quot;&gt;Nov 30&lt;/h3&gt;
+
+&lt;p&gt;Weinreb C, Wolock S, Klein A. SPRING: a kinetic interface for visualizing high dimensional single-cell expression data. bioRxiv. 2016. &lt;a href=&quot;http://dx.doi.org/10.1101/090332&quot;&gt;doi:10.1101/090332&lt;/a&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;nov-29&quot;&gt;Nov 29&lt;/h3&gt;
+
+&lt;p&gt;Vergara Z, Sequeira-Mendes J, Morata J, Hénaff E, Peiró R, Costas C, et al. Retrotransposons are specified as DNA replication origins in the gene-poor regions of Arabidopsis heterochromatin. bioRxiv. 2016. &lt;a href=&quot;http://dx.doi.org/10.1101/090183&quot;&gt;doi:10.1101/090183&lt;/a&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;nov-28&quot;&gt;Nov 28&lt;/h3&gt;
+
+&lt;p&gt;Wagner A, Regev A, Yosef N. Revealing the vectors of cellular identity with single-cell genomics. 2016. Nature Biotechnology. &lt;a href=&quot;http://dx.doi.org/10.1038/nbt.3711&quot;&gt;doi:10.1038/nbt.3711&lt;/a&gt;&lt;/p&gt;
+
+&lt;!--break--&gt;
+
+&lt;h3 id=&quot;nov-27&quot;&gt;Nov 27&lt;/h3&gt;
+
+&lt;p&gt;http://genomestake.blogspot.com.au/2016/11/thirty-fifth-take-is-what-ails-us.html&lt;/p&gt;
+
+&lt;h3 id=&quot;nov-26&quot;&gt;Nov 26&lt;/h3&gt;
+
+&lt;p&gt;Gasch AP, Hose J, Newton MA, Sardi M, Yong M, Wang Z. Further support for aneuploidy tolerance in wild yeast and effects of dosage compensation on gene copy-number evolution. eLife. 2016. &lt;a href=&quot;http://dx.doi.org/10.7554/eLife.14409&quot;&gt;doi:10.7554/eLife.14409&lt;/a&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;nov-25&quot;&gt;Nov 25&lt;/h3&gt;
+
+&lt;p&gt;Li Z, Wang S, Cheng J, Su C, Zhong S, Liu Q, et al. Intron Lariat RNA Inhibits MicroRNA Biogenesis by Sequestering the Dicing Complex in Arabidopsis. Mittelsten Scheid O, editor. PLoS Genetics. 2016. &lt;a href=&quot;http://dx.doi.org/10.1371/journal.pgen.1006422&quot;&gt;doi:10.1371/journal.pgen.1006422&lt;/a&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;nov-24&quot;&gt;Nov 24&lt;/h3&gt;
+
+&lt;p&gt;la Rica de L, Deniz Ö, Cheng KCL, Todd CD, Cruz C, Houseley J, et al. TET-dependent regulation of retrotransposable elements in mouse embryonic stem cells. Genome Biology. 2016. &lt;a href=&quot;http://dx.doi.org/10.1186/s13059-016-1096-8&quot;&gt;doi:10.1186/s13059-016-1096-8&lt;/a&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;nov-23&quot;&gt;Nov 23&lt;/h3&gt;
+
+&lt;p&gt;Stegle O, Teichmann SA, Marioni JC. Computational and analytical challenges in single-cell transcriptomics. Nature Reviews Genetics. 2015. &lt;a href=&quot;http://dx.doi.org/10.1038/nrg3833&quot;&gt;doi:10.1038/nrg3833&lt;/a&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;nov-22&quot;&gt;Nov 22&lt;/h3&gt;
+
+&lt;p&gt;Chuong EB, Elde NC, Feschotte C. Regulatory activities of transposable elements: from conflicts to benefits. 2016. Nature Reviews Genetics. &lt;a href=&quot;http://dx.doi.org/10.1038/nrg.2016.139&quot;&gt;doi:10.1038/nrg.2016.139&lt;/a&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;nov-21&quot;&gt;Nov 21&lt;/h3&gt;
+
+&lt;p&gt;Tirosh I, Venteicher AS, Hebert C, Escalante LE, Patel AP, Yizhak K, et al. Single-cell RNA-seq supports a developmental hierarchy in human oligodendroglioma. 2016. Nature. &lt;a href=&quot;http://dx.doi.org/10.1038/nature20123&quot;&gt;doi:10.1038/nature20123&lt;/a&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;nov-20&quot;&gt;Nov 20&lt;/h3&gt;
+
+&lt;p&gt;Sulak M, Fong L, Mika K, Chigurupati S, Yon L, Mongan NP, et al. TP53 copy number expansion is associated with the evolution of increased body size and an enhanced DNA damage response in elephants. 2016. eLife. &lt;a href=&quot;http://dx.doi.org/10.7554/eLife.11994&quot;&gt;doi:10.7554/eLife.11994&lt;/a&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;nov-19&quot;&gt;Nov 19&lt;/h3&gt;
+
+&lt;p&gt;L Lun AT, Bach K, Marioni JC. Pooling across cells to normalize single-cell RNA sequencing data with many zero counts. Genome Biology. 2016. &lt;a href=&quot;http://dx.doi.org/10.1186/s13059-016-0947-7&quot;&gt;doi:10.1186/s13059-016-0947-7&lt;/a&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;nov-18&quot;&gt;Nov 18&lt;/h3&gt;
+
+&lt;p&gt;Barau J, Teissandier A, Zamudio N, Roy S, Nalesso V, Hérault Y, et al. The DNA methyltransferase DNMT3C protects male germ cells from transposon activity. Science. 2016. &lt;a href=&quot;http://dx.doi.org/10.1126/science.aah5143&quot;&gt;doi:10.1126/science.aah5143&lt;/a&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;nov-17&quot;&gt;Nov 17&lt;/h3&gt;
+
+&lt;p&gt;Molinaro AM, Pearson BJ. In silico lineage tracing through single cell transcriptomics identifies a neural stem cell population in planarians. Genome Biology. 2016. &lt;a href=&quot;http://dx.doi.org/10.1186/s13059-016-0937-9&quot;&gt;doi:10.1186/s13059-016-0937-9&lt;/a&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;nov-16&quot;&gt;Nov 16&lt;/h3&gt;
+
+&lt;p&gt;Ntranos V, Kamath GM, Zhang JM, Pachter L, Tse DN. Fast and accurate single-cell RNA-seq analysis by clustering of transcript-compatibility counts. Genome Biology. 2016. &lt;a href=&quot;http://dx.doi.org/10.1186/s13059-016-0970-8&quot;&gt;doi:10.1186/s13059-016-0970-8&lt;/a&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;nov-15&quot;&gt;Nov 15&lt;/h3&gt;
+
+&lt;p&gt;Li S, Yamada M, Han X, Ohler U, Benfey PN. High-Resolution Expression Map of the Arabidopsis Root Reveals Alternative Splicing and lincRNA Regulation. Dev Cell. 2016. &lt;a href=&quot;http://dx.doi.org/10.1016/j.devcel.2016.10.012&quot;&gt;doi:10.1016/j.devcel.2016.10.012&lt;/a&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;nov-14&quot;&gt;Nov 14&lt;/h3&gt;
+
+&lt;p&gt;Korthauer KD, Chu L-F, Newton MA, Li Y, Thomson J, Stewart R, et al. A statistical approach for identifying differential distributions in single-cell RNA-seq experiments. Genome Biology. 2016. &lt;a href=&quot;http://dx.doi.org/10.1186/s13059-016-1077-y&quot;&gt;doi:10.1186/s13059-016-1077-y&lt;/a&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;nov-13&quot;&gt;Nov 13&lt;/h3&gt;
+
+&lt;p&gt;Bendall SC, Davis KL, Amir E-AD, Tadmor MD, Simonds EF, Chen TJ, et al. Single-cell trajectory detection uncovers progression and regulatory coordination in human B cell development. Cell. 2014. &lt;a href=&quot;http://dx.doi.org/10.1016/j.cell.2014.04.005&quot;&gt;doi:10.1016/j.cell.2014.04.005&lt;/a&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;nov-12&quot;&gt;Nov 12&lt;/h3&gt;
+
+&lt;p&gt;Ding B, Zheng L, Zhu Y, Li N, Jia H, Ai R, et al. Normalization and noise reduction for single cell RNA-seq experiments. Bioinformatics. 2015. &lt;a href=&quot;http://dx.doi.org/10.1093/bioinformatics/btv122&quot;&gt;doi:10.1093/bioinformatics/btv122&lt;/a&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;nov-11&quot;&gt;Nov 11&lt;/h3&gt;
+
+&lt;p&gt;Grün D, van Oudenaarden A. Design and Analysis of Single-Cell Sequencing Experiments. Cell. 2015. &lt;a href=&quot;http://dx.doi.org/10.1016/j.cell.2015.10.039&quot;&gt;doi:10.1016/j.cell.2015.10.039&lt;/a&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;nov-10&quot;&gt;Nov 10&lt;/h3&gt;
+
+&lt;p&gt;Buenrostro JD, Giresi PG, Zaba LC, Chang HY, Greenleaf WJ. Transposition of native chromatin for fast and sensitive epigenomic profiling of open chromatin, DNA-binding proteins and nucleosome position. Nature Methods. 2013. &lt;a href=&quot;http://dx.doi.org/10.1038/nmeth.2688&quot;&gt;doi:10.1038/nmeth.2688&lt;/a&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;nov-9&quot;&gt;Nov 9&lt;/h3&gt;
+
+&lt;p&gt;Buettner F, Natarajan KN, Casale FP, Proserpio V, Scialdone A, Theis FJ, et al. Computational analysis of cell-to-cell heterogeneity in single-cell RNA-sequencing data reveals hidden subpopulations of cells. Nature Biotechnology. 2015. &lt;a href=&quot;http://dx.doi.org/10.1038/nbt.3102&quot;&gt;doi:10.1038/nbt.3102&lt;/a&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;nov-8&quot;&gt;Nov 8&lt;/h3&gt;
+
+&lt;p&gt;Satgé C, Moreau S, Sallet E, Lefort G, Auriac M-C, Remblière C, et al. Reprogramming of DNA methylation is critical for nodule development in Medicago truncatula. Nature Plants. &lt;a href=&quot;http://dx.doi.org/10.1038/nplants.2016.166&quot;&gt;doi:10.1038/nplants.2016.166&lt;/a&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;nov-7&quot;&gt;Nov 7&lt;/h3&gt;
+
+&lt;p&gt;Kolodziejczyk AA, Kim JK, Svensson V, Marioni JC, Teichmann SA. The Technology and Biology of Single-Cell RNA Sequencing. Molecular Cell. 2015. &lt;a href=&quot;http://dx.doi.org/10.1016/j.molcel.2015.04.005&quot;&gt;doi:10.1016/j.molcel.2015.04.005&lt;/a&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;nov-6&quot;&gt;Nov 6&lt;/h3&gt;
+
+&lt;p&gt;Svensson V, Natarajan KN, Ly L-H, Miragaia RJ, Labalette C, Macaulay IC, et al. Power Analysis of Single Cell RNA‐Sequencing Experiments. bioRxiv. 2016. &lt;a href=&quot;http://dx.doi.org/10.1101/073692&quot;&gt;doi:10.1101/073692&lt;/a&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;nov-5&quot;&gt;Nov 5&lt;/h3&gt;
+
+&lt;p&gt;Bacher R, Kendziorski C. Design and computational analysis of single-cell RNA-sequencing experiments. Genome Biology. 2016. &lt;a href=&quot;http://dx.doi.org/10.1186/s13059-016-0927-y&quot;&gt;doi:10.1186/s13059-016-0927-y&lt;/a&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;nov-4&quot;&gt;Nov 4&lt;/h3&gt;
+
+&lt;p&gt;Song L, Huang S-SC, Wise A, Castanon R, Nery JR, Chen H, et al. A transcription factor hierarchy defines an environmental stress response network. Science. 2016. &lt;a href=&quot;http://dx.doi.org/10.1126/science.aag1550&quot;&gt;doi:10.1126/science.aag1550&lt;/a&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;nov-3&quot;&gt;Nov 3&lt;/h3&gt;
+
+&lt;p&gt;Liu S, Trapnell C. Single-cell transcriptome sequencing: recent advances and remaining challenges. F1000Res. 2016, &lt;a href=&quot;http://dx.doi.org/10.12688/f1000research.7223.1&quot;&gt;doi:10.12688/f1000research.7223.1&lt;/a&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;nov-2&quot;&gt;Nov 2&lt;/h3&gt;
+
+&lt;p&gt;Wattenberg M, Viégas F, Johnson I. How to Use t-SNE Effectively.  2016. &lt;a href=&quot;http://distill.pub/2016/misread-tsne/&quot;&gt;http://distill.pub/2016/misread-tsne/&lt;/a&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;nov-1&quot;&gt;Nov 1&lt;/h3&gt;
+
+&lt;p&gt;Faridani OR, Abdullayev I, Hagemann-Jensen M, Schell JP, Lanner F, Sandberg R. Single-cell sequencing of the small-RNA transcriptome. Nat Biotech. 2016. &lt;a href=&quot;http://dx.doi.org/10.1038/nbt.3701&quot;&gt;doi:10.1038/nbt.3701&lt;/a&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;oct-31&quot;&gt;Oct 31&lt;/h3&gt;
+
+&lt;p&gt;Olsson A, Venkatasubramanian M, Chaudhri VK, Aronow BJ, Salomonis N, Singh H, et al. Single-cell analysis of mixed-lineage states leading to a binary cell fate choice. Nature. 2016. &lt;a href=&quot;http://dx.doi.org/10.1038/nature19348&quot;&gt;doi:10.1038/nature19348&lt;/a&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;oct-30&quot;&gt;Oct 30&lt;/h3&gt;
+
+&lt;p&gt;Yi X, Dean AM. Phenotypic plasticity as an adaptation to a functional trade-off. eLife. &lt;a href=&quot;http://dx.doi.org/10.7554/eLife.19307&quot;&gt;doi:10.7554/eLife.19307&lt;/a&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;oct-29&quot;&gt;Oct 29&lt;/h3&gt;
+
+&lt;p&gt;Efroni I, Birnbaum KD. The potential of single-cell profiling in plants. Genome Biology. 2016. &lt;a href=&quot;http://dx.doi.org/10.1186/s13059-016-0931-2&quot;&gt;doi:10.1186/s13059-016-0931-2&lt;/a&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;oct-28&quot;&gt;Oct 28&lt;/h3&gt;
+
+&lt;p&gt;Trizzino M, Park Y, Holsbach-Beltrame M, Aracena K, Mika K, Caliskan M, et al. Transposable element exaptation is the primary source of novelty in the primate gene regulatory landscape. bioRxiv. 2016. &lt;a href=&quot;http://dx.doi.org/10.1101/083980&quot;&gt;doi:10.1101/083980&lt;/a&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;oct-27&quot;&gt;Oct 27&lt;/h3&gt;
+
+&lt;p&gt;Lockton S, Gaut BS. The evolution of transposable elements in natural populations of self-fertilizing Arabidopsis thaliana and its outcrossing relative Arabidopsis lyrata. BMC Evolutionary Biology. 2010. &lt;a href=&quot;http://dx.doi.org/10.1186/1471-2148-10-10&quot;&gt;doi:10.1186/1471-2148-10-10&lt;/a&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;oct-26&quot;&gt;Oct 26&lt;/h3&gt;
+
+&lt;p&gt;Freeling M, Lyons E, Pedersen B, Alam M, Ming R, Lisch D. Many or most genes in Arabidopsis transposed after the origin of the order Brassicales. Genome Research. 2008. &lt;a href=&quot;http://dx.doi.org/10.1101/gr.081026.108&quot;&gt;doi:10.1101/gr.081026.108&lt;/a&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;oct-25&quot;&gt;Oct 25&lt;/h3&gt;
+
+&lt;p&gt;Lynch M, Ackerman MS, Gout J-F, Long H, Sung W, Thomas WK, et al. Genetic drift, selection and the evolution of the mutation rate. Nature Reviews Genetics. 2016. &lt;a href=&quot;http://dx.doi.org/10.1038/nrg.2016.104&quot;&gt;doi:10.1038/nrg.2016.104&lt;/a&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;oct-24&quot;&gt;Oct 24&lt;/h3&gt;
+
+&lt;p&gt;di Iulio J, Bartha I, Wong E, Yu H-C, Hicks M, Shah N, et al. The human functional genome defined by genetic diversity. bioRxiv. 2016. &lt;a href=&quot;http://dx.doi.org/10.1101/082362&quot;&gt;doi:10.1101/082362&lt;/a&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;oct-23&quot;&gt;Oct 23&lt;/h3&gt;
+
+&lt;p&gt;Greaves IK, Eichten SR, Groszmann M, Wang A, Ying H, Peacock WJ, et al. Twenty-four–nucleotide siRNAs produce heritable trans-chromosomal methylation in F1 Arabidopsis hybrids. PNAS. 2016. &lt;a href=&quot;http://dx.doi.org/10.1073/pnas.1613623113&quot;&gt;doi:10.1073/pnas.1613623113&lt;/a&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;oct-22&quot;&gt;Oct 22&lt;/h3&gt;
+
+&lt;p&gt;Watson JM, Platzer A, Kazda A, Akimcheva S, Valuchova S, Nizhynska V, et al. Germline replications and somatic mutation accumulation are independent of vegetative life span in Arabidopsis. PNAS. 2016. &lt;a href=&quot;http://dx.doi.org/10.1073/pnas.1609686113&quot;&gt;doi:10.1073/pnas.1609686113&lt;/a&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;oct-21&quot;&gt;Oct 21&lt;/h3&gt;
+
+&lt;p&gt;Schmidt F, Gasparoni N, Gasparoni G, Gianmoena K, Cadenas C, Polansky JK, et al. Combining transcription factor binding affinities with open-chromatin data for accurate gene expression prediction. bioRxiv. 2016. &lt;a href=&quot;http://dx.doi.org/10.1101/081935&quot;&gt;doi:10.1101/081935&lt;/a&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;oct-20&quot;&gt;Oct 20&lt;/h3&gt;
+
+&lt;p&gt;Huff JT, Zilberman D, Roy SW. Mechanism for DNA transposons to generate introns on genomic scales. Nature. &lt;a href=&quot;http://dx.doi.org/10.1038/nature20110&quot;&gt;doi:10.1038/nature20110&lt;/a&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;oct-19&quot;&gt;Oct 19&lt;/h3&gt;
+
+&lt;p&gt;Schalk C, Drevensek S, Kramdi A, Kassam M, Ahmed I, Cognat V, et al. DNA DAMAGE BINDING PROTEIN2 Shapes the DNA Methylation Landscape. The Plant Cell. 2016. &lt;a href=&quot;http://dx.doi.org/10.1105/tpc.16.00474&quot;&gt;doi:10.1105/tpc.16.00474&lt;/a&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;oct-18&quot;&gt;Oct 18&lt;/h3&gt;
+
+&lt;p&gt;Hikabe O, Hamazaki N, Nagamatsu G, Obata Y, Hirao Y, Hamada N, et al. Reconstitution in vitro of the entire cycle of the mouse female germ line. Nature. 2016. &lt;a href=&quot;http://dx.doi.org/10.1038/nature20104&quot;&gt;doi:10.1038/nature20104&lt;/a&gt;&lt;/p&gt;
+
 &lt;h3 id=&quot;oct-17&quot;&gt;Oct 17&lt;/h3&gt;
 
 &lt;p&gt;Pietzenuk B, Markus C, Gaubert H, Bagwan N, Merotto A, Bucher E, et al. Recurrent evolution of heat-responsiveness in Brassicaceae COPIA elements. Genome Biology. 2016. &lt;a href=&quot;http://dx.doi.org/10.1186/s13059-016-1072-3&quot;&gt;doi:10.1186/s13059-016-1072-3&lt;/a&gt;&lt;/p&gt;
@@ -1569,8 +1751,6 @@ paper below as I go.&lt;/p&gt;
 &lt;h3 id=&quot;oct-15&quot;&gt;Oct 15&lt;/h3&gt;
 
 &lt;p&gt;Trapnell C, Salzberg SL. How to map billions of short reads onto genomes. Nature Biotechnology. 2009. &lt;a href=&quot;http://dx.doi.org/10.1038/nbt0509-455&quot;&gt;doi:10.1038/nbt0509-455&lt;/a&gt;&lt;/p&gt;
-
-&lt;!--break--&gt;
 
 &lt;h3 id=&quot;oct-14&quot;&gt;Oct 14&lt;/h3&gt;
 
