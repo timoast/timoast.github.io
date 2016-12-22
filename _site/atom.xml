@@ -4,7 +4,7 @@
  <title>Tim Stuart</title>
  <link href="/atom.xml" rel="self"/>
  <link href="/"/>
- <updated>2016-12-03T20:48:10+08:00</updated>
+ <updated>2016-12-22T16:57:50+08:00</updated>
  <id></id>
  <author>
    <name>Tim Stuart</name>
@@ -1558,6 +1558,92 @@ ggplot(older_than_10, aes(log(`Abstract views`))) +
    <content type="html">&lt;p&gt;In an effort to read more papers this year, I’m going to read a paper (or something paper-like) each day for the remainder of the year, and post each 
 paper below as I go.&lt;/p&gt;
 
+&lt;h3 id=&quot;dec-22&quot;&gt;Dec 22&lt;/h3&gt;
+
+&lt;p&gt;Nelson MG, Linheiro RS, Bergman CM. McClintock: An integrated pipeline for detecting transposable element insertions in whole genome shotgun sequencing data. bioRxiv. 2016. &lt;a href=&quot;http://dx.doi.org/10.1101/095372&quot;&gt;doi:10.1101/095372&lt;/a&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;dec-21&quot;&gt;Dec 21&lt;/h3&gt;
+
+&lt;p&gt;Vidalis A, Živković D, Wardenaar R, Roquis D, Tellier A, Johannes F. Methylome evolution in plants. Genome Biology. 2016. &lt;a href=&quot;http://dx.doi.org/10.1186/s13059-016-1127-5&quot;&gt;doi:10.1186/s13059-016-1127-5&lt;/a&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;dec-20&quot;&gt;Dec 20&lt;/h3&gt;
+
+&lt;p&gt;Park K, Kim MY, Vickers M, Park J-S, Hyun Y, Okamoto T, et al. DNA demethylation is initiated in the central cells of Arabidopsis and rice. PNAS. 2016. &lt;a href=&quot;http://dx.doi.org/10.1073/pnas.1619047114&quot;&gt;doi:10.1073/pnas.1619047114&lt;/a&gt;&lt;/p&gt;
+
+&lt;!--break--&gt;
+
+&lt;h3 id=&quot;dec-19&quot;&gt;Dec 19&lt;/h3&gt;
+
+&lt;p&gt;Jaitin DA, Weiner A, Yofe I, Lara-Astiaso D, Keren-Shaul H, David E, et al. Dissecting Immune Circuits by Linking CRISPR-Pooled Screens with Single-Cell RNA-Seq. Cell. 2016. &lt;a href=&quot;http://dx.doi.org/10.1016/j.cell.2016.11.039&quot;&gt;doi:10.1016/j.cell.2016.11.039&lt;/a&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;dec-18&quot;&gt;Dec 18&lt;/h3&gt;
+
+&lt;p&gt;Baruzzo G, Hayer KE, Kim EJ, Di Camillo B, FitzGerald GA, Grant GR. Simulation-based comprehensive benchmarking of RNA-seq aligners. Nature Methods. 2016. &lt;a href=&quot;http://dx.doi.org/10.1038/nmeth.4106&quot;&gt;doi:10.1038/nmeth.4106&lt;/a&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;dec-17&quot;&gt;Dec 17&lt;/h3&gt;
+
+&lt;p&gt;Stoiber MH, Quick J, Egan R, Lee JE, Celniker SE, Neely R, et al. De novo Identification of DNA Modifications Enabled by Genome-Guided Nanopore Signal Processing. bioRxiv. 2016. &lt;a href=&quot;http://dx.doi.org/10.1101/094672&quot;&gt;doi:10.1101/094672&lt;/a&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;dec-16&quot;&gt;Dec 16&lt;/h3&gt;
+
+&lt;p&gt;Nagano T, Lubling Y, Varnai C, Dudley C, Leung W, Baran Y, et al. Cell cycle dynamics of chromosomal organisation at single-cell resolution. bioRxiv. 2016. &lt;a href=&quot;http://dx.doi.org/10.1101/094466&quot;&gt;doi:10.1101/094466&lt;/a&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;dec-15&quot;&gt;Dec 15&lt;/h3&gt;
+
+&lt;p&gt;Poplin R, Newburger D, Dijamco J, Nguyen N, Loy D, Gross S, et al. Creating a universal SNP and small indel variant caller with deep neural networks. bioRxiv. 2016. &lt;a href=&quot;http://dx.doi.org/10.1101/092890&quot;&gt;doi:10.1101/092890&lt;/a&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;dec-14&quot;&gt;Dec 14&lt;/h3&gt;
+
+&lt;p&gt;D’haeseleer P. How does gene expression clustering work? Nature Biotechnology. 2005. &lt;a href=&quot;http://dx.doi.org/10.1038/nbt1205-1499&quot;&gt;doi:10.1038/nbt1205-1499&lt;/a&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;dec-13&quot;&gt;Dec 13&lt;/h3&gt;
+
+&lt;p&gt;Halperin E, Stephan DA. SNP imputation in association studies. Nature Biotechnology. 2009. &lt;a href=&quot;http://dx.doi.org/10.1038/nbt0409-349&quot;&gt;doi:10.1038/nbt0409-349&lt;/a&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;dec-12&quot;&gt;Dec 12&lt;/h3&gt;
+
+&lt;p&gt;Charlesworth B, Charlesworth D. Darwin and genetics. Genetics. 2009. &lt;a href=&quot;http://dx.doi.org/10.1534/genetics.109.109991&quot;&gt;doi:10.1534/genetics.109.109991&lt;/a&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;dec-11&quot;&gt;Dec 11&lt;/h3&gt;
+
+&lt;p&gt;van Dijk PJ, Ellis THN. The Full Breadth of Mendel’s Genetics. Genetics. 2016. &lt;a href=&quot;http://dx.doi.org/10.1534/genetics.116.196626&quot;&gt;doi:10.1534/genetics.116.196626&lt;/a&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;dec-10&quot;&gt;Dec 10&lt;/h3&gt;
+
+&lt;p&gt;Lio C-W, Zhang J, González-Avalos E, Hogan PG, Chang X, Rao A. Tet2 and Tet3 cooperate with B-lineage transcription factors to regulate DNA modification and chromatin accessibility. eLife. 2016. &lt;a href=&quot;http://dx.doi.org/10.7554/eLife.18290&quot;&gt;doi:10.7554/eLife.18290&lt;/a&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;dec-9&quot;&gt;Dec 9&lt;/h3&gt;
+
+&lt;p&gt;Pawluk A, Amrani N, Zhang Y, Garcia B, Hidalgo-Reyes Y, Lee J, et al. Naturally Occurring Off-Switches for CRISPR-Cas9. Cell. 2016. &lt;a href=&quot;http://dx.doi.org/10.1016/j.cell.2016.11.017&quot;&gt;doi:10.1016/j.cell.2016.11.017&lt;/a&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;dec-8&quot;&gt;Dec 8&lt;/h3&gt;
+
+&lt;p&gt;Buckley AR, Standish KA, Bhutani K, Ideker T, Harismendy O, Carter H, et al. Pan-Cancer Analysis Reveals Technical Artifacts in The Cancer Genome Atlas (TCGA) Germline Variant Calls. bioRxiv. 2016. &lt;a href=&quot;http://dx.doi.org/10.1101/092163&quot;&gt;doi:10.1101/092163&lt;/a&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;dec-7&quot;&gt;Dec 7&lt;/h3&gt;
+
+&lt;p&gt;Efroni I, Mello A, Nawy T, Ip P-L, Rahni R, DelRose N, et al. Root Regeneration Triggers an Embryo-like Sequence Guided by Hormonal Interactions. Cell. 2016. &lt;a href=&quot;http://dx.doi.org/10.1016/j.cell.2016.04.046&quot;&gt;doi:10.1016/j.cell.2016.04.046&lt;/a&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;dec-6&quot;&gt;Dec 6&lt;/h3&gt;
+
+&lt;p&gt;Yang N, MacArthur DG, Gulbin JP, Hahn AG, Beggs AH, Easteal S, et al. ACTN3 genotype is associated with human elite athletic performance. The American Journal of Human Genetics. 2003. &lt;a href=&quot;http://dx.doi.org/10.1086/377590&quot;&gt;doi:10.1086/377590&lt;/a&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;dec-5&quot;&gt;Dec 5&lt;/h3&gt;
+
+&lt;p&gt;Noble WS. How does multiple testing correction work? Nature Biotechnology. 2009. &lt;a href=&quot;http://dx.doi.org/10.1038/nbt1209-1135&quot;&gt;doi:10.1038/nbt1209-1135&lt;/a&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;dec-4&quot;&gt;Dec 4&lt;/h3&gt;
+
+&lt;p&gt;Williamson CHD, Sanchez A, Vazquez A, Gutman J, Sahl JW. Bacterial genome reduction as a result of short read sequence assembly. bioRxiv. 2016. &lt;a href=&quot;http://dx.doi.org/10.1101/091314&quot;&gt;doi:10.1101/091314&lt;/a&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;dec-3&quot;&gt;Dec 3&lt;/h3&gt;
+
+&lt;p&gt;Nattestad M, Chin C-S, Schatz MC. Ribbon: Visualizing complex genome alignments and structural variation. bioRxiv. 2016. &lt;a href=&quot;http://dx.doi.org/10.1101/082123&quot;&gt;doi:10.1101/082123&lt;/a&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;dec-2&quot;&gt;Dec 2&lt;/h3&gt;
+
+&lt;p&gt;Carvalho AB, Dupim EG, Goldstein G. Improved assembly of noisy long reads by k-mer validation. Genome Research. 2016. &lt;a href=&quot;http://dx.doi.org/10.1101/gr.209247.116&quot;&gt;doi:10.1101/gr.209247.116&lt;/a&gt;&lt;/p&gt;
+
 &lt;h3 id=&quot;dec-1&quot;&gt;Dec 1&lt;/h3&gt;
 
 &lt;p&gt;Lu Z, Hofmeister BT, Vollmers C, DuBois RM, Schmitz RJ. Combining ATAC-seq with nuclei sorting for discovery of cis-regulatory regions in plant genomes. Nucleic Acids Research. 2016. &lt;a href=&quot;http://dx.doi.org/10.1093/nar/gkw1179&quot;&gt;doi:10.1093/nar/gkw1179&lt;/a&gt;&lt;/p&gt;
@@ -1573,8 +1659,6 @@ paper below as I go.&lt;/p&gt;
 &lt;h3 id=&quot;nov-28&quot;&gt;Nov 28&lt;/h3&gt;
 
 &lt;p&gt;Wagner A, Regev A, Yosef N. Revealing the vectors of cellular identity with single-cell genomics. 2016. Nature Biotechnology. &lt;a href=&quot;http://dx.doi.org/10.1038/nbt.3711&quot;&gt;doi:10.1038/nbt.3711&lt;/a&gt;&lt;/p&gt;
-
-&lt;!--break--&gt;
 
 &lt;h3 id=&quot;nov-27&quot;&gt;Nov 27&lt;/h3&gt;
 
