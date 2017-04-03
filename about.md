@@ -10,4 +10,6 @@ My PhD focuses on the epigenetic regulation of transposable elements in plant ge
 
 Twitter: [@timoast](https://twitter.com/timoast)
 
+[GitHub](https://github.com/timoast)
+
 [Google Scholar](https://scholar.google.com.au/citations?user=ZlHdCnoAAAAJ&hl=en)
