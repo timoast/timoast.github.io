@@ -5,7 +5,7 @@ date: '2017-04-03'
 comments: true
 ---
 
-Every data analysis I do now is kept in an [R Markdown](rmarkdown.rstudio.com) document. These are great for mixing code with explanatory text, and you can run code in many languages not just R. Whenever I finished working on something, I would compile the R Markdown document into a self-contained html report and save is somewhere, usually with a descriptive filename like "coverage_genes" or "col_vs_cvi".
+Every data analysis I do now is kept in an [R Markdown](http://rmarkdown.rstudio.com) document. These are great for mixing code with explanatory text, and you can run code in many languages not just R. Whenever I finished working on something, I would compile the R Markdown document into a self-contained html report and save is somewhere, usually with a descriptive filename like "coverage_genes" or "col_vs_cvi".
 
 <!--break-->
 
@@ -13,7 +13,7 @@ This is where the problems begin. These reports, while great individually, can q
 
 ### Bookdown
 
-[Bookdown](bookdown.org) is an R package that collects a group of separate R Markdown documents and merges them into a single document -- a book. There are some great examples of books written using bookdown ([R for data science](http://r4ds.had.co.nz/) by Hadley Wickham is one). A couple of weeks ago I started using bookdown to create a computational lab notebook to store all my data analysis documents in one place, and since bookdown just collects different R Markdown documents, I didn't really need to change anything I was doing. So far it's been working really well.
+[Bookdown](http://bookdown.org) is an R package that collects a group of separate R Markdown documents and merges them into a single document -- a book. There are some great examples of books written using bookdown ([R for data science](http://r4ds.had.co.nz/) by Hadley Wickham is one). A couple of weeks ago I started using bookdown to create a computational lab notebook to store all my data analysis documents in one place, and since bookdown just collects different R Markdown documents, I didn't really need to change anything I was doing. So far it's been working really well.
 
 However, bookdown was created with slightly different goals in mind to what I want. Normally, you would need to re-run all the R code each time you build the book in order to get all the entries to display correctly. For me this was a problem -- by the of the year I'd be re-running every analysis I'd done that year every time I wanted to add something new.
 
