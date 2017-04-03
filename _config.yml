@@ -22,7 +22,6 @@ github:
 pages_list:
   About: '/about'
   Archive: '/archive'
-  Code: '/code'
   Publications: '/publications'
   Feed: '/atom.xml'
 
