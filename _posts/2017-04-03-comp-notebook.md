@@ -63,7 +63,7 @@ I added this to my shell script with a command line option, so that each time I 
 
 ### Creating your own lab notebook
 
-You can start a lab book by cloning or forking the template I made at https://github.com/timoast/notebook-template.
+You can start a lab book by cloning or forking the template I made at [https://github.com/timoast/notebook-template](https://github.com/timoast/notebook-template).
 
 This has all the files and directory structure needed, so you can then just start adding your own R Markdown files. Running the `build_book.sh` script should update your book with your latest document. `build_book.sh -a` will update the book and upload it to amazon, as long as you edit the script to put the name of your S3 bucket.
 
