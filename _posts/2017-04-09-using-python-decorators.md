@@ -7,6 +7,7 @@ comments: true
 
 Yesterday I wrote my first python decorator. Decorators have always seemed a bit mysterious to me, but having finally written one I can see a bit better how they work. This is the decorator I wrote:
 
+<!--break-->
 
 ```python
 def log_info(func):
