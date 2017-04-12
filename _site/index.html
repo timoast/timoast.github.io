@@ -54,9 +54,6 @@
             <small><a href="/archive">Archive</a></small>
           
             &nbsp;&nbsp;&nbsp;
-            <small><a href="/code">Code</a></small>
-          
-            &nbsp;&nbsp;&nbsp;
             <small><a href="/publications">Publications</a></small>
           
             &nbsp;&nbsp;&nbsp;
@@ -67,6 +64,51 @@
 
       <div class="posts">
   
+   <div class="post-preview">
+   <h2><a href="/2017/04/09/using-python-decorators/">Using python decorators</a></h2>
+   <span class="post-date">April 09, 2017</span>
+   
+     <p>Yesterday I wrote my first python decorator. Decorators have always seemed a bit mysterious to me, but having finally written one I can see a bit better how they work. This is the decorator I wrote:</p>
+
+
+     <a href="/2017/04/09/using-python-decorators/">read more</a>
+   
+   </div>
+   <hr>
+   
+   <div class="post-preview">
+   <h2><a href="/2017/04/03/comp-notebook/">Create a computational lab notebook with bookdown</a></h2>
+   <span class="post-date">April 03, 2017</span>
+   
+     <p>Every data analysis I do now is kept in an <a href="http://rmarkdown.rstudio.com">R Markdown</a> document. These are great for mixing code with explanatory text, and you can run code in many languages not just R. Whenever I finished working on something, I would compile the R Markdown document into a self-contained html report and save is somewhere, usually with a descriptive filename like “coverage_genes” or “col_vs_cvi”.</p>
+
+
+     <a href="/2017/04/03/comp-notebook/">read more</a>
+   
+   </div>
+   <hr>
+   
+   <div class="post-preview">
+   <h2><a href="/2017/03/03/installing-magic/">Installing Magic</a></h2>
+   <span class="post-date">March 03, 2017</span>
+   
+     <h1 id="installing-magic">Installing magic</h1>
+
+<p>Recently a method for imputing single cell gene expression matricies
+was posted
+on <a href="http://biorxiv.org/content/early/2017/02/25/111591">biorxiv</a> by
+David van Dijk et al., called magic (Markov Affinity-based Graph
+Imputation of Cells). I’ve been analysing single cell RNA-seq data
+recently, and this method looks like it could be useful when trying to
+find co-transcriptional networks, as single cell data suffers from
+dropout which makes finding co-transcriptional networks hard.</p>
+
+
+     <a href="/2017/03/03/installing-magic/">read more</a>
+   
+   </div>
+   <hr>
+   
    <div class="post-preview">
    <h2><a href="/2016/09/22/r_demo/">R demo</a></h2>
    <span class="post-date">September 22, 2016</span>
@@ -89,9 +131,9 @@
 
 <p>Clone the repo if you haven’t already:</p>
 
-<p><code>bash
-git clone https://github.com/timoast/dac.git
-</code></p>
+<div class="language-bash highlighter-rouge"><pre class="highlight"><code>git clone https://github.com/timoast/dac.git
+</code></pre>
+</div>
 
 <p>Install <a href="https://www.rstudio.com/">RStudio</a>.</p>
 
@@ -115,11 +157,11 @@ git clone https://github.com/timoast/dac.git
 
 <p>First step is to download the data:</p>
 
-<p><code>bash
-$ wget ftp://ftp-trace.ncbi.nlm.nih.gov//sra/sra-instant/reads/ByStudy/sra/SRP/SRP001/SRP001895/SRR035616/SRR035616.sra
-$ fastq-dump SRR035616.sra
-$ pigz SRR035616.fastq
-</code></p>
+<div class="language-bash highlighter-rouge"><pre class="highlight"><code><span class="gp">$ </span>wget ftp://ftp-trace.ncbi.nlm.nih.gov//sra/sra-instant/reads/ByStudy/sra/SRP/SRP001/SRP001895/SRR035616/SRR035616.sra
+<span class="gp">$ </span>fastq-dump SRR035616.sra
+<span class="gp">$ </span>pigz SRR035616.fastq
+</code></pre>
+</div>
 
 
      <a href="/2016/07/12/smRNA-analysis/">read more</a>
@@ -134,13 +176,13 @@ $ pigz SRR035616.fastq
      <h2 id="whole-genome-bisulfite-sequencing-analysis-notes-for-bs-seeker2">Whole genome bisulfite sequencing analysis notes for BS-seeker2.</h2>
 
 <h2 id="step-1-trim-adapters-and-low-quality-bases">Step 1: Trim adapters and low quality bases</h2>
-<p>Illumina TruSeq adapter sequence: <code>GATCGGAAGAGCACACGTCTGAACTCCAGTCAC</code></p>
+<p>Illumina TruSeq adapter sequence: <code class="highlighter-rouge">GATCGGAAGAGCACACGTCTGAACTCCAGTCAC</code></p>
 
-<p><code>
-cutadapt -a AGATCGGAAGAGCACACGTCTGAACTCCAGTCAC -m 50 reads.fastq \
+<div class="highlighter-rouge"><pre class="highlight"><code>cutadapt -a AGATCGGAAGAGCACACGTCTGAACTCCAGTCAC -m 50 reads.fastq \
 | seqtk trimfq -l 50 - \
 | pigz &gt; filtered_reads.fq.gz
-</code></p>
+</code></pre>
+</div>
 
 
      <a href="/2016/03/29/bsseeker2/">read more</a>
@@ -171,17 +213,9 @@ cutadapt -a AGATCGGAAGAGCACACGTCTGAACTCCAGTCAC -m 50 reads.fastq \
      <p>In an effort to read more papers this year, I’m going to read a paper (or something paper-like) each day for the remainder of the year, and post each 
 paper below as I go.</p>
 
-<h3 id="dec-22">Dec 22</h3>
+<h3 id="dec-31">Dec 31</h3>
 
-<p>Nelson MG, Linheiro RS, Bergman CM. McClintock: An integrated pipeline for detecting transposable element insertions in whole genome shotgun sequencing data. bioRxiv. 2016. <a href="http://dx.doi.org/10.1101/095372">doi:10.1101/095372</a></p>
-
-<h3 id="dec-21">Dec 21</h3>
-
-<p>Vidalis A, Živković D, Wardenaar R, Roquis D, Tellier A, Johannes F. Methylome evolution in plants. Genome Biology. 2016. <a href="http://dx.doi.org/10.1186/s13059-016-1127-5">doi:10.1186/s13059-016-1127-5</a></p>
-
-<h3 id="dec-20">Dec 20</h3>
-
-<p>Park K, Kim MY, Vickers M, Park J-S, Hyun Y, Okamoto T, et al. DNA demethylation is initiated in the central cells of Arabidopsis and rice. PNAS. 2016. <a href="http://dx.doi.org/10.1073/pnas.1619047114">doi:10.1073/pnas.1619047114</a></p>
+<p>Galanter JM, Gignoux CR, Oh SS, Torgerson D, Pino-Yanes M, Thakur N, et al. Differential methylation between ethnic sub-groups reflects the effect of genetic ancestry and environmental exposures. eLife. <a href="http://dx.doi.org/10.7554/eLife.20532">doi:10.7554/eLife.20532</a></p>
 
 
      <a href="/2016/02/23/Papers/">read more</a>
@@ -221,90 +255,16 @@ paper below as I go.</p>
    
      <p>While there are very fast and easy ways to extract reads from a bam file according to mapping location, extracting reads by read name is more difficult.</p>
 
-<p>Simple methods, like using <code>grep</code>, are incredibly slow if you want to look for more than a few reads.</p>
+<p>Simple methods, like using <code class="highlighter-rouge">grep</code>, are incredibly slow if you want to look for more than a few reads.</p>
 
-<p>Luckily, <code>pysam</code> allows you to index a bam file by read name (using <code>pysam.IndexedReads(AlignmentFile)</code>) while keeping the sort order. However, the index is stored in memory so this can use a lot of RAM (my tests with a 5.7 GB bam file used about 9 GB RAM).</p>
+<p>Luckily, <code class="highlighter-rouge">pysam</code> allows you to index a bam file by read name (using <code class="highlighter-rouge">pysam.IndexedReads(AlignmentFile)</code>) while keeping the sort order. However, the index is stored in memory so this can use a lot of RAM (my tests with a 5.7 GB bam file used about 9 GB RAM).</p>
 
 <p>I wrote a small python script (below) that uses pysam to extract reads by read name from a bam file.</p>
 
-<p>Extracting 10 reads from a 5.7 GB bam file, just using <code>grep</code> is slightly faster than the python script:</p>
+<p>Extracting 10 reads from a 5.7 GB bam file, just using <code class="highlighter-rouge">grep</code> is slightly faster than the python script:</p>
 
 
      <a href="/2015/10/12/ExtractReads/">read more</a>
-   
-   </div>
-   <hr>
-   
-   <div class="post-preview">
-   <h2><a href="/2014/11/04/SizeEstimation/">Estimation of insert size from sam / bam files</a></h2>
-   <span class="post-date">November 04, 2014</span>
-   
-     <p>I’ve been looking for a simple way to estimate paired-end insert sizes from mapped data. There are a few more complicated tools available (I think picard will do it), as well as simple scripts different people have written that don’t exclude outliers. However outliers due to discordant read alignments will hugely change the mean, so need to be removed.</p>
-
-<p>As I couldn’t find anything that was a nice middle ground, I ended up writing my own simple python script that will take input from stdin and exclude outliers more that two standard deviations from the median, and print the mean and standard deviation to stdout.</p>
-
-<p>It can be used to estimate the insert size from sam or bam files:</p>
-
-<p><code>
-$ head -10000 mapped.sam | python mean_size.py
-220 35
-</code></p>
-
-<p><code>
-$ samtools view mapped.bam | head -10000 | python mean_size.py
-220 35
-</code></p>
-
-
-     <a href="/2014/11/04/SizeEstimation/">read more</a>
-   
-   </div>
-   <hr>
-   
-   <div class="post-preview">
-   <h2><a href="/2014/10/29/MethyC-Analysis/">MethyC-Seq Analysis Notes</a></h2>
-   <span class="post-date">October 29, 2014</span>
-   
-     <h2 id="preliminary-steps">Preliminary steps</h2>
-
-<h3 id="bcl-conversion">Bcl-conversion</h3>
-
-<ol>
-  <li>Enter a screen</li>
-</ol>
-
-<p><code>bash
-screen -S bcl-conversion
-</code>
-2. Navigate to directory with run (eg. 130909_SNL119_0105_AC2GYKACXX)
-3. Check sample sheet configured correctly. If only one adapter in lane, remove adapter sequence from sample sheet.
-4. Run the following (modified with correct run name, sample sheet etc). Can change final value to change number of reads in files:</p>
-
-
-     <a href="/2014/10/29/MethyC-Analysis/">read more</a>
-   
-   </div>
-   <hr>
-   
-   <div class="post-preview">
-   <h2><a href="/2014/08/25/UsefulPython/">Useful python code</a></h2>
-   <span class="post-date">August 25, 2014</span>
-   
-     <h3 id="take-command-line-arguments">Take command-line arguments</h3>
-
-<p>```python
-from argparse import ArgumentParser</p>
-
-<p>version = pkg_resources.require(“program”)[0].version
-parser = ArgumentParser(description=’program description’)
-group = parser.add_mutually_exclusive_group()
-parser.add_argument(‘–version’, action=’version’, version=’%(prog)s ‘+str(version))
-parser.add_argument(‘–option’, help=’option description’, required=False, default=False, action=’store_true’)
-parser.add_argument(‘-n’, ‘–name’, help=’sample name’, required=True)
-```</p>
-
-
-     <a href="/2014/08/25/UsefulPython/">read more</a>
    
    </div>
    <hr>
@@ -323,7 +283,7 @@ parser.add_argument(‘-n’, ‘–name’, help=’sample name’, required=Tr
 
       <!-- <div class="footer">
         <p>
-          &copy; 2016. All rights reserved.
+          &copy; 2017. All rights reserved.
         </p>
       </div> -->
     </div>

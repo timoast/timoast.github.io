@@ -54,9 +54,6 @@
             <small><a href="/archive">Archive</a></small>
           
             &nbsp;&nbsp;&nbsp;
-            <small><a href="/code">Code</a></small>
-          
-            &nbsp;&nbsp;&nbsp;
             <small><a href="/publications">Publications</a></small>
           
             &nbsp;&nbsp;&nbsp;
@@ -70,40 +67,40 @@
   <span class="post-date">12 Oct 2015</span>
   <p>While there are very fast and easy ways to extract reads from a bam file according to mapping location, extracting reads by read name is more difficult.</p>
 
-<p>Simple methods, like using <code>grep</code>, are incredibly slow if you want to look for more than a few reads.</p>
+<p>Simple methods, like using <code class="highlighter-rouge">grep</code>, are incredibly slow if you want to look for more than a few reads.</p>
 
-<p>Luckily, <code>pysam</code> allows you to index a bam file by read name (using <code>pysam.IndexedReads(AlignmentFile)</code>) while keeping the sort order. However, the index is stored in memory so this can use a lot of RAM (my tests with a 5.7 GB bam file used about 9 GB RAM).</p>
+<p>Luckily, <code class="highlighter-rouge">pysam</code> allows you to index a bam file by read name (using <code class="highlighter-rouge">pysam.IndexedReads(AlignmentFile)</code>) while keeping the sort order. However, the index is stored in memory so this can use a lot of RAM (my tests with a 5.7 GB bam file used about 9 GB RAM).</p>
 
 <p>I wrote a small python script (below) that uses pysam to extract reads by read name from a bam file.</p>
 
-<p>Extracting 10 reads from a 5.7 GB bam file, just using <code>grep</code> is slightly faster than the python script:</p>
+<p>Extracting 10 reads from a 5.7 GB bam file, just using <code class="highlighter-rouge">grep</code> is slightly faster than the python script:</p>
 
 <!--break-->
 
-<p>```shell
-timstuart Altai-5$  time samtools view Altai-5_filtered.bam | grep -f reads.txt &gt; extracted</p>
+<div class="language-shell highlighter-rouge"><pre class="highlight"><code>timstuart Altai-5<span class="nv">$ </span> <span class="nb">time </span>samtools view Altai-5_filtered.bam | grep -f reads.txt &gt; extracted
 
-<p>real    2m10.088s
+real    2m10.088s
 user    2m23.107s
-sys 0m35.470s</p>
+sys 0m35.470s
 
-<p>timstuart Altai-5$  time python extract_reads.py -b Altai-5_filtered.bam -n reads.txt -o python_extracted.bam</p>
+timstuart Altai-5<span class="nv">$ </span> <span class="nb">time </span>python extract_reads.py -b Altai-5_filtered.bam -n reads.txt -o python_extracted.bam
 
-<p>real    3m36.444s
+real    3m36.444s
 user    3m14.744s
-sys 0m18.867s</p>
+sys 0m18.867s
 
-<p>```</p>
+</code></pre>
+</div>
 
-<p>But extracting 200 reads using python is fast, while using <code>grep</code> ran for over an hour before I stopped the process.</p>
+<p>But extracting 200 reads using python is fast, while using <code class="highlighter-rouge">grep</code> ran for over an hour before I stopped the process.</p>
 
-<p>```shell
-timstuart Altai-5$  time python extract_reads.py -b Altai-5_filtered.bam -n reads.txt -o python_extracted.bam</p>
+<div class="language-shell highlighter-rouge"><pre class="highlight"><code>timstuart Altai-5<span class="nv">$ </span> <span class="nb">time </span>python extract_reads.py -b Altai-5_filtered.bam -n reads.txt -o python_extracted.bam
 
-<p>real    3m30.015s
+real    3m30.015s
 user    3m12.738s
 sys 0m15.055s
-```</p>
+</code></pre>
+</div>
 
 <script src="https://gist.github.com/timoast/2264a79f93b3f1cb3aac.js"></script>
 
@@ -115,7 +112,7 @@ sys 0m15.055s
 
       <!-- <div class="footer">
         <p>
-          &copy; 2016. All rights reserved.
+          &copy; 2017. All rights reserved.
         </p>
       </div> -->
     </div>

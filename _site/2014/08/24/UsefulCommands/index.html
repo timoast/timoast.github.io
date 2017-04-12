@@ -54,9 +54,6 @@
             <small><a href="/archive">Archive</a></small>
           
             &nbsp;&nbsp;&nbsp;
-            <small><a href="/code">Code</a></small>
-          
-            &nbsp;&nbsp;&nbsp;
             <small><a href="/publications">Publications</a></small>
           
             &nbsp;&nbsp;&nbsp;
@@ -70,255 +67,255 @@
   <span class="post-date">24 Aug 2014</span>
   <h2 id="go-back-to-last-directory">go back to last directory</h2>
 
-<p><code>
-cd -
-</code></p>
+<div class="highlighter-rouge"><pre class="highlight"><code>cd -
+</code></pre>
+</div>
 
 <h2 id="do-something-in-a-range">Do something in a range</h2>
 <p>Move files</p>
 
-<p><code>bash
-for i in $(seq 10); do mv chr$i ../genomes/; done
-</code></p>
+<div class="language-bash highlighter-rouge"><pre class="highlight"><code><span class="k">for </span>i <span class="k">in</span> <span class="k">$(</span>seq 10<span class="k">)</span>; <span class="k">do </span>mv chr<span class="nv">$i</span> ../genomes/; <span class="k">done</span>
+</code></pre>
+</div>
 
-<p><code>bash
-for directory in ./*; do
-    if [ -d "$directory" ]; then
-        cd $directory
-        for myfile in $(ls -d *.sra);do
-            mv $myfile /home/tstuart/working_data/1000genomes/$myfile
-        done
-        cd ..
-    fi
-done
-</code></p>
+<div class="language-bash highlighter-rouge"><pre class="highlight"><code><span class="k">for </span>directory <span class="k">in</span> ./<span class="k">*</span>; <span class="k">do
+    if</span> <span class="o">[</span> -d <span class="s2">"</span><span class="nv">$directory</span><span class="s2">"</span> <span class="o">]</span>; <span class="k">then
+        </span><span class="nb">cd</span> <span class="nv">$directory</span>
+        <span class="k">for </span>myfile <span class="k">in</span> <span class="k">$(</span>ls -d <span class="k">*</span>.sra<span class="k">)</span>;<span class="k">do
+            </span>mv <span class="nv">$myfile</span> /home/tstuart/working_data/1000genomes/<span class="nv">$myfile</span>
+        <span class="k">done
+        </span><span class="nb">cd</span> ..
+    <span class="k">fi
+done</span>
+</code></pre>
+</div>
 
 <!--break-->
 
 <h2 id="split-fasta-file-into-a-new-file-for-each-entry">Split fasta file into a new file for each entry</h2>
 
-<p><code>
-awk '/&gt;/{x="file_"++i;}{print &gt; x".txt";}' input
-</code></p>
+<div class="highlighter-rouge"><pre class="highlight"><code>awk '/&gt;/{x="file_"++i;}{print &gt; x".txt";}' input
+</code></pre>
+</div>
 
 <h2 id="split-coordinate-file-into-different-files-for-each-chromosome">Split coordinate file into different files for each chromosome</h2>
 
-<p><code>
-awk  '{print &gt; $1".txt"}' input
-</code></p>
+<div class="highlighter-rouge"><pre class="highlight"><code>awk  '{print &gt; $1".txt"}' input
+</code></pre>
+</div>
 
 <h2 id="take-command-line-arguments">Take command-line arguments</h2>
 
-<p>Required flags are followed by <code>:</code></p>
+<p>Required flags are followed by <code class="highlighter-rouge">:</code></p>
 
-<p>```bash
-index=  proc=  path=</p>
+<div class="language-bash highlighter-rouge"><pre class="highlight"><code><span class="nv">index</span><span class="o">=</span>  <span class="nv">proc</span><span class="o">=</span>  <span class="nv">path</span><span class="o">=</span>  
 
-<p>while getopts x:pA opt; do
-  case $opt in
-  x)
-      index=$OPTARG
-      ;;
-  p)
-      proc=$OPTARG
-      ;;
-  A)
-      path=${OPTARG%/}
-      ;;
-  esac
-done
-shift $((OPTIND - 1))
-```</p>
+<span class="k">while </span><span class="nb">getopts </span>x:pA opt; <span class="k">do
+  case</span> <span class="nv">$opt</span> <span class="k">in
+  </span>x<span class="p">)</span>
+      <span class="nv">index</span><span class="o">=</span><span class="nv">$OPTARG</span>
+      <span class="p">;;</span>
+  p<span class="p">)</span>
+      <span class="nv">proc</span><span class="o">=</span><span class="nv">$OPTARG</span>
+      <span class="p">;;</span>
+  A<span class="p">)</span>
+      <span class="nv">path</span><span class="o">=</span><span class="k">${</span><span class="nv">OPTARG</span><span class="p">%/</span><span class="k">}</span>
+      <span class="p">;;</span>
+  <span class="k">esac</span>
+<span class="k">done
+</span><span class="nb">shift</span> <span class="k">$((</span>OPTIND <span class="o">-</span> <span class="m">1</span><span class="k">))</span>
+</code></pre>
+</div>
 
 <h2 id="strip-trailing-slash-from-string">Strip trailing slash from string</h2>
 
-<p><code>bash
-path=${OPTARG%/}
-</code></p>
+<div class="language-bash highlighter-rouge"><pre class="highlight"><code><span class="nv">path</span><span class="o">=</span><span class="k">${</span><span class="nv">OPTARG</span><span class="p">%/</span><span class="k">}</span>
+</code></pre>
+</div>
 
 <h2 id="gnu-screen">GNU Screen</h2>
 
-<p>Start screen: <code>screen -S [screen name]</code><br />
-List screens: <code>screen -list</code><br />
-Detach: <code>screen -d</code><br />
-Attach: <code>screen -r</code><br />
-Close screen: <code>ctr-a-d</code><br />
-Kill screen: <code>ctr-a :quit</code></p>
+<p>Start screen: <code class="highlighter-rouge">screen -S [screen name]</code><br />
+List screens: <code class="highlighter-rouge">screen -list</code><br />
+Detach: <code class="highlighter-rouge">screen -d</code><br />
+Attach: <code class="highlighter-rouge">screen -r</code><br />
+Close screen: <code class="highlighter-rouge">ctr-a-d</code><br />
+Kill screen: <code class="highlighter-rouge">ctr-a :quit</code></p>
 
 <h2 id="human-readable-path">Human-readable path</h2>
 
-<p><code>bash
-echo -e ${PATH//:/'\n'}
-</code></p>
+<div class="language-bash highlighter-rouge"><pre class="highlight"><code><span class="nb">echo</span> -e <span class="k">${</span><span class="nv">PATH</span><span class="p">//</span>:/<span class="s1">'\n'</span><span class="k">}</span>
+</code></pre>
+</div>
 
 <h2 id="searching">Searching</h2>
 
-<p><code>bash
-grep 'text' filename
-grep 'text' file1 file2 file3
-grep 'text1 text2' filename
-grep --color 'text' filename
-</code></p>
+<div class="language-bash highlighter-rouge"><pre class="highlight"><code>grep <span class="s1">'text'</span> filename
+grep <span class="s1">'text'</span> file1 file2 file3
+grep <span class="s1">'text1 text2'</span> filename
+grep --color <span class="s1">'text'</span> filename
+</code></pre>
+</div>
 
 <p>Search all files in a directory, show output in less</p>
 
-<p><code>bash
-grep -r 'text' /home/usr/ | less
-</code></p>
+<div class="language-bash highlighter-rouge"><pre class="highlight"><code>grep -r <span class="s1">'text'</span> /home/usr/ | less
+</code></pre>
+</div>
 
 <p>Search for multiple strings</p>
 
-<p><code>bash
-egrep '(AT4G40030)|(AT4G40040)|(AT5G10980)' * &gt; h3.3
-</code></p>
+<div class="language-bash highlighter-rouge"><pre class="highlight"><code>egrep <span class="s1">'(AT4G40030)|(AT4G40040)|(AT5G10980)'</span> <span class="k">*</span> &gt; h3.3
+</code></pre>
+</div>
 
 <h2 id="pipe-output-into-file">Pipe output into file</h2>
 
 <h4 id="overwrite-contents-of-file">Overwrite contents of file</h4>
 
-<p><code>bash
-grep "text" filename.txt &gt; output.txt
-</code></p>
+<div class="language-bash highlighter-rouge"><pre class="highlight"><code>grep <span class="s2">"text"</span> filename.txt &gt; output.txt
+</code></pre>
+</div>
 
 <h4 id="append-to-file">Append to file</h4>
 
-<p><code>bash
-grep "text" filename.txt &gt;&gt; output.txt
-</code></p>
+<div class="language-bash highlighter-rouge"><pre class="highlight"><code>grep <span class="s2">"text"</span> filename.txt &gt;&gt; output.txt
+</code></pre>
+</div>
 
 <h2 id="counting">Counting</h2>
 <p>Count lines in chr1 file</p>
 
-<p><code>bash
-wc -l chr1
-</code></p>
+<div class="language-bash highlighter-rouge"><pre class="highlight"><code>wc -l chr1
+</code></pre>
+</div>
 
 <p>Count characters in chr1 file</p>
 
-<p><code>bash
-wc -c chr1
-</code></p>
+<div class="language-bash highlighter-rouge"><pre class="highlight"><code>wc -c chr1
+</code></pre>
+</div>
 
 <h2 id="list">List</h2>
 
 <p>List and sort</p>
 
-<p><code>bash
-ls -ls
-</code></p>
+<div class="language-bash highlighter-rouge"><pre class="highlight"><code>ls -ls
+</code></pre>
+</div>
 
 <p>List and sort by size</p>
 
-<p><code>bash
-ls -ls -S
-</code></p>
+<div class="language-bash highlighter-rouge"><pre class="highlight"><code>ls -ls -S
+</code></pre>
+</div>
 
 <p>Count number of directories in current directory</p>
 
-<p><code>bash
-ls -l | grep ^d | wc -l
-</code></p>
+<div class="language-bash highlighter-rouge"><pre class="highlight"><code>ls -l | grep ^d | wc -l
+</code></pre>
+</div>
 
 <h2 id="sorting">Sorting</h2>
 
 <p>Sort file by numerical order of first column, save as sorted_list.txt</p>
 
-<p><code>bash
-sort -nk 1 list.txt &gt; sorted_list.txt
-</code></p>
+<div class="language-bash highlighter-rouge"><pre class="highlight"><code>sort -nk 1 list.txt &gt; sorted_list.txt
+</code></pre>
+</div>
 
 <p>Sort file by order of first column, then numerical order of second column, save as sorted_list.txt</p>
 
-<p><code>bash
-sort -k1,1 -nk2,2 list.txt &gt; sorted_list.txt
-</code></p>
+<div class="language-bash highlighter-rouge"><pre class="highlight"><code>sort -k1,1 -nk2,2 list.txt &gt; sorted_list.txt
+</code></pre>
+</div>
 
 <p>Sort descending</p>
 
-<p><code>bash
-sort -rn -k3 file.txt &gt; sorted.txt
-</code></p>
+<div class="language-bash highlighter-rouge"><pre class="highlight"><code>sort -rn -k3 file.txt &gt; sorted.txt
+</code></pre>
+</div>
 
 <p>overwrite</p>
 
-<p><code>bash
-sort -rn -k3 -o file.txt file.txt
-</code></p>
+<div class="language-bash highlighter-rouge"><pre class="highlight"><code>sort -rn -k3 -o file.txt file.txt
+</code></pre>
+</div>
 
 <h2 id="rows">Rows</h2>
 <p>Delete first line</p>
 
-<p><code>bash
-sed 1d file.txt &gt; headerless_file.txt
-</code></p>
+<div class="language-bash highlighter-rouge"><pre class="highlight"><code>sed 1d file.txt &gt; headerless_file.txt
+</code></pre>
+</div>
 
 <p>Delete lines 1-3 inclusive</p>
 
-<p><code>bash
-sed 1,3d file.txt &gt; newfile.txt
-</code></p>
+<div class="language-bash highlighter-rouge"><pre class="highlight"><code>sed 1,3d file.txt &gt; newfile.txt
+</code></pre>
+</div>
 
 <p>Delete lines containing string</p>
 
-<p><code>bash
-sed '/ATC/d' file.txt &gt; file_mod.txt
-</code></p>
+<div class="language-bash highlighter-rouge"><pre class="highlight"><code>sed <span class="s1">'/ATC/d'</span> file.txt &gt; file_mod.txt
+</code></pre>
+</div>
 
 <p>Overwrite file</p>
 
-<p><code>bash
-sed -i.bak 1d file.txt
-</code></p>
+<div class="language-bash highlighter-rouge"><pre class="highlight"><code>sed -i.bak 1d file.txt
+</code></pre>
+</div>
 
 <h2 id="columns">Columns</h2>
 <p>Write columns to new file. Can also reorder columns.</p>
 
-<p><code>bash
-awk 'BEGIN {FS=OFS="\t"} {print $2,$4,$5,$6,$7,$8,$1,$3}' file.txt &gt; outfile.txt
-awk 'BEGIN {FS=OFS="\t"} {print $7,$1,$8,$2,$3,$4,$5,$6}' cmt2_targets.tsv &gt; cmt2_targets_ordered.tsv
-</code></p>
+<div class="language-bash highlighter-rouge"><pre class="highlight"><code>awk <span class="s1">'BEGIN {FS=OFS="\t"} {print $2,$4,$5,$6,$7,$8,$1,$3}'</span> file.txt &gt; outfile.txt
+awk <span class="s1">'BEGIN {FS=OFS="\t"} {print $7,$1,$8,$2,$3,$4,$5,$6}'</span> cmt2_targets.tsv &gt; cmt2_targets_ordered.tsv
+</code></pre>
+</div>
 
 <p>Add column</p>
 
-<p><code>bash
-awk '{print $0, "cmt2"}' cmt2_targets_ordered.tsv &gt; newfile.tsv
-</code></p>
+<div class="language-bash highlighter-rouge"><pre class="highlight"><code>awk <span class="s1">'{print $0, "cmt2"}'</span> cmt2_targets_ordered.tsv &gt; newfile.tsv
+</code></pre>
+</div>
 
 <p>Remove first column from all files</p>
 
-<p><code>bash
-for myfile in $(ls);do
-    awk 'BEGIN {FS=OFS="\t"} {$1="";sub("\t","")}1' $myfile &gt; mod_$myfile
-done
-</code></p>
+<div class="language-bash highlighter-rouge"><pre class="highlight"><code><span class="k">for </span>myfile <span class="k">in</span> <span class="k">$(</span>ls<span class="k">)</span>;<span class="k">do
+    </span>awk <span class="s1">'BEGIN {FS=OFS="\t"} {$1="";sub("\t","")}1'</span> <span class="nv">$myfile</span> &gt; mod_<span class="nv">$myfile</span>
+<span class="k">done</span>
+</code></pre>
+</div>
 
 <p>Search only in one column</p>
 
-<p><code>bash
-awk '{if ($1 == 1) print $2}' p1 &gt; chr1_p1
-</code></p>
+<div class="language-bash highlighter-rouge"><pre class="highlight"><code>awk <span class="s1">'{if ($1 == 1) print $2}'</span> p1 &gt; chr1_p1
+</code></pre>
+</div>
 
 <p>Add string prefix to a column, eg. add ‘chr’ to the first column</p>
 
-<p><code>bash
-awk 'BEGIN {FS=OFS="\t"} {$1="chr"$1; print $0}' input_file.txt &gt; output_file.txt
-</code></p>
+<div class="language-bash highlighter-rouge"><pre class="highlight"><code>awk <span class="s1">'BEGIN {FS=OFS="\t"} {$1="chr"$1; print $0}'</span> input_file.txt &gt; output_file.txt
+</code></pre>
+</div>
 
 <h2 id="joining-files">Joining files</h2>
 
 <p>Join files with each starting on a new line</p>
 
-<p><code>bash
-for filename in *.fa; do
-    cat "${filename}"
-    echo
-done &gt; output.fa
-</code>
-Merge files of the same format</p>
+<div class="language-bash highlighter-rouge"><pre class="highlight"><code><span class="k">for </span>filename <span class="k">in</span> <span class="k">*</span>.fa; <span class="k">do
+    </span>cat <span class="s2">"</span><span class="k">${</span><span class="nv">filename</span><span class="k">}</span><span class="s2">"</span>
+    <span class="nb">echo
+</span><span class="k">done</span> &gt; output.fa
+</code></pre>
+</div>
+<p>Merge files of the same format</p>
 
-<p><code>bash
-cat p1_* | sort -nk1,1 -k2,2 | uniq &gt; p1
-</code></p>
+<div class="language-bash highlighter-rouge"><pre class="highlight"><code>cat p1_<span class="k">*</span> | sort -nk1,1 -k2,2 | uniq &gt; p1
+</code></pre>
+</div>
 
 <h2 id="comparing-files">Comparing Files</h2>
 
@@ -326,12 +323,12 @@ cat p1_* | sort -nk1,1 -k2,2 | uniq &gt; p1
 
 <p>Find lines that are common or different between two files</p>
 
-<p><code>bash
-comm -i file1 file2 &gt; output.txt
-</code></p>
+<div class="language-bash highlighter-rouge"><pre class="highlight"><code>comm -i file1 file2 &gt; output.txt
+</code></pre>
+</div>
 
 <ul>
-  <li><code>-i</code> is case-insensitive</li>
+  <li><code class="highlighter-rouge">-i</code> is case-insensitive</li>
   <li>outputs three columns. First is lines only in file1, second is lines only in file2, third is lines common in both.</li>
 </ul>
 
@@ -339,175 +336,189 @@ comm -i file1 file2 &gt; output.txt
 
 <p>Compress recursively and store all files in a single compressed folder</p>
 
-<p><code>bash
-tar cvfz slam.tgz slam/
-</code></p>
+<div class="language-bash highlighter-rouge"><pre class="highlight"><code>tar cvfz slam.tgz slam/
+</code></pre>
+</div>
 
 <p>Compress recursively</p>
 
-<p><code>bash
-gzip -r directory/
-</code></p>
+<div class="language-bash highlighter-rouge"><pre class="highlight"><code>gzip -r directory/
+</code></pre>
+</div>
 
 <p>Decompress files</p>
 
-<p><code>bash
-tar -x -f file.tar
+<div class="language-bash highlighter-rouge"><pre class="highlight"><code>tar -x -f file.tar
 tar -x -z -f file.tgz
 gunzip file.gz
-</code></p>
+</code></pre>
+</div>
 
 <h2 id="download-data-from-sra">Download data from SRA</h2>
 
 <h3 id="using-wget">Using wget</h3>
 
-<p><code>
-wget -r --no-parent --reject "index.html*" ftp://ftp-trace.ncbi.nih.gov/sra/sra-instant/reads/ByStudy/sra/SRP/SRP005/SRP005399/
-</code>
-Alternatively, you can download a list of accessions from the SRA website and use that file to call <code>wget</code> for all the accessions.</p>
+<div class="highlighter-rouge"><pre class="highlight"><code>wget -r --no-parent --reject "index.html*" ftp://ftp-trace.ncbi.nih.gov/sra/sra-instant/reads/ByStudy/sra/SRP/SRP005/SRP005399/
+</code></pre>
+</div>
+<p>Alternatively, you can download a list of accessions from the SRA website and use that file to call <code class="highlighter-rouge">wget</code> for all the accessions.</p>
 
-<p>```python
-from subprocess import call</p>
+<div class="language-python highlighter-rouge"><pre class="highlight"><code><span class="kn">from</span> <span class="nn">subprocess</span> <span class="kn">import</span> <span class="n">call</span>
 
-<p>with open(‘SraAccList.txt’, ‘r’) as accessions:
-    for row in accessions:
-        acc = row.strip(‘\n’)
-        prefix = acc[:6]
-        print “Downloading {a}”.format(a=acc)
-        call([“wget”,
-              “-r”,
-              “–no-parent”,
-              “ftp://ftp-trace.ncbi.nih.gov/sra/sra-instant/reads/ByRun/sra/SRR/{pre}/{acc}/*“.format(pre=prefix, acc=acc)])</p>
 
-<p>```</p>
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s">'SraAccList.txt'</span><span class="p">,</span> <span class="s">'r'</span><span class="p">)</span> <span class="k">as</span> <span class="n">accessions</span><span class="p">:</span>
+    <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">accessions</span><span class="p">:</span>
+        <span class="n">acc</span> <span class="o">=</span> <span class="n">row</span><span class="o">.</span><span class="n">strip</span><span class="p">(</span><span class="s">'</span><span class="se">\n</span><span class="s">'</span><span class="p">)</span>
+        <span class="n">prefix</span> <span class="o">=</span> <span class="n">acc</span><span class="p">[:</span><span class="mi">6</span><span class="p">]</span>
+        <span class="k">print</span> <span class="s">"Downloading {a}"</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">a</span><span class="o">=</span><span class="n">acc</span><span class="p">)</span>
+        <span class="n">call</span><span class="p">([</span><span class="s">"wget"</span><span class="p">,</span>
+              <span class="s">"-r"</span><span class="p">,</span>
+              <span class="s">"--no-parent"</span><span class="p">,</span>
+              <span class="s">"ftp://ftp-trace.ncbi.nih.gov/sra/sra-instant/reads/ByRun/sra/SRR/{pre}/{acc}/*"</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">pre</span><span class="o">=</span><span class="n">prefix</span><span class="p">,</span> <span class="n">acc</span><span class="o">=</span><span class="n">acc</span><span class="p">)])</span>
+
+</code></pre>
+</div>
 
 <h4 id="split-into-fastq-files">Split into fastq files</h4>
 
-<p><code>bash
-fastq-dump --split-3 ./SRP005399/*
-</code></p>
+<div class="language-bash highlighter-rouge"><pre class="highlight"><code>fastq-dump --split-3 ./SRP005399/<span class="k">*</span>
+</code></pre>
+</div>
 
-<p><code>--split-3</code> causes PE files to be split into <code>*_1.fastq</code> and <code>*_2.fastq</code></p>
+<p><code class="highlighter-rouge">--split-3</code> causes PE files to be split into <code class="highlighter-rouge">*_1.fastq</code> and <code class="highlighter-rouge">*_2.fastq</code></p>
 
 <p>bash loop</p>
 
-<p><code>bash
-for directory in ./*; do
-    if [ -d "$directory" ]; then
-        cd $directory
-        for myfile in $(ls -d *.sra);do
-            fastq-dump --split-3 -v $myfile
-        done
-        cd ..
-    fi
-done
-</code></p>
+<div class="language-bash highlighter-rouge"><pre class="highlight"><code><span class="k">for </span>directory <span class="k">in</span> ./<span class="k">*</span>; <span class="k">do
+    if</span> <span class="o">[</span> -d <span class="s2">"</span><span class="nv">$directory</span><span class="s2">"</span> <span class="o">]</span>; <span class="k">then
+        </span><span class="nb">cd</span> <span class="nv">$directory</span>
+        <span class="k">for </span>myfile <span class="k">in</span> <span class="k">$(</span>ls -d <span class="k">*</span>.sra<span class="k">)</span>;<span class="k">do
+            </span>fastq-dump --split-3 -v <span class="nv">$myfile</span>
+        <span class="k">done
+        </span><span class="nb">cd</span> ..
+    <span class="k">fi
+done</span>
+</code></pre>
+</div>
 
 <p>Python function</p>
 
-<p>```python
-import os
-from subprocess import call</p>
+<div class="language-python highlighter-rouge"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">from</span> <span class="nn">subprocess</span> <span class="kn">import</span> <span class="n">call</span>
 
-<p>def fastqSplit():
-    for filename in os.listdir(‘.’):
-        if filename.endswith(‘.sra’):
-            print ‘processing {n}’.format(n=filename)
-            call([‘fastq-dump’, ‘–split-3’, ‘-v’, filename])
-        else:
-            pass
-```</p>
+
+<span class="k">def</span> <span class="nf">fastqSplit</span><span class="p">():</span>
+    <span class="k">for</span> <span class="n">filename</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="s">'.'</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">filename</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s">'.sra'</span><span class="p">):</span>
+            <span class="k">print</span> <span class="s">'processing {n}'</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">n</span><span class="o">=</span><span class="n">filename</span><span class="p">)</span>
+            <span class="n">call</span><span class="p">([</span><span class="s">'fastq-dump'</span><span class="p">,</span> <span class="s">'--split-3'</span><span class="p">,</span> <span class="s">'-v'</span><span class="p">,</span> <span class="n">filename</span><span class="p">])</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">pass</span>
+</code></pre>
+</div>
 
 <h3 id="using-sra-toolkit">Using SRA toolkit</h3>
 
-<p>SRA toolkit doesn’t seem to work well for downloading bulk data. <code>wget</code> is a much better option as it allows download of whole folders, gives more descriptive output as it goes. SRA often fails and sometimes gives no error. Download with <code>wget</code> and use <code>fastq-split</code> to get fastq files.</p>
+<p>SRA toolkit doesn’t seem to work well for downloading bulk data. <code class="highlighter-rouge">wget</code> is a much better option as it allows download of whole folders, gives more descriptive output as it goes. SRA often fails and sometimes gives no error. Download with <code class="highlighter-rouge">wget</code> and use <code class="highlighter-rouge">fastq-split</code> to get fastq files.</p>
 
-<p><code>bash
-fastq-dump SRR534224 &amp;
-</code></p>
+<div class="language-bash highlighter-rouge"><pre class="highlight"><code>fastq-dump SRR534224 &amp;
+</code></pre>
+</div>
 
 <h2 id="rna-seq">RNA-seq</h2>
 
 <h3 id="mapping">Mapping</h3>
 
-<p><code>
-tophat -p8 -G /home/lister/working_data/data/genomes/annotations/tair10/TAIR10_gene_TE_illumina.gtf --transcriptome-index=transcript_index/tair10 /home/lister/working_data/data/genomes/bowtie2_indexes/tair9 SRR501604.fastq,SRR501605.fastq
-</code>
-* <code>--transcriptome-index=transcript_index/tair10</code> creates transcriptome index file saved in transcript_index/ with name <code>tair10.*</code>. This can be reused if mapping to the same transcriptome (ie. gff file)<br />
-* <code>-p8</code> uses 8 cores<br />
-* <code>-G</code> specifies gff file. Optional<br />
-* If using PE reads check manual</p>
+<div class="highlighter-rouge"><pre class="highlight"><code>tophat -p8 -G /home/lister/working_data/data/genomes/annotations/tair10/TAIR10_gene_TE_illumina.gtf --transcriptome-index=transcript_index/tair10 /home/lister/working_data/data/genomes/bowtie2_indexes/tair9 SRR501604.fastq,SRR501605.fastq
+</code></pre>
+</div>
+<ul>
+  <li><code class="highlighter-rouge">--transcriptome-index=transcript_index/tair10</code> creates transcriptome index file saved in transcript_index/ with name <code class="highlighter-rouge">tair10.*</code>. This can be reused if mapping to the same transcriptome (ie. gff file)</li>
+  <li><code class="highlighter-rouge">-p8</code> uses 8 cores</li>
+  <li><code class="highlighter-rouge">-G</code> specifies gff file. Optional</li>
+  <li>If using PE reads check manual</li>
+</ul>
 
 <h2 id="bedtools">Bedtools</h2>
 
 <p><a href="http://quinlanlab.org/tutorials/cshl2014/bedtools.html">Good tutorial from the Quinlan lab</a></p>
 
-<p>Need to order files so that chromosome, start, stop and first three columns (BED format). Also need to remove header. Can do these steps with <code>awk</code> and <code>sed 1d</code>.</p>
+<p>Need to order files so that chromosome, start, stop and first three columns (BED format). Also need to remove header. Can do these steps with <code class="highlighter-rouge">awk</code> and <code class="highlighter-rouge">sed 1d</code>.</p>
 
 <h3 id="merge">Merge</h3>
 
-<p><code>bash
-bedtools merge -i dmrs_ddc.tsv -d 100 &gt; dmrs_ddc_merged.tsv
-</code>
-* <code>-d</code> is distance between coordinates that will still be merged<br />
-* <code>-i</code> is input file</p>
+<div class="language-bash highlighter-rouge"><pre class="highlight"><code>bedtools merge -i dmrs_ddc.tsv -d 100 &gt; dmrs_ddc_merged.tsv
+</code></pre>
+</div>
+<ul>
+  <li><code class="highlighter-rouge">-d</code> is distance between coordinates that will still be merged</li>
+  <li><code class="highlighter-rouge">-i</code> is input file</li>
+</ul>
 
 <h3 id="intersect">Intersect</h3>
 
-<p><code>bash
-bedtools intersect -a tair10_tes.txt -b dmrs_ddc_merged.tsv -wa -f 0.50 &gt; ddc_targets.tsv
-</code>
-* <code>-a</code> is file a<br />
-* <code>-b</code> is file b<br />
-* <code>-wa</code> is write a<br />
-* <code>-f</code> is minimum overlap percentage</p>
+<div class="language-bash highlighter-rouge"><pre class="highlight"><code>bedtools intersect -a tair10_tes.txt -b dmrs_ddc_merged.tsv -wa -f 0.50 &gt; ddc_targets.tsv
+</code></pre>
+</div>
+<ul>
+  <li><code class="highlighter-rouge">-a</code> is file a</li>
+  <li><code class="highlighter-rouge">-b</code> is file b</li>
+  <li><code class="highlighter-rouge">-wa</code> is write a</li>
+  <li><code class="highlighter-rouge">-f</code> is minimum overlap percentage</li>
+</ul>
 
 <h2 id="bowtie">Bowtie</h2>
 
 <h3 id="mapping-pe-data">Mapping PE data</h3>
 
-<p><code>
-bowtie2 -p8 --local --fr -q -R 5 -N 1 -x [path/to/bowtie2/index] -X 1000 -1 [mate1.fq] -2 [mate2.fq] -S [alignment.sam] --un-conc ./discordant/
-</code>
-* <code>-p</code> is number of processors<br />
-* <code>--local</code> allows soft-clipping of reads to improve alignment<br />
-* <code>-q</code> specifies that reads are in fastq format<br />
-* <code>-x</code> gives path to index<br />
-* <code>-S</code> gives name of output file<br />
-* <code>-R</code> is number of times bowtie will try to ‘re-seed’ repetitive seeds. Default 2<br />
-* <code>-N</code> is number of mismatches allowed in seed. 0 or 1.<br />
-* <code>--no-mixed</code> tells bowtie to find alignments only when both pairs can be aligned.<br />
-* <code>--fr</code> means mate pairs are ordered in forward then reverse orientation. Can do <code>--ff</code>, <code>--rf</code>.<br />
-* <code>-X</code> specifies maximum insert size. Default 500.<br />
-* <code>-I</code> specifies minimum insert size. Default 0 (no minimum).<br />
-* <code>--un-conc</code> specifies path and file to write discordant alignments to. Note that these are just the <code>fastq</code> reads, not alignments.</p>
+<div class="highlighter-rouge"><pre class="highlight"><code>bowtie2 -p8 --local --fr -q -R 5 -N 1 -x [path/to/bowtie2/index] -X 1000 -1 [mate1.fq] -2 [mate2.fq] -S [alignment.sam] --un-conc ./discordant/
+</code></pre>
+</div>
+<ul>
+  <li><code class="highlighter-rouge">-p</code> is number of processors</li>
+  <li><code class="highlighter-rouge">--local</code> allows soft-clipping of reads to improve alignment</li>
+  <li><code class="highlighter-rouge">-q</code> specifies that reads are in fastq format</li>
+  <li><code class="highlighter-rouge">-x</code> gives path to index</li>
+  <li><code class="highlighter-rouge">-S</code> gives name of output file</li>
+  <li><code class="highlighter-rouge">-R</code> is number of times bowtie will try to ‘re-seed’ repetitive seeds. Default 2</li>
+  <li><code class="highlighter-rouge">-N</code> is number of mismatches allowed in seed. 0 or 1.</li>
+  <li><code class="highlighter-rouge">--no-mixed</code> tells bowtie to find alignments only when both pairs can be aligned.</li>
+  <li><code class="highlighter-rouge">--fr</code> means mate pairs are ordered in forward then reverse orientation. Can do <code class="highlighter-rouge">--ff</code>, <code class="highlighter-rouge">--rf</code>.</li>
+  <li><code class="highlighter-rouge">-X</code> specifies maximum insert size. Default 500.</li>
+  <li><code class="highlighter-rouge">-I</code> specifies minimum insert size. Default 0 (no minimum).</li>
+  <li><code class="highlighter-rouge">--un-conc</code> specifies path and file to write discordant alignments to. Note that these are just the <code class="highlighter-rouge">fastq</code> reads, not alignments.</li>
+</ul>
 
 <h2 id="samtools">Samtools</h2>
 
-<p>samtools can read from a stream, so can pipe output in from other tools (eg bowtie to get <code>.bam</code> output) or other samtools commands.</p>
+<p>samtools can read from a stream, so can pipe output in from other tools (eg bowtie to get <code class="highlighter-rouge">.bam</code> output) or other samtools commands.</p>
 
-<h3 id="convert-from-sam-to-bam">Convert from <code>sam</code> to <code>bam</code></h3>
-<p><code>
-samtools view -bS file.sam &gt; file.bam
-</code></p>
+<h3 id="convert-from-sam-to-bam">Convert from <code class="highlighter-rouge">sam</code> to <code class="highlighter-rouge">bam</code></h3>
+<div class="highlighter-rouge"><pre class="highlight"><code>samtools view -bS file.sam &gt; file.bam
+</code></pre>
+</div>
 
 <h3 id="sort-bamfile">Sort bamfile</h3>
-<p><code>
-samtools sort file.bam sorted
-</code>
-* outputs <code>sorted.bam</code> file</p>
+<div class="highlighter-rouge"><pre class="highlight"><code>samtools sort file.bam sorted
+</code></pre>
+</div>
+<ul>
+  <li>outputs <code class="highlighter-rouge">sorted.bam</code> file</li>
+</ul>
 
 <h3 id="samblaster">Samblaster</h3>
 
-<p>Extracts reads from <code>.sam</code> alignment files</p>
+<p>Extracts reads from <code class="highlighter-rouge">.sam</code> alignment files</p>
 
 <h4 id="get-discordant-reads">Get discordant reads</h4>
-<p><code>
-bowtie2 [options] | samblaster -e -d file.sam | samtools view -bS - &gt; file.bam
-</code>
-* Print output from bowtie to stderr to pipe directly into samblaster
-* Saves having to search through sam or bam file later to extract discordant reads
-* Pipe output directly into <code>samtools view</code> to save as <code>.bam</code> file (these won’t be the reads in the samblaster output)</p>
+<div class="highlighter-rouge"><pre class="highlight"><code>bowtie2 [options] | samblaster -e -d file.sam | samtools view -bS - &gt; file.bam
+</code></pre>
+</div>
+<ul>
+  <li>Print output from bowtie to stderr to pipe directly into samblaster</li>
+  <li>Saves having to search through sam or bam file later to extract discordant reads</li>
+  <li>Pipe output directly into <code class="highlighter-rouge">samtools view</code> to save as <code class="highlighter-rouge">.bam</code> file (these won’t be the reads in the samblaster output)</li>
+</ul>
 
 </div>
 
@@ -516,7 +527,7 @@ bowtie2 [options] | samblaster -e -d file.sam | samtools view -bS - &gt; file.ba
 
       <!-- <div class="footer">
         <p>
-          &copy; 2016. All rights reserved.
+          &copy; 2017. All rights reserved.
         </p>
       </div> -->
     </div>

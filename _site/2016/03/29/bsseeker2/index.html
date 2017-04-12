@@ -54,9 +54,6 @@
             <small><a href="/archive">Archive</a></small>
           
             &nbsp;&nbsp;&nbsp;
-            <small><a href="/code">Code</a></small>
-          
-            &nbsp;&nbsp;&nbsp;
             <small><a href="/publications">Publications</a></small>
           
             &nbsp;&nbsp;&nbsp;
@@ -71,13 +68,13 @@
   <h2 id="whole-genome-bisulfite-sequencing-analysis-notes-for-bs-seeker2">Whole genome bisulfite sequencing analysis notes for BS-seeker2.</h2>
 
 <h2 id="step-1-trim-adapters-and-low-quality-bases">Step 1: Trim adapters and low quality bases</h2>
-<p>Illumina TruSeq adapter sequence: <code>GATCGGAAGAGCACACGTCTGAACTCCAGTCAC</code></p>
+<p>Illumina TruSeq adapter sequence: <code class="highlighter-rouge">GATCGGAAGAGCACACGTCTGAACTCCAGTCAC</code></p>
 
-<p><code>
-cutadapt -a AGATCGGAAGAGCACACGTCTGAACTCCAGTCAC -m 50 reads.fastq \
+<div class="highlighter-rouge"><pre class="highlight"><code>cutadapt -a AGATCGGAAGAGCACACGTCTGAACTCCAGTCAC -m 50 reads.fastq \
 | seqtk trimfq -l 50 - \
 | pigz &gt; filtered_reads.fq.gz
-</code></p>
+</code></pre>
+</div>
 
 <!--break-->
 
@@ -85,42 +82,42 @@ cutadapt -a AGATCGGAAGAGCACACGTCTGAACTCCAGTCAC -m 50 reads.fastq \
 
 <p>This step can also be performed on the unfiltered fastq file to compare output before and after read trimming.</p>
 
-<p><code>
-fastqc filtered_reads.fq.gz
-</code></p>
+<div class="highlighter-rouge"><pre class="highlight"><code>fastqc filtered_reads.fq.gz
+</code></pre>
+</div>
 
 <h2 id="step-3-alignment">Step 3: Alignment</h2>
 
-<h3 id="build-genome-index">3.1: Build genome index</h3>
+<h3 id="31-build-genome-index">3.1: Build genome index</h3>
 
 <p>I added the lambda genome as an extra chromosome, L, to calculate the bisulfite nonconversion rate.</p>
 
-<p><code>
-python bs_seeker2-build.py -f tair10_lambda.fa --aligner=bowtie2
-</code></p>
+<div class="highlighter-rouge"><pre class="highlight"><code>python bs_seeker2-build.py -f tair10_lambda.fa --aligner=bowtie2
+</code></pre>
+</div>
 
-<h3 id="align">3.2: Align</h3>
+<h3 id="32-align">3.2: Align</h3>
 
-<p><code>
-python bs_seeker2-align.py -g tair10_lambda.fa --aligner=bowtie2 \
+<div class="highlighter-rouge"><pre class="highlight"><code>python bs_seeker2-align.py -g tair10_lambda.fa --aligner=bowtie2 \
 -u unmapped.fa -o mapped.bam --bt2-p 4 -i filtered_reads.fq.gz
-</code></p>
+</code></pre>
+</div>
 
 <h2 id="step-4-post-processing-of-alignment-files">Step 4: Post-processing of alignment files</h2>
 
 <p>Sort and remove PCR duplicates</p>
 
-<p><code>
-samtools sort -@ 10 mapped.bam sorted
+<div class="highlighter-rouge"><pre class="highlight"><code>samtools sort -@ 10 mapped.bam sorted
 picard MarkDuplicates I=sorted.bam O=filtered.bam M=dup_metrics.txt REMOVE_DUPLICATES=true AS=true
-</code></p>
+</code></pre>
+</div>
 
 <h2 id="step-5-call-methylation">Step 5: Call methylation</h2>
 
-<p><code>
-python bs_seeker2-call_methylation.py -i filtered.bam --sorted -o sample_name \
+<div class="highlighter-rouge"><pre class="highlight"><code>python bs_seeker2-call_methylation.py -i filtered.bam --sorted -o sample_name \
 --db /home/tstuart/working_data/GitHub/BSseeker2/bs_utils/reference_genomes/tair10_lambda.fa_bowtie2/
-</code></p>
+</code></pre>
+</div>
 
 <h2 id="step-6-build-database">Step 6: Build database</h2>
 
@@ -128,15 +125,15 @@ python bs_seeker2-call_methylation.py -i filtered.bam --sorted -o sample_name \
 
 <p>First create an empty MySQL database that will contain the data tables. In MySQL type:</p>
 
-<p><code>
-create database DATABASE_NAME
-</code></p>
+<div class="highlighter-rouge"><pre class="highlight"><code>create database DATABASE_NAME
+</code></pre>
+</div>
 
 <p>Now run the build_tables.py script that will create and index a table from the BS-Seeker2 CGMap file</p>
 
-<p><code>
-python build_tables.py --host HOST_ADDRESS -p PASSWORD -u USER -d DATABASE_NAME -f CG_MAP_FILE -n SAMPLE_NAME
-</code></p>
+<div class="highlighter-rouge"><pre class="highlight"><code>python build_tables.py --host HOST_ADDRESS -p PASSWORD -u USER -d DATABASE_NAME -f CG_MAP_FILE -n SAMPLE_NAME
+</code></pre>
+</div>
 
 <script src="https://gist.github.com/timoast/ff6cf2d7a87d262f7151ecb51071a1d7.js"></script>
 
@@ -181,7 +178,7 @@ python build_tables.py --host HOST_ADDRESS -p PASSWORD -u USER -d DATABASE_NAME 
 
       <!-- <div class="footer">
         <p>
-          &copy; 2016. All rights reserved.
+          &copy; 2017. All rights reserved.
         </p>
       </div> -->
     </div>

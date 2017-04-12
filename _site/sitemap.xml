@@ -1,105 +1,127 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url>
-    <loc>/2016/09/22/r_demo/</loc>
-    <lastmod>2016-09-22T00:00:00+08:00</lastmod>
-  </url>
-  <url>
-    <loc>/2016/07/12/smRNA-analysis/</loc>
-    <lastmod>2016-07-12T00:00:00+08:00</lastmod>
-  </url>
-  <url>
-    <loc>/2016/03/29/bsseeker2/</loc>
-    <lastmod>2016-03-29T00:00:00+08:00</lastmod>
-  </url>
-  <url>
-    <loc>/2016/03/01/biorxiv/</loc>
-    <lastmod>2016-03-01T00:00:00+08:00</lastmod>
-  </url>
-  <url>
-    <loc>/2016/02/23/Papers/</loc>
-    <lastmod>2016-02-23T00:00:00+08:00</lastmod>
-  </url>
-  <url>
-    <loc>/2016/02/18/Lorne/</loc>
-    <lastmod>2016-02-18T00:00:00+08:00</lastmod>
-  </url>
-  <url>
-    <loc>/2015/10/12/ExtractReads/</loc>
-    <lastmod>2015-10-12T00:00:00+08:00</lastmod>
-  </url>
-  <url>
-    <loc>/2014/11/04/SizeEstimation/</loc>
-    <lastmod>2014-11-04T00:00:00+08:00</lastmod>
-  </url>
-  <url>
-    <loc>/2014/10/29/MethyC-Analysis/</loc>
-    <lastmod>2014-10-29T00:00:00+08:00</lastmod>
-  </url>
-  <url>
-    <loc>/2014/08/25/UsefulPython/</loc>
-    <lastmod>2014-08-25T00:00:00+08:00</lastmod>
-  </url>
-  <url>
-    <loc>/2014/08/24/UsefulCommands/</loc>
-    <lastmod>2014-08-24T00:00:00+08:00</lastmod>
-  </url>
-  <url>
-    <loc>/2014/03/04/highly-multiplexed-subcellular-rna-sequencing-in-situ/</loc>
-    <lastmod>2014-03-04T16:18:11+08:00</lastmod>
-  </url>
-  <url>
-    <loc>/404.html</loc>
-  </url>
-  <url>
-    <loc>/about/</loc>
-  </url>
-  <url>
-    <loc>/archive/</loc>
-  </url>
-  <url>
-    <loc>/code/</loc>
-  </url>
-  <url>
-    <loc>/</loc>
-  </url>
-  <url>
-    <loc>/lorne2016/</loc>
-  </url>
-  <url>
-    <loc>/publications/</loc>
-  </url>
-  <url>
-    <loc>/page2/</loc>
-  </url>
-  <url>
-    <loc>/page3/</loc>
-  </url>
-  <url>
-    <loc>/page4/</loc>
-  </url>
-  <url>
-    <loc>/page5/</loc>
-  </url>
-  <url>
-    <loc>/page6/</loc>
-  </url>
-  <url>
-    <loc>/page7/</loc>
-  </url>
-  <url>
-    <loc>/page8/</loc>
-  </url>
-  <url>
-    <loc>/page9/</loc>
-  </url>
-  <url>
-    <loc>/page10/</loc>
-  </url>
-  <url>
-    <loc>/page11/</loc>
-  </url>
-  <url>
-    <loc>/page12/</loc>
-  </url>
+<url>
+<loc>http://localhost:4000//2014/03/04/highly-multiplexed-subcellular-rna-sequencing-in-situ/</loc>
+<lastmod>2014-03-04T16:18:11+08:00</lastmod>
+</url>
+<url>
+<loc>http://localhost:4000//2014/08/24/UsefulCommands/</loc>
+<lastmod>2014-08-24T00:00:00+08:00</lastmod>
+</url>
+<url>
+<loc>http://localhost:4000//2014/08/25/UsefulPython/</loc>
+<lastmod>2014-08-25T00:00:00+08:00</lastmod>
+</url>
+<url>
+<loc>http://localhost:4000//2014/10/29/MethyC-Analysis/</loc>
+<lastmod>2014-10-29T00:00:00+08:00</lastmod>
+</url>
+<url>
+<loc>http://localhost:4000//2014/11/04/SizeEstimation/</loc>
+<lastmod>2014-11-04T00:00:00+08:00</lastmod>
+</url>
+<url>
+<loc>http://localhost:4000//2015/10/12/ExtractReads/</loc>
+<lastmod>2015-10-12T00:00:00+08:00</lastmod>
+</url>
+<url>
+<loc>http://localhost:4000//2016/02/18/Lorne/</loc>
+<lastmod>2016-02-18T00:00:00+08:00</lastmod>
+</url>
+<url>
+<loc>http://localhost:4000//2016/02/23/Papers/</loc>
+<lastmod>2016-02-23T00:00:00+08:00</lastmod>
+</url>
+<url>
+<loc>http://localhost:4000//2016/03/01/biorxiv/</loc>
+<lastmod>2016-03-01T00:00:00+08:00</lastmod>
+</url>
+<url>
+<loc>http://localhost:4000//2016/03/29/bsseeker2/</loc>
+<lastmod>2016-03-29T00:00:00+08:00</lastmod>
+</url>
+<url>
+<loc>http://localhost:4000//2016/07/12/smRNA-analysis/</loc>
+<lastmod>2016-07-12T00:00:00+08:00</lastmod>
+</url>
+<url>
+<loc>http://localhost:4000//2016/09/22/r_demo/</loc>
+<lastmod>2016-09-22T00:00:00+08:00</lastmod>
+</url>
+<url>
+<loc>http://localhost:4000//2017/03/03/installing-magic/</loc>
+<lastmod>2017-03-03T00:00:00+08:00</lastmod>
+</url>
+<url>
+<loc>http://localhost:4000//2017/04/03/comp-notebook/</loc>
+<lastmod>2017-04-03T00:00:00+08:00</lastmod>
+</url>
+<url>
+<loc>http://localhost:4000//2017/04/09/using-python-decorators/</loc>
+<lastmod>2017-04-09T00:00:00+08:00</lastmod>
+</url>
+<url>
+<loc>http://localhost:4000//404.html</loc>
+</url>
+<url>
+<loc>http://localhost:4000//about/</loc>
+</url>
+<url>
+<loc>http://localhost:4000//archive/</loc>
+</url>
+<url>
+<loc>http://localhost:4000//</loc>
+</url>
+<url>
+<loc>http://localhost:4000//lorne2016/</loc>
+</url>
+<url>
+<loc>http://localhost:4000//publications/</loc>
+</url>
+<url>
+<loc>http://localhost:4000//page2/</loc>
+</url>
+<url>
+<loc>http://localhost:4000//page3/</loc>
+</url>
+<url>
+<loc>http://localhost:4000//page4/</loc>
+</url>
+<url>
+<loc>http://localhost:4000//page5/</loc>
+</url>
+<url>
+<loc>http://localhost:4000//page6/</loc>
+</url>
+<url>
+<loc>http://localhost:4000//page7/</loc>
+</url>
+<url>
+<loc>http://localhost:4000//page8/</loc>
+</url>
+<url>
+<loc>http://localhost:4000//page9/</loc>
+</url>
+<url>
+<loc>http://localhost:4000//page10/</loc>
+</url>
+<url>
+<loc>http://localhost:4000//page11/</loc>
+</url>
+<url>
+<loc>http://localhost:4000//page12/</loc>
+</url>
+<url>
+<loc>http://localhost:4000//page13/</loc>
+</url>
+<url>
+<loc>http://localhost:4000//page14/</loc>
+</url>
+<url>
+<loc>http://localhost:4000//page15/</loc>
+</url>
+<url>
+<loc>http://localhost:4000//publications.html</loc>
+<lastmod>2017-04-12T21:48:37+08:00</lastmod>
+</url>
 </urlset>

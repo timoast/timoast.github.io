@@ -54,9 +54,6 @@
             <small><a href="/archive">Archive</a></small>
           
             &nbsp;&nbsp;&nbsp;
-            <small><a href="/code">Code</a></small>
-          
-            &nbsp;&nbsp;&nbsp;
             <small><a href="/publications">Publications</a></small>
           
             &nbsp;&nbsp;&nbsp;
@@ -76,26 +73,28 @@
   <li>Enter a screen</li>
 </ol>
 
-<p><code>bash
-screen -S bcl-conversion
-</code>
-2. Navigate to directory with run (eg. 130909_SNL119_0105_AC2GYKACXX)
-3. Check sample sheet configured correctly. If only one adapter in lane, remove adapter sequence from sample sheet.
-4. Run the following (modified with correct run name, sample sheet etc). Can change final value to change number of reads in files:</p>
+<div class="language-bash highlighter-rouge"><pre class="highlight"><code>screen -S bcl-conversion
+</code></pre>
+</div>
+<ol>
+  <li>Navigate to directory with run (eg. 130909_SNL119_0105_AC2GYKACXX)</li>
+  <li>Check sample sheet configured correctly. If only one adapter in lane, remove adapter sequence from sample sheet.</li>
+  <li>Run the following (modified with correct run name, sample sheet etc). Can change final value to change number of reads in files:</li>
+</ol>
 
 <!--break-->
 
-<p><code>bash
-/usr/local/packages/CASAVA_v1.8.2/bcl2fastq/build/bin/configureBclToFastq.pl --input-dir /dd_rundata/hiseq/Runs/130909_SNL119_0105_AC2GYKACXX/Data/Intensities/BaseCalls/ --sample-sheet /dd_rundata/hiseq/Runs/130909_SNL119_0105_AC2GYKACXX/SampleSheet.csv --fastq-cluster-count 50000000
-</code></p>
+<div class="language-bash highlighter-rouge"><pre class="highlight"><code>/usr/local/packages/CASAVA_v1.8.2/bcl2fastq/build/bin/configureBclToFastq.pl --input-dir /dd_rundata/hiseq/Runs/130909_SNL119_0105_AC2GYKACXX/Data/Intensities/BaseCalls/ --sample-sheet /dd_rundata/hiseq/Runs/130909_SNL119_0105_AC2GYKACXX/SampleSheet.csv --fastq-cluster-count 50000000
+</code></pre>
+</div>
 
 <ol>
   <li>Navigate to newly created Unaligned directory (under top run directory) and enter:</li>
 </ol>
 
-<p><code>bash
-nohup make -j 12
-</code></p>
+<div class="language-bash highlighter-rouge"><pre class="highlight"><code>nohup make -j 12
+</code></pre>
+</div>
 
 <h3 id="moving-and-renaming-files">Moving and renaming files</h3>
 
@@ -103,12 +102,12 @@ nohup make -j 12
   <li>Copy run files from run directory to working directory:</li>
 </ol>
 
-<p><code>bash
-cp Project_E_grandis ~/working_data
-</code></p>
+<div class="language-bash highlighter-rouge"><pre class="highlight"><code>cp Project_E_grandis ~/working_data
+</code></pre>
+</div>
 
 <ol>
-  <li>Rename fastq files to <code>s_1_sequence.txt</code>, <code>s_2_sequence.txt</code> etc.</li>
+  <li>Rename fastq files to <code class="highlighter-rouge">s_1_sequence.txt</code>, <code class="highlighter-rouge">s_2_sequence.txt</code> etc.</li>
   <li>Store sequence files a separate directory, eg. sequences. If you have data from the same library but multiple runs, store in separate directories.</li>
 </ol>
 
@@ -116,17 +115,17 @@ cp Project_E_grandis ~/working_data
 
 <p>Can do multiple samples at a time</p>
 
-<p>Use <code>map.php</code> (0 mismatches, or use <code>map_1mm.php</code> or <code>map_2mm.php</code> for 1 or 2 mismatches) to map all the reads to the genome (follow instructions):</p>
+<p>Use <code class="highlighter-rouge">map.php</code> (0 mismatches, or use <code class="highlighter-rouge">map_1mm.php</code> or <code class="highlighter-rouge">map_2mm.php</code> for 1 or 2 mismatches) to map all the reads to the genome (follow instructions):</p>
 
-<p><code>bash
-php /home/lister/working_data/php/methpipe_se/map.php | tee -a log.txt
-</code></p>
+<div class="language-bash highlighter-rouge"><pre class="highlight"><code>php /home/lister/working_data/php/methpipe_se/map.php | tee -a log.txt
+</code></pre>
+</div>
 
 <p>For PE data</p>
 
-<p><code>bash
-php /home/lister/working_data/php/methpipe_pe/map.php | tee -a log.txt
-</code></p>
+<div class="language-bash highlighter-rouge"><pre class="highlight"><code>php /home/lister/working_data/php/methpipe_pe/map.php | tee -a log.txt
+</code></pre>
+</div>
 
 <h2 id="post-map">Post-map</h2>
 
@@ -134,24 +133,23 @@ php /home/lister/working_data/php/methpipe_pe/map.php | tee -a log.txt
 
 <p>This script can take mapped read runs, merge sets, convert to .slam format, sort reads,  collapse, trim, split, stack, hammer, import reads, stacks and mC to MYSQL.</p>
 
-<p>Start with a mapped dir containing the subdir that contain the <code>\*_final</code> mapped files.</p>
+<p>Start with a mapped dir containing the subdir that contain the <code class="highlighter-rouge">\*_final</code> mapped files.</p>
 
 <p>Navigate to directory above mapped run data and start a screen:</p>
 
-<p><code>bash
-screen -S postmap
-</code></p>
+<div class="language-bash highlighter-rouge"><pre class="highlight"><code>screen -S postmap
+</code></pre>
+</div>
 
 <p>Start the postmap script as follows:</p>
 
-<p><code>bash
-php /home/lister/working_data/php/methpipe_se/post_map.php | tee -a log.txt
-</code></p>
+<div class="language-bash highlighter-rouge"><pre class="highlight"><code>php /home/lister/working_data/php/methpipe_se/post_map.php | tee -a log.txt
+</code></pre>
+</div>
 
 <p>You will see the following prompts:</p>
 
-<p><code>
-  -Do you want to perform stage 1 (merge mapped runs, convert to .slam, sort, collapse, trim reads) (y/n): y
+<div class="highlighter-rouge"><pre class="highlight"><code>  -Do you want to perform stage 1 (merge mapped runs, convert to .slam, sort, collapse, trim reads) (y/n): y
   -Do you want to perform stage 2 (import mapped reads into MYSQL) (y/n): y
   -Do you want to perform stage 3 (stack and hammer) (y/n): y
   -Do you want to perform stage 4 (import stacks into MYSQL) (y/n): y
@@ -159,45 +157,46 @@ php /home/lister/working_data/php/methpipe_se/post_map.php | tee -a log.txt
   -Do you want to perform stage 6 (correct mammalian mCH for genotype) (y/n): n
   -Do you want to perform stage 7 (make and import allC tables) (y/n): y
   -Do you want to perform stage 8 (identify partially methylated domains) (y/n): n
-</code></p>
+</code></pre>
+</div>
 
 <p>Enter the path to mapped folder when prompted.</p>
 
 <p>Shows a summary of all options, then:</p>
 
-<p><code>
-- Based on these settings, do you want to proceed (y/n): y
+<div class="highlighter-rouge"><pre class="highlight"><code>- Based on these settings, do you want to proceed (y/n): y
 - Number of libraries that make up the sample: 1
 - Enter run folder names in library 1 (space delim): sequences  &lt;-- name of sample folder
-</code></p>
+</code></pre>
+</div>
 
 <h1 id="methylpy-dmr-finder">Methylpy DMR finder</h1>
 
-<p>Add the following to your <code>.bashrc</code>:</p>
+<p>Add the following to your <code class="highlighter-rouge">.bashrc</code>:</p>
 
-<p><code>bash
-alias methylenv='source /usr/local/virtualenv/methylenv/bin/activate; export PYTHONPATH=/usr/local/packages/methylpy:/usr/local/packages/methylpy/methylpy'
-</code></p>
+<div class="language-bash highlighter-rouge"><pre class="highlight"><code><span class="nb">alias </span><span class="nv">methylenv</span><span class="o">=</span><span class="s1">'source /usr/local/virtualenv/methylenv/bin/activate; export PYTHONPATH=/usr/local/packages/methylpy:/usr/local/packages/methylpy/methylpy'</span>
+</code></pre>
+</div>
 
-<p>All Methylpy steps must be done in using the methylenv. To exit the methylenv, type <code>deactivate</code>.</p>
+<p>All Methylpy steps must be done in using the methylenv. To exit the methylenv, type <code class="highlighter-rouge">deactivate</code>.</p>
 
 <p>If you don’t have the package already it can be cloned from bitbucket:</p>
 
-<p><code>bash
-git clone git@bitbucket.org:schultzmattd/methylpy.git
-</code></p>
+<div class="language-bash highlighter-rouge"><pre class="highlight"><code>git clone git@bitbucket.org:schultzmattd/methylpy.git
+</code></pre>
+</div>
 
 <p>To update, from the directory created by the clone:</p>
 
-<p><code>bash
-git pull
-</code></p>
+<div class="language-bash highlighter-rouge"><pre class="highlight"><code>git pull
+</code></pre>
+</div>
 
 <p>To test methylpy:</p>
 
-<p><code>bash
-python methylpy_test.py
-</code></p>
+<div class="language-bash highlighter-rouge"><pre class="highlight"><code>python methylpy_test.py
+</code></pre>
+</div>
 
 <p>There are 3 steps to the DMR finding algorithm:</p>
 
@@ -215,67 +214,67 @@ python methylpy_test.py
 
 <h2 id="generation-of-allc-files">Generation of allC files</h2>
 
-<p>Edit the allC generating script: <code>create_allc_file_template_hs.py</code></p>
+<p>Edit the allC generating script: <code class="highlighter-rouge">create_allc_file_template_hs.py</code></p>
 
 <p>Sample base names:</p>
 
-<p><code>python
-["sample_1_name", "sample_2_name"]
-</code></p>
+<div class="language-python highlighter-rouge"><pre class="highlight"><code><span class="p">[</span><span class="s">"sample_1_name"</span><span class="p">,</span> <span class="s">"sample_2_name"</span><span class="p">]</span>
+</code></pre>
+</div>
 
 <p>Database names:</p>
 
-<p><code>python
-["database_name","database_name"]
-</code></p>
+<div class="language-python highlighter-rouge"><pre class="highlight"><code><span class="p">[</span><span class="s">"database_name"</span><span class="p">,</span><span class="s">"database_name"</span><span class="p">]</span>
+</code></pre>
+</div>
 
 <p>MySQL server:</p>
 
-<p><code>python
-["localhost","localhost"]
-</code></p>
+<div class="language-python highlighter-rouge"><pre class="highlight"><code><span class="p">[</span><span class="s">"localhost"</span><span class="p">,</span><span class="s">"localhost"</span><span class="p">]</span>
+</code></pre>
+</div>
 
 <h3 id="run-allc-generating-script">Run allC generating script</h3>
 <p>Move to folder called “allC”:</p>
 
-<p><code>bash
-$ methylenv
-(methylenv) $ python create_allc_file_egrandis.py
-</code></p>
+<div class="language-bash highlighter-rouge"><pre class="highlight"><code><span class="gp">$ </span>methylenv
+<span class="o">(</span>methylenv<span class="o">)</span> <span class="nv">$ </span>python create_allc_file_egrandis.py
+</code></pre>
+</div>
 
 <h2 id="dmrfind">DMRfind</h2>
 
 <p>Run all samples at the same time within an experiment.</p>
 
-<p>Edit the python script named <code>DMR_find.py</code> with your sample names and parameters.</p>
+<p>Edit the python script named <code class="highlighter-rouge">DMR_find.py</code> with your sample names and parameters.</p>
 
 <p>Run script, in a folder named “DMR”:</p>
 
-<p><code>bash
-python dmr_find.py &gt; dmr_find_ouput.txt
-</code></p>
+<div class="language-bash highlighter-rouge"><pre class="highlight"><code>python dmr_find.py &gt; dmr_find_ouput.txt
+</code></pre>
+</div>
 
 <h2 id="histogram-correction">Histogram correction</h2>
 
-<p>Modify <code>histogram_correction.py</code> script with name of <code>_rms_results.tsv</code> file from allC step.</p>
+<p>Modify <code class="highlighter-rouge">histogram_correction.py</code> script with name of <code class="highlighter-rouge">_rms_results.tsv</code> file from allC step.</p>
 
 <p>Run script:</p>
 
-<p><code>bash
-python histogram_correction.py &gt;&gt; histogram_correction_output.txt
-</code></p>
+<div class="language-bash highlighter-rouge"><pre class="highlight"><code><span class="gp">python histogram_correction.py &gt;&gt; </span>histogram_correction_output.txt
+</code></pre>
+</div>
 
 <p>Use the p-value determined by histogram correction for the collapse step.</p>
 
 <h2 id="collapse">Collapse</h2>
 
 <p>Edit the collapse.py script with your sample names and parameters. This may need to be changed and run several times to find the right parameters.
-Run the script on the <code>_rms_results.tsv</code> file.</p>
+Run the script on the <code class="highlighter-rouge">_rms_results.tsv</code> file.</p>
 
-<p><code>bash
-python collapse.py
-</code>
- </p>
+<div class="language-bash highlighter-rouge"><pre class="highlight"><code>python collapse.py
+</code></pre>
+</div>
+<p> </p>
 
 </div>
 
@@ -284,7 +283,7 @@ python collapse.py
 
       <!-- <div class="footer">
         <p>
-          &copy; 2016. All rights reserved.
+          &copy; 2017. All rights reserved.
         </p>
       </div> -->
     </div>

@@ -27,3 +27,4 @@ pages_list:
 
 gems:
 - jekyll-sitemap
+- jekyll-paginate

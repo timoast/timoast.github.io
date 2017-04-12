@@ -54,9 +54,6 @@
             <small><a href="/archive">Archive</a></small>
           
             &nbsp;&nbsp;&nbsp;
-            <small><a href="/code">Code</a></small>
-          
-            &nbsp;&nbsp;&nbsp;
             <small><a href="/publications">Publications</a></small>
           
             &nbsp;&nbsp;&nbsp;
@@ -70,16 +67,16 @@
   <span class="post-date">25 Aug 2014</span>
   <h3 id="take-command-line-arguments">Take command-line arguments</h3>
 
-<p>```python
-from argparse import ArgumentParser</p>
+<div class="language-python highlighter-rouge"><pre class="highlight"><code><span class="kn">from</span> <span class="nn">argparse</span> <span class="kn">import</span> <span class="n">ArgumentParser</span>
 
-<p>version = pkg_resources.require(“program”)[0].version
-parser = ArgumentParser(description=’program description’)
-group = parser.add_mutually_exclusive_group()
-parser.add_argument(‘–version’, action=’version’, version=’%(prog)s ‘+str(version))
-parser.add_argument(‘–option’, help=’option description’, required=False, default=False, action=’store_true’)
-parser.add_argument(‘-n’, ‘–name’, help=’sample name’, required=True)
-```</p>
+<span class="n">version</span> <span class="o">=</span> <span class="n">pkg_resources</span><span class="o">.</span><span class="n">require</span><span class="p">(</span><span class="s">"program"</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">version</span>
+<span class="n">parser</span> <span class="o">=</span> <span class="n">ArgumentParser</span><span class="p">(</span><span class="n">description</span><span class="o">=</span><span class="s">'program description'</span><span class="p">)</span>
+<span class="n">group</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">add_mutually_exclusive_group</span><span class="p">()</span>
+<span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s">'--version'</span><span class="p">,</span> <span class="n">action</span><span class="o">=</span><span class="s">'version'</span><span class="p">,</span> <span class="n">version</span><span class="o">=</span><span class="s">'</span><span class="si">%(prog)</span><span class="s">s '</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">version</span><span class="p">))</span>
+<span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s">'--option'</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s">'option description'</span><span class="p">,</span> <span class="n">required</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">action</span><span class="o">=</span><span class="s">'store_true'</span><span class="p">)</span>
+<span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s">'-n'</span><span class="p">,</span> <span class="s">'--name'</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s">'sample name'</span><span class="p">,</span> <span class="n">required</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+</code></pre>
+</div>
 
 <!--break-->
 
@@ -87,87 +84,87 @@ parser.add_argument(‘-n’, ‘–name’, help=’sample name’, required=Tr
 
 <h3 id="list-comprehension">List comprehension</h3>
 
-<p>If ever declaring and empty list then using <code>.append</code>, can be done with list comprehension.</p>
+<p>If ever declaring and empty list then using <code class="highlighter-rouge">.append</code>, can be done with list comprehension.</p>
 
-<p>```python
-list3 = []
-for x in list2:
-    if x[0] in list1:
-        list3.append(x)</p>
+<div class="language-python highlighter-rouge"><pre class="highlight"><code><span class="n">list3</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">list2</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="ow">in</span> <span class="n">list1</span><span class="p">:</span>
+        <span class="n">list3</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
 
-<p>list3 = [x for x in list2 if x[0] in list1]
-```</p>
+<span class="n">list3</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">list2</span> <span class="k">if</span> <span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="ow">in</span> <span class="n">list1</span><span class="p">]</span>
+</code></pre>
+</div>
 
 <p>Can also use this to read from a file in one line, eg to read column 4 in a file into a list in python:</p>
 
-<p><code>python
-all_TEs = [line.rsplit()[4] for line in open("TAIR9_TE.bed", "r")]
-</code></p>
+<div class="language-python highlighter-rouge"><pre class="highlight"><code><span class="n">all_TEs</span> <span class="o">=</span> <span class="p">[</span><span class="n">line</span><span class="o">.</span><span class="n">rsplit</span><span class="p">()[</span><span class="mi">4</span><span class="p">]</span> <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="nb">open</span><span class="p">(</span><span class="s">"TAIR9_TE.bed"</span><span class="p">,</span> <span class="s">"r"</span><span class="p">)]</span>
+</code></pre>
+</div>
 
 <p>Or read all lines into a list:</p>
 
-<p><code>python
-all_lines = [line.strip("\n") for line in open("filename", "r")]
-</code></p>
+<div class="language-python highlighter-rouge"><pre class="highlight"><code><span class="n">all_lines</span> <span class="o">=</span> <span class="p">[</span><span class="n">line</span><span class="o">.</span><span class="n">strip</span><span class="p">(</span><span class="s">"</span><span class="se">\n</span><span class="s">"</span><span class="p">)</span> <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="nb">open</span><span class="p">(</span><span class="s">"filename"</span><span class="p">,</span> <span class="s">"r"</span><span class="p">)]</span>
+</code></pre>
+</div>
 
 <h3 id="join-items-in-list">Join items in list</h3>
 
-<p><code>python
-outfile.write('{l}\n'.format(l='\t'.join(list)))
-</code></p>
+<div class="language-python highlighter-rouge"><pre class="highlight"><code><span class="n">outfile</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s">'{l}</span><span class="se">\n</span><span class="s">'</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">l</span><span class="o">=</span><span class="s">'</span><span class="se">\t</span><span class="s">'</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">list</span><span class="p">)))</span>
+</code></pre>
+</div>
 
 <p>If list items are not strings</p>
 
-<p><code>python
-outfile.write('{l}\n'.format(l=map(str, list)))
-</code></p>
+<div class="language-python highlighter-rouge"><pre class="highlight"><code><span class="n">outfile</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s">'{l}</span><span class="se">\n</span><span class="s">'</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">l</span><span class="o">=</span><span class="nb">map</span><span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="nb">list</span><span class="p">)))</span>
+</code></pre>
+</div>
 
 <p>Or using list comprehension</p>
 
-<p><code>python
-stringVersion = [str(x) for x in inputList]
-</code></p>
+<div class="language-python highlighter-rouge"><pre class="highlight"><code><span class="n">stringVersion</span> <span class="o">=</span> <span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">inputList</span><span class="p">]</span>
+</code></pre>
+</div>
 
 <p>Intersect two lists</p>
 
-<p>```python
-l1 = [“a”, “b”, “c”]
-l2 = [“c”, “d”, “e”]</p>
+<div class="language-python highlighter-rouge"><pre class="highlight"><code><span class="n">l1</span> <span class="o">=</span> <span class="p">[</span><span class="s">"a"</span><span class="p">,</span> <span class="s">"b"</span><span class="p">,</span> <span class="s">"c"</span><span class="p">]</span>
+<span class="n">l2</span> <span class="o">=</span> <span class="p">[</span><span class="s">"c"</span><span class="p">,</span> <span class="s">"d"</span><span class="p">,</span> <span class="s">"e"</span><span class="p">]</span>
 
-<p>list(set(l1).intersection(l2))
-## [‘c’]
-```</p>
+<span class="nb">list</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">l1</span><span class="p">)</span><span class="o">.</span><span class="n">intersection</span><span class="p">(</span><span class="n">l2</span><span class="p">))</span>
+<span class="c">## ['c']</span>
+</code></pre>
+</div>
 
 <h2 id="strings">Strings</h2>
 
 <h3 id="split-strings-by-multiple-delimiters">Split strings by multiple delimiters</h3>
 
-<p><code>python
-accession_name = f.replace('calls_', '.').split('.')
-</code></p>
+<div class="language-python highlighter-rouge"><pre class="highlight"><code><span class="n">accession_name</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s">'calls_'</span><span class="p">,</span> <span class="s">'.'</span><span class="p">)</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s">'.'</span><span class="p">)</span>
+</code></pre>
+</div>
 
 <h2 id="file-reading--writing">File reading / writing</h2>
 
 <h3 id="read-lines-in-tsvcsv-file">Read lines in tsv/csv file</h3>
 
-<p><code>python
-with open('merged_dmrs.bed', 'r') as f:
-    for line in f:
-        line = line.rsplit() # each item in line is now part of a list
-</code></p>
+<div class="language-python highlighter-rouge"><pre class="highlight"><code><span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s">'merged_dmrs.bed'</span><span class="p">,</span> <span class="s">'r'</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">f</span><span class="p">:</span>
+        <span class="n">line</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">rsplit</span><span class="p">()</span> <span class="c"># each item in line is now part of a list</span>
+</code></pre>
+</div>
 
 <h2 id="find-if-coordinates-overlap">Find if coordinates overlap</h2>
 
-<p><code>python
-def overlap(start1, stop1, start2, stop2):
-    """returns True if sets of coordinates overlap. Assumes coordinates are on same chromosome"""
-    for y in xrange(start2, stop2+1):
-        if start1 &lt;= y &lt;= stop1:
-            return True
-        else:
-            pass
-    return False
-</code></p>
+<div class="language-python highlighter-rouge"><pre class="highlight"><code><span class="k">def</span> <span class="nf">overlap</span><span class="p">(</span><span class="n">start1</span><span class="p">,</span> <span class="n">stop1</span><span class="p">,</span> <span class="n">start2</span><span class="p">,</span> <span class="n">stop2</span><span class="p">):</span>
+    <span class="s">"""returns True if sets of coordinates overlap. Assumes coordinates are on same chromosome"""</span>
+    <span class="k">for</span> <span class="n">y</span> <span class="ow">in</span> <span class="nb">xrange</span><span class="p">(</span><span class="n">start2</span><span class="p">,</span> <span class="n">stop2</span><span class="o">+</span><span class="mi">1</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">start1</span> <span class="o">&lt;=</span> <span class="n">y</span> <span class="o">&lt;=</span> <span class="n">stop1</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">True</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">pass</span>
+    <span class="k">return</span> <span class="bp">False</span>
+</code></pre>
+</div>
 
 </div>
 
@@ -176,7 +173,7 @@ def overlap(start1, stop1, start2, stop2):
 
       <!-- <div class="footer">
         <p>
-          &copy; 2016. All rights reserved.
+          &copy; 2017. All rights reserved.
         </p>
       </div> -->
     </div>

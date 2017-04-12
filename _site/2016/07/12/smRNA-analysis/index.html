@@ -54,9 +54,6 @@
             <small><a href="/archive">Archive</a></small>
           
             &nbsp;&nbsp;&nbsp;
-            <small><a href="/code">Code</a></small>
-          
-            &nbsp;&nbsp;&nbsp;
             <small><a href="/publications">Publications</a></small>
           
             &nbsp;&nbsp;&nbsp;
@@ -76,83 +73,83 @@
 
 <p>First step is to download the data:</p>
 
-<p><code>bash
-$ wget ftp://ftp-trace.ncbi.nlm.nih.gov//sra/sra-instant/reads/ByStudy/sra/SRP/SRP001/SRP001895/SRR035616/SRR035616.sra
-$ fastq-dump SRR035616.sra
-$ pigz SRR035616.fastq
-</code></p>
+<div class="language-bash highlighter-rouge"><pre class="highlight"><code><span class="gp">$ </span>wget ftp://ftp-trace.ncbi.nlm.nih.gov//sra/sra-instant/reads/ByStudy/sra/SRP/SRP001/SRP001895/SRR035616/SRR035616.sra
+<span class="gp">$ </span>fastq-dump SRR035616.sra
+<span class="gp">$ </span>pigz SRR035616.fastq
+</code></pre>
+</div>
 
 <!--break-->
 
 <p>It is essential that the reads are trimmed correctly to be able to get useful data out of the reads. To do that, we first need to work out what the adapter sequence is. The easiest way to do that is to run fastqc and see what sequences are overrepresented.</p>
 
-<p><code>bash
-$ fastqc SRR035616.fastq.gz
-</code>
-Then we can do a multiple sequence alignment of overrepresented sequences to find the adapter sequence:</p>
+<div class="language-bash highlighter-rouge"><pre class="highlight"><code><span class="gp">$ </span>fastqc SRR035616.fastq.gz
+</code></pre>
+</div>
+<p>Then we can do a multiple sequence alignment of overrepresented sequences to find the adapter sequence:</p>
 
-<p>```bash
-CLUSTAL multiple sequence alignment by MUSCLE (3.8)</p>
+<div class="language-bash highlighter-rouge"><pre class="highlight"><code>CLUSTAL multiple sequence alignment by MUSCLE <span class="o">(</span>3.8<span class="o">)</span>
 
-<p>12              GGTAGTTCGACCGCGGA————ACTGTAGGCACCATCAATT————
-15              GGTAGTTCGACCGCGGAA———–TCTGTAGGCACCATCAAT————-
-14              ——-TCGCTTGGTGCAGATCGGGA–CCTGTAGGCACCCTCA—————
-18              —TTCATGGACGTTGATAAGATCCTT–CCTGTATGCACC——————-
-1               ——-TCGCTTGGTGCAGATCGGGA–CCTGTAGGCACCATCA—————
-13              ——-TGATTGAGCCGTGCCAATAT–CCTGTAGGCACCATCA—————
-3               ————GGGGGTGTAGCTCAT–ACTGTAGGCACCATCAATTCG———-
-10              ————GGGGATGTAGCTCAG–ACTGTAGGCACCATCAATTCG———-
-2               ————GGGGATGTAGCTCAA–ACTGTAGGCACCATCAATTCG———-
-11              ——–GACCGCATAGCGCAGTGG—ACTGTAGGCACCATCAAT————-
-9               ———ATTGAGTGCAGCGTTGATGAACTGTAGGCACCATCA—————
-19              —–ACTGGTTGG–ATCATGCTTCT–ACTGTAGGCACCATCA—————
-8               —-TTTGGATTGAAGGGAGCTCT—–GCTGTAGGCACCATCA—————
-7               ———TCCACAGGCTTTCTTGAACTGCTGTAGGCACCATCA—————
-17              —–TTGGACTGAAGGGTGCTCCC—-TCTGTAGGCACCATCA—————
-4               —–TGAAGCTGCCAGCATGATCTG—ACTGTAGGCACCATC—————-
-16              —-ACCTGCTCTGATACCATGTTGTG–ACTGTAGGCACCA——————
-6               —TTCATGGACGTTGATAAGATCCTT–CCTGTAGGCACC——————-
-5               ——————————CTGTAGGCACCATCAATTCGTATGCCGTCT
-                                              <strong>*** **</strong>*      <br />
-```</p>
 
-<p>From this it becomes obvious that the adapter is <code>CTGTAGGCACCATCA...</code>. Next step is to trim the adapters, and we will also discard any reads that were not trimmed, as these reads are longer than the longest smRNA (so every read should need trimming). We will also retain a minumum read length of 15 nt.</p>
+12              GGTAGTTCGACCGCGGA------------ACTGTAGGCACCATCAATT------------
+15              GGTAGTTCGACCGCGGAA-----------TCTGTAGGCACCATCAAT-------------
+14              -------TCGCTTGGTGCAGATCGGGA--CCTGTAGGCACCCTCA---------------
+18              ---TTCATGGACGTTGATAAGATCCTT--CCTGTATGCACC-------------------
+1               -------TCGCTTGGTGCAGATCGGGA--CCTGTAGGCACCATCA---------------
+13              -------TGATTGAGCCGTGCCAATAT--CCTGTAGGCACCATCA---------------
+3               ------------GGGGGTGTAGCTCAT--ACTGTAGGCACCATCAATTCG----------
+10              ------------GGGGATGTAGCTCAG--ACTGTAGGCACCATCAATTCG----------
+2               ------------GGGGATGTAGCTCAA--ACTGTAGGCACCATCAATTCG----------
+11              --------GACCGCATAGCGCAGTGG---ACTGTAGGCACCATCAAT-------------
+9               ---------ATTGAGTGCAGCGTTGATGAACTGTAGGCACCATCA---------------
+19              -----ACTGGTTGG--ATCATGCTTCT--ACTGTAGGCACCATCA---------------
+8               ----TTTGGATTGAAGGGAGCTCT-----GCTGTAGGCACCATCA---------------
+7               ---------TCCACAGGCTTTCTTGAACTGCTGTAGGCACCATCA---------------
+17              -----TTGGACTGAAGGGTGCTCCC----TCTGTAGGCACCATCA---------------
+4               -----TGAAGCTGCCAGCATGATCTG---ACTGTAGGCACCATC----------------
+16              ----ACCTGCTCTGATACCATGTTGTG--ACTGTAGGCACCA------------------
+6               ---TTCATGGACGTTGATAAGATCCTT--CCTGTAGGCACC-------------------
+5               ------------------------------CTGTAGGCACCATCAATTCGTATGCCGTCT
+                                              <span class="k">*****</span> <span class="k">*****</span>        
+</code></pre>
+</div>
+
+<p>From this it becomes obvious that the adapter is <code class="highlighter-rouge">CTGTAGGCACCATCA...</code>. Next step is to trim the adapters, and we will also discard any reads that were not trimmed, as these reads are longer than the longest smRNA (so every read should need trimming). We will also retain a minumum read length of 15 nt.</p>
 
 <h2 id="adapter-trimming">Adapter trimming</h2>
 
-<p>```
-$ cutadapt –discard-untrimmed -m 15 -a CTGTAGGCACCATCAATTCG -o adapertrim.fq SRR035616.fastq.gz</p>
+<div class="highlighter-rouge"><pre class="highlight"><code>$ cutadapt --discard-untrimmed -m 15 -a CTGTAGGCACCATCAATTCG -o adapertrim.fq SRR035616.fastq.gz
 
-<p>This is cutadapt 1.10 with Python 2.7.10
-Command line parameters: –discard-untrimmed -m 15 -a CTGTAGGCACCATCAATTCG -o adapertrim.fq SRR035616.fastq.gz
-Trimming 1 adapter with at most 10.0% errors in single-end mode …
-Finished in 68.63 s (15 us/read; 3.94 M reads/minute).</p>
+This is cutadapt 1.10 with Python 2.7.10
+Command line parameters: --discard-untrimmed -m 15 -a CTGTAGGCACCATCAATTCG -o adapertrim.fq SRR035616.fastq.gz
+Trimming 1 adapter with at most 10.0% errors in single-end mode ...
+Finished in 68.63 s (15 us/read; 3.94 M reads/minute).
 
-<p>=== Summary ===</p>
+=== Summary ===
 
-<p>Total reads processed:               4,501,847
+Total reads processed:               4,501,847
 Reads with adapters:                 3,325,787 (73.9%)
 Reads that were too short:              57,000 (1.3%)
-Reads written (passing filters):     3,268,787 (72.6%)</p>
+Reads written (passing filters):     3,268,787 (72.6%)
 
-<p>Total basepairs processed:   162,066,492 bp
-Total written (filtered):     70,887,548 bp (43.7%)</p>
+Total basepairs processed:   162,066,492 bp
+Total written (filtered):     70,887,548 bp (43.7%)
 
-<p>=== Adapter 1 ===</p>
+=== Adapter 1 ===
 
-<p>Sequence: CTGTAGGCACCATCAATTCG; Type: regular 3’; Length: 20; Trimmed: 3325787 times.</p>
+Sequence: CTGTAGGCACCATCAATTCG; Type: regular 3'; Length: 20; Trimmed: 3325787 times.
 
-<p>No. of allowed errors:
-0-9 bp: 0; 10-19 bp: 1; 20 bp: 2</p>
+No. of allowed errors:
+0-9 bp: 0; 10-19 bp: 1; 20 bp: 2
 
-<p>Bases preceding removed adapters:
+Bases preceding removed adapters:
   A: 35.9%
   C: 26.7%
   G: 15.9%
   T: 20.4%
-  none/other: 1.0%</p>
+  none/other: 1.0%
 
-<p>Overview of removed sequences
+Overview of removed sequences
 length	count	expect	max.err	error counts
 3	1307	70341.4	0	1307
 4	503	17585.3	0	503
@@ -188,13 +185,14 @@ length	count	expect	max.err	error counts
 34	39	0.0	2	30 3 6
 35	39	0.0	2	29 6 4
 36	33293	0.0	2	27424 5411 458
-```</p>
+</code></pre>
+</div>
 
 <p>Now rerun fastqc</p>
 
-<p><code>bash
-$ fastqc adapertrim.fq
-</code></p>
+<div class="language-bash highlighter-rouge"><pre class="highlight"><code><span class="gp">$ </span>fastqc adapertrim.fq
+</code></pre>
+</div>
 
 <p>We can see peaks at 21 and 24 nt, which are the most abundant smRNA size classes:</p>
 
@@ -202,48 +200,47 @@ $ fastqc adapertrim.fq
 
 <h2 id="mapping">Mapping</h2>
 
-<p>Map with bowtie, pipe to samtools to convert the output sam file to a bam file. Using the <code>-a</code> flag will tell bowtie to report all alignments.</p>
+<p>Map with bowtie, pipe to samtools to convert the output sam file to a bam file. Using the <code class="highlighter-rouge">-a</code> flag will tell bowtie to report all alignments.</p>
 
-<p><code>bash
-bowtie -p 20 -q -n 0 -l 20 -a -S /home/tstuart/working_data_01/genomes/Bdistachyon/v2.1/assembly/BowtieIndex/bd21 adapertrim.fq \
+<div class="language-bash highlighter-rouge"><pre class="highlight"><code>bowtie -p 20 -q -n 0 -l 20 -a -S /home/tstuart/working_data_01/genomes/Bdistachyon/v2.1/assembly/BowtieIndex/bd21 adapertrim.fq <span class="se">\</span>
 | samtools view -b - &gt; mapped.bam
-</code></p>
+</code></pre>
+</div>
 
 <h2 id="post-processing">Post-processing</h2>
 
 <p>It’s important to know the length of the smRNA, its mapping position in the genome, and whether it was uniquely mapped or not. First, we can convert the bam file to a bed file and add a column showing the smRNA length:</p>
 
-<p><code>bash
-$ bedtools bamtobed -i mapped.bam \
-| awk 'BEGIN {FS=OFS="\t"} {$7 = $3 - $2; print $0}' - | pigz - &gt; mapped.bed.gz
-</code></p>
+<div class="language-bash highlighter-rouge"><pre class="highlight"><code><span class="gp">$ </span>bedtools bamtobed -i mapped.bam <span class="se">\</span>
+| awk <span class="s1">'BEGIN {FS=OFS="\t"} {$7 = $3 - $2; print $0}'</span> - | pigz - &gt; mapped.bed.gz
+</code></pre>
+</div>
 
 <p>Now we add a column showing the number of mapping positions for each smRNA (in R):</p>
 
-<p>```r
-library(dplyr)
-library(data.table)
-library(readr)</p>
+<div class="language-r highlighter-rouge"><pre class="highlight"><code><span class="n">library</span><span class="p">(</span><span class="n">dplyr</span><span class="p">)</span><span class="w">
+</span><span class="n">library</span><span class="p">(</span><span class="n">data.table</span><span class="p">)</span><span class="w">
+</span><span class="n">library</span><span class="p">(</span><span class="n">readr</span><span class="p">)</span><span class="w">
 
-<p>smrna &lt;- fread(“~/Downloads/mapped.bed”, header = F, sep = “\t”,
-               col.names = c(“chromosome”, “start”, “stop”, “readName”, “q”, “strand”, “length”))</p>
+</span><span class="n">smrna</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">fread</span><span class="p">(</span><span class="s2">"~/Downloads/mapped.bed"</span><span class="p">,</span><span class="w"> </span><span class="n">header</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">F</span><span class="p">,</span><span class="w"> </span><span class="n">sep</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"\t"</span><span class="p">,</span><span class="w">
+               </span><span class="n">col.names</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="s2">"chromosome"</span><span class="p">,</span><span class="w"> </span><span class="s2">"start"</span><span class="p">,</span><span class="w"> </span><span class="s2">"stop"</span><span class="p">,</span><span class="w"> </span><span class="s2">"readName"</span><span class="p">,</span><span class="w"> </span><span class="s2">"q"</span><span class="p">,</span><span class="w"> </span><span class="s2">"strand"</span><span class="p">,</span><span class="w"> </span><span class="s2">"length"</span><span class="p">))</span><span class="w">
 
-<p>smrna &lt;- smrna %&gt;%
-  group_by(readName) %&gt;%
-  mutate(positions = n()) %&gt;%
-  ungroup() %&gt;%
-  select(-q) %&gt;%
-  mutate(unique = ifelse(positions &gt; 1, FALSE, TRUE)) %&gt;%
-  arrange(chromosome, start)</p>
+</span><span class="n">smrna</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">smrna</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w">
+  </span><span class="n">group_by</span><span class="p">(</span><span class="n">readName</span><span class="p">)</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w">
+  </span><span class="n">mutate</span><span class="p">(</span><span class="n">positions</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">n</span><span class="p">())</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w">
+  </span><span class="n">ungroup</span><span class="p">()</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w">
+  </span><span class="n">select</span><span class="p">(</span><span class="o">-</span><span class="n">q</span><span class="p">)</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w">
+  </span><span class="n">mutate</span><span class="p">(</span><span class="n">unique</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ifelse</span><span class="p">(</span><span class="n">positions</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="m">1</span><span class="p">,</span><span class="w"> </span><span class="kc">FALSE</span><span class="p">,</span><span class="w"> </span><span class="kc">TRUE</span><span class="p">))</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w">
+  </span><span class="n">arrange</span><span class="p">(</span><span class="n">chromosome</span><span class="p">,</span><span class="w"> </span><span class="n">start</span><span class="p">)</span><span class="w">
 
-<p>write_tsv(smrna, “~/Desktop/brachy_smrna.tsv”)
-system(“gzip ~/Desktop/brachy_smrna.tsv”)
-```</p>
+</span><span class="n">write_tsv</span><span class="p">(</span><span class="n">smrna</span><span class="p">,</span><span class="w"> </span><span class="s2">"~/Desktop/brachy_smrna.tsv"</span><span class="p">)</span><span class="w">
+</span><span class="n">system</span><span class="p">(</span><span class="s2">"gzip ~/Desktop/brachy_smrna.tsv"</span><span class="p">)</span><span class="w">
+</span></code></pre>
+</div>
 
 <p>That’s it! We now have a file that looks like this:</p>
 
-<p><code>bash
-$ zcat brachy_smrna.tsv.gz | head
+<div class="language-bash highlighter-rouge"><pre class="highlight"><code><span class="gp">$ </span>zcat brachy_smrna.tsv.gz | head
 chromosome	start	stop	readName	strand	length	positions	unique
 Bd1	3	27	SRR035616.1254270	-	24	143	FALSE
 Bd1	5	26	SRR035616.1862694	-	21	153	FALSE
@@ -254,7 +251,8 @@ Bd1	13	28	SRR035616.3527272	-	15	218	FALSE
 Bd1	17	41	SRR035616.1254270	-	24	143	FALSE
 Bd1	19	40	SRR035616.1862694	-	21	153	FALSE
 Bd1	20	35	SRR035616.3527272	-	15	218	FALSE
-</code></p>
+</code></pre>
+</div>
 
 </div>
 
@@ -284,7 +282,7 @@ Bd1	20	35	SRR035616.3527272	-	15	218	FALSE
 
       <!-- <div class="footer">
         <p>
-          &copy; 2016. All rights reserved.
+          &copy; 2017. All rights reserved.
         </p>
       </div> -->
     </div>

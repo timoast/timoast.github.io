@@ -54,9 +54,6 @@
             <small><a href="/archive">Archive</a></small>
           
             &nbsp;&nbsp;&nbsp;
-            <small><a href="/code">Code</a></small>
-          
-            &nbsp;&nbsp;&nbsp;
             <small><a href="/publications">Publications</a></small>
           
             &nbsp;&nbsp;&nbsp;
@@ -80,20 +77,19 @@
 
 <p>Let’s take a look at the data.</p>
 
-<p>```r
-library(dplyr)
-library(ggplot2)
-library(readr)
-library(lubridate)</p>
+<div class="language-r highlighter-rouge"><pre class="highlight"><code><span class="n">library</span><span class="p">(</span><span class="n">dplyr</span><span class="p">)</span><span class="w">
+</span><span class="n">library</span><span class="p">(</span><span class="n">ggplot2</span><span class="p">)</span><span class="w">
+</span><span class="n">library</span><span class="p">(</span><span class="n">readr</span><span class="p">)</span><span class="w">
+</span><span class="n">library</span><span class="p">(</span><span class="n">lubridate</span><span class="p">)</span><span class="w">
 
-<p>data &lt;- read_tsv(“./data/biorxiv_data_2016_2_29.tsv”)
-collection_date &lt;- ymd(“2016_2_29”)</p>
+</span><span class="n">data</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">read_tsv</span><span class="p">(</span><span class="s2">"./data/biorxiv_data_2016_2_29.tsv"</span><span class="p">)</span><span class="w">
+</span><span class="n">collection_date</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">ymd</span><span class="p">(</span><span class="s2">"2016_2_29"</span><span class="p">)</span><span class="w">
 
-<p>str(data)
-```</p>
+</span><span class="n">str</span><span class="p">(</span><span class="n">data</span><span class="p">)</span><span class="w">
+</span></code></pre>
+</div>
 
-<p><code>
-## Classes 'tbl_df', 'tbl' and 'data.frame':	3095 obs. of  6 variables:
+<div class="highlighter-rouge"><pre class="highlight"><code>## Classes 'tbl_df', 'tbl' and 'data.frame':	3095 obs. of  6 variables:
 ##  $ Title              : chr  "Copy number variants in the sheep genome detected using multiple approaches" "Productive infection of field strains of avian coronavirus infectious bronchitis virus in chicken peripheral blood-derived mono"| __truncated__ "Recurrent selection explains genomic regions of high relative but low absolute differentiation in the greenish warbler ring spe"| __truncated__ "A watershed model of individual differences in fluid intelligence" ...
 ##  $ URL                : chr  "http://biorxiv.org/content/early/2016/02/26/041475" "http://biorxiv.org/content/early/2016/02/26/041558" "http://biorxiv.org/content/early/2016/02/26/041467" "http://biorxiv.org/content/early/2016/02/26/041368" ...
 ##  $ Abstract views     : int  131 NA 321 70 161 570 714 276 428 318 ...
@@ -117,22 +113,22 @@ collection_date &lt;- ymd(“2016_2_29”)</p>
 ##   ..$ default: list()
 ##   .. ..- attr(*, "class")= chr  "collector_guess" "collector"
 ##   ..- attr(*, "class")= chr "col_spec"
-</code></p>
+</code></pre>
+</div>
 
 <p>As you can see, the python script gathers data on the title, url, number of abstract views, number of PDF downloads, original upload date, and the date that the current version was uploaded (this will be the same as the original upload date in many cases).</p>
 
 <p>Let’s add the age of the preprint and whether it was revised (true/false).</p>
 
-<p>```r
-data &lt;-  data %&gt;%
-  mutate(Age = collection_date - ymd(<code>Original submission</code>),
-         Revised = <code>Original submission</code> != <code>Current submission</code>)</p>
+<div class="language-r highlighter-rouge"><pre class="highlight"><code><span class="n">data</span><span class="w"> </span><span class="o">&lt;-</span><span class="w">  </span><span class="n">data</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w">
+  </span><span class="n">mutate</span><span class="p">(</span><span class="n">Age</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">collection_date</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">ymd</span><span class="p">(</span><span class="n">`Original submission`</span><span class="p">),</span><span class="w">
+         </span><span class="n">Revised</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">`Original submission`</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="n">`Current submission`</span><span class="p">)</span><span class="w">
 
-<p>str(data)
-```</p>
+</span><span class="n">str</span><span class="p">(</span><span class="n">data</span><span class="p">)</span><span class="w">
+</span></code></pre>
+</div>
 
-<p><code>
-## Classes 'tbl_df', 'tbl' and 'data.frame':	3095 obs. of  8 variables:
+<div class="highlighter-rouge"><pre class="highlight"><code>## Classes 'tbl_df', 'tbl' and 'data.frame':	3095 obs. of  8 variables:
 ##  $ Title              : chr  "Copy number variants in the sheep genome detected using multiple approaches" "Productive infection of field strains of avian coronavirus infectious bronchitis virus in chicken peripheral blood-derived mono"| __truncated__ "Recurrent selection explains genomic regions of high relative but low absolute differentiation in the greenish warbler ring spe"| __truncated__ "A watershed model of individual differences in fluid intelligence" ...
 ##  $ URL                : chr  "http://biorxiv.org/content/early/2016/02/26/041475" "http://biorxiv.org/content/early/2016/02/26/041558" "http://biorxiv.org/content/early/2016/02/26/041467" "http://biorxiv.org/content/early/2016/02/26/041368" ...
 ##  $ Abstract views     : int  131 NA 321 70 161 570 714 276 428 318 ...
@@ -142,7 +138,8 @@ data &lt;-  data %&gt;%
 ##  $ Age                :Class 'difftime'  atomic [1:3095] 3 3 3 3 3 3 3 3 26 4 ...
 ##   .. ..- attr(*, "units")= chr "days"
 ##  $ Revised            : logi  FALSE FALSE FALSE FALSE FALSE FALSE ...
-</code></p>
+</code></pre>
+</div>
 
 <h3 id="submissions-over-time">Submissions over time</h3>
 
@@ -150,19 +147,19 @@ data &lt;-  data %&gt;%
 
 <p>First group into weeks:</p>
 
-<p>```r
-weekly &lt;- data %&gt;%
-  mutate(weeks_past = ceiling(Age / 7),
-         <code>Submission week</code> = collection_date - weeks(weeks_past)) %&gt;%
-  group_by(<code>Submission week</code>) %&gt;%
-  summarise(Submissions = n())</p>
+<div class="language-r highlighter-rouge"><pre class="highlight"><code><span class="n">weekly</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">data</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w">
+  </span><span class="n">mutate</span><span class="p">(</span><span class="n">weeks_past</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">ceiling</span><span class="p">(</span><span class="n">Age</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="m">7</span><span class="p">),</span><span class="w">
+         </span><span class="n">`Submission week`</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">collection_date</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">weeks</span><span class="p">(</span><span class="n">weeks_past</span><span class="p">))</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w">
+  </span><span class="n">group_by</span><span class="p">(</span><span class="n">`Submission week`</span><span class="p">)</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w">
+  </span><span class="n">summarise</span><span class="p">(</span><span class="n">Submissions</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">n</span><span class="p">())</span><span class="w">
 
-<p>ggplot(weekly, aes(<code>Submission week</code>, Submissions)) +
-  geom_point(stat = “identity”) +
-  geom_smooth() +
-  ggtitle(“bioRxiv submissions per week”) +
-  theme_bw()
-```</p>
+</span><span class="n">ggplot</span><span class="p">(</span><span class="n">weekly</span><span class="p">,</span><span class="w"> </span><span class="n">aes</span><span class="p">(</span><span class="n">`Submission week`</span><span class="p">,</span><span class="w"> </span><span class="n">Submissions</span><span class="p">))</span><span class="w"> </span><span class="o">+</span><span class="w">
+  </span><span class="n">geom_point</span><span class="p">(</span><span class="n">stat</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"identity"</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w">
+  </span><span class="n">geom_smooth</span><span class="p">()</span><span class="w"> </span><span class="o">+</span><span class="w">
+  </span><span class="n">ggtitle</span><span class="p">(</span><span class="s2">"bioRxiv submissions per week"</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w">
+  </span><span class="n">theme_bw</span><span class="p">()</span><span class="w">
+</span></code></pre>
+</div>
 
 <p><img src="/figure/./biorxiv_files/figure-html/time-1.png" alt="" /><!-- --></p>
 
@@ -172,12 +169,12 @@ weekly &lt;- data %&gt;%
 
 <p>bioRxiv allows you to submit a revision at any time (until the paper is published in a peer-reviewed journal). How many preprints are revised at some stage?</p>
 
-<p><code>r
-data %&gt;%
-  group_by(Revised) %&gt;%
-  summarise(Count = n(), Percentage = Count/nrow(data) * 100) %&gt;%
-  knitr::kable(., align = 'c')
-</code></p>
+<div class="language-r highlighter-rouge"><pre class="highlight"><code><span class="n">data</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w">
+  </span><span class="n">group_by</span><span class="p">(</span><span class="n">Revised</span><span class="p">)</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w">
+  </span><span class="n">summarise</span><span class="p">(</span><span class="n">Count</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">n</span><span class="p">(),</span><span class="w"> </span><span class="n">Percentage</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Count</span><span class="o">/</span><span class="n">nrow</span><span class="p">(</span><span class="n">data</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="m">100</span><span class="p">)</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w">
+  </span><span class="n">knitr</span><span class="o">::</span><span class="n">kable</span><span class="p">(</span><span class="n">.</span><span class="p">,</span><span class="w"> </span><span class="n">align</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'c'</span><span class="p">)</span><span class="w">
+</span></code></pre>
+</div>
 
 <p>Revised    Count    Percentage 
 ———  ——-  ————
@@ -188,12 +185,12 @@ data %&gt;%
 
 <p>What’s the average number of abstract views and PDF downloads for preprints?</p>
 
-<p><code>r
-abstr_mn &lt;- mean(data$`Abstract views`, na.rm = T)
-abstr_med &lt;- median(data$`Abstract views`, na.rm = T)
-pdf_mn &lt;- mean(data$`PDF views`, na.rm = T)
-pdf_med &lt;- median(data$`PDF views`, na.rm = T)
-</code></p>
+<div class="language-r highlighter-rouge"><pre class="highlight"><code><span class="n">abstr_mn</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">mean</span><span class="p">(</span><span class="n">data</span><span class="o">$</span><span class="n">`Abstract views`</span><span class="p">,</span><span class="w"> </span><span class="n">na.rm</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">T</span><span class="p">)</span><span class="w">
+</span><span class="n">abstr_med</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">median</span><span class="p">(</span><span class="n">data</span><span class="o">$</span><span class="n">`Abstract views`</span><span class="p">,</span><span class="w"> </span><span class="n">na.rm</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">T</span><span class="p">)</span><span class="w">
+</span><span class="n">pdf_mn</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">mean</span><span class="p">(</span><span class="n">data</span><span class="o">$</span><span class="n">`PDF views`</span><span class="p">,</span><span class="w"> </span><span class="n">na.rm</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">T</span><span class="p">)</span><span class="w">
+</span><span class="n">pdf_med</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">median</span><span class="p">(</span><span class="n">data</span><span class="o">$</span><span class="n">`PDF views`</span><span class="p">,</span><span class="w"> </span><span class="n">na.rm</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">T</span><span class="p">)</span><span class="w">
+</span></code></pre>
+</div>
 
 <p>The mean number of abstract views was 485, and the median was 297. For PDF views, it was 134 and 64.</p>
 
@@ -201,13 +198,13 @@ pdf_med &lt;- median(data$`PDF views`, na.rm = T)
 
 <h3 id="top-10-biorxiv-preprints">Top 10 bioRxiv preprints</h3>
 
-<p><code>r
-data %&gt;%
-  arrange(-`PDF views`) %&gt;%
-  select(Title, `Abstract views`, `PDF views`, Age, Revised) %&gt;%
-  head(., 10) %&gt;%
-  knitr::kable(., align = 'l')
-</code></p>
+<div class="language-r highlighter-rouge"><pre class="highlight"><code><span class="n">data</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w">
+  </span><span class="n">arrange</span><span class="p">(</span><span class="o">-</span><span class="n">`PDF views`</span><span class="p">)</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w">
+  </span><span class="n">select</span><span class="p">(</span><span class="n">Title</span><span class="p">,</span><span class="w"> </span><span class="n">`Abstract views`</span><span class="p">,</span><span class="w"> </span><span class="n">`PDF views`</span><span class="p">,</span><span class="w"> </span><span class="n">Age</span><span class="p">,</span><span class="w"> </span><span class="n">Revised</span><span class="p">)</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w">
+  </span><span class="n">head</span><span class="p">(</span><span class="n">.</span><span class="p">,</span><span class="w"> </span><span class="m">10</span><span class="p">)</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w">
+  </span><span class="n">knitr</span><span class="o">::</span><span class="n">kable</span><span class="p">(</span><span class="n">.</span><span class="p">,</span><span class="w"> </span><span class="n">align</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'l'</span><span class="p">)</span><span class="w">
+</span></code></pre>
+</div>
 
 <p>Title                                                                                                                              | Abstract views |  PDF views |  Age  |   Revised 
 ———————————————————————————————————————————-  —————  ———-  ———  ——–
@@ -228,42 +225,42 @@ Genome variation and meiotic recombination in Plasmodium falciparum: insights fr
 <p>gather(data=data,key=,value=,na.rm=FALSE,)
 Let’s first filter out preprints less than 10 days old, as these probably have an artificially low number of views.</p>
 
-<p><code>r
-older_than_10 &lt;- filter(data, Age &gt; 10)
-quantile(older_than_10$`PDF views`, na.rm =TRUE)
-</code></p>
+<div class="language-r highlighter-rouge"><pre class="highlight"><code><span class="n">older_than_10</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">filter</span><span class="p">(</span><span class="n">data</span><span class="p">,</span><span class="w"> </span><span class="n">Age</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="m">10</span><span class="p">)</span><span class="w">
+</span><span class="n">quantile</span><span class="p">(</span><span class="n">older_than_10</span><span class="o">$</span><span class="n">`PDF views`</span><span class="p">,</span><span class="w"> </span><span class="n">na.rm</span><span class="w"> </span><span class="o">=</span><span class="kc">TRUE</span><span class="p">)</span><span class="w">
+</span></code></pre>
+</div>
 
-<p><code>
-##    0%   25%   50%   75%  100% 
+<div class="highlighter-rouge"><pre class="highlight"><code>##    0%   25%   50%   75%  100% 
 ##     0    33    65   127 15170
-</code></p>
+</code></pre>
+</div>
 
-<p><code>r
-ggplot(older_than_10, aes(`PDF views`)) +
-  geom_histogram(bins = 100) + theme_bw()
-</code></p>
+<div class="language-r highlighter-rouge"><pre class="highlight"><code><span class="n">ggplot</span><span class="p">(</span><span class="n">older_than_10</span><span class="p">,</span><span class="w"> </span><span class="n">aes</span><span class="p">(</span><span class="n">`PDF views`</span><span class="p">))</span><span class="w"> </span><span class="o">+</span><span class="w">
+  </span><span class="n">geom_histogram</span><span class="p">(</span><span class="n">bins</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">100</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">theme_bw</span><span class="p">()</span><span class="w">
+</span></code></pre>
+</div>
 
 <p><img src="/figure/./biorxiv_files/figure-html/dist-1.png" alt="" /><!-- --></p>
 
 <p>This would be better looked at on a log scale:</p>
 
-<p><code>r
-ggplot(older_than_10, aes(log(`PDF views`))) +
-  ggtitle("PDF views") +
-  geom_density(fill = 'blue', alpha = 0.5) + theme_bw() +
-  geom_vline(xintercept = log(pdf_med), col = 'red') +
-  geom_vline(xintercept = log(331))  # my paper
-</code></p>
+<div class="language-r highlighter-rouge"><pre class="highlight"><code><span class="n">ggplot</span><span class="p">(</span><span class="n">older_than_10</span><span class="p">,</span><span class="w"> </span><span class="n">aes</span><span class="p">(</span><span class="nf">log</span><span class="p">(</span><span class="n">`PDF views`</span><span class="p">)))</span><span class="w"> </span><span class="o">+</span><span class="w">
+  </span><span class="n">ggtitle</span><span class="p">(</span><span class="s2">"PDF views"</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w">
+  </span><span class="n">geom_density</span><span class="p">(</span><span class="n">fill</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'blue'</span><span class="p">,</span><span class="w"> </span><span class="n">alpha</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">0.5</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">theme_bw</span><span class="p">()</span><span class="w"> </span><span class="o">+</span><span class="w">
+  </span><span class="n">geom_vline</span><span class="p">(</span><span class="n">xintercept</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">log</span><span class="p">(</span><span class="n">pdf_med</span><span class="p">),</span><span class="w"> </span><span class="n">col</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'red'</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w">
+  </span><span class="n">geom_vline</span><span class="p">(</span><span class="n">xintercept</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">log</span><span class="p">(</span><span class="m">331</span><span class="p">))</span><span class="w">  </span><span class="c1"># my paper
+</span></code></pre>
+</div>
 
 <p><img src="/figure/./biorxiv_files/figure-html/pdf-1.png" alt="" /><!-- --></p>
 
-<p><code>r
-ggplot(older_than_10, aes(log(`Abstract views`))) +
-  ggtitle("Abstract views") +
-  geom_density(fill = 'blue', alpha = 0.5) + theme_bw() +
-  geom_vline(xintercept = log(abstr_med), col = 'red') +
-  geom_vline(xintercept = log(1678))  # my paper
-</code></p>
+<div class="language-r highlighter-rouge"><pre class="highlight"><code><span class="n">ggplot</span><span class="p">(</span><span class="n">older_than_10</span><span class="p">,</span><span class="w"> </span><span class="n">aes</span><span class="p">(</span><span class="nf">log</span><span class="p">(</span><span class="n">`Abstract views`</span><span class="p">)))</span><span class="w"> </span><span class="o">+</span><span class="w">
+  </span><span class="n">ggtitle</span><span class="p">(</span><span class="s2">"Abstract views"</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w">
+  </span><span class="n">geom_density</span><span class="p">(</span><span class="n">fill</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'blue'</span><span class="p">,</span><span class="w"> </span><span class="n">alpha</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">0.5</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">theme_bw</span><span class="p">()</span><span class="w"> </span><span class="o">+</span><span class="w">
+  </span><span class="n">geom_vline</span><span class="p">(</span><span class="n">xintercept</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">log</span><span class="p">(</span><span class="n">abstr_med</span><span class="p">),</span><span class="w"> </span><span class="n">col</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'red'</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w">
+  </span><span class="n">geom_vline</span><span class="p">(</span><span class="n">xintercept</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">log</span><span class="p">(</span><span class="m">1678</span><span class="p">))</span><span class="w">  </span><span class="c1"># my paper
+</span></code></pre>
+</div>
 
 <p><img src="/figure/./biorxiv_files/figure-html/abstracts-1.png" alt="" /><!-- --></p>
 
@@ -299,7 +296,7 @@ ggplot(older_than_10, aes(log(`Abstract views`))) +
 
       <!-- <div class="footer">
         <p>
-          &copy; 2016. All rights reserved.
+          &copy; 2017. All rights reserved.
         </p>
       </div> -->
     </div>
