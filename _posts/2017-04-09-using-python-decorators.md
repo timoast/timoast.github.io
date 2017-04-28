@@ -94,6 +94,9 @@ The decorator make use of the fact that the inner function has access to objects
 
 
 ```python
+def my_function():
+    return 1
+
 my_function = my_decorator(my_function)
 print(my_function())
 ```

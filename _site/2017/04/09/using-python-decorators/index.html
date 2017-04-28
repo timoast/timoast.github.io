@@ -82,7 +82,10 @@
 
 <p>The decorator make use of the fact that the inner function has access to objects in the enclosing scope. That’s why we don’t need to pass <code class="highlighter-rouge">inner()</code> the argument <code class="highlighter-rouge">func</code>. Now, if we were to use this function as a decorator, we would do this:</p>
 
-<div class="language-python highlighter-rouge"><pre class="highlight"><code><span class="n">my_function</span> <span class="o">=</span> <span class="n">my_decorator</span><span class="p">(</span><span class="n">my_function</span><span class="p">)</span>
+<div class="language-python highlighter-rouge"><pre class="highlight"><code><span class="k">def</span> <span class="nf">my_function</span><span class="p">():</span>
+    <span class="k">return</span> <span class="mi">1</span>
+
+<span class="n">my_function</span> <span class="o">=</span> <span class="n">my_decorator</span><span class="p">(</span><span class="n">my_function</span><span class="p">)</span>
 <span class="k">print</span><span class="p">(</span><span class="n">my_function</span><span class="p">())</span>
 </code></pre>
 </div>
