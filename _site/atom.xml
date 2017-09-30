@@ -4,13 +4,183 @@
  <title>Tim Stuart</title>
  <link href="http://localhost:4000/atom.xml" rel="self"/>
  <link href="http://localhost:4000/"/>
- <updated>2017-04-28T10:28:34+08:00</updated>
+ <updated>2017-09-30T15:58:02+08:00</updated>
  <id>http://localhost:4000</id>
  <author>
    <name>Tim Stuart</name>
    <email>timstuart90@gmail.com</email>
  </author>
 
+ 
+ <entry>
+   <title>Useful bioinformatics</title>
+   <link href="http://localhost:4000//2017/09/14/useful-bioinformatics/"/>
+   <updated>2017-09-14T00:00:00+08:00</updated>
+   <id>http://localhost:4000/2017/09/14/useful-bioinformatics</id>
+   <content type="html">&lt;h2 id=&quot;trim-reads&quot;&gt;Trim reads&lt;/h2&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;cutadapt -a AGATCGGAAGAGCACACGTCTGAACTCCAGTCAC -m 30 -o output.fq.gz input.fq.gz
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;!--break--&gt;
+
+&lt;h2 id=&quot;filter-short-reads-from-fastq&quot;&gt;Filter short reads from FASTQ&lt;/h2&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;gzip -d -c &lt;span class=&quot;k&quot;&gt;*&lt;/span&gt;.fastq.gz | paste - - - - &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+  | awk &lt;span class=&quot;s1&quot;&gt;'length($2) &amp;gt; 25'&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+  | tr &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\t&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\n&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt; 
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&quot;map-rna-seq&quot;&gt;Map RNA-seq&lt;/h2&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;# build index&lt;/span&gt;
+STAR --runThreadN 10 &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+     --runMode genomeGenerate &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+     --genomeDir genome &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+     --genomeFastaFiles genome.fa &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+     --sjdbGTFfile genes.gtf
+     
+&lt;span class=&quot;c&quot;&gt;# map&lt;/span&gt;
+STAR --runThreadN 20 &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+     --genomeDir genome &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+     --alignIntronMax 5000 &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+     --alignIntronMin 10 &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+     --readFilesCommand zcat &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+     --quantMode GeneCounts &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+     --outSAMtype BAM SortedByCoordinate &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+     --outFileNamePrefix output_ &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+     --readFilesIn input.fq.gz
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&quot;pseudomap-rna-seq-with-kallisto&quot;&gt;Pseudomap RNA-seq with kallisto&lt;/h2&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;# build index &lt;/span&gt;
+kallisto index -i index.idx Arabidopsis_thaliana.TAIR10.cds.all.fa
+
+&lt;span class=&quot;c&quot;&gt;#quantify&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;for &lt;/span&gt;filename &lt;span class=&quot;k&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;*&lt;/span&gt;.fq.gz; &lt;span class=&quot;k&quot;&gt;do
+    &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;samplename&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;${&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;filename&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;//.fq.gz/ &lt;/span&gt;&lt;span class=&quot;k&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+    kallisto quant -i index.idx -o &lt;span class=&quot;nv&quot;&gt;$samplename&lt;/span&gt; -b 100 --single -l 150 -s 20 &lt;span class=&quot;nv&quot;&gt;$filename&lt;/span&gt; -t 4
+&lt;span class=&quot;k&quot;&gt;done&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&quot;create-coverage-track-from-bam-file&quot;&gt;Create coverage track from bam file&lt;/h2&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;bamCoverage&lt;/code&gt; is part of &lt;a href=&quot;http://deeptools.readthedocs.io/en/latest/index.html&quot;&gt;deepTools&lt;/a&gt;.&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;bamCoverage -b reads.bam -o coverage.bw -p 10
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&quot;create-ucsc-browser-track&quot;&gt;Create UCSC browser track&lt;/h2&gt;
+
+&lt;p&gt;You need a track hub, a trackdb file, and track files. These should be placed in a publicly accessible place.&lt;/p&gt;
+
+&lt;p&gt;Track hub:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;hub Arabidopsis
+shortLabel RootRNAseq
+longLabel Root
+genomesFile genomes.txt
+email timstuart90@gmail.com
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;trackdb&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;include athTha1.annotationTracks.txt
+include root/root.track.txt
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Track&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;track root_coverage
+type bigWig
+bigDataUrl protoplast/root.bw
+shortLabel root
+longLabel root_coverage
+visibility squish
+priority 2
+maxHeightPixels 100:60:10
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;On UCSC go to my data &amp;gt; track hubs &amp;gt; my hubs and enter the address of the track hub file.&lt;/p&gt;
+
+&lt;h2 id=&quot;bedtools&quot;&gt;Bedtools&lt;/h2&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;bedtools merge -i dmrs_ddc.tsv -d 100 &amp;gt; dmrs_ddc_merged.tsv
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;-d&lt;/code&gt; is distance between coordinates that will still be merged&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;-i&lt;/code&gt; is input file&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;bedtools intersect -a a.bed -b b.bed -wa -f 0.50 &amp;gt; targets.bed
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;-wa&lt;/code&gt; writes &lt;code class=&quot;highlighter-rouge&quot;&gt;-a&lt;/code&gt; coordinates&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;-f&lt;/code&gt; is minimum overlap percentage&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;bowtie&quot;&gt;Bowtie&lt;/h2&gt;
+
+&lt;h3 id=&quot;mapping-pe-data&quot;&gt;Mapping PE data&lt;/h3&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;bowtie2 -p8 --local --fr -q -R 5 -N 1 -x [path/to/bowtie2/index] -X 1000 \
+        -1 read_1.fq.gz -2 read_2.fq.gz -S aligned.sam 
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;-p&lt;/code&gt; is number of processors&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;--local&lt;/code&gt; allows soft-clipping of reads to improve alignment&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;-q&lt;/code&gt; specifies that reads are in fastq format&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;-x&lt;/code&gt; gives path to index&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;-S&lt;/code&gt; gives name of output file&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;-R&lt;/code&gt; is number of times bowtie will try to ‘re-seed’ repetitive seeds. Default 2&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;-N&lt;/code&gt; is number of mismatches allowed in seed. 0 or 1.&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;--fr&lt;/code&gt; means mate pairs are ordered in forward then reverse orientation. Can do &lt;code class=&quot;highlighter-rouge&quot;&gt;--ff&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;--rf&lt;/code&gt;.&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;-X&lt;/code&gt; specifies maximum insert size. Default 500.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;samtools&quot;&gt;Samtools&lt;/h2&gt;
+
+&lt;p&gt;samtools can read from a stream, so can pipe output in from other tools (eg bowtie to get &lt;code class=&quot;highlighter-rouge&quot;&gt;.bam&lt;/code&gt; output) or other samtools commands.&lt;/p&gt;
+
+&lt;h3 id=&quot;convert-from-sam-to-bam&quot;&gt;Convert from &lt;code class=&quot;highlighter-rouge&quot;&gt;sam&lt;/code&gt; to &lt;code class=&quot;highlighter-rouge&quot;&gt;bam&lt;/code&gt;&lt;/h3&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;samtools view -bS file.sam &amp;gt; file.bam
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&quot;sort-bamfile&quot;&gt;Sort bamfile&lt;/h3&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;samtools sort -@ 20 -O bam -T tmp file.bam 
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&quot;samblaster&quot;&gt;Samblaster&lt;/h3&gt;
+
+&lt;p&gt;Extracts reads from &lt;code class=&quot;highlighter-rouge&quot;&gt;.sam&lt;/code&gt; alignment files&lt;/p&gt;
+
+&lt;h4 id=&quot;get-discordant-reads&quot;&gt;Get discordant reads&lt;/h4&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;bowtie2 [options] | samblaster -e -d file.sam | samtools view -bS - &amp;gt; file.bam
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;ul&gt;
+  &lt;li&gt;Print output from bowtie to stderr to pipe directly into samblaster&lt;/li&gt;
+  &lt;li&gt;Saves having to search through sam or bam file later to extract discordant reads&lt;/li&gt;
+  &lt;li&gt;Pipe output directly into &lt;code class=&quot;highlighter-rouge&quot;&gt;samtools view&lt;/code&gt; to save as &lt;code class=&quot;highlighter-rouge&quot;&gt;.bam&lt;/code&gt; file (these won’t be the reads in the samblaster output)&lt;/li&gt;
+&lt;/ul&gt;
+</content>
+ </entry>
  
  <entry>
    <title>Using python decorators</title>
@@ -3916,172 +4086,6 @@ tar -x -z -f file.tgz
 gunzip file.gz
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
-
-&lt;h2 id=&quot;download-data-from-sra&quot;&gt;Download data from SRA&lt;/h2&gt;
-
-&lt;h3 id=&quot;using-wget&quot;&gt;Using wget&lt;/h3&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;wget -r --no-parent --reject &quot;index.html*&quot; ftp://ftp-trace.ncbi.nih.gov/sra/sra-instant/reads/ByStudy/sra/SRP/SRP005/SRP005399/
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;p&gt;Alternatively, you can download a list of accessions from the SRA website and use that file to call &lt;code class=&quot;highlighter-rouge&quot;&gt;wget&lt;/code&gt; for all the accessions.&lt;/p&gt;
-
-&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kn&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;subprocess&lt;/span&gt; &lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;call&lt;/span&gt;
-
-
-&lt;span class=&quot;k&quot;&gt;with&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;open&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'SraAccList.txt'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'r'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;as&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;accessions&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;row&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;accessions&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;acc&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;row&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;strip&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\n&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;prefix&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;acc&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[:&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;6&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;print&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;Downloading {a}&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;format&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;acc&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;call&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;([&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;wget&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-              &lt;span class=&quot;s&quot;&gt;&quot;-r&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-              &lt;span class=&quot;s&quot;&gt;&quot;--no-parent&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-              &lt;span class=&quot;s&quot;&gt;&quot;ftp://ftp-trace.ncbi.nih.gov/sra/sra-instant/reads/ByRun/sra/SRR/{pre}/{acc}/*&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;format&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;pre&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;prefix&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;acc&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;acc&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)])&lt;/span&gt;
-
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;h4 id=&quot;split-into-fastq-files&quot;&gt;Split into fastq files&lt;/h4&gt;
-
-&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;fastq-dump --split-3 ./SRP005399/&lt;span class=&quot;k&quot;&gt;*&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;--split-3&lt;/code&gt; causes PE files to be split into &lt;code class=&quot;highlighter-rouge&quot;&gt;*_1.fastq&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;*_2.fastq&lt;/code&gt;&lt;/p&gt;
-
-&lt;p&gt;bash loop&lt;/p&gt;
-
-&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;for &lt;/span&gt;directory &lt;span class=&quot;k&quot;&gt;in&lt;/span&gt; ./&lt;span class=&quot;k&quot;&gt;*&lt;/span&gt;; &lt;span class=&quot;k&quot;&gt;do
-    if&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt; -d &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$directory&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;]&lt;/span&gt;; &lt;span class=&quot;k&quot;&gt;then
-        &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;cd&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$directory&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;for &lt;/span&gt;myfile &lt;span class=&quot;k&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;$(&lt;/span&gt;ls -d &lt;span class=&quot;k&quot;&gt;*&lt;/span&gt;.sra&lt;span class=&quot;k&quot;&gt;)&lt;/span&gt;;&lt;span class=&quot;k&quot;&gt;do
-            &lt;/span&gt;fastq-dump --split-3 -v &lt;span class=&quot;nv&quot;&gt;$myfile&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;done
-        &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;cd&lt;/span&gt; ..
-    &lt;span class=&quot;k&quot;&gt;fi
-done&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;p&gt;Python function&lt;/p&gt;
-
-&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;os&lt;/span&gt;
-&lt;span class=&quot;kn&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;subprocess&lt;/span&gt; &lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;call&lt;/span&gt;
-
-
-&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;fastqSplit&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;():&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;filename&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;os&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;listdir&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'.'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;filename&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;endswith&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'.sra'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
-            &lt;span class=&quot;k&quot;&gt;print&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'processing {n}'&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;format&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;filename&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-            &lt;span class=&quot;n&quot;&gt;call&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;([&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'fastq-dump'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'--split-3'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'-v'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;filename&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
-            &lt;span class=&quot;k&quot;&gt;pass&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;h3 id=&quot;using-sra-toolkit&quot;&gt;Using SRA toolkit&lt;/h3&gt;
-
-&lt;p&gt;SRA toolkit doesn’t seem to work well for downloading bulk data. &lt;code class=&quot;highlighter-rouge&quot;&gt;wget&lt;/code&gt; is a much better option as it allows download of whole folders, gives more descriptive output as it goes. SRA often fails and sometimes gives no error. Download with &lt;code class=&quot;highlighter-rouge&quot;&gt;wget&lt;/code&gt; and use &lt;code class=&quot;highlighter-rouge&quot;&gt;fastq-split&lt;/code&gt; to get fastq files.&lt;/p&gt;
-
-&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;fastq-dump SRR534224 &amp;amp;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;h2 id=&quot;rna-seq&quot;&gt;RNA-seq&lt;/h2&gt;
-
-&lt;h3 id=&quot;mapping&quot;&gt;Mapping&lt;/h3&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;tophat -p8 -G /home/lister/working_data/data/genomes/annotations/tair10/TAIR10_gene_TE_illumina.gtf --transcriptome-index=transcript_index/tair10 /home/lister/working_data/data/genomes/bowtie2_indexes/tair9 SRR501604.fastq,SRR501605.fastq
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;ul&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;--transcriptome-index=transcript_index/tair10&lt;/code&gt; creates transcriptome index file saved in transcript_index/ with name &lt;code class=&quot;highlighter-rouge&quot;&gt;tair10.*&lt;/code&gt;. This can be reused if mapping to the same transcriptome (ie. gff file)&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;-p8&lt;/code&gt; uses 8 cores&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;-G&lt;/code&gt; specifies gff file. Optional&lt;/li&gt;
-  &lt;li&gt;If using PE reads check manual&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&quot;bedtools&quot;&gt;Bedtools&lt;/h2&gt;
-
-&lt;p&gt;&lt;a href=&quot;http://quinlanlab.org/tutorials/cshl2014/bedtools.html&quot;&gt;Good tutorial from the Quinlan lab&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;Need to order files so that chromosome, start, stop and first three columns (BED format). Also need to remove header. Can do these steps with &lt;code class=&quot;highlighter-rouge&quot;&gt;awk&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;sed 1d&lt;/code&gt;.&lt;/p&gt;
-
-&lt;h3 id=&quot;merge&quot;&gt;Merge&lt;/h3&gt;
-
-&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;bedtools merge -i dmrs_ddc.tsv -d 100 &amp;gt; dmrs_ddc_merged.tsv
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;ul&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;-d&lt;/code&gt; is distance between coordinates that will still be merged&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;-i&lt;/code&gt; is input file&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&quot;intersect&quot;&gt;Intersect&lt;/h3&gt;
-
-&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;bedtools intersect -a tair10_tes.txt -b dmrs_ddc_merged.tsv -wa -f 0.50 &amp;gt; ddc_targets.tsv
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;ul&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;-a&lt;/code&gt; is file a&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;-b&lt;/code&gt; is file b&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;-wa&lt;/code&gt; is write a&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;-f&lt;/code&gt; is minimum overlap percentage&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&quot;bowtie&quot;&gt;Bowtie&lt;/h2&gt;
-
-&lt;h3 id=&quot;mapping-pe-data&quot;&gt;Mapping PE data&lt;/h3&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;bowtie2 -p8 --local --fr -q -R 5 -N 1 -x [path/to/bowtie2/index] -X 1000 -1 [mate1.fq] -2 [mate2.fq] -S [alignment.sam] --un-conc ./discordant/
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;ul&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;-p&lt;/code&gt; is number of processors&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;--local&lt;/code&gt; allows soft-clipping of reads to improve alignment&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;-q&lt;/code&gt; specifies that reads are in fastq format&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;-x&lt;/code&gt; gives path to index&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;-S&lt;/code&gt; gives name of output file&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;-R&lt;/code&gt; is number of times bowtie will try to ‘re-seed’ repetitive seeds. Default 2&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;-N&lt;/code&gt; is number of mismatches allowed in seed. 0 or 1.&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;--no-mixed&lt;/code&gt; tells bowtie to find alignments only when both pairs can be aligned.&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;--fr&lt;/code&gt; means mate pairs are ordered in forward then reverse orientation. Can do &lt;code class=&quot;highlighter-rouge&quot;&gt;--ff&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;--rf&lt;/code&gt;.&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;-X&lt;/code&gt; specifies maximum insert size. Default 500.&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;-I&lt;/code&gt; specifies minimum insert size. Default 0 (no minimum).&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;--un-conc&lt;/code&gt; specifies path and file to write discordant alignments to. Note that these are just the &lt;code class=&quot;highlighter-rouge&quot;&gt;fastq&lt;/code&gt; reads, not alignments.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&quot;samtools&quot;&gt;Samtools&lt;/h2&gt;
-
-&lt;p&gt;samtools can read from a stream, so can pipe output in from other tools (eg bowtie to get &lt;code class=&quot;highlighter-rouge&quot;&gt;.bam&lt;/code&gt; output) or other samtools commands.&lt;/p&gt;
-
-&lt;h3 id=&quot;convert-from-sam-to-bam&quot;&gt;Convert from &lt;code class=&quot;highlighter-rouge&quot;&gt;sam&lt;/code&gt; to &lt;code class=&quot;highlighter-rouge&quot;&gt;bam&lt;/code&gt;&lt;/h3&gt;
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;samtools view -bS file.sam &amp;gt; file.bam
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;h3 id=&quot;sort-bamfile&quot;&gt;Sort bamfile&lt;/h3&gt;
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;samtools sort file.bam sorted
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;ul&gt;
-  &lt;li&gt;outputs &lt;code class=&quot;highlighter-rouge&quot;&gt;sorted.bam&lt;/code&gt; file&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&quot;samblaster&quot;&gt;Samblaster&lt;/h3&gt;
-
-&lt;p&gt;Extracts reads from &lt;code class=&quot;highlighter-rouge&quot;&gt;.sam&lt;/code&gt; alignment files&lt;/p&gt;
-
-&lt;h4 id=&quot;get-discordant-reads&quot;&gt;Get discordant reads&lt;/h4&gt;
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;bowtie2 [options] | samblaster -e -d file.sam | samtools view -bS - &amp;gt; file.bam
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;ul&gt;
-  &lt;li&gt;Print output from bowtie to stderr to pipe directly into samblaster&lt;/li&gt;
-  &lt;li&gt;Saves having to search through sam or bam file later to extract discordant reads&lt;/li&gt;
-  &lt;li&gt;Pipe output directly into &lt;code class=&quot;highlighter-rouge&quot;&gt;samtools view&lt;/code&gt; to save as &lt;code class=&quot;highlighter-rouge&quot;&gt;.bam&lt;/code&gt; file (these won’t be the reads in the samblaster output)&lt;/li&gt;
-&lt;/ul&gt;
 </content>
  </entry>
  

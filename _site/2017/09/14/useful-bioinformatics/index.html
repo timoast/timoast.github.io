@@ -1,0 +1,162 @@
+<h2 id="trim-reads">Trim reads</h2>
+
+<div class="language-bash highlighter-rouge"><pre class="highlight"><code>cutadapt -a AGATCGGAAGAGCACACGTCTGAACTCCAGTCAC -m 30 -o output.fq.gz input.fq.gz
+</code></pre>
+</div>
+
+<!--break-->
+
+<h2 id="filter-short-reads-from-fastq">Filter short reads from FASTQ</h2>
+
+<div class="language-bash highlighter-rouge"><pre class="highlight"><code>gzip -d -c <span class="k">*</span>.fastq.gz | paste - - - - <span class="se">\</span>
+  | awk <span class="s1">'length($2) &gt; 25'</span> <span class="se">\</span>
+  | tr <span class="s2">"</span><span class="se">\t</span><span class="s2">"</span> <span class="s2">"</span><span class="se">\n</span><span class="s2">"</span> 
+</code></pre>
+</div>
+
+<h2 id="map-rna-seq">Map RNA-seq</h2>
+
+<div class="language-bash highlighter-rouge"><pre class="highlight"><code><span class="c"># build index</span>
+STAR --runThreadN 10 <span class="se">\</span>
+     --runMode genomeGenerate <span class="se">\</span>
+     --genomeDir genome <span class="se">\</span>
+     --genomeFastaFiles genome.fa <span class="se">\</span>
+     --sjdbGTFfile genes.gtf
+     
+<span class="c"># map</span>
+STAR --runThreadN 20 <span class="se">\</span>
+     --genomeDir genome <span class="se">\</span>
+     --alignIntronMax 5000 <span class="se">\</span>
+     --alignIntronMin 10 <span class="se">\</span>
+     --readFilesCommand zcat <span class="se">\</span>
+     --quantMode GeneCounts <span class="se">\</span>
+     --outSAMtype BAM SortedByCoordinate <span class="se">\</span>
+     --outFileNamePrefix output_ <span class="se">\</span>
+     --readFilesIn input.fq.gz
+</code></pre>
+</div>
+
+<h2 id="pseudomap-rna-seq-with-kallisto">Pseudomap RNA-seq with kallisto</h2>
+
+<div class="language-bash highlighter-rouge"><pre class="highlight"><code><span class="c"># build index </span>
+kallisto index -i index.idx Arabidopsis_thaliana.TAIR10.cds.all.fa
+
+<span class="c">#quantify</span>
+<span class="k">for </span>filename <span class="k">in</span> <span class="k">*</span>.fq.gz; <span class="k">do
+    </span><span class="nv">samplename</span><span class="o">=(</span><span class="k">${</span><span class="nv">filename</span><span class="p">//.fq.gz/ </span><span class="k">}</span><span class="o">)</span>
+    kallisto quant -i index.idx -o <span class="nv">$samplename</span> -b 100 --single -l 150 -s 20 <span class="nv">$filename</span> -t 4
+<span class="k">done</span>
+</code></pre>
+</div>
+
+<h2 id="create-coverage-track-from-bam-file">Create coverage track from bam file</h2>
+
+<p><code class="highlighter-rouge">bamCoverage</code> is part of <a href="http://deeptools.readthedocs.io/en/latest/index.html">deepTools</a>.</p>
+
+<div class="language-bash highlighter-rouge"><pre class="highlight"><code>bamCoverage -b reads.bam -o coverage.bw -p 10
+</code></pre>
+</div>
+
+<h2 id="create-ucsc-browser-track">Create UCSC browser track</h2>
+
+<p>You need a track hub, a trackdb file, and track files. These should be placed in a publicly accessible place.</p>
+
+<p>Track hub:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>hub Arabidopsis
+shortLabel RootRNAseq
+longLabel Root
+genomesFile genomes.txt
+email timstuart90@gmail.com
+</code></pre>
+</div>
+
+<p>trackdb</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>include athTha1.annotationTracks.txt
+include root/root.track.txt
+</code></pre>
+</div>
+
+<p>Track</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>track root_coverage
+type bigWig
+bigDataUrl protoplast/root.bw
+shortLabel root
+longLabel root_coverage
+visibility squish
+priority 2
+maxHeightPixels 100:60:10
+</code></pre>
+</div>
+
+<p>On UCSC go to my data &gt; track hubs &gt; my hubs and enter the address of the track hub file.</p>
+
+<h2 id="bedtools">Bedtools</h2>
+
+<div class="language-bash highlighter-rouge"><pre class="highlight"><code>bedtools merge -i dmrs_ddc.tsv -d 100 &gt; dmrs_ddc_merged.tsv
+</code></pre>
+</div>
+<ul>
+  <li><code class="highlighter-rouge">-d</code> is distance between coordinates that will still be merged</li>
+  <li><code class="highlighter-rouge">-i</code> is input file</li>
+</ul>
+
+<div class="language-bash highlighter-rouge"><pre class="highlight"><code>bedtools intersect -a a.bed -b b.bed -wa -f 0.50 &gt; targets.bed
+</code></pre>
+</div>
+
+<ul>
+  <li><code class="highlighter-rouge">-wa</code> writes <code class="highlighter-rouge">-a</code> coordinates</li>
+  <li><code class="highlighter-rouge">-f</code> is minimum overlap percentage</li>
+</ul>
+
+<h2 id="bowtie">Bowtie</h2>
+
+<h3 id="mapping-pe-data">Mapping PE data</h3>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>bowtie2 -p8 --local --fr -q -R 5 -N 1 -x [path/to/bowtie2/index] -X 1000 \
+        -1 read_1.fq.gz -2 read_2.fq.gz -S aligned.sam 
+</code></pre>
+</div>
+<ul>
+  <li><code class="highlighter-rouge">-p</code> is number of processors</li>
+  <li><code class="highlighter-rouge">--local</code> allows soft-clipping of reads to improve alignment</li>
+  <li><code class="highlighter-rouge">-q</code> specifies that reads are in fastq format</li>
+  <li><code class="highlighter-rouge">-x</code> gives path to index</li>
+  <li><code class="highlighter-rouge">-S</code> gives name of output file</li>
+  <li><code class="highlighter-rouge">-R</code> is number of times bowtie will try to ‘re-seed’ repetitive seeds. Default 2</li>
+  <li><code class="highlighter-rouge">-N</code> is number of mismatches allowed in seed. 0 or 1.</li>
+  <li><code class="highlighter-rouge">--fr</code> means mate pairs are ordered in forward then reverse orientation. Can do <code class="highlighter-rouge">--ff</code>, <code class="highlighter-rouge">--rf</code>.</li>
+  <li><code class="highlighter-rouge">-X</code> specifies maximum insert size. Default 500.</li>
+</ul>
+
+<h2 id="samtools">Samtools</h2>
+
+<p>samtools can read from a stream, so can pipe output in from other tools (eg bowtie to get <code class="highlighter-rouge">.bam</code> output) or other samtools commands.</p>
+
+<h3 id="convert-from-sam-to-bam">Convert from <code class="highlighter-rouge">sam</code> to <code class="highlighter-rouge">bam</code></h3>
+<div class="highlighter-rouge"><pre class="highlight"><code>samtools view -bS file.sam &gt; file.bam
+</code></pre>
+</div>
+
+<h3 id="sort-bamfile">Sort bamfile</h3>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>samtools sort -@ 20 -O bam -T tmp file.bam 
+</code></pre>
+</div>
+
+<h3 id="samblaster">Samblaster</h3>
+
+<p>Extracts reads from <code class="highlighter-rouge">.sam</code> alignment files</p>
+
+<h4 id="get-discordant-reads">Get discordant reads</h4>
+<div class="highlighter-rouge"><pre class="highlight"><code>bowtie2 [options] | samblaster -e -d file.sam | samtools view -bS - &gt; file.bam
+</code></pre>
+</div>
+<ul>
+  <li>Print output from bowtie to stderr to pipe directly into samblaster</li>
+  <li>Saves having to search through sam or bam file later to extract discordant reads</li>
+  <li>Pipe output directly into <code class="highlighter-rouge">samtools view</code> to save as <code class="highlighter-rouge">.bam</code> file (these won’t be the reads in the samblaster output)</li>
+</ul>
