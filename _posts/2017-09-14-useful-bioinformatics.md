@@ -8,8 +8,20 @@ layout: post
 
 ## Trim reads
 
+With [cutadapt](http://cutadapt.readthedocs.io/en/stable/)
+
 ```bash
 cutadapt -a AGATCGGAAGAGCACACGTCTGAACTCCAGTCAC -m 30 -o output.fq.gz input.fq.gz
+```
+
+With [trimmomatic](http://www.usadellab.org/cms/?page=trimmomatic)
+
+```bash
+trimmomatic PE -threads 10 \
+      reads_1.fastq.gz reads_2.fastq.gz \
+      reads_1_trim.fq reads_1_se_trim.fq reads_2_trim.fq reads_2_se_trim.fq \
+      ILLUMINACLIP:TruSeq2-PE.fa:2:30:10 \
+      LEADING:3 TRAILING:3 SLIDINGWINDOW:4:15 MINLEN:36
 ```
 
 <!--break-->

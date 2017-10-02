@@ -4,7 +4,7 @@
  <title>Tim Stuart</title>
  <link href="http://localhost:4000atom.xml" rel="self"/>
  <link href="http://localhost:4000"/>
- <updated>2017-10-02T21:24:04+08:00</updated>
+ <updated>2017-10-02T21:32:24+08:00</updated>
  <id>http://localhost:4000</id>
  <author>
    <name>Tim Stuart</name>
@@ -19,7 +19,19 @@
    <id>http://localhost:4000/2017/09/14/useful-bioinformatics</id>
    <content type="html">&lt;h2 id=&quot;trim-reads&quot;&gt;Trim reads&lt;/h2&gt;
 
+&lt;p&gt;With &lt;a href=&quot;http://cutadapt.readthedocs.io/en/stable/&quot;&gt;cutadapt&lt;/a&gt;&lt;/p&gt;
+
 &lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;cutadapt -a AGATCGGAAGAGCACACGTCTGAACTCCAGTCAC -m 30 -o output.fq.gz input.fq.gz
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;With &lt;a href=&quot;http://www.usadellab.org/cms/?page=trimmomatic&quot;&gt;trimmomatic&lt;/a&gt;&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;trimmomatic PE -threads 10 &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+      reads_1.fastq.gz reads_2.fastq.gz &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+      reads_1_trim.fq reads_1_se_trim.fq reads_2_trim.fq reads_2_se_trim.fq &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+      ILLUMINACLIP:TruSeq2-PE.fa:2:30:10 &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+      LEADING:3 TRAILING:3 SLIDINGWINDOW:4:15 MINLEN:36
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 

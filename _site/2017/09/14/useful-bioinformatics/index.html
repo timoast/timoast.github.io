@@ -67,7 +67,19 @@
   <span class="post-date">14 Sep 2017</span>
   <h2 id="trim-reads">Trim reads</h2>
 
+<p>With <a href="http://cutadapt.readthedocs.io/en/stable/">cutadapt</a></p>
+
 <div class="language-bash highlighter-rouge"><pre class="highlight"><code>cutadapt -a AGATCGGAAGAGCACACGTCTGAACTCCAGTCAC -m 30 -o output.fq.gz input.fq.gz
+</code></pre>
+</div>
+
+<p>With <a href="http://www.usadellab.org/cms/?page=trimmomatic">trimmomatic</a></p>
+
+<div class="language-bash highlighter-rouge"><pre class="highlight"><code>trimmomatic PE -threads 10 <span class="se">\</span>
+      reads_1.fastq.gz reads_2.fastq.gz <span class="se">\</span>
+      reads_1_trim.fq reads_1_se_trim.fq reads_2_trim.fq reads_2_se_trim.fq <span class="se">\</span>
+      ILLUMINACLIP:TruSeq2-PE.fa:2:30:10 <span class="se">\</span>
+      LEADING:3 TRAILING:3 SLIDINGWINDOW:4:15 MINLEN:36
 </code></pre>
 </div>
 
