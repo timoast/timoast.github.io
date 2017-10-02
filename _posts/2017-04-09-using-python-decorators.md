@@ -3,6 +3,7 @@ title: Using python decorators
 author: Tim Stuart
 date: '2017-04-09'
 comments: true
+layout: post
 ---
 
 Yesterday I wrote my first python decorator. Decorators have always seemed a bit mysterious to me, but having finally written one I can see a bit better how they work. This is the decorator I wrote:

@@ -3,6 +3,7 @@ title: Useful bioinformatics
 author: Tim Stuart
 date: '2017-09-14'
 comments: true
+layout: post
 ---
 
 ## Trim reads

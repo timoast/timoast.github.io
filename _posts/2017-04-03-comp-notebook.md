@@ -3,6 +3,7 @@ title: Create a computational lab notebook with bookdown
 author: Tim Stuart
 date: '2017-04-03'
 comments: true
+layout: post
 ---
 
 Every data analysis I do now is kept in an [R Markdown](http://rmarkdown.rstudio.com) document. These are great for mixing code with explanatory text, and you can run code in many languages not just R. Whenever I finished working on something, I would compile the R Markdown document into a self-contained html report and save is somewhere, usually with a descriptive filename like "coverage_genes" or "col_vs_cvi".

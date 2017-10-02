@@ -3,6 +3,7 @@ title: Installing Magic
 author: Tim Stuart
 date: '2017-03-03'
 comments: true
+layout: post 
 ---
 
 # Installing magic
