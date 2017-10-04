@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+
+  <head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  <!-- Enable responsiveness on mobile devices-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title>
+    
+      bioRxiv 2017 update &middot; Tim Stuart
+    
+  </title>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="/public/css/poole.css">
+  <link rel="stylesheet" href="/public/css/syntax.css">
+
+  <!-- Icons -->
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/public/apple-touch-icon-precomposed.png">
+  <link rel="shortcut icon" href="/public/favicon.ico">
+
+  <!-- libs -->
+  <link href="/libs/pagedtable-1.1/css/pagedtable.css" rel="stylesheet" />
+  <script src="/libs/pagedtable-1.1/js/pagedtable.js"></script>
+  
+  <!-- RSS -->
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">
+</head>
+
+  <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-54133406-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+
+  <body>
+
+    <div class="container content">
+      <div class="masthead">
+        <h3 class="masthead-title">
+          <a href="/" title="Home">Tim Stuart</a>
+          <small></small>
+
+          
+            &nbsp;&nbsp;&nbsp;
+            <small><a href="/about">About</a></small>
+          
+            &nbsp;&nbsp;&nbsp;
+            <small><a href="/archive">Archive</a></small>
+          
+            &nbsp;&nbsp;&nbsp;
+            <small><a href="/publications">Publications</a></small>
+          
+            &nbsp;&nbsp;&nbsp;
+            <small><a href="/atom.xml">Feed</a></small>
+          
+        </h3>
+      </div>
+
+      <div class="post">
+  <h1 class="post-title">bioRxiv 2017 update</h1>
+  <span class="post-date">04 Oct 2017</span>
+  <p>I first looked at the <a href="https://www.biorxiv.org">biorxiv</a> submission data back in <a href="http://timoast.github.io/2016/03/01/biorxiv/">March 2016</a>. A lot has changed since then, and biorxiv has grown nearly 5-fold. Time for an update.</p>
+
+<div class="language-r highlighter-rouge"><pre class="highlight"><code><span class="n">collection_date</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">ymd</span><span class="p">(</span><span class="s2">"2017_10_04"</span><span class="p">)</span><span class="w">
+
+</span><span class="n">dat</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">fread</span><span class="p">(</span><span class="s2">"~/Documents/GitHub/biorxivData/data/biorxiv_data_2017_10_04.tsv"</span><span class="p">)</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w"> 
+  </span><span class="n">mutate</span><span class="p">(</span><span class="n">Age</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">collection_date</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">ymd</span><span class="p">(</span><span class="n">`Original submission`</span><span class="p">),</span><span class="w">
+         </span><span class="n">Revised</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">`Original submission`</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="n">`Current submission`</span><span class="p">)</span><span class="w">
+</span></code></pre>
+</div>
+
+<!--break-->
+
+<h3 id="submissions-over-time">Submissions over time</h3>
+
+<div class="language-r highlighter-rouge"><pre class="highlight"><code><span class="n">weekly</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">dat</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w">
+  </span><span class="n">mutate</span><span class="p">(</span><span class="n">weeks_past</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">ceiling</span><span class="p">(</span><span class="n">Age</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="m">7</span><span class="p">),</span><span class="w">
+         </span><span class="n">`Submission week`</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">collection_date</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">weeks</span><span class="p">(</span><span class="n">weeks_past</span><span class="p">))</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w"> 
+  </span><span class="n">group_by</span><span class="p">(</span><span class="n">`Submission week`</span><span class="p">)</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w">
+  </span><span class="n">summarise</span><span class="p">(</span><span class="n">Submissions</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">n</span><span class="p">())</span><span class="w">
+
+</span><span class="n">ggplot</span><span class="p">(</span><span class="n">weekly</span><span class="p">,</span><span class="w"> </span><span class="n">aes</span><span class="p">(</span><span class="n">`Submission week`</span><span class="p">,</span><span class="w"> </span><span class="n">Submissions</span><span class="p">))</span><span class="w"> </span><span class="o">+</span><span class="w">
+  </span><span class="n">geom_point</span><span class="p">(</span><span class="n">stat</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"identity"</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w">
+  </span><span class="n">geom_smooth</span><span class="p">()</span><span class="w"> </span><span class="o">+</span><span class="w">
+  </span><span class="n">ggtitle</span><span class="p">(</span><span class="s2">"bioRxiv submissions per week"</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w">
+  </span><span class="n">theme_bw</span><span class="p">()</span><span class="w">
+</span></code></pre>
+</div>
+
+<p><img src="/figure/2017-10-04-biorxiv-2017-update_files/figure-html/unnamed-chunk-3-1.png" alt="" /><!-- --></p>
+
+<p>Last year the number of weekly submissions peaked at around 60, now it’s 5x higher hitting 300 per week earlier in 2017.</p>
+
+<p>How many of these submissions get revised?</p>
+
+<div class="language-r highlighter-rouge"><pre class="highlight"><code><span class="n">dat</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w"> 
+  </span><span class="n">group_by</span><span class="p">(</span><span class="n">Revised</span><span class="p">)</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w">
+  </span><span class="n">summarise</span><span class="p">(</span><span class="n">n</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">n</span><span class="p">(),</span><span class="w"> </span><span class="n">`%`</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">n</span><span class="o">/</span><span class="n">nrow</span><span class="p">(</span><span class="n">dat</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="m">100</span><span class="p">)</span><span class="w">
+</span></code></pre>
+</div>
+
+<div data-pagedtable="false">
+  <script data-pagedtable-source="" type="application/json">
+{"columns":[{"label":["Revised"],"name":[1],"type":["lgl"],"align":["right"]},{"label":["n"],"name":[2],"type":["int"],"align":["right"]},{"label":["%"],"name":[3],"type":["dbl"],"align":["right"]}],"data":[{"1":"FALSE","2":"10603","3":"72.40014"},{"1":"TRUE","2":"4042","3":"27.59986"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+
+<p>This is almost exactly the same percentage as I found last year.</p>
+
+<h3 id="2017-highlights">2017 highlights</h3>
+
+<p>What have been the most popular preprints so far this year?</p>
+
+<div class="language-r highlighter-rouge"><pre class="highlight"><code><span class="n">days</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">collection_date</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">ymd</span><span class="p">(</span><span class="s1">'2017-01-01'</span><span class="p">)</span><span class="w">
+
+</span><span class="n">dat</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w">
+  </span><span class="n">filter</span><span class="p">(</span><span class="n">Age</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">days</span><span class="p">)</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w"> 
+  </span><span class="n">arrange</span><span class="p">(</span><span class="n">desc</span><span class="p">(</span><span class="n">`PDF views`</span><span class="p">))</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w"> 
+  </span><span class="n">head</span><span class="p">(</span><span class="m">10</span><span class="p">)</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w"> 
+  </span><span class="n">select</span><span class="p">(</span><span class="n">Title</span><span class="p">)</span><span class="w">
+</span></code></pre>
+</div>
+
+<div data-pagedtable="false">
+  <script data-pagedtable-source="" type="application/json">
+{"columns":[{"label":["Title"],"name":[1],"type":["chr"],"align":["left"]}],"data":[{"1":"Opportunities And Obstacles For Deep Learning In Biology And Medicine"},{"1":"Index Switching Causes “Spreading-Of-Signal” Among Multiplexed Samples In Illumina HiSeq 4000 DNA Sequencing"},{"1":"Regulation of Life Span by the Gut Microbiota in The Short-Lived African Turquoise Killifish"},{"1":"Sex Differences In The Adult Human Brain: Evidence From 5,216 UK Biobank Participants"},{"1":"The Reproducibility Of Research And The Misinterpretation Of P Values"},{"1":"Major flaws in \"Identification of individuals by trait prediction using whole-genome sequencing data\""},{"1":"The Beaker Phenomenon And The Genomic Transformation Of Northwest Europe"},{"1":"The Genomic History Of Southeastern Europe"},{"1":"The Human Cell Atlas"},{"1":"Comprehensive single cell transcriptional profiling of a multicellular organism by combinatorial indexing"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+
+<p>Some really topical stuff (not surprisingly): p-value controversies, single cell genomics, the index-switching catastrophe, and the recent Venter debacle.</p>
+
+<h3 id="data">Data</h3>
+
+<p>The data is available on my <a href="https://github.com/timoast/biorxivData">github</a> to explore.</p>
+
+
+</div>
+
+
+<div id="disqus_thread"></div>
+<script>
+
+  /**
+  *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+  *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+  /*
+  var disqus_config = function () {
+  this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+  this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+  };
+  */
+  (function() { // DON'T EDIT BELOW THIS LINE
+  var d = document, s = d.createElement('script');
+  s.src = '//timoast-github-io.disqus.com/embed.js';
+  s.setAttribute('data-timestamp', +new Date());
+  (d.head || d.body).appendChild(s);
+  })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+
+
+      <!-- <div class="footer">
+        <p>
+          &copy; 2017. All rights reserved.
+        </p>
+      </div> -->
+    </div>
+
+  </body>
+</html>

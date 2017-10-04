@@ -65,6 +65,10 @@
 <lastmod>2017-09-14T00:00:00+08:00</lastmod>
 </url>
 <url>
+<loc>http://localhost:4000/2017/10/04/biorxiv-2017-update/</loc>
+<lastmod>2017-10-04T00:00:00+08:00</lastmod>
+</url>
+<url>
 <loc>http://localhost:4000/404.html</loc>
 </url>
 <url>
@@ -126,5 +130,8 @@
 </url>
 <url>
 <loc>http://localhost:4000/page16/</loc>
+</url>
+<url>
+<loc>http://localhost:4000/page17/</loc>
 </url>
 </urlset>

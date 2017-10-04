@@ -22,6 +22,10 @@
   <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/public/apple-touch-icon-precomposed.png">
   <link rel="shortcut icon" href="/public/favicon.ico">
 
+  <!-- libs -->
+  <link href="/libs/pagedtable-1.1/css/pagedtable.css" rel="stylesheet" />
+  <script src="/libs/pagedtable-1.1/js/pagedtable.js"></script>
+  
   <!-- RSS -->
   <link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">
 </head>
@@ -64,6 +68,26 @@
 
       <div class="posts">
   
+   <div class="post-preview">
+   <h2><a href="/2017/10/04/biorxiv-2017-update/">bioRxiv 2017 update</a></h2>
+   <span class="post-date">October 04, 2017</span>
+   
+     <p>I first looked at the <a href="https://www.biorxiv.org">biorxiv</a> submission data back in <a href="http://timoast.github.io/2016/03/01/biorxiv/">March 2016</a>. A lot has changed since then, and biorxiv has grown nearly 5-fold. Time for an update.</p>
+
+<div class="language-r highlighter-rouge"><pre class="highlight"><code><span class="n">collection_date</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">ymd</span><span class="p">(</span><span class="s2">"2017_10_04"</span><span class="p">)</span><span class="w">
+
+</span><span class="n">dat</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">fread</span><span class="p">(</span><span class="s2">"~/Documents/GitHub/biorxivData/data/biorxiv_data_2017_10_04.tsv"</span><span class="p">)</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w"> 
+  </span><span class="n">mutate</span><span class="p">(</span><span class="n">Age</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">collection_date</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">ymd</span><span class="p">(</span><span class="n">`Original submission`</span><span class="p">),</span><span class="w">
+         </span><span class="n">Revised</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">`Original submission`</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="n">`Current submission`</span><span class="p">)</span><span class="w">
+</span></code></pre>
+</div>
+
+
+     <a href="/2017/10/04/biorxiv-2017-update/">read more</a>
+   
+   </div>
+   <hr>
+   
    <div class="post-preview">
    <h2><a href="/2017/09/14/useful-bioinformatics/">Useful bioinformatics</a></h2>
    <span class="post-date">September 14, 2017</span>
@@ -247,32 +271,6 @@ paper below as I go.</p>
 
 
      <a href="/2016/02/23/Papers/">read more</a>
-   
-   </div>
-   <hr>
-   
-   <div class="post-preview">
-   <h2><a href="/2016/02/18/Lorne/">Lorne Genome 2016 presentation</a></h2>
-   <span class="post-date">February 18, 2016</span>
-   
-     <p>This week I presented some recent work at the Lorne Genome conference. It was my first time at Lorne and it’s a fantastic meeting with lots of interesting talks. It was great to see so many people getting interested in transposon biology too!</p>
-
-<p>Here are a few links to the work I was presenting:</p>
-
-<p>TEPID TE presence/absence variant discovery software:</p>
-
-<p><a href="https://github.com/ListerLab/TEPID">https://github.com/ListerLab/TEPID</a></p>
-
-<p>Poster:</p>
-
-<p><a href="https://dx.doi.org/10.6084/m9.figshare.2082757.v1">https://dx.doi.org/10.6084/m9.figshare.2082757.v1</a></p>
-
-<p>Manuscript:</p>
-
-<p><a href="http://biorxiv.org/content/early/2016/02/11/039511">http://dx.doi.org/10.1101/039511</a></p>
-
-
-     <a href="/2016/02/18/Lorne/">read more</a>
    
    </div>
    <hr>
