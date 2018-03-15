@@ -4,7 +4,7 @@
  <title>Tim Stuart</title>
  <link href="http://localhost:4000atom.xml" rel="self"/>
  <link href="http://localhost:4000"/>
- <updated>2017-10-04T21:16:50+08:00</updated>
+ <updated>2018-03-15T14:59:39-04:00</updated>
  <id>http://localhost:4000</id>
  <author>
    <name>Tim Stuart</name>
@@ -15,7 +15,7 @@
  <entry>
    <title>bioRxiv 2017 update</title>
    <link href="http://localhost:4000/2017/10/04/biorxiv-2017-update/"/>
-   <updated>2017-10-04T00:00:00+08:00</updated>
+   <updated>2017-10-04T00:00:00-04:00</updated>
    <id>http://localhost:4000/2017/10/04/biorxiv-2017-update</id>
    <content type="html">&lt;p&gt;I first looked at the &lt;a href=&quot;https://www.biorxiv.org&quot;&gt;biorxiv&lt;/a&gt; submission data back in &lt;a href=&quot;http://timoast.github.io/2016/03/01/biorxiv/&quot;&gt;March 2016&lt;/a&gt;. A lot has changed since then, and biorxiv has grown nearly 5-fold. Time for an update.&lt;/p&gt;
 
@@ -97,7 +97,7 @@
  <entry>
    <title>Useful bioinformatics</title>
    <link href="http://localhost:4000/2017/09/14/useful-bioinformatics/"/>
-   <updated>2017-09-14T00:00:00+08:00</updated>
+   <updated>2017-09-14T00:00:00-04:00</updated>
    <id>http://localhost:4000/2017/09/14/useful-bioinformatics</id>
    <content type="html">&lt;h2 id=&quot;trim-reads&quot;&gt;Trim reads&lt;/h2&gt;
 
@@ -279,7 +279,7 @@ maxHeightPixels 100:60:10
  <entry>
    <title>Using python decorators</title>
    <link href="http://localhost:4000/2017/04/09/using-python-decorators/"/>
-   <updated>2017-04-09T00:00:00+08:00</updated>
+   <updated>2017-04-09T00:00:00-04:00</updated>
    <id>http://localhost:4000/2017/04/09/using-python-decorators</id>
    <content type="html">&lt;p&gt;Yesterday I wrote my first python decorator. Decorators have always seemed a bit mysterious to me, but having finally written one I can see a bit better how they work. This is the decorator I wrote:&lt;/p&gt;
 
@@ -479,7 +479,7 @@ maxHeightPixels 100:60:10
  <entry>
    <title>Create a computational lab notebook with bookdown</title>
    <link href="http://localhost:4000/2017/04/03/comp-notebook/"/>
-   <updated>2017-04-03T00:00:00+08:00</updated>
+   <updated>2017-04-03T00:00:00-04:00</updated>
    <id>http://localhost:4000/2017/04/03/comp-notebook</id>
    <content type="html">&lt;p&gt;Every data analysis I do now is kept in an &lt;a href=&quot;http://rmarkdown.rstudio.com&quot;&gt;R Markdown&lt;/a&gt; document. These are great for mixing code with explanatory text, and you can run code in many languages not just R. Whenever I finished working on something, I would compile the R Markdown document into a self-contained html report and save is somewhere, usually with a descriptive filename like “coverage_genes” or “col_vs_cvi”.&lt;/p&gt;
 
@@ -554,7 +554,7 @@ maxHeightPixels 100:60:10
  <entry>
    <title>Installing Magic</title>
    <link href="http://localhost:4000/2017/03/03/installing-magic/"/>
-   <updated>2017-03-03T00:00:00+08:00</updated>
+   <updated>2017-03-03T00:00:00-05:00</updated>
    <id>http://localhost:4000/2017/03/03/installing-magic</id>
    <content type="html">&lt;h1 id=&quot;installing-magic&quot;&gt;Installing magic&lt;/h1&gt;
 
@@ -634,7 +634,7 @@ it in a jupyter notebook. You can also start the GUI by running the &lt;code cla
  <entry>
    <title>R demo</title>
    <link href="http://localhost:4000/2016/09/22/r_demo/"/>
-   <updated>2016-09-22T00:00:00+08:00</updated>
+   <updated>2016-09-22T00:00:00-04:00</updated>
    <id>http://localhost:4000/2016/09/22/r_demo</id>
    <content type="html">&lt;p&gt;&lt;strong&gt;Table of Contents&lt;/strong&gt;&lt;/p&gt;
 
@@ -1675,7 +1675,7 @@ it in a jupyter notebook. You can also start the GUI by running the &lt;code cla
  <entry>
    <title>smRNA analysis notes</title>
    <link href="http://localhost:4000/2016/07/12/smRNA-analysis/"/>
-   <updated>2016-07-12T00:00:00+08:00</updated>
+   <updated>2016-07-12T00:00:00-04:00</updated>
    <id>http://localhost:4000/2016/07/12/smRNA-analysis</id>
    <content type="html">&lt;p&gt;I recently analysed some smRNA data for a paper I’m working on. These are my analysis notes.&lt;/p&gt;
 
@@ -1871,7 +1871,7 @@ Bd1	20	35	SRR035616.3527272	-	15	218	FALSE
  <entry>
    <title>WGBS Analysis notes -- BS-seeker2</title>
    <link href="http://localhost:4000/2016/03/29/bsseeker2/"/>
-   <updated>2016-03-29T00:00:00+08:00</updated>
+   <updated>2016-03-29T00:00:00-04:00</updated>
    <id>http://localhost:4000/2016/03/29/bsseeker2</id>
    <content type="html">&lt;h2 id=&quot;whole-genome-bisulfite-sequencing-analysis-notes-for-bs-seeker2&quot;&gt;Whole genome bisulfite sequencing analysis notes for BS-seeker2.&lt;/h2&gt;
 
@@ -1963,7 +1963,7 @@ picard MarkDuplicates I=sorted.bam O=filtered.bam M=dup_metrics.txt REMOVE_DUPLI
  <entry>
    <title>bioRxiv</title>
    <link href="http://localhost:4000/2016/03/01/biorxiv/"/>
-   <updated>2016-03-01T00:00:00+08:00</updated>
+   <updated>2016-03-01T00:00:00-05:00</updated>
    <id>http://localhost:4000/2016/03/01/biorxiv</id>
    <content type="html">&lt;h1 id=&quot;a-look-at-biorxiv-preprints&quot;&gt;A look at bioRxiv preprints&lt;/h1&gt;
 &lt;p&gt;Tim Stuart&lt;br /&gt;
@@ -2173,7 +2173,7 @@ Let’s first filter out preprints less than 10 days old, as these probably have
  <entry>
    <title>A paper a day</title>
    <link href="http://localhost:4000/2016/02/23/Papers/"/>
-   <updated>2016-02-23T00:00:00+08:00</updated>
+   <updated>2016-02-23T00:00:00-05:00</updated>
    <id>http://localhost:4000/2016/02/23/Papers</id>
    <content type="html">&lt;p&gt;In an effort to read more papers this year, I’m going to read a paper (or something paper-like) each day for the remainder of the year, and post each 
 paper below as I go.&lt;/p&gt;
@@ -3464,7 +3464,7 @@ paper below as I go.&lt;/p&gt;
  <entry>
    <title>Lorne Genome 2016 presentation</title>
    <link href="http://localhost:4000/2016/02/18/Lorne/"/>
-   <updated>2016-02-18T00:00:00+08:00</updated>
+   <updated>2016-02-18T00:00:00-05:00</updated>
    <id>http://localhost:4000/2016/02/18/Lorne</id>
    <content type="html">&lt;p&gt;This week I presented some recent work at the Lorne Genome conference. It was my first time at Lorne and it’s a fantastic meeting with lots of interesting talks. It was great to see so many people getting interested in transposon biology too!&lt;/p&gt;
 
@@ -3489,7 +3489,7 @@ paper below as I go.&lt;/p&gt;
  <entry>
    <title>Extract reads from bam file by read name</title>
    <link href="http://localhost:4000/2015/10/12/ExtractReads/"/>
-   <updated>2015-10-12T00:00:00+08:00</updated>
+   <updated>2015-10-12T00:00:00-04:00</updated>
    <id>http://localhost:4000/2015/10/12/ExtractReads</id>
    <content type="html">&lt;p&gt;While there are very fast and easy ways to extract reads from a bam file according to mapping location, extracting reads by read name is more difficult.&lt;/p&gt;
 
@@ -3536,7 +3536,7 @@ sys 0m15.055s
  <entry>
    <title>Estimation of insert size from sam / bam files</title>
    <link href="http://localhost:4000/2014/11/04/SizeEstimation/"/>
-   <updated>2014-11-04T00:00:00+08:00</updated>
+   <updated>2014-11-04T00:00:00-05:00</updated>
    <id>http://localhost:4000/2014/11/04/SizeEstimation</id>
    <content type="html">&lt;p&gt;I’ve been looking for a simple way to estimate paired-end insert sizes from mapped data. There are a few more complicated tools available (I think picard will do it), as well as simple scripts different people have written that don’t exclude outliers. However outliers due to discordant read alignments will hugely change the mean, so need to be removed.&lt;/p&gt;
 
@@ -3564,7 +3564,7 @@ sys 0m15.055s
  <entry>
    <title>MethyC-Seq Analysis Notes</title>
    <link href="http://localhost:4000/2014/10/29/MethyC-Analysis/"/>
-   <updated>2014-10-29T00:00:00+08:00</updated>
+   <updated>2014-10-29T00:00:00-04:00</updated>
    <id>http://localhost:4000/2014/10/29/MethyC-Analysis</id>
    <content type="html">&lt;h2 id=&quot;preliminary-steps&quot;&gt;Preliminary steps&lt;/h2&gt;
 
@@ -3782,7 +3782,7 @@ Run the script on the &lt;code class=&quot;highlighter-rouge&quot;&gt;_rms_resul
  <entry>
    <title>Useful python code</title>
    <link href="http://localhost:4000/2014/08/25/UsefulPython/"/>
-   <updated>2014-08-25T00:00:00+08:00</updated>
+   <updated>2014-08-25T00:00:00-04:00</updated>
    <id>http://localhost:4000/2014/08/25/UsefulPython</id>
    <content type="html">&lt;h3 id=&quot;take-command-line-arguments&quot;&gt;Take command-line arguments&lt;/h3&gt;
 
@@ -3890,7 +3890,7 @@ Run the script on the &lt;code class=&quot;highlighter-rouge&quot;&gt;_rms_resul
  <entry>
    <title>Useful Linux/Unix commands</title>
    <link href="http://localhost:4000/2014/08/24/UsefulCommands/"/>
-   <updated>2014-08-24T00:00:00+08:00</updated>
+   <updated>2014-08-24T00:00:00-04:00</updated>
    <id>http://localhost:4000/2014/08/24/UsefulCommands</id>
    <content type="html">&lt;h2 id=&quot;go-back-to-last-directory&quot;&gt;go back to last directory&lt;/h2&gt;
 
@@ -4186,7 +4186,7 @@ gunzip file.gz
  <entry>
    <title>Highly Multiplexed Subcellular RNA Sequencing in Situ</title>
    <link href="http://localhost:4000/2014/03/04/highly-multiplexed-subcellular-rna-sequencing-in-situ/"/>
-   <updated>2014-03-04T16:18:11+08:00</updated>
+   <updated>2014-03-04T03:18:11-05:00</updated>
    <id>http://localhost:4000/2014/03/04/highly-multiplexed-subcellular-rna-sequencing-in-situ</id>
    <content type="html">&lt;p&gt;An improved method capable of sequencing RNA inside fixed cells (FISSEQ) was published in the early issue of &lt;i&gt;Science&lt;/i&gt; last week, titled &lt;i&gt;Highly Multiplexed Subcellular RNA Sequencing in Situ &lt;/i&gt;(1). It's an interesting method, and I'm going to go over it briefly here.&lt;/p&gt;
 &lt;p&gt;Firstly, the method is not new; it was developed in 2003, and this is stated in the first paragraph of the paper. The original 2003 method was conceptually the same, involving sequencing of DNA bases through the incorporation of fluorescent nucleotides. However, this was only capable of sequencing libraries fixed in gel on a glass slide, and produced a measly 8 bp of sequence (2). Needless to say, huge improvements in sequencing technologies have been made over the past ten years.&lt;/p&gt;

@@ -204,7 +204,7 @@ There's plenty more I could look at, but for now this satisfies my basic curiosi
 
       <!-- <div class="footer">
         <p>
-          &copy; 2017. All rights reserved.
+          &copy; 2018. All rights reserved.
         </p>
       </div> -->
     </div>
