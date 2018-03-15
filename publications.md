@@ -15,4 +15,4 @@ Kawakatsu T\*, **Stuart T\***, Valdes M\*, Breakfield N, Schmitz RJ, Nery JR, Ur
 
 ## Book chapters
 
-**Stuart, T.**, Buckberry, S., & Lister, R. 2018. Approaches for the Analysis and Interpretation of Whole Genome Bisulfite Sequencing Data. In ***Epigenome Editing: Methods and Protocols*** (2018). Edited by Albert Jeltsch and Marianne G. Rots, 299–310. New York, NY: Springer New York. [doi:10.1007/978-1-4939-7774-1_17](https://doi.org/10.1007/978-1-4939-7774-1_17)
+**Stuart, T.**, Buckberry, S., & Lister, R. Approaches for the Analysis and Interpretation of Whole Genome Bisulfite Sequencing Data. In ***Epigenome Editing: Methods and Protocols*** (2018). Edited by Albert Jeltsch and Marianne G. Rots, 299–310. New York, NY: Springer New York. [doi:10.1007/978-1-4939-7774-1_17](https://doi.org/10.1007/978-1-4939-7774-1_17)
