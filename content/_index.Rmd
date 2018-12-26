@@ -1,7 +1,0 @@
----
-title: Home
----
-
-I’m a postdoc in the [Satija lab](http://satijalab.org/) at the New York Genome Center. I develop computational and experimental methods for single cell biology, with a focus on integrative multi-modal assays and analysis methods.
-
-I completed my PhD with [Ryan Lister](http://listerlab.org/) at the University of Western Australia in 2018, where I studied DNA methylation and transposable elements in the model plant *Arabidopsis*.
