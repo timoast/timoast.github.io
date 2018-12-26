@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Bam on Tim Stuart</title>
+    <link>/tags/bam/</link>
+    <description>Recent content in Bam on Tim Stuart</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Mon, 12 Oct 2015 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="/tags/bam/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Extract reads from bam file by read name</title>
+      <link>/blog/2015-10-12-extractreads/</link>
+      <pubDate>Mon, 12 Oct 2015 00:00:00 +0000</pubDate>
+      
+      <guid>/blog/2015-10-12-extractreads/</guid>
+      <description>While there are very fast and easy ways to extract reads from a bam file according to mapping location, extracting reads by read name is more difficult.
+Simple methods, like using grep, are incredibly slow if you want to look for more than a few reads.
+Luckily, pysam allows you to index a bam file by read name (using pysam.IndexedReads(AlignmentFile)) while keeping the sort order. However, the index is stored in memory so this can use a lot of RAM (my tests with a 5.</description>
+    </item>
+    
+  </channel>
+</rss>

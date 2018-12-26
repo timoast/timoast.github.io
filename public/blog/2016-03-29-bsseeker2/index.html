@@ -1,0 +1,353 @@
+<!doctype html>
+<html lang="en-us">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title> WGBS Analysis notes -- BS-seeker2 - Tim Stuart </title>
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+    <meta name="referrer" content="no-referrer">
+    <meta name="description" content="Tim Stuart" />
+    <meta property="og:site_name" content="Tim Stuart" />
+    <meta property="og:locale" content="nn_NO" />
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="/blog/2016-03-29-bsseeker2/" />
+    <meta property="og:title" content="WGBS Analysis notes -- BS-seeker2" />
+    <meta property="og:image" content="/" />
+    <meta property="og:description" content="Tim Stuart" />
+
+    
+        <meta property="twitter:site" content="@timoast">
+    
+
+    <meta property="twitter:title" content="WGBS Analysis notes -- BS-seeker2" />
+    <meta property="twitter:image" content="/" />
+    <meta property="twitter:card" content="summary" />
+    <meta property="twitter:description" content="Tim Stuart" />
+
+    <link rel="canonical" href="../../blog/2016-03-29-bsseeker2/">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha256-eSi1q2PG6J7g7ib17yAaWMcrr5GrtohYChqibrV7PBE=" crossorigin="anonymous" />
+
+    <link rel="stylesheet" href="../../css/custom.css" />
+
+    
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/styles/tomorrow.min.css" integrity="sha256-0QU8ry64q+N6YBIEF/6XF6vUeF15gbNO4tLS6ikk0FI=" crossorigin="anonymous" />
+    
+
+    
+
+    <link rel="shortcut icon"
+        href="../../img/favicon.ico">
+
+    
+</head>
+
+<body>
+    
+    <div class="my-4 my-md-5 header">
+    <div class="container">
+        <div class="row">
+            <div class="col-auto offset-md-1 d-none d-md-block">
+                
+            </div>
+            <div class="col-auto align-self-center mr-auto">
+                <a href="../../">
+                    <h1 class="name">Tim Stuart</h1>
+                </a>
+
+                <ul class="nav nav-primary">
+                    
+                        <li class="nav-item">
+                            <a class="text-uppercase nav-link text-about" href="../../">
+                                
+                                About
+                            </a>
+                        </li>
+                    
+                        <li class="nav-item">
+                            <a class="text-uppercase nav-link text-research" href="../../research/">
+                                
+                                Research
+                            </a>
+                        </li>
+                    
+                        <li class="nav-item">
+                            <a class="text-uppercase nav-link text-publications" href="../../publications/">
+                                
+                                Publications
+                            </a>
+                        </li>
+                    
+                        <li class="nav-item">
+                            <a class="text-uppercase nav-link text-blog" href="../../blog/">
+                                
+                                Blog
+                            </a>
+                        </li>
+                    
+
+                    
+                </ul>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+    <div class="content">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-sm-12 col-md-10">
+                    <h1 class="mx-0 mx-md-4 blog-post-title">WGBS Analysis notes -- BS-seeker2</h1>
+
+                    <div class="mb-md-4 meta">
+                        
+                            
+                                <span class="author" title="Tim Stuart">
+                                    Tim Stuart
+                                </span>
+                            
+                        
+
+                        <span class="date middot" title='Tue Mar 29 2016 00:00:00 UTC'>
+                            2016-03-29
+                        </span>
+
+                        <span class="reading-time middot">
+                            2 minute read
+                        </span>
+
+                        <div class="d-none d-md-inline tags">
+                            <ul class="list-unstyled d-inline">
+                                
+                                    <li class="d-inline middot">
+                                        <a href="../../tags/bsseeker2">bsseeker2</a>
+                                    </li>
+                                
+                                    <li class="d-inline middot">
+                                        <a href="../../tags/python">python</a>
+                                    </li>
+                                
+                                    <li class="d-inline middot">
+                                        <a href="../../tags/bioinformatics">bioinformatics</a>
+                                    </li>
+                                
+                            </ul>
+                        </div>
+
+                        <div class="d-none d-md-inline tags">
+                            <ul class="list-unstyled d-inline">
+                                
+                                
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="markdown">
+                        
+    
+
+
+<div id="whole-genome-bisulfite-sequencing-analysis-notes-for-bs-seeker2." class="section level2">
+<h2>Whole genome bisulfite sequencing analysis notes for BS-seeker2.</h2>
+</div>
+<div id="step-1-trim-adapters-and-low-quality-bases" class="section level2">
+<h2>Step 1: Trim adapters and low quality bases</h2>
+<p>Illumina TruSeq adapter sequence: <code>GATCGGAAGAGCACACGTCTGAACTCCAGTCAC</code></p>
+<pre><code>cutadapt -a AGATCGGAAGAGCACACGTCTGAACTCCAGTCAC -m 50 reads.fastq \
+| seqtk trimfq -l 50 - \
+| pigz &gt; filtered_reads.fq.gz</code></pre>
+</div>
+<div id="step-2-quality-control" class="section level2">
+<h2>Step 2: Quality control</h2>
+<p>This step can also be performed on the unfiltered fastq file to compare output before and after read trimming.</p>
+<pre><code>fastqc filtered_reads.fq.gz</code></pre>
+</div>
+<div id="step-3-alignment" class="section level2">
+<h2>Step 3: Alignment</h2>
+<div id="build-genome-index" class="section level3">
+<h3>3.1: Build genome index</h3>
+<p>I added the lambda genome as an extra chromosome, L, to calculate the bisulfite nonconversion rate.</p>
+<pre><code>python bs_seeker2-build.py -f tair10_lambda.fa --aligner=bowtie2</code></pre>
+</div>
+<div id="align" class="section level3">
+<h3>3.2: Align</h3>
+<pre><code>python bs_seeker2-align.py -g tair10_lambda.fa --aligner=bowtie2 \
+-u unmapped.fa -o mapped.bam --bt2-p 4 -i filtered_reads.fq.gz</code></pre>
+</div>
+</div>
+<div id="step-4-post-processing-of-alignment-files" class="section level2">
+<h2>Step 4: Post-processing of alignment files</h2>
+<p>Sort and remove PCR duplicates</p>
+<pre><code>samtools sort -@ 10 mapped.bam sorted
+picard MarkDuplicates I=sorted.bam O=filtered.bam M=dup_metrics.txt REMOVE_DUPLICATES=true AS=true</code></pre>
+</div>
+<div id="step-5-call-methylation" class="section level2">
+<h2>Step 5: Call methylation</h2>
+<pre><code>python bs_seeker2-call_methylation.py -i filtered.bam --sorted -o sample_name \
+--db /home/tstuart/working_data/GitHub/BSseeker2/bs_utils/reference_genomes/tair10_lambda.fa_bowtie2/</code></pre>
+</div>
+<div id="step-6-build-database" class="section level2">
+<h2>Step 6: Build database</h2>
+<p>I like to have the methylation data in a SQL database indexed by position so that it can be easily and quickly be queried.</p>
+<p>First create an empty MySQL database that will contain the data tables. In MySQL type:</p>
+<pre><code>create database DATABASE_NAME</code></pre>
+<p>Now run the build_tables.py script that will create and index a table from the BS-Seeker2 CGMap file</p>
+<pre><code>python build_tables.py --host HOST_ADDRESS -p PASSWORD -u USER -d DATABASE_NAME -f CG_MAP_FILE -n SAMPLE_NAME</code></pre>
+<script src="https://gist.github.com/timoast/ff6cf2d7a87d262f7151ecb51071a1d7.js"></script>
+<div id="program-versions" class="section level3">
+<h3>Program versions:</h3>
+<ul>
+<li>python 2.7.10<br />
+</li>
+<li>cutadapt 1.9.1<br />
+</li>
+<li>seqtk 1.0-r82-dirty<br />
+</li>
+<li>fastqc 0.11.5<br />
+</li>
+<li>BS-seeker2 v2.0.10<br />
+</li>
+<li>samtools 1.2<br />
+</li>
+<li>hstlib 1.2.1<br />
+</li>
+<li>picard 2.1.1</li>
+</ul>
+</div>
+</div>
+
+
+
+                    </div>
+
+                    
+                        <div class="navigation">
+                            <div class="row">
+                                <div class="col-12 col-md-6">
+                                    
+                                        <div class="mx-0 mx-md-4 mt-4 text-left">
+                                            <a href="../../blog/2016-03-01-biorxiv/">« bioRxiv</a>
+                                        </div>
+                                    
+                                </div>
+                                <div class="col-12 col-md-6">
+                                    
+                                        <div class="mx-0 mx-md-4 mt-4 text-right">
+                                            <a href="../../blog/2016-07-12-smrna-analysis/">smRNA analysis notes »</a>
+                                        </div>
+                                    
+                                </div>
+                            </div>
+                        </div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <section id="comments">
+
+      <div class="py-3 content">
+            <div class="container">
+                  <div class="row justify-content-center">
+                        <div class="col-sm-12 col-md-10">
+                              <div class="comments">
+                                    <div id="disqus_thread"></div>
+                              </div>
+                        </div>
+                  </div>
+            </div>
+      </div>
+
+      <script type="text/javascript">
+            (function () {
+                  
+                  
+                  if (window.location.hostname == "localhost")
+                        return;
+
+                  var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                  var disqus_shortname = '';
+                  dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+                  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+            })();
+      </script>
+      <noscript>
+            Please enable JavaScript to view the
+            <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+      </noscript>
+</section>
+    <div class="my-4 footer">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-sm-12 col-md-5">
+                
+            </div>
+            <div class="col-sm-12 col-md-5">
+                <div class="mx-0 mx-md-4 text-right">
+                    
+                        <a href="https://github.com/timoast" target="_blank">
+                            <img class="icon" src="../../img/github.svg" alt="github" />
+                        </a>
+                    
+
+                    
+
+                    
+                        <a href="https://twitter.com/timoast" target="_blank">
+                            <img class="icon" src="../../img/twitter.svg" alt="twitter" />
+                        </a>
+                    
+
+                    
+
+                    
+
+                    
+
+                    
+
+                    
+                        <a href="../../index.xml" class="mr-0">
+                            <img class="icon" src="../../img/rss.svg" alt="rss" />
+                        </a>
+                    
+
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+    
+
+    
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/highlight.min.js" integrity="sha256-iq71rXEe/fvjCUP9AfLY0cKudQuKAQywiUpXkRFSkLc=" crossorigin="anonymous"></script>
+        
+        <script>
+            window.addEventListener('load', function() {
+                hljs.initHighlighting();
+            }, true);
+        </script>
+    
+
+    
+
+    
+    
+        
+<script src="../../js/math-code.js"></script>
+<script async src="//cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
+
+    
+</body>
+
+</html>

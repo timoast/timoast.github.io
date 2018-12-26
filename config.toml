@@ -1,0 +1,52 @@
+baseurl = "/"
+publishDir = "public"
+languageCode = "en-us"
+title = "Tim Stuart"
+author = "Tim Stuart"
+theme = "hugo-renga"
+googleAnalytics = ""
+disqusShortname = ""
+ignoreFiles = ["\\.Rmd$", "\\.Rmarkdown$", "_files$", "_cache$"]
+paginate = 3
+relativeurls = true
+canonifyurls = true
+
+[permalinks]
+    post = "/post/:year/:month/:day/:slug/"
+    note = "/note/:year/:month/:day/:slug/"
+
+[[menu.primary]]
+    identifier = "about"
+    name = "About"
+    url = "/"
+    weight = 1
+
+[[menu.primary]]
+    identifier = "research"
+    name = "Research"
+    url = "/research/"
+    weight = 2
+
+[[menu.primary]]
+    identifier = "publications"
+    name = "Publications"
+    url = "/publications/"
+    weight = 3
+
+[[menu.primary]]
+    identifier = "blog" 
+    name = "Blog"
+    url = "/blog/"
+    weight = 4
+
+[params]
+    pagetitle = "Tim Stuart"
+    description = "Tim Stuart"
+    MathJaxCDN = "//cdn.bootcss.com"
+    MathJaxVersion = "2.7.1"
+    highlightjs = true
+    progressively = false
+    uselatex = true
+    posts_navigation = true
+    github = "timoast"
+    twitter = "timoast"

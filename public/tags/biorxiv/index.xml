@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Biorxiv on Tim Stuart</title>
+    <link>/tags/biorxiv/</link>
+    <description>Recent content in Biorxiv on Tim Stuart</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Tue, 01 Mar 2016 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="/tags/biorxiv/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>bioRxiv</title>
+      <link>/blog/2016-03-01-biorxiv/</link>
+      <pubDate>Tue, 01 Mar 2016 00:00:00 +0000</pubDate>
+      
+      <guid>/blog/2016-03-01-biorxiv/</guid>
+      <description>After posting a my first preprint to bioRxiv a few weeks ago, I have been periodically checking the number of views and PDF downloads. I became interested to see how many downloads or views the preprints on bioRxiv typically get, but this type of information isn’t actually available. What are the all-time top bioRxiv preprints? How many people are reading bioRxiv preprints on average? No-one knows! Altmetric must track this data, as it will tell you how a particular preprint ranks in relation to others, but that data hasn’t been made publicly available (as far as I can tell).</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,375 @@
+<!doctype html>
+<html lang="en-us">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title> MethyC-Seq Analysis Notes - Tim Stuart </title>
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+    <meta name="referrer" content="no-referrer">
+    <meta name="description" content="Tim Stuart" />
+    <meta property="og:site_name" content="Tim Stuart" />
+    <meta property="og:locale" content="nn_NO" />
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="/post/2014/10/29/methyc-seq-analysis-notes/" />
+    <meta property="og:title" content="MethyC-Seq Analysis Notes" />
+    <meta property="og:image" content="/" />
+    <meta property="og:description" content="Tim Stuart" />
+
+    
+        <meta property="twitter:site" content="@timoast">
+    
+
+    <meta property="twitter:title" content="MethyC-Seq Analysis Notes" />
+    <meta property="twitter:image" content="/" />
+    <meta property="twitter:card" content="summary" />
+    <meta property="twitter:description" content="Tim Stuart" />
+
+    <link rel="canonical" href="../../../../../post/2014/10/29/methyc-seq-analysis-notes/">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha256-eSi1q2PG6J7g7ib17yAaWMcrr5GrtohYChqibrV7PBE=" crossorigin="anonymous" />
+
+    <link rel="stylesheet" href="../../../../../css/custom.css" />
+
+    
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/styles/tomorrow.min.css" integrity="sha256-0QU8ry64q+N6YBIEF/6XF6vUeF15gbNO4tLS6ikk0FI=" crossorigin="anonymous" />
+    
+
+    
+
+    <link rel="shortcut icon"
+        href="../../../../../img/favicon.ico">
+
+    
+</head>
+
+<body>
+    
+    <div class="my-4 my-md-5 header">
+    <div class="container">
+        <div class="row">
+            <div class="col-auto offset-md-1 d-none d-md-block">
+                
+            </div>
+            <div class="col-auto align-self-center mr-auto">
+                <a href="../../../../../">
+                    <h1 class="name">Tim Stuart</h1>
+                </a>
+
+                <ul class="nav nav-primary">
+                    
+                        <li class="nav-item">
+                            <a class="text-uppercase nav-link text-about" href="../../../../../about/">
+                                
+                                About
+                            </a>
+                        </li>
+                    
+                        <li class="nav-item">
+                            <a class="text-uppercase nav-link text-research" href="../../../../../research/">
+                                
+                                Research
+                            </a>
+                        </li>
+                    
+                        <li class="nav-item">
+                            <a class="text-uppercase nav-link text-publications" href="../../../../../publications/">
+                                
+                                Publications
+                            </a>
+                        </li>
+                    
+                        <li class="nav-item">
+                            <a class="text-uppercase nav-link text-blog" href="../../../../../blog/">
+                                
+                                Blog
+                            </a>
+                        </li>
+                    
+
+                    
+                </ul>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+    <div class="content">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-sm-12 col-md-10">
+                    <h1 class="mx-0 mx-md-4">MethyC-Seq Analysis Notes</h1>
+                    <div class="markdown">
+                        
+    
+
+<h2 id="preliminary-steps">Preliminary steps</h2>
+
+<h3 id="bcl-conversion">Bcl-conversion</h3>
+
+<ol>
+<li>Enter a screen</li>
+</ol>
+
+<pre><code class="language-bash">screen -S bcl-conversion
+</code></pre>
+
+<ol>
+<li>Navigate to directory with run (eg. 130909_SNL119_0105_AC2GYKACXX)</li>
+<li>Check sample sheet configured correctly. If only one adapter in lane, remove adapter sequence from sample sheet.</li>
+<li>Run the following (modified with correct run name, sample sheet etc). Can change final value to change number of reads in files:</li>
+</ol>
+
+<!--break-->
+
+<pre><code class="language-bash">/usr/local/packages/CASAVA_v1.8.2/bcl2fastq/build/bin/configureBclToFastq.pl --input-dir /dd_rundata/hiseq/Runs/130909_SNL119_0105_AC2GYKACXX/Data/Intensities/BaseCalls/ --sample-sheet /dd_rundata/hiseq/Runs/130909_SNL119_0105_AC2GYKACXX/SampleSheet.csv --fastq-cluster-count 50000000
+</code></pre>
+
+<ol>
+<li>Navigate to newly created Unaligned directory (under top run directory) and enter:</li>
+</ol>
+
+<pre><code class="language-bash">nohup make -j 12
+</code></pre>
+
+<h3 id="moving-and-renaming-files">Moving and renaming files</h3>
+
+<ol>
+<li>Copy run files from run directory to working directory:</li>
+</ol>
+
+<pre><code class="language-bash">cp Project_E_grandis ~/working_data
+</code></pre>
+
+<ol>
+<li>Rename fastq files to <code>s_1_sequence.txt</code>, <code>s_2_sequence.txt</code> etc.</li>
+<li>Store sequence files a separate directory, eg. sequences. If you have data from the same library but multiple runs, store in separate directories.</li>
+</ol>
+
+<h2 id="mapping">Mapping</h2>
+
+<p>Can do multiple samples at a time</p>
+
+<p>Use <code>map.php</code> (0 mismatches, or use <code>map_1mm.php</code> or <code>map_2mm.php</code> for 1 or 2 mismatches) to map all the reads to the genome (follow instructions):</p>
+
+<pre><code class="language-bash">php /home/lister/working_data/php/methpipe_se/map.php | tee -a log.txt
+</code></pre>
+
+<p>For PE data</p>
+
+<pre><code class="language-bash">php /home/lister/working_data/php/methpipe_pe/map.php | tee -a log.txt
+</code></pre>
+
+<h2 id="post-map">Post-map</h2>
+
+<p>Do one sample at a time. This step will generate all the tables in mySQL (used for AnnoJ and DMR script).</p>
+
+<p>This script can take mapped read runs, merge sets, convert to .slam format, sort reads,  collapse, trim, split, stack, hammer, import reads, stacks and mC to MYSQL.</p>
+
+<p>Start with a mapped dir containing the subdir that contain the <code>\*_final</code> mapped files.</p>
+
+<p>Navigate to directory above mapped run data and start a screen:</p>
+
+<pre><code class="language-bash">screen -S postmap
+</code></pre>
+
+<p>Start the postmap script as follows:</p>
+
+<pre><code class="language-bash">php /home/lister/working_data/php/methpipe_se/post_map.php | tee -a log.txt
+</code></pre>
+
+<p>You will see the following prompts:</p>
+
+<pre><code>  -Do you want to perform stage 1 (merge mapped runs, convert to .slam, sort, collapse, trim reads) (y/n): y
+  -Do you want to perform stage 2 (import mapped reads into MYSQL) (y/n): y
+  -Do you want to perform stage 3 (stack and hammer) (y/n): y
+  -Do you want to perform stage 4 (import stacks into MYSQL) (y/n): y
+  -Do you want to perform stage 5 (import mC's into MYSQL) (y/n): y
+  -Do you want to perform stage 6 (correct mammalian mCH for genotype) (y/n): n
+  -Do you want to perform stage 7 (make and import allC tables) (y/n): y
+  -Do you want to perform stage 8 (identify partially methylated domains) (y/n): n
+</code></pre>
+
+<p>Enter the path to mapped folder when prompted.</p>
+
+<p>Shows a summary of all options, then:</p>
+
+<pre><code>- Based on these settings, do you want to proceed (y/n): y
+- Number of libraries that make up the sample: 1
+- Enter run folder names in library 1 (space delim): sequences  &lt;-- name of sample folder
+</code></pre>
+
+<h1 id="methylpy-dmr-finder">Methylpy DMR finder</h1>
+
+<p>Add the following to your <code>.bashrc</code>:</p>
+
+<pre><code class="language-bash">alias methylenv='source /usr/local/virtualenv/methylenv/bin/activate; export PYTHONPATH=/usr/local/packages/methylpy:/usr/local/packages/methylpy/methylpy'
+</code></pre>
+
+<p>All Methylpy steps must be done in using the methylenv. To exit the methylenv, type <code>deactivate</code>.</p>
+
+<p>If you don&rsquo;t have the package already it can be cloned from bitbucket:</p>
+
+<pre><code class="language-bash">git clone git@bitbucket.org:schultzmattd/methylpy.git
+</code></pre>
+
+<p>To update, from the directory created by the clone:</p>
+
+<pre><code class="language-bash">git pull
+</code></pre>
+
+<p>To test methylpy:</p>
+
+<pre><code class="language-bash">python methylpy_test.py
+</code></pre>
+
+<p>There are 3 steps to the DMR finding algorithm:</p>
+
+<ol>
+<li><p>Perform a root mean square test (you can think of it like a chisquare test) on each site across all samples. P-values are simulated (i.e., randomize the data a bunch of times and see if you get a significant result), which adjusts for multiple testing.</p></li>
+
+<li><p>Calculate threshold p-value for a desired FDR.</p></li>
+
+<li><p>Aggregate any significant sites within X bp and showing changes in the same direction (e.g, sample A is methylated and sample B is unmethylated) into a window.</p></li>
+</ol>
+
+<h2 id="generation-of-allc-files">Generation of allC files</h2>
+
+<p>Edit the allC generating script: <code>create_allc_file_template_hs.py</code></p>
+
+<p>Sample base names:</p>
+
+<pre><code class="language-python">[&quot;sample_1_name&quot;, &quot;sample_2_name&quot;]
+</code></pre>
+
+<p>Database names:</p>
+
+<pre><code class="language-python">[&quot;database_name&quot;,&quot;database_name&quot;]
+</code></pre>
+
+<p>MySQL server:</p>
+
+<pre><code class="language-python">[&quot;localhost&quot;,&quot;localhost&quot;]
+</code></pre>
+
+<h3 id="run-allc-generating-script">Run allC generating script</h3>
+
+<p>Move to folder called “allC”:</p>
+
+<pre><code class="language-bash">$ methylenv
+(methylenv) $ python create_allc_file_egrandis.py
+</code></pre>
+
+<h2 id="dmrfind">DMRfind</h2>
+
+<p>Run all samples at the same time within an experiment.</p>
+
+<p>Edit the python script named <code>DMR_find.py</code> with your sample names and parameters.</p>
+
+<p>Run script, in a folder named “DMR”:</p>
+
+<pre><code class="language-bash">python dmr_find.py &gt; dmr_find_ouput.txt
+</code></pre>
+
+<h2 id="histogram-correction">Histogram correction</h2>
+
+<p>Modify <code>histogram_correction.py</code> script with name of <code>_rms_results.tsv</code> file from allC step.</p>
+
+<p>Run script:</p>
+
+<pre><code class="language-bash">python histogram_correction.py &gt;&gt; histogram_correction_output.txt
+</code></pre>
+
+<p>Use the p-value determined by histogram correction for the collapse step.</p>
+
+<h2 id="collapse">Collapse</h2>
+
+<p>Edit the collapse.py script with your sample names and parameters. This may need to be changed and run several times to find the right parameters.
+Run the script on the <code>_rms_results.tsv</code> file.</p>
+
+<pre><code class="language-bash">python collapse.py
+</code></pre>
+
+<p> </p>
+
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="my-4 footer">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-sm-12 col-md-5">
+                
+            </div>
+            <div class="col-sm-12 col-md-5">
+                <div class="mx-0 mx-md-4 text-right">
+                    
+                        <a href="https://github.com/timoast" target="_blank">
+                            <img class="icon" src="../../../../../img/github.svg" alt="github" />
+                        </a>
+                    
+
+                    
+
+                    
+                        <a href="https://twitter.com/timoast" target="_blank">
+                            <img class="icon" src="../../../../../img/twitter.svg" alt="twitter" />
+                        </a>
+                    
+
+                    
+
+                    
+
+                    
+
+                    
+
+                    
+                        <a href="../../../../../index.xml" class="mr-0">
+                            <img class="icon" src="../../../../../img/rss.svg" alt="rss" />
+                        </a>
+                    
+
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+    
+
+    
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/highlight.min.js" integrity="sha256-iq71rXEe/fvjCUP9AfLY0cKudQuKAQywiUpXkRFSkLc=" crossorigin="anonymous"></script>
+        
+        <script>
+            window.addEventListener('load', function() {
+                hljs.initHighlighting();
+            }, true);
+        </script>
+    
+
+    
+
+    
+    
+        
+<script src="../../../../../js/math-code.js"></script>
+<script async src="//cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
+
+    
+</body>
+
+</html>

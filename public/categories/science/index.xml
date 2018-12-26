@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Science on Tim Stuart</title>
+    <link>/categories/science/</link>
+    <description>Recent content in Science on Tim Stuart</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Thu, 14 Sep 2017 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="/categories/science/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Bioinformatics snippets</title>
+      <link>/blog/useful-bio/</link>
+      <pubDate>Thu, 14 Sep 2017 00:00:00 +0000</pubDate>
+      
+      <guid>/blog/useful-bio/</guid>
+      <description>Trim reads cutadapt -a AGATCGGAAGAGCACACGTCTGAACTCCAGTCAC -o output.fq.gz input.fq.gz  Map RNA-seq # build index STAR --runThreadN 10 \ --runMode genomeGenerate \ --genomeDir genome \ --genomeFastaFiles genome.fa \ --sjdbGTFfile genes.gtf # map STAR --runThreadN 20 \ --genomeDir genome \ --alignIntronMax 5000 \ --alignIntronMin 10 \ --readFilesCommand zcat \ --readFilesIn input.fq.gz  Pseudomap RNA-seq with kallisto # build index kallisto index -i index.idx Arabidopsis_thaliana.TAIR10.cds.all.fa #quantify for filename in *.fq.gz; do samplename=(${filename//.fq.gz/ }) kallisto quant -i index.</description>
+    </item>
+    
+  </channel>
+</rss>

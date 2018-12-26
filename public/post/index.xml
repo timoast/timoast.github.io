@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Posts on Tim Stuart</title>
+    <link>/post/</link>
+    <description>Recent content in Posts on Tim Stuart</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Wed, 04 Oct 2017 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="/post/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>bioRxiv 2017 update</title>
+      <link>/post/2017/10/04/biorxiv-2017-update/</link>
+      <pubDate>Wed, 04 Oct 2017 00:00:00 +0000</pubDate>
+      
+      <guid>/post/2017/10/04/biorxiv-2017-update/</guid>
+      <description>collection_date &amp;lt;- ymd(&amp;quot;2017_10_04&amp;quot;) dat &amp;lt;- fread(&amp;quot;~/Documents/GitHub/biorxivData/data/biorxiv_data_2017_10_04.tsv&amp;quot;) %&amp;gt;% mutate(Age = collection_date - ymd(`Original submission`), Revised = `Original submission` != `Current submission`) Submissions over time weekly &amp;lt;- dat %&amp;gt;% mutate(weeks_past = ceiling(Age / 7), `Submission week` = collection_date - weeks(weeks_past)) %&amp;gt;% group_by(`Submission week`) %&amp;gt;% summarise(Submissions = n()) ggplot(weekly, aes(`Submission week`, Submissions)) + geom_point(stat = &amp;quot;identity&amp;quot;) + geom_smooth() + ggtitle(&amp;quot;bioRxiv submissions per week&amp;quot;) + theme_bw() Last year the number of weekly submissions peaked at around 60, now it’s 5x higher hitting 300 per week earlier in 2017.</description>
+    </item>
+    
+    <item>
+      <title>useful bio</title>
+      <link>/post/2017/09/14/useful-bio/</link>
+      <pubDate>Thu, 14 Sep 2017 00:00:00 +0000</pubDate>
+      
+      <guid>/post/2017/09/14/useful-bio/</guid>
+      <description>Trim reads cutadapt -a AGATCGGAAGAGCACACGTCTGAACTCCAGTCAC -o output.fq.gz input.fq.gz  Map RNA-seq # build index STAR --runThreadN 10 \ --runMode genomeGenerate \ --genomeDir genome \ --genomeFastaFiles genome.fa \ --sjdbGTFfile genes.gtf # map STAR --runThreadN 20 \ --genomeDir genome \ --alignIntronMax 5000 \ --alignIntronMin 10 \ --readFilesCommand zcat \ --readFilesIn input.fq.gz  Pseudomap RNA-seq with kallisto # build index kallisto index -i index.idx Arabidopsis_thaliana.TAIR10.cds.all.fa #quantify for filename in *.fq.gz; do samplename=(${filename//.fq.gz/ }) kallisto quant -i index.</description>
+    </item>
+    
+    <item>
+      <title>Useful R</title>
+      <link>/post/2017/04/28/useful-r/</link>
+      <pubDate>Fri, 28 Apr 2017 00:00:00 +0000</pubDate>
+      
+      <guid>/post/2017/04/28/useful-r/</guid>
+      <description>dplyr programming library(dplyr) ## ## Attaching package: &amp;#39;dplyr&amp;#39; ## The following objects are masked from &amp;#39;package:stats&amp;#39;: ## ## filter, lag ## The following objects are masked from &amp;#39;package:base&amp;#39;: ## ## intersect, setdiff, setequal, union See http://dplyr.tidyverse.org/articles/programming.html
+dplyr uses non-standard evaluation which is convienent for interactive use, but makes programming diffucult.
+To write functions using dplyr you need to quote the quote the function input using quo(), or quote the input within the function using enquo().</description>
+    </item>
+    
+    <item>
+      <title>Using python decorators</title>
+      <link>/post/2017/04/09/using-python-decorators/</link>
+      <pubDate>Sun, 09 Apr 2017 00:00:00 +0000</pubDate>
+      
+      <guid>/post/2017/04/09/using-python-decorators/</guid>
+      <description>Yesterday I wrote my first python decorator. Decorators have always seemed a bit mysterious to me, but having finally written one I can see a bit better how they work. This is the decorator I wrote:
+def log_info(func): def wrapper(args): print(&amp;quot;Function {} called with the following arguments:\n&amp;quot;.format(func.__name__)) for arg in vars(args): print(str(arg) + &amp;#39;\t&amp;#39; + str(getattr(args, arg))) t1 = time.time() func(args) t2 = time.time() elapsed = [round(x, 2) for x in divmod(t2-t1, 60)] print(&amp;quot;\nFunction completed in {} m {} s\n&amp;quot;.</description>
+    </item>
+    
+    <item>
+      <title>Create a computational lab notebook with bookdown</title>
+      <link>/post/2017/04/03/create-a-computational-lab-notebook-with-bookdown/</link>
+      <pubDate>Mon, 03 Apr 2017 00:00:00 +0000</pubDate>
+      
+      <guid>/post/2017/04/03/create-a-computational-lab-notebook-with-bookdown/</guid>
+      <description>Every data analysis I do now is kept in an R Markdown document. These are great for mixing code with explanatory text, and you can run code in many languages not just R. Whenever I finished working on something, I would compile the R Markdown document into a self-contained html report and save is somewhere, usually with a descriptive filename like &amp;ldquo;coverage_genes&amp;rdquo; or &amp;ldquo;col_vs_cvi&amp;rdquo;.
+ This is where the problems begin.</description>
+    </item>
+    
+    <item>
+      <title>Installing Magic</title>
+      <link>/post/2017/03/03/installing-magic/</link>
+      <pubDate>Fri, 03 Mar 2017 00:00:00 +0000</pubDate>
+      
+      <guid>/post/2017/03/03/installing-magic/</guid>
+      <description>Installing magic Recently a method for imputing single cell gene expression matricies was posted on biorxiv by David van Dijk et al., called magic (Markov Affinity-based Graph Imputation of Cells). I&amp;rsquo;ve been analysing single cell RNA-seq data recently, and this method looks like it could be useful when trying to find co-transcriptional networks, as single cell data suffers from dropout which makes finding co-transcriptional networks hard.
+I had lots of problems getting magic installed and running, so will document them here for future reference.</description>
+    </item>
+    
+    <item>
+      <title>R demo</title>
+      <link>/post/2016/09/22/r-demo/</link>
+      <pubDate>Thu, 22 Sep 2016 00:00:00 +0000</pubDate>
+      
+      <guid>/post/2016/09/22/r-demo/</guid>
+      <description>Getting started Clone the repo if you haven’t already:
+git clone https://github.com/timoast/dac.git Install RStudio.
+Install the following packages:
+install.packages(c(&amp;quot;readr&amp;quot;, &amp;quot;tidyr&amp;quot;, &amp;quot;data.table&amp;quot;, &amp;quot;dplyr&amp;quot;, &amp;quot;ggplot2&amp;quot;)) library(readr) library(data.table) library(ggplot2) library(tidyr) All the following code will assume you are in the directory that holds this file (r_demo.rmd) in the github repo (ie dac/code/).
+ Importing Data The readr way Some docs
+library(readr) read_tsv(&amp;quot;../data/r_demo/coverages.tsv&amp;quot;, col_names = c(&amp;quot;Accession&amp;quot;, &amp;quot;Coverage&amp;quot;)) ## Parsed with column specification: ## cols( ## Accession = col_character(), ## Coverage = col_double() ## ) ## # A tibble: 216 x 2 ## Accession Coverage ## &amp;lt;chr&amp;gt; &amp;lt;dbl&amp;gt; ## 1 Aa-0 41 ## 2 Abd-0 67 ## 3 Ag-0 47 ## 4 Ak-1 38 ## 5 Alst-1 42 ## 6 Altai-5 42 ## 7 Amel-1 60 ## 8 An-1 39 ## 9 Ang-0 48 ## 10 Anholt-1 53 ## # .</description>
+    </item>
+    
+    <item>
+      <title>smRNA analysis notes</title>
+      <link>/post/2016/07/12/smrna-analysis-notes/</link>
+      <pubDate>Tue, 12 Jul 2016 00:00:00 +0000</pubDate>
+      
+      <guid>/post/2016/07/12/smrna-analysis-notes/</guid>
+      <description>I recently analysed some smRNA data for a paper I&amp;rsquo;m working on. These are my analysis notes.
+I used previously published data for Brachypodium, from this paper:
+Garvin DF, Schmutz J, Rokhsar D, Bevan MW, Barry K, Lucas S, et al. Genome sequencing and analysis of the model grass Brachypodium distachyon. Nature. 2010;463: 763–768. doi:10.1038/nature08747
+First step is to download the data:
+$ wget ftp://ftp-trace.ncbi.nlm.nih.gov//sra/sra-instant/reads/ByStudy/sra/SRP/SRP001/SRP001895/SRR035616/SRR035616.sra $ fastq-dump SRR035616.sra $ pigz SRR035616.</description>
+    </item>
+    
+    <item>
+      <title>WGBS Analysis notes -- BS-seeker2</title>
+      <link>/post/2016/03/29/wgbs-analysis-notes-bs-seeker2/</link>
+      <pubDate>Tue, 29 Mar 2016 00:00:00 +0000</pubDate>
+      
+      <guid>/post/2016/03/29/wgbs-analysis-notes-bs-seeker2/</guid>
+      <description>Whole genome bisulfite sequencing analysis notes for BS-seeker2.  Step 1: Trim adapters and low quality bases Illumina TruSeq adapter sequence: GATCGGAAGAGCACACGTCTGAACTCCAGTCAC
+cutadapt -a AGATCGGAAGAGCACACGTCTGAACTCCAGTCAC -m 50 reads.fastq \ | seqtk trimfq -l 50 - \ | pigz &amp;gt; filtered_reads.fq.gz  Step 2: Quality control This step can also be performed on the unfiltered fastq file to compare output before and after read trimming.
+fastqc filtered_reads.fq.gz  Step 3: Alignment 3.</description>
+    </item>
+    
+    <item>
+      <title>bioRxiv</title>
+      <link>/post/2016/03/01/biorxiv/</link>
+      <pubDate>Tue, 01 Mar 2016 00:00:00 +0000</pubDate>
+      
+      <guid>/post/2016/03/01/biorxiv/</guid>
+      <description>After posting a my first preprint to bioRxiv a few weeks ago, I have been periodically checking the number of views and PDF downloads. I became interested to see how many downloads or views the preprints on bioRxiv typically get, but this type of information isn’t actually available. What are the all-time top bioRxiv preprints? How many people are reading bioRxiv preprints on average? No-one knows! Altmetric must track this data, as it will tell you how a particular preprint ranks in relation to others, but that data hasn’t been made publicly available (as far as I can tell).</description>
+    </item>
+    
+    <item>
+      <title>A paper a day</title>
+      <link>/post/2016/02/23/a-paper-a-day/</link>
+      <pubDate>Tue, 23 Feb 2016 00:00:00 +0000</pubDate>
+      
+      <guid>/post/2016/02/23/a-paper-a-day/</guid>
+      <description>In an effort to read more papers this year, I&amp;rsquo;m going to read a paper (or something paper-like) each day for the remainder of the year, and post each paper below as I go.
+Dec 31 Galanter JM, Gignoux CR, Oh SS, Torgerson D, Pino-Yanes M, Thakur N, et al. Differential methylation between ethnic sub-groups reflects the effect of genetic ancestry and environmental exposures. eLife. doi:10.7554/eLife.20532
+ Dec 30 Lun ATL, McCarthy DJ, Marioni JC.</description>
+    </item>
+    
+    <item>
+      <title>Lorne Genome 2016 presentation</title>
+      <link>/post/2016/02/18/lorne-genome-2016-presentation/</link>
+      <pubDate>Thu, 18 Feb 2016 00:00:00 +0000</pubDate>
+      
+      <guid>/post/2016/02/18/lorne-genome-2016-presentation/</guid>
+      <description>This week I presented some recent work at the Lorne Genome conference. It was my first time at Lorne and it&amp;rsquo;s a fantastic meeting with lots of interesting talks. It was great to see so many people getting interested in transposon biology too!
+Here are a few links to the work I was presenting:
+TEPID TE presence/absence variant discovery software:
+https://github.com/ListerLab/TEPID
+Poster:
+https://dx.doi.org/10.6084/m9.figshare.2082757.v1
+Manuscript:
+http://dx.doi.org/10.1101&amp;frasl;039511</description>
+    </item>
+    
+    <item>
+      <title>Extract reads from bam file by read name</title>
+      <link>/post/2015/10/12/extract-reads-from-bam-file-by-read-name/</link>
+      <pubDate>Mon, 12 Oct 2015 00:00:00 +0000</pubDate>
+      
+      <guid>/post/2015/10/12/extract-reads-from-bam-file-by-read-name/</guid>
+      <description>While there are very fast and easy ways to extract reads from a bam file according to mapping location, extracting reads by read name is more difficult.
+Simple methods, like using grep, are incredibly slow if you want to look for more than a few reads.
+Luckily, pysam allows you to index a bam file by read name (using pysam.IndexedReads(AlignmentFile)) while keeping the sort order. However, the index is stored in memory so this can use a lot of RAM (my tests with a 5.</description>
+    </item>
+    
+    <item>
+      <title>Estimation of insert size from sam / bam files</title>
+      <link>/post/2014/11/04/estimation-of-insert-size-from-sam-bam-files/</link>
+      <pubDate>Tue, 04 Nov 2014 00:00:00 +0000</pubDate>
+      
+      <guid>/post/2014/11/04/estimation-of-insert-size-from-sam-bam-files/</guid>
+      <description>I&amp;rsquo;ve been looking for a simple way to estimate paired-end insert sizes from mapped data. There are a few more complicated tools available (I think picard will do it), as well as simple scripts different people have written that don&amp;rsquo;t exclude outliers. However outliers due to discordant read alignments will hugely change the mean, so need to be removed.
+As I couldn&amp;rsquo;t find anything that was a nice middle ground, I ended up writing my own simple python script that will take input from stdin and exclude outliers more that two standard deviations from the median, and print the mean and standard deviation to stdout.</description>
+    </item>
+    
+    <item>
+      <title>MethyC-Seq Analysis Notes</title>
+      <link>/post/2014/10/29/methyc-seq-analysis-notes/</link>
+      <pubDate>Wed, 29 Oct 2014 00:00:00 +0000</pubDate>
+      
+      <guid>/post/2014/10/29/methyc-seq-analysis-notes/</guid>
+      <description>Preliminary steps Bcl-conversion  Enter a screen  screen -S bcl-conversion   Navigate to directory with run (eg. 130909_SNL119_0105_AC2GYKACXX) Check sample sheet configured correctly. If only one adapter in lane, remove adapter sequence from sample sheet. Run the following (modified with correct run name, sample sheet etc). Can change final value to change number of reads in files:   /usr/local/packages/CASAVA_v1.8.2/bcl2fastq/build/bin/configureBclToFastq.pl --input-dir /dd_rundata/hiseq/Runs/130909_SNL119_0105_AC2GYKACXX/Data/Intensities/BaseCalls/ --sample-sheet /dd_rundata/hiseq/Runs/130909_SNL119_0105_AC2GYKACXX/SampleSheet.csv --fastq-cluster-count 50000000   Navigate to newly created Unaligned directory (under top run directory) and enter:  nohup make -j 12  Moving and renaming files  Copy run files from run directory to working directory:  cp Project_E_grandis ~/working_data   Rename fastq files to s_1_sequence.</description>
+    </item>
+    
+    <item>
+      <title>Useful python code</title>
+      <link>/post/2014/08/25/useful-python-code/</link>
+      <pubDate>Mon, 25 Aug 2014 00:00:00 +0000</pubDate>
+      
+      <guid>/post/2014/08/25/useful-python-code/</guid>
+      <description>Take command-line arguments from argparse import ArgumentParser version = pkg_resources.require(&amp;quot;program&amp;quot;)[0].version parser = ArgumentParser(description=&#39;program description&#39;) group = parser.add_mutually_exclusive_group() parser.add_argument(&#39;--version&#39;, action=&#39;version&#39;, version=&#39;%(prog)s &#39;+str(version)) parser.add_argument(&#39;--option&#39;, help=&#39;option description&#39;, required=False, default=False, action=&#39;store_true&#39;) parser.add_argument(&#39;-n&#39;, &#39;--name&#39;, help=&#39;sample name&#39;, required=True)  Lists List comprehension If ever declaring and empty list then using .append, can be done with list comprehension.
+list3 = [] for x in list2: if x[0] in list1: list3.append(x) list3 = [x for x in list2 if x[0] in list1]  Can also use this to read from a file in one line, eg to read column 4 in a file into a list in python:</description>
+    </item>
+    
+    <item>
+      <title>Useful Linux/Unix commands</title>
+      <link>/post/2014/08/24/useful-linux-unix-commands/</link>
+      <pubDate>Sun, 24 Aug 2014 00:00:00 +0000</pubDate>
+      
+      <guid>/post/2014/08/24/useful-linux-unix-commands/</guid>
+      <description>go back to last directory cd -  Do something in a range Move files
+for i in $(seq 10); do mv chr$i ../genomes/; done  for directory in ./*; do if [ -d &amp;quot;$directory&amp;quot; ]; then cd $directory for myfile in $(ls -d *.sra);do mv $myfile /home/tstuart/working_data/1000genomes/$myfile done cd .. fi done   Split fasta file into a new file for each entry awk &#39;/&amp;gt;/{x=&amp;quot;file_&amp;quot;++i;}{print &amp;gt; x&amp;quot;.txt&amp;quot;;}&#39; input  Split coordinate file into different files for each chromosome awk &#39;{print &amp;gt; $1&amp;quot;.</description>
+    </item>
+    
+  </channel>
+</rss>

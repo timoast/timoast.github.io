@@ -1,0 +1,309 @@
+<!doctype html>
+<html lang="en-us">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title> Extract reads from bam file by read name - Tim Stuart </title>
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+    <meta name="referrer" content="no-referrer">
+    <meta name="description" content="Tim Stuart" />
+    <meta property="og:site_name" content="Tim Stuart" />
+    <meta property="og:locale" content="nn_NO" />
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="/blog/2015-10-12-extractreads/" />
+    <meta property="og:title" content="Extract reads from bam file by read name" />
+    <meta property="og:image" content="/" />
+    <meta property="og:description" content="Tim Stuart" />
+
+    
+        <meta property="twitter:site" content="@timoast">
+    
+
+    <meta property="twitter:title" content="Extract reads from bam file by read name" />
+    <meta property="twitter:image" content="/" />
+    <meta property="twitter:card" content="summary" />
+    <meta property="twitter:description" content="Tim Stuart" />
+
+    <link rel="canonical" href="../../blog/2015-10-12-extractreads/">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha256-eSi1q2PG6J7g7ib17yAaWMcrr5GrtohYChqibrV7PBE=" crossorigin="anonymous" />
+
+    <link rel="stylesheet" href="../../css/custom.css" />
+
+    
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/styles/tomorrow.min.css" integrity="sha256-0QU8ry64q+N6YBIEF/6XF6vUeF15gbNO4tLS6ikk0FI=" crossorigin="anonymous" />
+    
+
+    
+
+    <link rel="shortcut icon"
+        href="../../img/favicon.ico">
+
+    
+</head>
+
+<body>
+    
+    <div class="my-4 my-md-5 header">
+    <div class="container">
+        <div class="row">
+            <div class="col-auto offset-md-1 d-none d-md-block">
+                
+            </div>
+            <div class="col-auto align-self-center mr-auto">
+                <a href="../../">
+                    <h1 class="name">Tim Stuart</h1>
+                </a>
+
+                <ul class="nav nav-primary">
+                    
+                        <li class="nav-item">
+                            <a class="text-uppercase nav-link text-about" href="../../">
+                                
+                                About
+                            </a>
+                        </li>
+                    
+                        <li class="nav-item">
+                            <a class="text-uppercase nav-link text-research" href="../../research/">
+                                
+                                Research
+                            </a>
+                        </li>
+                    
+                        <li class="nav-item">
+                            <a class="text-uppercase nav-link text-publications" href="../../publications/">
+                                
+                                Publications
+                            </a>
+                        </li>
+                    
+                        <li class="nav-item">
+                            <a class="text-uppercase nav-link text-blog" href="../../blog/">
+                                
+                                Blog
+                            </a>
+                        </li>
+                    
+
+                    
+                </ul>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+    <div class="content">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-sm-12 col-md-10">
+                    <h1 class="mx-0 mx-md-4 blog-post-title">Extract reads from bam file by read name</h1>
+
+                    <div class="mb-md-4 meta">
+                        
+                            
+                        
+
+                        <span class="date middot" title='Mon Oct 12 2015 00:00:00 UTC'>
+                            2015-10-12
+                        </span>
+
+                        <span class="reading-time middot">
+                            1 minute read
+                        </span>
+
+                        <div class="d-none d-md-inline tags">
+                            <ul class="list-unstyled d-inline">
+                                
+                                    <li class="d-inline middot">
+                                        <a href="../../tags/bam">bam</a>
+                                    </li>
+                                
+                                    <li class="d-inline middot">
+                                        <a href="../../tags/bioinformatics">bioinformatics</a>
+                                    </li>
+                                
+                                    <li class="d-inline middot">
+                                        <a href="../../tags/ngs">ngs</a>
+                                    </li>
+                                
+                                    <li class="d-inline middot">
+                                        <a href="../../tags/python">python</a>
+                                    </li>
+                                
+                            </ul>
+                        </div>
+
+                        <div class="d-none d-md-inline tags">
+                            <ul class="list-unstyled d-inline">
+                                
+                                
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="markdown">
+                        
+    
+
+
+<p>While there are very fast and easy ways to extract reads from a bam file according to mapping location, extracting reads by read name is more difficult.</p>
+<p>Simple methods, like using <code>grep</code>, are incredibly slow if you want to look for more than a few reads.</p>
+<p>Luckily, <code>pysam</code> allows you to index a bam file by read name (using <code>pysam.IndexedReads(AlignmentFile)</code>) while keeping the sort order. However, the index is stored in memory so this can use a lot of RAM (my tests with a 5.7 GB bam file used about 9 GB RAM).</p>
+<p>I wrote a small python script (below) that uses pysam to extract reads by read name from a bam file.</p>
+<p>Extracting 10 reads from a 5.7 GB bam file, just using <code>grep</code> is slightly faster than the python script:</p>
+<pre class="bash"><code>timstuart Altai-5$  time samtools view Altai-5_filtered.bam | grep -f reads.txt &gt; extracted
+
+real    2m10.088s
+user    2m23.107s
+sys 0m35.470s
+
+timstuart Altai-5$  time python extract_reads.py -b Altai-5_filtered.bam -n reads.txt -o python_extracted.bam
+
+real    3m36.444s
+user    3m14.744s
+sys 0m18.867s
+</code></pre>
+<p>But extracting 200 reads using python is fast, while using <code>grep</code> ran for over an hour before I stopped the process.</p>
+<pre class="bash"><code>timstuart Altai-5$  time python extract_reads.py -b Altai-5_filtered.bam -n reads.txt -o python_extracted.bam
+
+real    3m30.015s
+user    3m12.738s
+sys 0m15.055s</code></pre>
+<script src="https://gist.github.com/timoast/2264a79f93b3f1cb3aac.js"></script>
+
+
+
+                    </div>
+
+                    
+                        <div class="navigation">
+                            <div class="row">
+                                <div class="col-12 col-md-6">
+                                    
+                                        <div class="mx-0 mx-md-4 mt-4 text-left">
+                                            <a href="../../blog/2014-11-04-sizeestimation/">« Estimation of insert size from sam / bam files</a>
+                                        </div>
+                                    
+                                </div>
+                                <div class="col-12 col-md-6">
+                                    
+                                        <div class="mx-0 mx-md-4 mt-4 text-right">
+                                            <a href="../../blog/2016-02-18-lorne/">Lorne Genome 2016 presentation »</a>
+                                        </div>
+                                    
+                                </div>
+                            </div>
+                        </div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <section id="comments">
+
+      <div class="py-3 content">
+            <div class="container">
+                  <div class="row justify-content-center">
+                        <div class="col-sm-12 col-md-10">
+                              <div class="comments">
+                                    <div id="disqus_thread"></div>
+                              </div>
+                        </div>
+                  </div>
+            </div>
+      </div>
+
+      <script type="text/javascript">
+            (function () {
+                  
+                  
+                  if (window.location.hostname == "localhost")
+                        return;
+
+                  var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                  var disqus_shortname = '';
+                  dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+                  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+            })();
+      </script>
+      <noscript>
+            Please enable JavaScript to view the
+            <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+      </noscript>
+</section>
+    <div class="my-4 footer">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-sm-12 col-md-5">
+                
+            </div>
+            <div class="col-sm-12 col-md-5">
+                <div class="mx-0 mx-md-4 text-right">
+                    
+                        <a href="https://github.com/timoast" target="_blank">
+                            <img class="icon" src="../../img/github.svg" alt="github" />
+                        </a>
+                    
+
+                    
+
+                    
+                        <a href="https://twitter.com/timoast" target="_blank">
+                            <img class="icon" src="../../img/twitter.svg" alt="twitter" />
+                        </a>
+                    
+
+                    
+
+                    
+
+                    
+
+                    
+
+                    
+                        <a href="../../index.xml" class="mr-0">
+                            <img class="icon" src="../../img/rss.svg" alt="rss" />
+                        </a>
+                    
+
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+    
+
+    
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/highlight.min.js" integrity="sha256-iq71rXEe/fvjCUP9AfLY0cKudQuKAQywiUpXkRFSkLc=" crossorigin="anonymous"></script>
+        
+        <script>
+            window.addEventListener('load', function() {
+                hljs.initHighlighting();
+            }, true);
+        </script>
+    
+
+    
+
+    
+    
+        
+<script src="../../js/math-code.js"></script>
+<script async src="//cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
+
+    
+</body>
+
+</html>

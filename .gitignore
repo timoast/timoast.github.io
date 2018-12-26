@@ -69,3 +69,4 @@ target/
 Plots/FinalFigures/
 
 *.ai
+.Rproj.user

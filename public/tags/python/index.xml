@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Python on Tim Stuart</title>
+    <link>/tags/python/</link>
+    <description>Recent content in Python on Tim Stuart</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 03 Mar 2017 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="/tags/python/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Installing Magic</title>
+      <link>/blog/2017-03-03-installing-magic/</link>
+      <pubDate>Fri, 03 Mar 2017 00:00:00 +0000</pubDate>
+      
+      <guid>/blog/2017-03-03-installing-magic/</guid>
+      <description>Installing magic Recently a method for imputing single cell gene expression matricies was posted on biorxiv by David van Dijk et al., called magic (Markov Affinity-based Graph Imputation of Cells). I&amp;rsquo;ve been analysing single cell RNA-seq data recently, and this method looks like it could be useful when trying to find co-transcriptional networks, as single cell data suffers from dropout which makes finding co-transcriptional networks hard.
+I had lots of problems getting magic installed and running, so will document them here for future reference.</description>
+    </item>
+    
+    <item>
+      <title>WGBS Analysis notes -- BS-seeker2</title>
+      <link>/blog/2016-03-29-bsseeker2/</link>
+      <pubDate>Tue, 29 Mar 2016 00:00:00 +0000</pubDate>
+      
+      <guid>/blog/2016-03-29-bsseeker2/</guid>
+      <description>Whole genome bisulfite sequencing analysis notes for BS-seeker2.  Step 1: Trim adapters and low quality bases Illumina TruSeq adapter sequence: GATCGGAAGAGCACACGTCTGAACTCCAGTCAC
+cutadapt -a AGATCGGAAGAGCACACGTCTGAACTCCAGTCAC -m 50 reads.fastq \ | seqtk trimfq -l 50 - \ | pigz &amp;gt; filtered_reads.fq.gz  Step 2: Quality control This step can also be performed on the unfiltered fastq file to compare output before and after read trimming.
+fastqc filtered_reads.fq.gz  Step 3: Alignment 3.</description>
+    </item>
+    
+    <item>
+      <title>bioRxiv</title>
+      <link>/blog/2016-03-01-biorxiv/</link>
+      <pubDate>Tue, 01 Mar 2016 00:00:00 +0000</pubDate>
+      
+      <guid>/blog/2016-03-01-biorxiv/</guid>
+      <description>After posting a my first preprint to bioRxiv a few weeks ago, I have been periodically checking the number of views and PDF downloads. I became interested to see how many downloads or views the preprints on bioRxiv typically get, but this type of information isn’t actually available. What are the all-time top bioRxiv preprints? How many people are reading bioRxiv preprints on average? No-one knows! Altmetric must track this data, as it will tell you how a particular preprint ranks in relation to others, but that data hasn’t been made publicly available (as far as I can tell).</description>
+    </item>
+    
+    <item>
+      <title>Extract reads from bam file by read name</title>
+      <link>/blog/2015-10-12-extractreads/</link>
+      <pubDate>Mon, 12 Oct 2015 00:00:00 +0000</pubDate>
+      
+      <guid>/blog/2015-10-12-extractreads/</guid>
+      <description>While there are very fast and easy ways to extract reads from a bam file according to mapping location, extracting reads by read name is more difficult.
+Simple methods, like using grep, are incredibly slow if you want to look for more than a few reads.
+Luckily, pysam allows you to index a bam file by read name (using pysam.IndexedReads(AlignmentFile)) while keeping the sort order. However, the index is stored in memory so this can use a lot of RAM (my tests with a 5.</description>
+    </item>
+    
+  </channel>
+</rss>

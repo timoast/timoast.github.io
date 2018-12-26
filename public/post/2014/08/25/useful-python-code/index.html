@@ -1,0 +1,274 @@
+<!doctype html>
+<html lang="en-us">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title> Useful python code - Tim Stuart </title>
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+    <meta name="referrer" content="no-referrer">
+    <meta name="description" content="Tim Stuart" />
+    <meta property="og:site_name" content="Tim Stuart" />
+    <meta property="og:locale" content="nn_NO" />
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="/post/2014/08/25/useful-python-code/" />
+    <meta property="og:title" content="Useful python code" />
+    <meta property="og:image" content="/" />
+    <meta property="og:description" content="Tim Stuart" />
+
+    
+        <meta property="twitter:site" content="@timoast">
+    
+
+    <meta property="twitter:title" content="Useful python code" />
+    <meta property="twitter:image" content="/" />
+    <meta property="twitter:card" content="summary" />
+    <meta property="twitter:description" content="Tim Stuart" />
+
+    <link rel="canonical" href="../../../../../post/2014/08/25/useful-python-code/">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha256-eSi1q2PG6J7g7ib17yAaWMcrr5GrtohYChqibrV7PBE=" crossorigin="anonymous" />
+
+    <link rel="stylesheet" href="../../../../../css/custom.css" />
+
+    
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/styles/tomorrow.min.css" integrity="sha256-0QU8ry64q+N6YBIEF/6XF6vUeF15gbNO4tLS6ikk0FI=" crossorigin="anonymous" />
+    
+
+    
+
+    <link rel="shortcut icon"
+        href="../../../../../img/favicon.ico">
+
+    
+</head>
+
+<body>
+    
+    <div class="my-4 my-md-5 header">
+    <div class="container">
+        <div class="row">
+            <div class="col-auto offset-md-1 d-none d-md-block">
+                
+            </div>
+            <div class="col-auto align-self-center mr-auto">
+                <a href="../../../../../">
+                    <h1 class="name">Tim Stuart</h1>
+                </a>
+
+                <ul class="nav nav-primary">
+                    
+                        <li class="nav-item">
+                            <a class="text-uppercase nav-link text-about" href="../../../../../about/">
+                                
+                                About
+                            </a>
+                        </li>
+                    
+                        <li class="nav-item">
+                            <a class="text-uppercase nav-link text-research" href="../../../../../research/">
+                                
+                                Research
+                            </a>
+                        </li>
+                    
+                        <li class="nav-item">
+                            <a class="text-uppercase nav-link text-publications" href="../../../../../publications/">
+                                
+                                Publications
+                            </a>
+                        </li>
+                    
+                        <li class="nav-item">
+                            <a class="text-uppercase nav-link text-blog" href="../../../../../blog/">
+                                
+                                Blog
+                            </a>
+                        </li>
+                    
+
+                    
+                </ul>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+    <div class="content">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-sm-12 col-md-10">
+                    <h1 class="mx-0 mx-md-4">Useful python code</h1>
+                    <div class="markdown">
+                        
+    
+
+<h3 id="take-command-line-arguments">Take command-line arguments</h3>
+
+<pre><code class="language-python">from argparse import ArgumentParser
+
+version = pkg_resources.require(&quot;program&quot;)[0].version
+parser = ArgumentParser(description='program description')
+group = parser.add_mutually_exclusive_group()
+parser.add_argument('--version', action='version', version='%(prog)s '+str(version))
+parser.add_argument('--option', help='option description', required=False, default=False, action='store_true')
+parser.add_argument('-n', '--name', help='sample name', required=True)
+</code></pre>
+
+<h2 id="lists">Lists</h2>
+
+<h3 id="list-comprehension">List comprehension</h3>
+
+<p>If ever declaring and empty list then using <code>.append</code>, can be done with list comprehension.</p>
+
+<pre><code class="language-python">list3 = []
+for x in list2:
+    if x[0] in list1:
+        list3.append(x)
+
+list3 = [x for x in list2 if x[0] in list1]
+</code></pre>
+
+<p>Can also use this to read from a file in one line, eg to read column 4 in a file into a list in python:</p>
+
+<pre><code class="language-python">all_TEs = [line.rsplit()[4] for line in open(&quot;TAIR9_TE.bed&quot;, &quot;r&quot;)]
+</code></pre>
+
+<p>Or read all lines into a list:</p>
+
+<pre><code class="language-python">all_lines = [line.strip(&quot;\n&quot;) for line in open(&quot;filename&quot;, &quot;r&quot;)]
+</code></pre>
+
+<h3 id="join-items-in-list">Join items in list</h3>
+
+<pre><code class="language-python">outfile.write('{l}\n'.format(l='\t'.join(list)))
+</code></pre>
+
+<p>If list items are not strings</p>
+
+<pre><code class="language-python">outfile.write('{l}\n'.format(l=map(str, list)))
+</code></pre>
+
+<p>Or using list comprehension</p>
+
+<pre><code class="language-python">stringVersion = [str(x) for x in inputList]
+</code></pre>
+
+<p>Intersect two lists</p>
+
+<pre><code class="language-python">l1 = [&quot;a&quot;, &quot;b&quot;, &quot;c&quot;]
+l2 = [&quot;c&quot;, &quot;d&quot;, &quot;e&quot;]
+
+list(set(l1).intersection(l2))
+## ['c']
+</code></pre>
+
+<h2 id="strings">Strings</h2>
+
+<h3 id="split-strings-by-multiple-delimiters">Split strings by multiple delimiters</h3>
+
+<pre><code class="language-python">accession_name = f.replace('calls_', '.').split('.')
+</code></pre>
+
+<h2 id="file-reading-writing">File reading / writing</h2>
+
+<h3 id="read-lines-in-tsv-csv-file">Read lines in tsv/csv file</h3>
+
+<pre><code class="language-python">with open('merged_dmrs.bed', 'r') as f:
+    for line in f:
+        line = line.rsplit() # each item in line is now part of a list
+</code></pre>
+
+<h2 id="find-if-coordinates-overlap">Find if coordinates overlap</h2>
+
+<pre><code class="language-python">def overlap(start1, stop1, start2, stop2):
+    &quot;&quot;&quot;returns True if sets of coordinates overlap. Assumes coordinates are on same chromosome&quot;&quot;&quot;
+    for y in xrange(start2, stop2+1):
+        if start1 &lt;= y &lt;= stop1:
+            return True
+        else:
+            pass
+    return False
+</code></pre>
+
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="my-4 footer">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-sm-12 col-md-5">
+                
+            </div>
+            <div class="col-sm-12 col-md-5">
+                <div class="mx-0 mx-md-4 text-right">
+                    
+                        <a href="https://github.com/timoast" target="_blank">
+                            <img class="icon" src="../../../../../img/github.svg" alt="github" />
+                        </a>
+                    
+
+                    
+
+                    
+                        <a href="https://twitter.com/timoast" target="_blank">
+                            <img class="icon" src="../../../../../img/twitter.svg" alt="twitter" />
+                        </a>
+                    
+
+                    
+
+                    
+
+                    
+
+                    
+
+                    
+                        <a href="../../../../../index.xml" class="mr-0">
+                            <img class="icon" src="../../../../../img/rss.svg" alt="rss" />
+                        </a>
+                    
+
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+    
+
+    
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/highlight.min.js" integrity="sha256-iq71rXEe/fvjCUP9AfLY0cKudQuKAQywiUpXkRFSkLc=" crossorigin="anonymous"></script>
+        
+        <script>
+            window.addEventListener('load', function() {
+                hljs.initHighlighting();
+            }, true);
+        </script>
+    
+
+    
+
+    
+    
+        
+<script src="../../../../../js/math-code.js"></script>
+<script async src="//cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
+
+    
+</body>
+
+</html>

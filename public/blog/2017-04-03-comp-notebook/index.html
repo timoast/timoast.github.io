@@ -1,0 +1,332 @@
+<!doctype html>
+<html lang="en-us">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title> Create a computational lab notebook with bookdown - Tim Stuart </title>
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+    <meta name="referrer" content="no-referrer">
+    <meta name="description" content="Tim Stuart" />
+    <meta property="og:site_name" content="Tim Stuart" />
+    <meta property="og:locale" content="nn_NO" />
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="/blog/2017-04-03-comp-notebook/" />
+    <meta property="og:title" content="Create a computational lab notebook with bookdown" />
+    <meta property="og:image" content="/" />
+    <meta property="og:description" content="Tim Stuart" />
+
+    
+        <meta property="twitter:site" content="@timoast">
+    
+
+    <meta property="twitter:title" content="Create a computational lab notebook with bookdown" />
+    <meta property="twitter:image" content="/" />
+    <meta property="twitter:card" content="summary" />
+    <meta property="twitter:description" content="Tim Stuart" />
+
+    <link rel="canonical" href="../../blog/2017-04-03-comp-notebook/">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha256-eSi1q2PG6J7g7ib17yAaWMcrr5GrtohYChqibrV7PBE=" crossorigin="anonymous" />
+
+    <link rel="stylesheet" href="../../css/custom.css" />
+
+    
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/styles/tomorrow.min.css" integrity="sha256-0QU8ry64q+N6YBIEF/6XF6vUeF15gbNO4tLS6ikk0FI=" crossorigin="anonymous" />
+    
+
+    
+
+    <link rel="shortcut icon"
+        href="../../img/favicon.ico">
+
+    
+</head>
+
+<body>
+    
+    <div class="my-4 my-md-5 header">
+    <div class="container">
+        <div class="row">
+            <div class="col-auto offset-md-1 d-none d-md-block">
+                
+            </div>
+            <div class="col-auto align-self-center mr-auto">
+                <a href="../../">
+                    <h1 class="name">Tim Stuart</h1>
+                </a>
+
+                <ul class="nav nav-primary">
+                    
+                        <li class="nav-item">
+                            <a class="text-uppercase nav-link text-about" href="../../">
+                                
+                                About
+                            </a>
+                        </li>
+                    
+                        <li class="nav-item">
+                            <a class="text-uppercase nav-link text-research" href="../../research/">
+                                
+                                Research
+                            </a>
+                        </li>
+                    
+                        <li class="nav-item">
+                            <a class="text-uppercase nav-link text-publications" href="../../publications/">
+                                
+                                Publications
+                            </a>
+                        </li>
+                    
+                        <li class="nav-item">
+                            <a class="text-uppercase nav-link text-blog" href="../../blog/">
+                                
+                                Blog
+                            </a>
+                        </li>
+                    
+
+                    
+                </ul>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+    <div class="content">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-sm-12 col-md-10">
+                    <h1 class="mx-0 mx-md-4 blog-post-title">Create a computational lab notebook with bookdown</h1>
+
+                    <div class="mb-md-4 meta">
+                        
+                            
+                                <span class="author" title="Tim Stuart">
+                                    Tim Stuart
+                                </span>
+                            
+                        
+
+                        <span class="date middot" title='Mon Apr 3 2017 00:00:00 UTC'>
+                            2017-04-03
+                        </span>
+
+                        <span class="reading-time middot">
+                            5 minute read
+                        </span>
+
+                        <div class="d-none d-md-inline tags">
+                            <ul class="list-unstyled d-inline">
+                                
+                            </ul>
+                        </div>
+
+                        <div class="d-none d-md-inline tags">
+                            <ul class="list-unstyled d-inline">
+                                
+                                
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="markdown">
+                        
+    
+
+<p>Every data analysis I do now is kept in an <a href="http://rmarkdown.rstudio.com">R Markdown</a> document. These are great for mixing code with explanatory text, and you can run code in many languages not just R. Whenever I finished working on something, I would compile the R Markdown document into a self-contained html report and save is somewhere, usually with a descriptive filename like &ldquo;coverage_genes&rdquo; or &ldquo;col_vs_cvi&rdquo;.</p>
+
+<!--break-->
+
+<p>This is where the problems begin. These reports, while great individually, can quickly pile up and you start to realize that the name &ldquo;coverage_genes&rdquo; doesn&rsquo;t really help you find a bit of code you wrote 3 weeks ago. What you really want is everything in one place. I would routinely open up 5-10 html files and hit CMD+f on each one to try to find something I knew I wrote a few weeks ago. There had to be a better way.</p>
+
+<h3 id="bookdown">Bookdown</h3>
+
+<p><a href="http://bookdown.org">Bookdown</a> is an R package that collects a group of separate R Markdown documents and merges them into a single document &ndash; a book. There are some great examples of books written using bookdown (<a href="http://r4ds.had.co.nz/">R for data science</a> by Hadley Wickham is one). A couple of weeks ago I started using bookdown to create a computational lab notebook to store all my data analysis documents in one place, and since bookdown just collects different R Markdown documents, I didn&rsquo;t really need to change anything I was doing. So far it&rsquo;s been working really well.</p>
+
+<p>However, bookdown was created with slightly different goals in mind to what I want. Normally, you would need to re-run all the R code each time you build the book in order to get all the entries to display correctly. For me this was a problem &ndash; by the of the year I&rsquo;d be re-running every analysis I&rsquo;d done that year every time I wanted to add something new.</p>
+
+<p>Instead, I wrote a shell script that cheats a little bit by copying the intermediate markdown files generated by bookdown to a new folder and building the book from that instead. That way, each new analysis can be run once to generate a markdown file, then that markdown file copied over to a separate book and the book re-built. Re-building the book in this case is very fast because it&rsquo;s not running any analysis code.</p>
+
+<h3 id="getting-interactive-plots-and-tables">Getting interactive plots and tables</h3>
+
+<p>Now, the problem with this approach is if some outputs in your R Markdown documents need special javascript libraries to be included in order to run (eg plotly, pagedtable, htmlwidgets), that information is lost. This can be fixed by adding an extra <code>html</code> file to the book&rsquo;s directory that sources the libraries, like this:</p>
+
+<pre><code>&lt;link href=&quot;libs/pagedtable-1.1/css/pagedtable.css&quot; rel=&quot;stylesheet&quot; /&gt;
+&lt;script src=&quot;libs/pagedtable-1.1/js/pagedtable.js&quot;&gt;&lt;/script&gt;
+&lt;script src=&quot;libs/htmlwidgets-0.8/htmlwidgets.js&quot;&gt;&lt;/script&gt;
+&lt;link href=&quot;libs/plotlyjs-1.16.3/plotly-htmlwidgets.css&quot; rel=&quot;stylesheet&quot; /&gt;
+&lt;script src=&quot;libs/plotlyjs-1.16.3/plotly-latest.min.js&quot;&gt;&lt;/script&gt;
+&lt;script src=&quot;libs/plotly-binding-4.5.6/pl
+</code></pre>
+
+<p>I saved this in a file called <code>libs.html</code>. Then, in the <code>_output.yml</code> file (used for bookdown configuration), add:</p>
+
+<pre><code>  includes:
+    in_header: libs.html
+</code></pre>
+
+<p>Now, that&rsquo;s basically everything you need to get a computational lab notebook working using bookdown. My notebook looks something like this:</p>
+
+<p><img src="../../assets/notebook.png" alt="Drawing" style="width: 80%;"/></p>
+
+<h3 id="hosting-the-book">Hosting the book</h3>
+
+<p>One drawback however is that using this type of notebook can make it hard to share results with people. Previously, when I would use a single self-contained <code>html</code> document to store everything, it was really easy to send that to whoever needed to see it. Now, using a book, there are many interconnected files and I can&rsquo;t easily send someone a document to read through. One solution would be to host the book on github pages, but then anyone would be able to read what we&rsquo;ve been working on, which isn&rsquo;t always ideal.</p>
+
+<p>I decided to host my notebook using amazon web services S3. It was pretty easy to put the files into a bucket and have it render a static site. The advantage of this is that while the site is viewable by anyone, the address is very cryptic and no-one would come across it by accident or by viewing my github page.</p>
+
+<p>To make the aws s3 bucket, I just went through the “host a static website” guide on amazon and it took ~5 mins. However, I had to drag-and-drop files from my computer to the site, which is annoying if I were to do that each time I update the site.</p>
+
+<p><a href="http://docs.aws.amazon.com/cli/latest/userguide/installing.html">AWS command line tools</a> has a sync function that will let you upload files to an S3 bucket. All I had to do then is:</p>
+
+<pre><code class="language-bash">aws s3 sync notebook_render/_book s3://[bucket name]
+</code></pre>
+
+<p>Make sure you only upload the <code>_book</code> directory.</p>
+
+<p>I added this to my shell script with a command line option, so that each time I build the book I can also choose if I want to upload it to amazon.</p>
+
+<h3 id="creating-your-own-lab-notebook">Creating your own lab notebook</h3>
+
+<p>You can start a lab book by cloning or forking the template I made at <a href="https://github.com/timoast/notebook-template">https://github.com/timoast/notebook-template</a>.</p>
+
+<p>This has all the files and directory structure needed, so you can then just start adding your own R Markdown files. Running the <code>build_book.sh</code> script should update your book with your latest document. <code>build_book.sh -a</code> will update the book and upload it to amazon, as long as you edit the script to put the name of your S3 bucket.</p>
+
+<p>I also have a template that I use for each document in the book. It just makes a space for the date and a title, and puts in a code chunk running <code>devtools::session_info()</code> at the end. If you also want to use that template, install my R package from github:</p>
+
+<pre><code class="language-r">devtools::install_github(&quot;timoast/stuart&quot;)
+</code></pre>
+
+
+
+                    </div>
+
+                    
+                        <div class="navigation">
+                            <div class="row">
+                                <div class="col-12 col-md-6">
+                                    
+                                        <div class="mx-0 mx-md-4 mt-4 text-left">
+                                            <a href="../../blog/2017-03-03-installing-magic/">« Installing Magic</a>
+                                        </div>
+                                    
+                                </div>
+                                <div class="col-12 col-md-6">
+                                    
+                                        <div class="mx-0 mx-md-4 mt-4 text-right">
+                                            <a href="../../blog/2017-04-09-using-python-decorators/">Using python decorators »</a>
+                                        </div>
+                                    
+                                </div>
+                            </div>
+                        </div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <section id="comments">
+
+      <div class="py-3 content">
+            <div class="container">
+                  <div class="row justify-content-center">
+                        <div class="col-sm-12 col-md-10">
+                              <div class="comments">
+                                    <div id="disqus_thread"></div>
+                              </div>
+                        </div>
+                  </div>
+            </div>
+      </div>
+
+      <script type="text/javascript">
+            (function () {
+                  
+                  
+                  if (window.location.hostname == "localhost")
+                        return;
+
+                  var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                  var disqus_shortname = '';
+                  dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+                  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+            })();
+      </script>
+      <noscript>
+            Please enable JavaScript to view the
+            <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+      </noscript>
+</section>
+    <div class="my-4 footer">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-sm-12 col-md-5">
+                
+            </div>
+            <div class="col-sm-12 col-md-5">
+                <div class="mx-0 mx-md-4 text-right">
+                    
+                        <a href="https://github.com/timoast" target="_blank">
+                            <img class="icon" src="../../img/github.svg" alt="github" />
+                        </a>
+                    
+
+                    
+
+                    
+                        <a href="https://twitter.com/timoast" target="_blank">
+                            <img class="icon" src="../../img/twitter.svg" alt="twitter" />
+                        </a>
+                    
+
+                    
+
+                    
+
+                    
+
+                    
+
+                    
+                        <a href="../../index.xml" class="mr-0">
+                            <img class="icon" src="../../img/rss.svg" alt="rss" />
+                        </a>
+                    
+
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+    
+
+    
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/highlight.min.js" integrity="sha256-iq71rXEe/fvjCUP9AfLY0cKudQuKAQywiUpXkRFSkLc=" crossorigin="anonymous"></script>
+        
+        <script>
+            window.addEventListener('load', function() {
+                hljs.initHighlighting();
+            }, true);
+        </script>
+    
+
+    
+
+    
+    
+        
+
+    
+</body>
+
+</html>

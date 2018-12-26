@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Bioinformatics on Tim Stuart</title>
+    <link>/categories/bioinformatics/</link>
+    <description>Recent content in Bioinformatics on Tim Stuart</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 03 Mar 2017 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="/categories/bioinformatics/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Installing Magic</title>
+      <link>/blog/2017-03-03-installing-magic/</link>
+      <pubDate>Fri, 03 Mar 2017 00:00:00 +0000</pubDate>
+      
+      <guid>/blog/2017-03-03-installing-magic/</guid>
+      <description>Installing magic Recently a method for imputing single cell gene expression matricies was posted on biorxiv by David van Dijk et al., called magic (Markov Affinity-based Graph Imputation of Cells). I&amp;rsquo;ve been analysing single cell RNA-seq data recently, and this method looks like it could be useful when trying to find co-transcriptional networks, as single cell data suffers from dropout which makes finding co-transcriptional networks hard.
+I had lots of problems getting magic installed and running, so will document them here for future reference.</description>
+    </item>
+    
+    <item>
+      <title>WGBS Analysis notes -- BS-seeker2</title>
+      <link>/blog/2016-03-29-bsseeker2/</link>
+      <pubDate>Tue, 29 Mar 2016 00:00:00 +0000</pubDate>
+      
+      <guid>/blog/2016-03-29-bsseeker2/</guid>
+      <description>Whole genome bisulfite sequencing analysis notes for BS-seeker2.  Step 1: Trim adapters and low quality bases Illumina TruSeq adapter sequence: GATCGGAAGAGCACACGTCTGAACTCCAGTCAC
+cutadapt -a AGATCGGAAGAGCACACGTCTGAACTCCAGTCAC -m 50 reads.fastq \ | seqtk trimfq -l 50 - \ | pigz &amp;gt; filtered_reads.fq.gz  Step 2: Quality control This step can also be performed on the unfiltered fastq file to compare output before and after read trimming.
+fastqc filtered_reads.fq.gz  Step 3: Alignment 3.</description>
+    </item>
+    
+  </channel>
+</rss>

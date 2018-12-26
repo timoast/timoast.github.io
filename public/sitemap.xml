@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+  xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  
+  <url>
+    <loc>/blog/biorxiv-2017-update/</loc>
+    <lastmod>2017-10-04T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/blog/useful-bio/</loc>
+    <lastmod>2017-09-14T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/blog/2017-04-09-using-python-decorators/</loc>
+    <lastmod>2017-04-09T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/blog/2017-04-03-comp-notebook/</loc>
+    <lastmod>2017-04-03T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/blog/2017-03-03-installing-magic/</loc>
+    <lastmod>2017-03-03T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/blog/r_demo/</loc>
+    <lastmod>2016-09-22T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/blog/2016-07-12-smrna-analysis/</loc>
+    <lastmod>2016-07-12T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/blog/2016-03-29-bsseeker2/</loc>
+    <lastmod>2016-03-29T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/blog/2016-03-01-biorxiv/</loc>
+    <lastmod>2016-03-01T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/blog/2016-02-23-papers/</loc>
+    <lastmod>2016-02-23T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/blog/2016-02-18-lorne/</loc>
+    <lastmod>2016-02-18T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/blog/2015-10-12-extractreads/</loc>
+    <lastmod>2015-10-12T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/blog/2014-11-04-sizeestimation/</loc>
+    <lastmod>2014-11-04T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/blog/2014-10-29-methyc-analysis/</loc>
+    <lastmod>2014-10-29T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/publications/</loc>
+  </url>
+  
+  <url>
+    <loc>/tags/bam/</loc>
+    <lastmod>2015-10-12T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/tags/bioinformatics/</loc>
+    <lastmod>2016-07-12T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/categories/bioinformatics/</loc>
+    <lastmod>2017-03-03T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/tags/biorxiv/</loc>
+    <lastmod>2016-03-01T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/blog/</loc>
+    <lastmod>2017-10-04T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/tags/bsseeker2/</loc>
+    <lastmod>2016-03-29T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/categories/</loc>
+    <lastmod>2017-03-03T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/tags/conferences/</loc>
+    <lastmod>2016-02-18T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/</loc>
+    <lastmod>2017-10-04T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/lorne/</loc>
+    <lastmod>2016-02-18T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/tags/ngs/</loc>
+    <lastmod>2015-10-12T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/publications/</loc>
+  </url>
+  
+  <url>
+    <loc>/tags/python/</loc>
+    <lastmod>2017-03-03T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/categories/python/</loc>
+    <lastmod>2015-10-12T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/tags/r/</loc>
+    <lastmod>2016-09-22T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/categories/r/</loc>
+    <lastmod>2016-09-22T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/research/</loc>
+  </url>
+  
+  <url>
+    <loc>/categories/science/</loc>
+    <lastmod>2017-09-14T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/tags/single_cell/</loc>
+    <lastmod>2017-03-03T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/tags/smrna/</loc>
+    <lastmod>2016-07-12T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/software/</loc>
+  </url>
+  
+  <url>
+    <loc>/tags/</loc>
+    <lastmod>2015-10-12T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+</urlset>

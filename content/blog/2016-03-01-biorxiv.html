@@ -1,0 +1,251 @@
+---
+title: "bioRxiv" 
+date: 2016-03-01
+tags: ["biorxiv", "python", "R"]
+---
+
+
+
+<p>After posting a my first <a href="http://biorxiv.org/content/early/2016/02/21/039511">preprint</a> to <a href="http://biorxiv.org/">bioRxiv</a> a few weeks ago, I have been periodically checking the number of views and PDF downloads. I became interested to see how many downloads or views the preprints on bioRxiv typically get, but this type of information isn’t actually available. What are the all-time top bioRxiv preprints? How many people are reading bioRxiv preprints on average? No-one knows! Altmetric must track this data, as it will tell you how a particular preprint ranks in relation to others, but that data hasn’t been made publicly available (as far as I can tell).</p>
+<p>Not to worry, a little <a href="https://github.com/timoast/biorxivData/blob/master/scrape_biorxiv.py">python script</a> I wrote will scrape this information from the biorxiv website and record it in a file. I ran it on the 29th February this year and collected a snapshot of biorxiv metrics at that time.</p>
+<p>Let’s take a look at the data.</p>
+<pre class="r"><code>library(dplyr)</code></pre>
+<pre><code>## 
+## Attaching package: &#39;dplyr&#39;</code></pre>
+<pre><code>## The following objects are masked from &#39;package:stats&#39;:
+## 
+##     filter, lag</code></pre>
+<pre><code>## The following objects are masked from &#39;package:base&#39;:
+## 
+##     intersect, setdiff, setequal, union</code></pre>
+<pre class="r"><code>library(ggplot2)
+library(readr)
+library(lubridate)</code></pre>
+<pre><code>## 
+## Attaching package: &#39;lubridate&#39;</code></pre>
+<pre><code>## The following object is masked from &#39;package:base&#39;:
+## 
+##     date</code></pre>
+<pre class="r"><code>data &lt;- read_tsv(&quot;../data/biorxiv/biorxiv_data_2016_2_29.tsv&quot;)</code></pre>
+<pre><code>## Parsed with column specification:
+## cols(
+##   Title = col_character(),
+##   URL = col_character(),
+##   `Abstract views` = col_double(),
+##   `PDF views` = col_double(),
+##   `Original submission` = col_character(),
+##   `Current submission` = col_character()
+## )</code></pre>
+<pre class="r"><code>collection_date &lt;- ymd(&quot;2016_2_29&quot;)
+
+str(data)</code></pre>
+<pre><code>## Classes &#39;tbl_df&#39;, &#39;tbl&#39; and &#39;data.frame&#39;:    3095 obs. of  6 variables:
+##  $ Title              : chr  &quot;Copy number variants in the sheep genome detected using multiple approaches&quot; &quot;Productive infection of field strains of avian coronavirus infectious bronchitis virus in chicken peripheral bl&quot;| __truncated__ &quot;Recurrent selection explains genomic regions of high relative but low absolute differentiation in the greenish &quot;| __truncated__ &quot;A watershed model of individual differences in fluid intelligence&quot; ...
+##  $ URL                : chr  &quot;http://biorxiv.org/content/early/2016/02/26/041475&quot; &quot;http://biorxiv.org/content/early/2016/02/26/041558&quot; &quot;http://biorxiv.org/content/early/2016/02/26/041467&quot; &quot;http://biorxiv.org/content/early/2016/02/26/041368&quot; ...
+##  $ Abstract views     : num  131 NA 321 70 161 570 714 276 428 318 ...
+##  $ PDF views          : num  10 NA 14 3 8 102 106 45 65 42 ...
+##  $ Original submission: chr  &quot;2016_02_26&quot; &quot;2016_02_26&quot; &quot;2016_02_26&quot; &quot;2016_02_26&quot; ...
+##  $ Current submission : chr  &quot;2016_02_26&quot; &quot;2016_02_26&quot; &quot;2016_02_26&quot; &quot;2016_02_26&quot; ...
+##  - attr(*, &quot;spec&quot;)=
+##   .. cols(
+##   ..   Title = col_character(),
+##   ..   URL = col_character(),
+##   ..   `Abstract views` = col_double(),
+##   ..   `PDF views` = col_double(),
+##   ..   `Original submission` = col_character(),
+##   ..   `Current submission` = col_character()
+##   .. )</code></pre>
+<p>As you can see, the python script gathers data on the title, url, number of abstract views, number of PDF downloads, original upload date, and the date that the current version was uploaded (this will be the same as the original upload date in many cases).</p>
+<p>Let’s add the age of the preprint and whether it was revised (true/false).</p>
+<pre class="r"><code>data &lt;-  data %&gt;%
+  mutate(Age = collection_date - ymd(`Original submission`),
+         Revised = `Original submission` != `Current submission`)
+
+str(data)</code></pre>
+<pre><code>## Classes &#39;tbl_df&#39;, &#39;tbl&#39; and &#39;data.frame&#39;:    3095 obs. of  8 variables:
+##  $ Title              : chr  &quot;Copy number variants in the sheep genome detected using multiple approaches&quot; &quot;Productive infection of field strains of avian coronavirus infectious bronchitis virus in chicken peripheral bl&quot;| __truncated__ &quot;Recurrent selection explains genomic regions of high relative but low absolute differentiation in the greenish &quot;| __truncated__ &quot;A watershed model of individual differences in fluid intelligence&quot; ...
+##  $ URL                : chr  &quot;http://biorxiv.org/content/early/2016/02/26/041475&quot; &quot;http://biorxiv.org/content/early/2016/02/26/041558&quot; &quot;http://biorxiv.org/content/early/2016/02/26/041467&quot; &quot;http://biorxiv.org/content/early/2016/02/26/041368&quot; ...
+##  $ Abstract views     : num  131 NA 321 70 161 570 714 276 428 318 ...
+##  $ PDF views          : num  10 NA 14 3 8 102 106 45 65 42 ...
+##  $ Original submission: chr  &quot;2016_02_26&quot; &quot;2016_02_26&quot; &quot;2016_02_26&quot; &quot;2016_02_26&quot; ...
+##  $ Current submission : chr  &quot;2016_02_26&quot; &quot;2016_02_26&quot; &quot;2016_02_26&quot; &quot;2016_02_26&quot; ...
+##  $ Age                : &#39;difftime&#39; num  3 3 3 3 ...
+##   ..- attr(*, &quot;units&quot;)= chr &quot;days&quot;
+##  $ Revised            : logi  FALSE FALSE FALSE FALSE FALSE FALSE ...</code></pre>
+<div id="submissions-over-time" class="section level3">
+<h3>Submissions over time</h3>
+<p>bioRxiv has supposedly been <a href="https://quantixed.wordpress.com/2015/12/11/white-label-the-growth-of-biorxiv/">growing in popularity</a>, let’s take a look at the rate of submissions over time.</p>
+<p>First group into weeks:</p>
+<pre class="r"><code>weekly &lt;- data %&gt;%
+  mutate(weeks_past = ceiling(Age / 7),
+         `Submission week` = collection_date - weeks(weeks_past)) %&gt;%
+  group_by(`Submission week`) %&gt;%
+  summarise(Submissions = n())
+
+ggplot(weekly, aes(`Submission week`, Submissions)) +
+  geom_point(stat = &quot;identity&quot;) +
+  geom_smooth() +
+  ggtitle(&quot;bioRxiv submissions per week&quot;) +
+  theme_bw()</code></pre>
+<pre><code>## `geom_smooth()` using method = &#39;loess&#39; and formula &#39;y ~ x&#39;</code></pre>
+<p><img src="/blog/2016-03-01-biorxiv_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
+<p>So the rate of submission really is increasing.</p>
+</div>
+<div id="some-biorxiv-metrics" class="section level3">
+<h3>Some bioRxiv metrics</h3>
+<p>bioRxiv allows you to submit a revision at any time (until the paper is published in a peer-reviewed journal). How many preprints are revised at some stage?</p>
+<pre class="r"><code>data %&gt;%
+  group_by(Revised) %&gt;%
+  summarise(Count = n(), Percentage = Count/nrow(data) * 100) %&gt;%
+  knitr::kable(., align = &#39;c&#39;)</code></pre>
+<table>
+<thead>
+<tr class="header">
+<th align="center">Revised</th>
+<th align="center">Count</th>
+<th align="center">Percentage</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">FALSE</td>
+<td align="center">2204</td>
+<td align="center">71.21163</td>
+</tr>
+<tr class="even">
+<td align="center">TRUE</td>
+<td align="center">891</td>
+<td align="center">28.78837</td>
+</tr>
+</tbody>
+</table>
+<p>So only 28% are ever revised.</p>
+<p>What’s the average number of abstract views and PDF downloads for preprints?</p>
+<pre class="r"><code>abstr_mn &lt;- mean(data$`Abstract views`, na.rm = T)
+abstr_med &lt;- median(data$`Abstract views`, na.rm = T)
+pdf_mn &lt;- mean(data$`PDF views`, na.rm = T)
+pdf_med &lt;- median(data$`PDF views`, na.rm = T)</code></pre>
+<p>The mean number of abstract views was 485, and the median was 297. For PDF views, it was 134 and 64.</p>
+<p>The mean seems to be pulled up by some outliers with very high numbers of views. Let’s take a look at what those are.</p>
+</div>
+<div id="top-10-biorxiv-preprints" class="section level3">
+<h3>Top 10 bioRxiv preprints</h3>
+<pre class="r"><code>data %&gt;%
+  arrange(-`PDF views`) %&gt;%
+  select(Title, `Abstract views`, `PDF views`, Age, Revised) %&gt;%
+  head(., 10) %&gt;%
+  knitr::kable(., align = &#39;l&#39;)</code></pre>
+<table>
+<thead>
+<tr class="header">
+<th align="left">Title</th>
+<th align="left">Abstract views</th>
+<th align="left">PDF views</th>
+<th align="left">Age</th>
+<th align="left">Revised</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Massive migration from the steppe is a source for Indo-European languages in Europe</td>
+<td align="left">17385</td>
+<td align="left">15170</td>
+<td align="left">384 days</td>
+<td align="left">FALSE</td>
+</tr>
+<tr class="even">
+<td align="left">Revised estimates for the number of human and bacteria cells in the body</td>
+<td align="left">23174</td>
+<td align="left">9625</td>
+<td align="left">54 days</td>
+<td align="left">FALSE</td>
+</tr>
+<tr class="odd">
+<td align="left">Accelerating Scientific Publication in Biology</td>
+<td align="left">12206</td>
+<td align="left">5504</td>
+<td align="left">233 days</td>
+<td align="left">TRUE</td>
+</tr>
+<tr class="even">
+<td align="left">The genome of the tardigrade Hypsibius dujardini</td>
+<td align="left">22074</td>
+<td align="left">4084</td>
+<td align="left">90 days</td>
+<td align="left">TRUE</td>
+</tr>
+<tr class="odd">
+<td align="left">Real time selective sequencing using nanopore technology.</td>
+<td align="left">6906</td>
+<td align="left">4039</td>
+<td align="left">26 days</td>
+<td align="left">FALSE</td>
+</tr>
+<tr class="even">
+<td align="left">Simple multi-trait analysis identifies novel loci associated with growth and obesity measures</td>
+<td align="left">4362</td>
+<td align="left">2905</td>
+<td align="left">236 days</td>
+<td align="left">FALSE</td>
+</tr>
+<tr class="odd">
+<td align="left">A vision for ubiquitous sequencing</td>
+<td align="left">2435</td>
+<td align="left">2735</td>
+<td align="left">298 days</td>
+<td align="left">TRUE</td>
+</tr>
+<tr class="even">
+<td align="left">￼TP53 copy number expansion correlates with the evolution of increased body size and an enhanced DNA damage response in elephants</td>
+<td align="left">12275</td>
+<td align="left">2502</td>
+<td align="left">146 days</td>
+<td align="left">TRUE</td>
+</tr>
+<tr class="odd">
+<td align="left">Reconstructing Genetic History of Siberian and Northeastern European Populations</td>
+<td align="left">2079</td>
+<td align="left">2410</td>
+<td align="left">134 days</td>
+<td align="left">TRUE</td>
+</tr>
+<tr class="even">
+<td align="left">Genome variation and meiotic recombination in Plasmodium falciparum: insights from deep sequencing of genetic crosses</td>
+<td align="left">559</td>
+<td align="left">2408</td>
+<td align="left">206 days</td>
+<td align="left">TRUE</td>
+</tr>
+</tbody>
+</table>
+<p>All interesting papers, most of which are still not published in journals.</p>
+</div>
+<div id="distribution-of-views" class="section level3">
+<h3>Distribution of views</h3>
+<p>Let’s first filter out preprints less than 10 days old, as these probably have an artificially low number of views.</p>
+<pre class="r"><code>older_than_10 &lt;- filter(data, Age &gt; 10)
+quantile(older_than_10$`PDF views`, na.rm =TRUE)</code></pre>
+<pre><code>##    0%   25%   50%   75%  100% 
+##     0    33    65   127 15170</code></pre>
+<pre class="r"><code>ggplot(older_than_10, aes(`PDF views`)) +
+  geom_histogram(bins = 100) + theme_bw()</code></pre>
+<pre><code>## Warning: Removed 1 rows containing non-finite values (stat_bin).</code></pre>
+<p><img src="/blog/2016-03-01-biorxiv_files/figure-html/unnamed-chunk-8-1.png" width="672" /></p>
+<p>This would be better looked at on a log scale:</p>
+<pre class="r"><code>ggplot(older_than_10, aes(log(`PDF views`))) +
+  ggtitle(&quot;PDF views&quot;) +
+  geom_density(fill = &#39;blue&#39;, alpha = 0.5) + theme_bw() +
+  geom_vline(xintercept = log(pdf_med), col = &#39;red&#39;) +
+  geom_vline(xintercept = log(331))  # my paper</code></pre>
+<pre><code>## Warning: Removed 6 rows containing non-finite values (stat_density).</code></pre>
+<p><img src="/blog/2016-03-01-biorxiv_files/figure-html/unnamed-chunk-9-1.png" width="672" /></p>
+<pre class="r"><code>ggplot(older_than_10, aes(log(`Abstract views`))) +
+  ggtitle(&quot;Abstract views&quot;) +
+  geom_density(fill = &#39;blue&#39;, alpha = 0.5) + theme_bw() +
+  geom_vline(xintercept = log(abstr_med), col = &#39;red&#39;) +
+  geom_vline(xintercept = log(1678))  # my paper</code></pre>
+<pre><code>## Warning: Removed 2 rows containing non-finite values (stat_density).</code></pre>
+<p><img src="/blog/2016-03-01-biorxiv_files/figure-html/unnamed-chunk-10-1.png" width="672" /></p>
+<p>The red line in both plots show the median, the black line show the datapoint for my own preprint posted a few weeks ago. It seems to have done slightly better than most others.</p>
+<p>There’s plenty more I could look at, but for now this satisfies my basic curiosity. I’ve posted the data and code on <a href="https://github.com/timoast/biorxivData">GitHub</a>, so interested people can download and play with it themselves.</p>
+</div>

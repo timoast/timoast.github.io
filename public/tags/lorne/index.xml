@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Lorne on Tim Stuart</title>
+    <link>/tags/lorne/</link>
+    <description>Recent content in Lorne on Tim Stuart</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Thu, 18 Feb 2016 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="/tags/lorne/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Lorne Genome 2016 presentation</title>
+      <link>/blog/2016-02-18-lorne/</link>
+      <pubDate>Thu, 18 Feb 2016 00:00:00 +0000</pubDate>
+      
+      <guid>/blog/2016-02-18-lorne/</guid>
+      <description>This week I presented some recent work at the Lorne Genome conference. It was my first time at Lorne and it&amp;rsquo;s a fantastic meeting with lots of interesting talks. It was great to see so many people getting interested in transposon biology too!
+Here are a few links to the work I was presenting:
+TEPID TE presence/absence variant discovery software:
+https://github.com/ListerLab/TEPID
+Poster:
+https://dx.doi.org/10.6084/m9.figshare.2082757.v1
+Manuscript:
+http://dx.doi.org/10.1101&amp;frasl;039511</description>
+    </item>
+    
+  </channel>
+</rss>

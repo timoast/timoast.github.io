@@ -1,0 +1,318 @@
+---
+title: "R demo"
+author: "Tim Stuart"
+date: 2016-09-22
+tags: ["R"]
+categories: ["R"]
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Getting started
+
+Clone the repo if you haven't already:
+
+```{r git, engine='bash', eval=FALSE}
+git clone https://github.com/timoast/dac.git
+```
+
+Install [RStudio](https://www.rstudio.com/).
+
+Install the following packages:
+
+```{r installs, eval=FALSE, include=TRUE}
+install.packages(c("readr", "tidyr", "data.table", "dplyr", "ggplot2"))
+```
+
+```{r}
+library(readr)
+library(data.table)
+library(ggplot2)
+library(tidyr)
+```
+
+
+All the following code will assume you are in the directory that holds this file (`r_demo.rmd`) in the github repo (ie `dac/code/`).
+
+## Importing Data
+
+### The `readr` way
+
+[Some docs](https://blog.rstudio.org/2016/08/05/readr-1-0-0/)
+
+```{r generate_data, eval=FALSE, message=FALSE, warning=FALSE, include=FALSE}
+# generate some fake DNA methylation data in a messy format
+exp1 <- rnorm(500, mean=0.2, sd=0.1)
+exp2 <- rnorm(500, mean=0.25, sd=0.2)
+exp3 <- rnorm(500, mean=0.6, sd=0.2)
+exp4 <- rnorm(500, mean=0.3, sd=0.1)
+exp1[exp1 < 0] <- 0
+exp2[exp2 < 0] <- 0
+exp3[exp3 < 0] <- 0
+exp4[exp4 < 0] <- 0
+
+exp1[exp1 > 1] <- 1
+exp2[exp2 > 1] <- 1
+exp3[exp3 > 1] <- 1
+exp4[exp4 > 1] <- 1
+
+d <- tibble::data_frame(position = seq(500), experiment_1 = exp1, experiment_2 = exp2,
+                experiment_3 = exp3, experiment_4 = exp4)
+write_tsv(d, "../data/r_demo/experiment.tsv")
+```
+
+```{r readr}
+library(readr)
+
+read_tsv("../data/r_demo/coverages.tsv", col_names = c("Accession", "Coverage"))
+
+# also works for gzipped files
+read_tsv("../data/r_demo/mc_data.bed.gz")
+```
+
+### The `data.table` way
+
+[Some docs](https://github.com/Rdatatable/data.table/wiki)
+
+```{r data.table}
+library(data.table)
+
+fread("../data/r_demo/coverages.tsv", header = FALSE, col.names = c("Accession", "Coverage"))
+
+fread("gzip -dc ../data/r_demo/mc_data.bed.gz")
+
+fread("seq 25 | xargs -n 5 echo")
+
+fread("curl https://raw.githubusercontent.com/timoast/Arabidopsis-TE-variants/master/ProcessedData/coverages.tsv")
+
+fread("bedtools intersect -a ../data/r_demo/a.bed -b ../data/r_demo/b.bed")
+```
+
+`data.table` has lots of other useful functions, see [datacamp course](https://www.datacamp.com/courses/data-table-data-manipulation-r-tutorial)
+
+### Brief tangent -- using fread to eliminate intermediate files
+
+```{r plotting_example}
+centromere_distance <- fread("bedtools closest -d -a ../data/r_demo/c_dmrs.tsv.gz -b ../data/r_demo/centromere_positions.txt")
+
+hist(centromere_distance$V7 / 1000, breaks = 100, col = "blue",
+     main = "C-DMR distances to centromere",
+     xlab = "Distance (kb)")
+
+densities <- hist(centromere_distance$V7, breaks = 500, plot = F)
+image(as.matrix(densities$counts))
+
+library(RColorBrewer)
+colors <- colorRampPalette(brewer.pal(9,"RdYlBu"))(100)
+image(as.matrix(densities$counts), col = rev(colors))
+
+# create a scale bar
+image(matrix(seq(100)), col = rev(colors))
+```
+
+
+## Tidying data
+
+Some background: [Tidy data, Wickham 2014](https://www.jstatsoft.org/article/view/v059i10)
+
+Variables go in the columns, observations go in the rows.
+
+Four main operations in tidying data:  
+
+* Move observations from the column names to rows  
+* Move variables from rows to columns  
+* Separate multiple variables into multiple columns  
+* Gather single variable from many columns into one column
+
+```{r tidyr}
+library(tidyr)
+
+data <- read_tsv("../data/r_demo/experiment.tsv")
+data
+
+tidy_data <- gather(data, experiment, mC, experiment_1:experiment_4)
+tidy_data
+
+spread(tidy_data, experiment, mC)
+```
+
+Unite and separate columns
+
+```{r separate}
+mc <- read_tsv("../data/r_demo/mc_data.bed.gz")
+head(mc)
+
+# first column has three variables: chromsome, start, end
+new_mc <- separate(mc, coords, c("chr", "start", "end"))
+new_mc
+
+unite(new_mc, coords, chr, start, end, sep = ",")
+```
+
+## Manipulating data
+
+The [dplyr](https://cran.rstudio.com/web/packages/dplyr/vignettes/introduction.html) package:  
+* `filter` rows  
+* `select` columns  
+* `mutate` columns  
+* `arrange` rows  
+* `group_by` variables
+
+```{r dplyr}
+library(dplyr)
+
+# from earlier
+coverages <- read_tsv("../data/r_demo/coverages.tsv", col_names = c("Accession", "Coverage"))
+
+# use mutate to create new columns
+cov <- mutate(coverages, high = Coverage > 50)
+cov
+
+# group rows by common variables
+cov <- group_by(cov, high)
+cov <- mutate(cov, group_average = mean(Coverage))
+cov
+
+# use select to choose columns
+select(cov, Accession, group_average)
+
+# won't let you drop a column if the data is grouped by that column
+cov <- ungroup(cov)
+select(cov, Accession, group_average)
+
+# can alse choose what NOT to include
+select(cov, -high)
+
+# sort using arrange
+arrange(cov, Coverage)
+arrange(cov, desc(Coverage))
+
+# useful for coordinates
+dmrs <- read_tsv("../data/r_demo/c_dmrs.tsv.gz", col_names = c("chr", "start", "end"))
+dmrs
+
+arrange(dmrs, chr, desc(start))
+```
+
+### Joining tables
+
+`dplyr` also has join functions.
+
+<!-- ![](../images/joins.png) -->
+<img src="../images/joins.png" width="500">
+
+```{r joins}
+te_insertion_counts <- read_tsv("../data/r_demo/insertion_counts.tsv", col_names = c("Accession", "Insertions"))
+left_join(coverages, te_insertion_counts)
+```
+
+## Put it all together
+
+In unix, the pipe lets you use output from one program/function as input to another. This lets you chain together commands an eliminate intermediate files. It also provides the ability to start one process before the previous has finished. For example you can pipe the output of bowtie into samtools and convert straight to bam without having to wait for the mapping to finish.
+
+The same can be done in R with any function that takes and returns a dataframe. In unix the pipe character is `|`, in R it is `%>%`. The pipe is part of the `magrittr` package, but is also loaded any time you load `readr`, `dplyr`, or `tidyr`.
+
+```{r pipe}
+df <- read_tsv("../data/r_demo/coverages.tsv", col_names = c("Accession", "Coverage")) %>%
+  mutate(high = Coverage > 50) %>%
+  group_by(high) %>%
+  mutate(group_av = mean(Coverage)) %>%
+  left_join(te_insertion_counts)
+
+df
+```
+
+
+## Plotting
+
+```{r ggplot}
+library(ggplot2)
+
+ggplot(df, aes(Coverage, Insertions)) +
+  geom_point() + geom_smooth(method = "lm")
+
+ggplot(df, aes(Coverage, Insertions, color = high)) +
+  geom_point() + geom_smooth(method = "lm")
+
+ggplot(df, aes(Coverage, Insertions)) +
+  geom_point() + facet_wrap(~high) +
+  theme_bw()
+
+ggplot(tidy_data, aes(experiment, mC)) +
+  geom_jitter(alpha = 0.5) + theme_bw()
+```
+
+Easily create interactive graphics
+
+```{r plotly}
+library(plotly)
+
+p <- ggplot(df, aes(Coverage, Insertions, label=Accession)) +
+  geom_point() +
+  theme_bw()
+
+ggplotly(p)
+```
+
+```{r more_plots}
+# from earlier
+dmrs
+
+ggplot(dmrs, aes(start)) +
+  geom_density() + facet_wrap(~chr)
+
+# cleaned up
+ggplot(dmrs, aes(start/1000)) +
+  geom_density(adjust = 1/10, fill = "blue", alpha = 0.5) +
+  facet_wrap(~chr, scales = "free") + theme_classic() +
+  xlab("Position (kb)") + ggtitle("C-DMR Positions") +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+```
+
+## Reporting
+
+Use [RMarkdown](http://rmarkdown.rstudio.com/) (included in RStudio). Press Knit HTML / Knit PDF to render the output document.
+
+### Displaying nice tables
+
+```{r}
+# from before
+data
+
+# using kable
+head(data) %>% knitr::kable()
+```
+
+### Code block options
+
+Can choose to show everything, show only output (eg plots), show nothing, show only warnings, etc..
+
+### Output options
+
+Output can be rendered as html, pdf, or word. You can also choose a theme, and whether to show a table of contents. One important feature is the ability to have self-contained html documents by including  `self_contained: true` in the rmarkdown header. This will let you send the html file to others and still have all the plots appear correct. This should be set as the default for html output.
+
+### Running code in other languages
+
+It is possible to have code chunks that run in languages other than R. If you look at the first code chunk in this document, you will see that it runs a shell command (git). To find out more, read about [language engines in knitr](http://yihui.name/knitr/demo/engines/).
+
+Here is an example running python:
+
+```{r python-example, engine='python'}
+chromosomes = ["chr" + str(i) for i in xrange(1, 6)]
+print(chromosomes)
+```
+
+To use objects created by running code in other languages (for example, if we wanted to use the `chromosomes` variable created in the above python chunk), you will usually need to write the results to a file and then read into R from the file. There are complicated environment variable things you can do to [share objects](https://raw.githubusercontent.com/yihui/knitr-examples/master/106-polyglot.Rmd) between languages, but these may not be worth the extra effort. 
+
+## Further reading
+
+[http://r4ds.had.co.nz/](http://r4ds.had.co.nz/)
+
+## Session info
+
+```{r session}
+devtools::session_info()
+```
+

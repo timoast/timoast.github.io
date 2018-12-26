@@ -1,0 +1,402 @@
+<!doctype html>
+<html lang="en-us">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title> Using python decorators - Tim Stuart </title>
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+    <meta name="referrer" content="no-referrer">
+    <meta name="description" content="Tim Stuart" />
+    <meta property="og:site_name" content="Tim Stuart" />
+    <meta property="og:locale" content="nn_NO" />
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="/blog/2017-04-09-using-python-decorators/" />
+    <meta property="og:title" content="Using python decorators" />
+    <meta property="og:image" content="/" />
+    <meta property="og:description" content="Tim Stuart" />
+
+    
+        <meta property="twitter:site" content="@timoast">
+    
+
+    <meta property="twitter:title" content="Using python decorators" />
+    <meta property="twitter:image" content="/" />
+    <meta property="twitter:card" content="summary" />
+    <meta property="twitter:description" content="Tim Stuart" />
+
+    <link rel="canonical" href="../../blog/2017-04-09-using-python-decorators/">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha256-eSi1q2PG6J7g7ib17yAaWMcrr5GrtohYChqibrV7PBE=" crossorigin="anonymous" />
+
+    <link rel="stylesheet" href="../../css/custom.css" />
+
+    
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/styles/tomorrow.min.css" integrity="sha256-0QU8ry64q+N6YBIEF/6XF6vUeF15gbNO4tLS6ikk0FI=" crossorigin="anonymous" />
+    
+
+    
+
+    <link rel="shortcut icon"
+        href="../../img/favicon.ico">
+
+    
+</head>
+
+<body>
+    
+    <div class="my-4 my-md-5 header">
+    <div class="container">
+        <div class="row">
+            <div class="col-auto offset-md-1 d-none d-md-block">
+                
+            </div>
+            <div class="col-auto align-self-center mr-auto">
+                <a href="../../">
+                    <h1 class="name">Tim Stuart</h1>
+                </a>
+
+                <ul class="nav nav-primary">
+                    
+                        <li class="nav-item">
+                            <a class="text-uppercase nav-link text-about" href="../../">
+                                
+                                About
+                            </a>
+                        </li>
+                    
+                        <li class="nav-item">
+                            <a class="text-uppercase nav-link text-research" href="../../research/">
+                                
+                                Research
+                            </a>
+                        </li>
+                    
+                        <li class="nav-item">
+                            <a class="text-uppercase nav-link text-publications" href="../../publications/">
+                                
+                                Publications
+                            </a>
+                        </li>
+                    
+                        <li class="nav-item">
+                            <a class="text-uppercase nav-link text-blog" href="../../blog/">
+                                
+                                Blog
+                            </a>
+                        </li>
+                    
+
+                    
+                </ul>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+    <div class="content">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-sm-12 col-md-10">
+                    <h1 class="mx-0 mx-md-4 blog-post-title">Using python decorators</h1>
+
+                    <div class="mb-md-4 meta">
+                        
+                            
+                        
+
+                        <span class="date middot" title='Sun Apr 9 2017 00:00:00 UTC'>
+                            2017-04-09
+                        </span>
+
+                        <span class="reading-time middot">
+                            4 minute read
+                        </span>
+
+                        <div class="d-none d-md-inline tags">
+                            <ul class="list-unstyled d-inline">
+                                
+                            </ul>
+                        </div>
+
+                        <div class="d-none d-md-inline tags">
+                            <ul class="list-unstyled d-inline">
+                                
+                                
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="markdown">
+                        
+    
+
+
+<p>Yesterday I wrote my first python decorator. Decorators have always seemed a bit mysterious to me, but having finally written one I can see a bit better how they work. This is the decorator I wrote:</p>
+<pre class="python"><code>def log_info(func):
+    def wrapper(args):
+        print(&quot;Function {} called with the following arguments:\n&quot;.format(func.__name__))
+        for arg in vars(args):
+            print(str(arg) + &#39;\t&#39; + str(getattr(args, arg)))
+        t1 = time.time()
+        func(args)
+        t2 = time.time()
+        elapsed = [round(x, 2) for x in divmod(t2-t1, 60)]
+        print(&quot;\nFunction completed in  {} m {} s\n&quot;.format(elapsed[0], elapsed[1]))
+    return wrapper</code></pre>
+<p>It just takes a function and returns a new function that is a ‘wrapped’ version of the original function. This wrapped version and prints the name of the function, the list of arguments the function received, runs the original function, then prints how long it took to complete.</p>
+<p>A decorator is a function that takes a function as its argument and returns a function. A decorator can be used to alter what a function does without having to change the code of the function itself. We can see that in my example above, the function <code>log_info</code> takes a function and defines a new function within its scope, and then returns this new function.</p>
+<div id="how-decorators-work" class="section level2">
+<h2>How decorators work</h2>
+<p>This is a lot to take in, so let’s start at the beginning.</p>
+<div id="what-is-a-function" class="section level3">
+<h3>What is a function</h3>
+<p>A functions is something generates a value based on given arguments. A function is an object. Arguments to a function are also objects. A function can accept a function as its argument.</p>
+</div>
+<div id="nested-functions" class="section level3">
+<h3>Nested functions</h3>
+<p>As seen in our above example, functions can be defined inside another function. This is known as a nested function.</p>
+<pre class="python"><code>def outer():
+    def inner():
+        return 1
+    return inner
+nested_example = outer()
+print(nested_example())</code></pre>
+<pre><code>## 1</code></pre>
+</div>
+<div id="what-is-a-closure" class="section level3">
+<h3>What is a closure</h3>
+<p>A closure can be produced by a nested function. Closures remember their enclosing scope from when they were defined. In this way, closures can have values hard-coded determined by their enclosing scope at the time they were defined. This can avoid the use of global variables. For example:</p>
+<pre class="python"><code>def outer(x):
+    def inner():
+        return x
+    return inner
+closure1 = outer(1)
+closure2 = outer(2)
+print(closure1())</code></pre>
+<pre><code>## 1</code></pre>
+<pre class="python"><code>print(closure2())</code></pre>
+<pre><code>## 2</code></pre>
+<p><code>closure1</code> returns 1, even though no arguments are given. This is because the value as set when the function was assigned using a closure.</p>
+</div>
+<div id="what-is-a-decorator" class="section level3">
+<h3>What is a decorator</h3>
+<p>Now, back to our original question. A decorator is a function that takes and returns another function. They use nested functions and closures. Take this as a minimal example:</p>
+<pre class="python"><code>def my_decorator(func):
+    def inner():
+        return func()
+    return inner</code></pre>
+<p>The decorator make use of the fact that the inner function has access to objects in the enclosing scope. That’s why we don’t need to pass <code>inner()</code> the argument <code>func</code>. Now, if we were to use this function as a decorator, we would do this:</p>
+<pre class="python"><code>def my_function():
+    return 1
+def my_decorator(func):
+    def inner():
+        return func()
+    return inner
+my_function = my_decorator(my_function)
+print(my_function())</code></pre>
+<pre><code>## 1</code></pre>
+<p><code>my_function</code> has now been ‘decorated’ with <code>my_decorator</code>. That is, it’s been re-assigned as the output of <code>my_decorator</code>. In our example, the decorator doensn’t actually do anything. Here’s a more useful example:</p>
+<pre class="python"><code>def my_function():
+    return 1
+def multiply(func):
+    def inner():
+        return func() * 2
+    return inner
+my_function = multiply(my_function)
+print(my_function())</code></pre>
+<pre><code>## 2</code></pre>
+<p>Now <code>my_function</code> returns 2 not 1. If we wanted to be able to specify variables in the decorator function, we do so using another enclosing function (basically, we make a decorator that returns a decorator):</p>
+<pre class="python"><code>def my_function():
+    return 1
+def multiply(multiplier):
+    def outer(func):
+        def inner():
+            return func() * multiplier
+        return inner
+    return outer
+my_function = multiply(3)(my_function)
+print(my_function())</code></pre>
+<pre><code>## 3</code></pre>
+<p>This syntax (<code>multiply(3)(my_function)</code>) does look a bit strange. Python has another way to decorate functions, using the <code>@decorator</code> syntax before the function definition. If we take our first example, with no parameters, would could have written it like this:</p>
+<pre class="python"><code>def my_decorator(func):
+    def inner():
+        return func()
+    return inner
+@my_decorator
+def my_function():
+    return 1
+print(my_function())</code></pre>
+<pre><code>## 1</code></pre>
+<p>And if we look at our second example, with parameters:</p>
+<pre class="python"><code>def multiply(multiplier):
+    def outer(func):
+        def inner():
+            return func() * multiplier
+        return inner
+    return outer
+@multiply(3)
+def my_function():
+    return 1
+print(my_function())</code></pre>
+<pre><code>## 3</code></pre>
+<p>Looks much better!</p>
+<p>Let’s go back to my original example, the decorator I wrote yesterday. Hopefully now it makes a bit more sense. It takes a function, then returns a function that runs the input function plus a bit more stuff. We can use it to decorate whatever functions we want. Below is an example. I’ve just changed how it prints out the function arguments, as the way I wrote it originally deals with command-line options:</p>
+<pre class="python"><code>import time
+def log_info(func):
+    def wrapper(args):
+        print(&quot;Function {} called with the following arguments:\n{}\n&quot;.format(func.__name__, args))
+        t1 = time.time()
+        output = func(args)
+        t2 = time.time()
+        elapsed = [round(x, 2) for x in divmod(t2-t1, 60)]
+        print(&quot;Function completed in  {} m {} s\n&quot;.format(elapsed[0], elapsed[1]))
+        return output
+    return wrapper
+@log_info
+def my_function(number):
+    return number * 3
+x = my_function(2)</code></pre>
+<pre><code>## Function my_function called with the following arguments:
+## 2
+## 
+## Function completed in  0.0 m 0.0 s</code></pre>
+<pre class="python"><code>print(x)</code></pre>
+<pre><code>## 6</code></pre>
+</div>
+</div>
+
+
+
+                    </div>
+
+                    
+                        <div class="navigation">
+                            <div class="row">
+                                <div class="col-12 col-md-6">
+                                    
+                                        <div class="mx-0 mx-md-4 mt-4 text-left">
+                                            <a href="../../blog/2017-04-03-comp-notebook/">« Create a computational lab notebook with bookdown</a>
+                                        </div>
+                                    
+                                </div>
+                                <div class="col-12 col-md-6">
+                                    
+                                        <div class="mx-0 mx-md-4 mt-4 text-right">
+                                            <a href="../../blog/useful-bio/">Bioinformatics snippets »</a>
+                                        </div>
+                                    
+                                </div>
+                            </div>
+                        </div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <section id="comments">
+
+      <div class="py-3 content">
+            <div class="container">
+                  <div class="row justify-content-center">
+                        <div class="col-sm-12 col-md-10">
+                              <div class="comments">
+                                    <div id="disqus_thread"></div>
+                              </div>
+                        </div>
+                  </div>
+            </div>
+      </div>
+
+      <script type="text/javascript">
+            (function () {
+                  
+                  
+                  if (window.location.hostname == "localhost")
+                        return;
+
+                  var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                  var disqus_shortname = '';
+                  dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+                  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+            })();
+      </script>
+      <noscript>
+            Please enable JavaScript to view the
+            <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+      </noscript>
+</section>
+    <div class="my-4 footer">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-sm-12 col-md-5">
+                
+            </div>
+            <div class="col-sm-12 col-md-5">
+                <div class="mx-0 mx-md-4 text-right">
+                    
+                        <a href="https://github.com/timoast" target="_blank">
+                            <img class="icon" src="../../img/github.svg" alt="github" />
+                        </a>
+                    
+
+                    
+
+                    
+                        <a href="https://twitter.com/timoast" target="_blank">
+                            <img class="icon" src="../../img/twitter.svg" alt="twitter" />
+                        </a>
+                    
+
+                    
+
+                    
+
+                    
+
+                    
+
+                    
+                        <a href="../../index.xml" class="mr-0">
+                            <img class="icon" src="../../img/rss.svg" alt="rss" />
+                        </a>
+                    
+
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+    
+
+    
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/highlight.min.js" integrity="sha256-iq71rXEe/fvjCUP9AfLY0cKudQuKAQywiUpXkRFSkLc=" crossorigin="anonymous"></script>
+        
+        <script>
+            window.addEventListener('load', function() {
+                hljs.initHighlighting();
+            }, true);
+        </script>
+    
+
+    
+
+    
+    
+        
+<script src="../../js/math-code.js"></script>
+<script async src="//cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
+
+    
+</body>
+
+</html>

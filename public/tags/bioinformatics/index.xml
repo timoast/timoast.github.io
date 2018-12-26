@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Bioinformatics on Tim Stuart</title>
+    <link>/tags/bioinformatics/</link>
+    <description>Recent content in Bioinformatics on Tim Stuart</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Tue, 12 Jul 2016 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="/tags/bioinformatics/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>smRNA analysis notes</title>
+      <link>/blog/2016-07-12-smrna-analysis/</link>
+      <pubDate>Tue, 12 Jul 2016 00:00:00 +0000</pubDate>
+      
+      <guid>/blog/2016-07-12-smrna-analysis/</guid>
+      <description>I recently analysed some smRNA data for a paper I&amp;rsquo;m working on. These are my analysis notes.
+I used previously published data for Brachypodium, from this paper:
+Garvin DF, Schmutz J, Rokhsar D, Bevan MW, Barry K, Lucas S, et al. Genome sequencing and analysis of the model grass Brachypodium distachyon. Nature. 2010;463: 763–768. doi:10.1038/nature08747
+First step is to download the data:
+$ wget ftp://ftp-trace.ncbi.nlm.nih.gov//sra/sra-instant/reads/ByStudy/sra/SRP/SRP001/SRP001895/SRR035616/SRR035616.sra $ fastq-dump SRR035616.sra $ pigz SRR035616.</description>
+    </item>
+    
+    <item>
+      <title>WGBS Analysis notes -- BS-seeker2</title>
+      <link>/blog/2016-03-29-bsseeker2/</link>
+      <pubDate>Tue, 29 Mar 2016 00:00:00 +0000</pubDate>
+      
+      <guid>/blog/2016-03-29-bsseeker2/</guid>
+      <description>Whole genome bisulfite sequencing analysis notes for BS-seeker2.  Step 1: Trim adapters and low quality bases Illumina TruSeq adapter sequence: GATCGGAAGAGCACACGTCTGAACTCCAGTCAC
+cutadapt -a AGATCGGAAGAGCACACGTCTGAACTCCAGTCAC -m 50 reads.fastq \ | seqtk trimfq -l 50 - \ | pigz &amp;gt; filtered_reads.fq.gz  Step 2: Quality control This step can also be performed on the unfiltered fastq file to compare output before and after read trimming.
+fastqc filtered_reads.fq.gz  Step 3: Alignment 3.</description>
+    </item>
+    
+    <item>
+      <title>Extract reads from bam file by read name</title>
+      <link>/blog/2015-10-12-extractreads/</link>
+      <pubDate>Mon, 12 Oct 2015 00:00:00 +0000</pubDate>
+      
+      <guid>/blog/2015-10-12-extractreads/</guid>
+      <description>While there are very fast and easy ways to extract reads from a bam file according to mapping location, extracting reads by read name is more difficult.
+Simple methods, like using grep, are incredibly slow if you want to look for more than a few reads.
+Luckily, pysam allows you to index a bam file by read name (using pysam.IndexedReads(AlignmentFile)) while keeping the sort order. However, the index is stored in memory so this can use a lot of RAM (my tests with a 5.</description>
+    </item>
+    
+  </channel>
+</rss>

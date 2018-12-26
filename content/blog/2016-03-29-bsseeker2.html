@@ -1,0 +1,78 @@
+---
+title: "WGBS Analysis notes -- BS-seeker2"
+author: "Tim Stuart"
+date: 2016-03-29
+categories: ["bioinformatics"]
+tags: ["bsseeker2", "python", "bioinformatics"]
+---
+
+
+
+<div id="whole-genome-bisulfite-sequencing-analysis-notes-for-bs-seeker2." class="section level2">
+<h2>Whole genome bisulfite sequencing analysis notes for BS-seeker2.</h2>
+</div>
+<div id="step-1-trim-adapters-and-low-quality-bases" class="section level2">
+<h2>Step 1: Trim adapters and low quality bases</h2>
+<p>Illumina TruSeq adapter sequence: <code>GATCGGAAGAGCACACGTCTGAACTCCAGTCAC</code></p>
+<pre><code>cutadapt -a AGATCGGAAGAGCACACGTCTGAACTCCAGTCAC -m 50 reads.fastq \
+| seqtk trimfq -l 50 - \
+| pigz &gt; filtered_reads.fq.gz</code></pre>
+</div>
+<div id="step-2-quality-control" class="section level2">
+<h2>Step 2: Quality control</h2>
+<p>This step can also be performed on the unfiltered fastq file to compare output before and after read trimming.</p>
+<pre><code>fastqc filtered_reads.fq.gz</code></pre>
+</div>
+<div id="step-3-alignment" class="section level2">
+<h2>Step 3: Alignment</h2>
+<div id="build-genome-index" class="section level3">
+<h3>3.1: Build genome index</h3>
+<p>I added the lambda genome as an extra chromosome, L, to calculate the bisulfite nonconversion rate.</p>
+<pre><code>python bs_seeker2-build.py -f tair10_lambda.fa --aligner=bowtie2</code></pre>
+</div>
+<div id="align" class="section level3">
+<h3>3.2: Align</h3>
+<pre><code>python bs_seeker2-align.py -g tair10_lambda.fa --aligner=bowtie2 \
+-u unmapped.fa -o mapped.bam --bt2-p 4 -i filtered_reads.fq.gz</code></pre>
+</div>
+</div>
+<div id="step-4-post-processing-of-alignment-files" class="section level2">
+<h2>Step 4: Post-processing of alignment files</h2>
+<p>Sort and remove PCR duplicates</p>
+<pre><code>samtools sort -@ 10 mapped.bam sorted
+picard MarkDuplicates I=sorted.bam O=filtered.bam M=dup_metrics.txt REMOVE_DUPLICATES=true AS=true</code></pre>
+</div>
+<div id="step-5-call-methylation" class="section level2">
+<h2>Step 5: Call methylation</h2>
+<pre><code>python bs_seeker2-call_methylation.py -i filtered.bam --sorted -o sample_name \
+--db /home/tstuart/working_data/GitHub/BSseeker2/bs_utils/reference_genomes/tair10_lambda.fa_bowtie2/</code></pre>
+</div>
+<div id="step-6-build-database" class="section level2">
+<h2>Step 6: Build database</h2>
+<p>I like to have the methylation data in a SQL database indexed by position so that it can be easily and quickly be queried.</p>
+<p>First create an empty MySQL database that will contain the data tables. In MySQL type:</p>
+<pre><code>create database DATABASE_NAME</code></pre>
+<p>Now run the build_tables.py script that will create and index a table from the BS-Seeker2 CGMap file</p>
+<pre><code>python build_tables.py --host HOST_ADDRESS -p PASSWORD -u USER -d DATABASE_NAME -f CG_MAP_FILE -n SAMPLE_NAME</code></pre>
+<script src="https://gist.github.com/timoast/ff6cf2d7a87d262f7151ecb51071a1d7.js"></script>
+<div id="program-versions" class="section level3">
+<h3>Program versions:</h3>
+<ul>
+<li>python 2.7.10<br />
+</li>
+<li>cutadapt 1.9.1<br />
+</li>
+<li>seqtk 1.0-r82-dirty<br />
+</li>
+<li>fastqc 0.11.5<br />
+</li>
+<li>BS-seeker2 v2.0.10<br />
+</li>
+<li>samtools 1.2<br />
+</li>
+<li>hstlib 1.2.1<br />
+</li>
+<li>picard 2.1.1</li>
+</ul>
+</div>
+</div>
