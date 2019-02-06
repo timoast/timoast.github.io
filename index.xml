@@ -164,15 +164,6 @@ As I couldn&amp;rsquo;t find anything that was a nice middle ground, I ended up 
     </item>
     
     <item>
-      <title></title>
-      <link>/publications/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>/publications/</guid>
-      <description>Publications       code{white-space: pre;} pre:not([class]) { background-color: white; }  if (window.hljs) { hljs.configure({languages: []}); hljs.initHighlightingOnLoad(); if (document.readyState &amp;&amp; document.readyState === &#34;complete&#34;) { window.setTimeout(function() { hljs.initHighlighting(); }, 0); } }  h1 { font-size: 34px; } h1.title { font-size: 38px; } h2 { font-size: 30px; } h3 { font-size: 24px; } h4 { font-size: 18px; } h5 { font-size: 16px; } h6 { font-size: 12px; } .</description>
-    </item>
-    
-    <item>
       <title>Publications</title>
       <link>/publications/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
@@ -188,7 +179,9 @@ As I couldn&amp;rsquo;t find anything that was a nice middle ground, I ended up 
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>/research/</guid>
-      <description></description>
+      <description>Genes are molecules and the genome is interpreted by translation into other molecules. How to understand the conversion of this molecular language into the organism is the central problem confronting biology.
+ – Sydney Brenner
+Sydney Brenner described the correct level of abstraction for biology as the cell (Sequences and consequences, 2010). From the cell, we can look within to the interacting molecules that constitute it, or look out to the organism that contains it.</description>
     </item>
     
     <item>
