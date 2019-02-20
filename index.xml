@@ -170,7 +170,7 @@ As I couldn&amp;rsquo;t find anything that was a nice middle ground, I ended up 
       
       <guid>/publications/</guid>
       <description>Google Scholar
-  Integrative single-cell analysis  Tim Stuart and Rahul Satija.  Nature Reviews Genetics. 2019  PDF DOI         Comprehensive integration of single cell data  Tim Stuart*, Andrew Butler*, Paul Hoffman, Christoph Hafemeister, Efthymia Papalexi, William M. Mauck III, Marlon Stoeckius, Peter Smibert, and Rahul Satija.  bioRxiv. 2018  PDF DOI         Approaches for the Analysis and Interpretation of Whole Genome Bisulfite Sequencing Data   Tim Stuart, Sam Buckberry, and Ryan Lister  Epigenome Editing: Methods and Protocols.</description>
+  A single cell transcriptional roadmap for cardiopharyngeal fate diversification  Wei Wang*, Xiang Niu*, Tim Stuart, Estelle Jullian, William Mauck, Robert G. Kelly, Rahul Satija, Lionel Christiaen  bioRxiv. 2019  PDF DOI         A Genome-Wide Association Study of Non-Photochemical Quenching in response to local seasonal climates in Arabidopsis thaliana  Tepsuda Rungrat*, Andrew Allan Almonte*, Riyan Cheng, Peter J.</description>
     </item>
     
     <item>
@@ -182,16 +182,6 @@ As I couldn&amp;rsquo;t find anything that was a nice middle ground, I ended up 
       <description>Genes are molecules and the genome is interpreted by translation into other molecules. How to understand the conversion of this molecular language into the organism is the central problem confronting biology.
  – Sydney Brenner
 Sydney Brenner described the correct level of abstraction for biology as the cell (Sequences and consequences, 2010). From the cell, we can look within to the interacting molecules that constitute it, or look out to the organism that contains it.</description>
-    </item>
-    
-    <item>
-      <title>Software</title>
-      <link>/software/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>/software/</guid>
-      <description>sctools: Python toolkit for single cell data processing https://github.com/timoast/sctools
-TEPID: transposable element polymorphism identifier https://github.com/ListerLab/TEPID</description>
     </item>
     
   </channel>
