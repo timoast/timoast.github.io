@@ -6,10 +6,20 @@
     <description>Recent content in Home on Tim Stuart</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 04 Oct 2017 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 01 Apr 2019 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Grouping scATAC-seq reads</title>
+      <link>/blog/sinto/</link>
+      <pubDate>Mon, 01 Apr 2019 00:00:00 +0000</pubDate>
+      
+      <guid>/blog/sinto/</guid>
+      <description>Often in the analysis of single-cell ATAC-seq data it&amp;rsquo;s helpful to create a &amp;ldquo;pseudo-bulk&amp;rdquo; accessibility profile for each individual cell type or cluster within the dataset. This can allow visualization of the separate accessibility tracks, and peak-calling on the pure cell types that can often enable the identification of rare peaks that are obscured when looking at the whole population.
+However, there are few tools I know of that provide a nice solution to the basic problem of splitting a BAM file into given groups of cell barcodes.</description>
+    </item>
     
     <item>
       <title>bioRxiv 2017 update</title>

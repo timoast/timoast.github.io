@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Single Cell on Tim Stuart</title>
+    <link>/tags/single-cell/</link>
+    <description>Recent content in Single Cell on Tim Stuart</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sun, 03 Mar 2019 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="/tags/single-cell/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Graph-based community detection</title>
+      <link>/blog/graph-based-community-detection/</link>
+      <pubDate>Sun, 03 Mar 2019 00:00:00 +0000</pubDate>
+      
+      <guid>/blog/graph-based-community-detection/</guid>
+      <description>Test</description>
+    </item>
+    
+  </channel>
+</rss>
