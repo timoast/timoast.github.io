@@ -80,7 +80,7 @@ git clone https://github.com/timoast/dac.git Install RStudio.
 Install the following packages:
 install.packages(c(&amp;quot;readr&amp;quot;, &amp;quot;tidyr&amp;quot;, &amp;quot;data.table&amp;quot;, &amp;quot;dplyr&amp;quot;, &amp;quot;ggplot2&amp;quot;)) library(readr) library(data.table) library(ggplot2) library(tidyr) All the following code will assume you are in the directory that holds this file (r_demo.rmd) in the github repo (ie dac/code/).
  Importing Data The readr way Some docs
-library(readr) read_tsv(&amp;quot;../data/r_demo/coverages.tsv&amp;quot;, col_names = c(&amp;quot;Accession&amp;quot;, &amp;quot;Coverage&amp;quot;)) ## Parsed with column specification: ## cols( ## Accession = col_character(), ## Coverage = col_double() ## ) ## # A tibble: 216 x 2 ## Accession Coverage ## &amp;lt;chr&amp;gt; &amp;lt;dbl&amp;gt; ## 1 Aa-0 41 ## 2 Abd-0 67 ## 3 Ag-0 47 ## 4 Ak-1 38 ## 5 Alst-1 42 ## 6 Altai-5 42 ## 7 Amel-1 60 ## 8 An-1 39 ## 9 Ang-0 48 ## 10 Anholt-1 53 ## # .</description>
+library(readr) read_tsv(&amp;quot;../data/r_demo/coverages.tsv&amp;quot;, col_names = c(&amp;quot;Accession&amp;quot;, &amp;quot;Coverage&amp;quot;)) ## Parsed with column specification: ## cols( ## Accession = col_character(), ## Coverage = col_double() ## ) ## # A tibble: 216 x 2 ## Accession Coverage ## &amp;lt;chr&amp;gt; &amp;lt;dbl&amp;gt; ## 1 Aa-0 41 ## 2 Abd-0 67 ## 3 Ag-0 47 ## 4 Ak-1 38 ## 5 Alst-1 42 ## 6 Altai-5 42 ## 7 Amel-1 60 ## 8 An-1 39 ## 9 Ang-0 48 ## 10 Anholt-1 53 ## # … with 206 more rows # also works for gzipped files read_tsv(&amp;quot;.</description>
     </item>
     
     <item>

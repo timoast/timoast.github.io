@@ -80,7 +80,7 @@ git clone https://github.com/timoast/dac.git Install RStudio.
 Install the following packages:
 install.packages(c(&amp;quot;readr&amp;quot;, &amp;quot;tidyr&amp;quot;, &amp;quot;data.table&amp;quot;, &amp;quot;dplyr&amp;quot;, &amp;quot;ggplot2&amp;quot;)) library(readr) library(data.table) library(ggplot2) library(tidyr) All the following code will assume you are in the directory that holds this file (r_demo.rmd) in the github repo (ie dac/code/).
  Importing Data The readr way Some docs
-library(readr) read_tsv(&amp;quot;../data/r_demo/coverages.tsv&amp;quot;, col_names = c(&amp;quot;Accession&amp;quot;, &amp;quot;Coverage&amp;quot;)) ## Parsed with column specification: ## cols( ## Accession = col_character(), ## Coverage = col_double() ## ) ## # A tibble: 216 x 2 ## Accession Coverage ## &amp;lt;chr&amp;gt; &amp;lt;dbl&amp;gt; ## 1 Aa-0 41 ## 2 Abd-0 67 ## 3 Ag-0 47 ## 4 Ak-1 38 ## 5 Alst-1 42 ## 6 Altai-5 42 ## 7 Amel-1 60 ## 8 An-1 39 ## 9 Ang-0 48 ## 10 Anholt-1 53 ## # .</description>
+library(readr) read_tsv(&amp;quot;../data/r_demo/coverages.tsv&amp;quot;, col_names = c(&amp;quot;Accession&amp;quot;, &amp;quot;Coverage&amp;quot;)) ## Parsed with column specification: ## cols( ## Accession = col_character(), ## Coverage = col_double() ## ) ## # A tibble: 216 x 2 ## Accession Coverage ## &amp;lt;chr&amp;gt; &amp;lt;dbl&amp;gt; ## 1 Aa-0 41 ## 2 Abd-0 67 ## 3 Ag-0 47 ## 4 Ak-1 38 ## 5 Alst-1 42 ## 6 Altai-5 42 ## 7 Amel-1 60 ## 8 An-1 39 ## 9 Ang-0 48 ## 10 Anholt-1 53 ## # … with 206 more rows # also works for gzipped files read_tsv(&amp;quot;.</description>
     </item>
     
     <item>
@@ -192,6 +192,18 @@ As I couldn&amp;rsquo;t find anything that was a nice middle ground, I ended up 
       <description>Genes are molecules and the genome is interpreted by translation into other molecules. How to understand the conversion of this molecular language into the organism is the central problem confronting biology.
  – Sydney Brenner
 Sydney Brenner described the correct level of abstraction for biology as the cell (Sequences and consequences, 2010). From the cell, we can look within to the interacting molecules that constitute it, or look out to the organism that contains it.</description>
+    </item>
+    
+    <item>
+      <title>Software</title>
+      <link>/software/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>/software/</guid>
+      <description> I contribute to the following software packages:
+Sinto Sinto is a Python package for processing aligned single-cell reads.
+ GitHub PyPI Seurat Seurat is an R toolkit for the analysis of single-cell data.
+ GitHub CRAN </description>
     </item>
     
   </channel>
