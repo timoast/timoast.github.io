@@ -6,80 +6,26 @@
     <description>Recent content in Tags on Tim Stuart</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 12 Oct 2015 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Fri, 03 Mar 2017 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="/tags/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
-      <title>Bam</title>
-      <link>/tags/bam/</link>
-      <pubDate>Mon, 12 Oct 2015 00:00:00 +0000</pubDate>
-      
-      <guid>/tags/bam/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Bioinformatics</title>
-      <link>/tags/bioinformatics/</link>
-      <pubDate>Tue, 12 Jul 2016 00:00:00 +0000</pubDate>
-      
-      <guid>/tags/bioinformatics/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Biorxiv</title>
-      <link>/tags/biorxiv/</link>
-      <pubDate>Tue, 01 Mar 2016 00:00:00 +0000</pubDate>
-      
-      <guid>/tags/biorxiv/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Bsseeker2</title>
-      <link>/tags/bsseeker2/</link>
-      <pubDate>Tue, 29 Mar 2016 00:00:00 +0000</pubDate>
-      
-      <guid>/tags/bsseeker2/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Conferences</title>
-      <link>/tags/conferences/</link>
-      <pubDate>Thu, 18 Feb 2016 00:00:00 +0000</pubDate>
-      
-      <guid>/tags/conferences/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Lorne</title>
-      <link>/tags/lorne/</link>
-      <pubDate>Thu, 18 Feb 2016 00:00:00 +0000</pubDate>
-      
-      <guid>/tags/lorne/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Ngs</title>
-      <link>/tags/ngs/</link>
-      <pubDate>Mon, 12 Oct 2015 00:00:00 +0000</pubDate>
-      
-      <guid>/tags/ngs/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Python</title>
+      <title>python</title>
       <link>/tags/python/</link>
       <pubDate>Fri, 03 Mar 2017 00:00:00 +0000</pubDate>
       
       <guid>/tags/python/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>single_cell</title>
+      <link>/tags/single_cell/</link>
+      <pubDate>Fri, 03 Mar 2017 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/single_cell/</guid>
       <description></description>
     </item>
     
@@ -93,20 +39,74 @@
     </item>
     
     <item>
-      <title>Single_cell</title>
-      <link>/tags/single_cell/</link>
-      <pubDate>Fri, 03 Mar 2017 00:00:00 +0000</pubDate>
+      <title>bioinformatics</title>
+      <link>/tags/bioinformatics/</link>
+      <pubDate>Tue, 12 Jul 2016 00:00:00 +0000</pubDate>
       
-      <guid>/tags/single_cell/</guid>
+      <guid>/tags/bioinformatics/</guid>
       <description></description>
     </item>
     
     <item>
-      <title>Smrna</title>
+      <title>smRNA</title>
       <link>/tags/smrna/</link>
       <pubDate>Tue, 12 Jul 2016 00:00:00 +0000</pubDate>
       
       <guid>/tags/smrna/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>bsseeker2</title>
+      <link>/tags/bsseeker2/</link>
+      <pubDate>Tue, 29 Mar 2016 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/bsseeker2/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>biorxiv</title>
+      <link>/tags/biorxiv/</link>
+      <pubDate>Tue, 01 Mar 2016 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/biorxiv/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>conferences</title>
+      <link>/tags/conferences/</link>
+      <pubDate>Thu, 18 Feb 2016 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/conferences/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>lorne</title>
+      <link>/tags/lorne/</link>
+      <pubDate>Thu, 18 Feb 2016 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/lorne/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>bam</title>
+      <link>/tags/bam/</link>
+      <pubDate>Mon, 12 Oct 2015 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/bam/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>ngs</title>
+      <link>/tags/ngs/</link>
+      <pubDate>Mon, 12 Oct 2015 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/ngs/</guid>
       <description></description>
     </item>
     

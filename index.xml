@@ -180,7 +180,7 @@ As I couldn&amp;rsquo;t find anything that was a nice middle ground, I ended up 
       
       <guid>/publications/</guid>
       <description>Google Scholar
-  A single cell transcriptional roadmap for cardiopharyngeal fate diversification  Wei Wang*, Xiang Niu*, Tim Stuart, Estelle Jullian, William Mauck, Robert G. Kelly, Rahul Satija, Lionel Christiaen  bioRxiv. 2019  PDF DOI         A Genome-Wide Association Study of Non-Photochemical Quenching in response to local seasonal climates in Arabidopsis thaliana  Tepsuda Rungrat*, Andrew Allan Almonte*, Riyan Cheng, Peter J.</description>
+2019   Comprehensive integration of single-cell data  Tim Stuart*, Andrew Butler*, Paul Hoffman, Christoph Hafemeister, Efthymia Papalexi, William M. Mauck III, Yuhan Hao, Marlon Stoeckius, Peter Smibert, and Rahul Satija.  Cell. 2019  PDF DOI bioRxiv         Integrative single-cell analysis  Tim Stuart and Rahul Satija.  Nature Reviews Genetics. 2019  PDF DOI         A single cell transcriptional roadmap for cardiopharyngeal fate diversification  Wei Wang*, Xiang Niu*, Tim Stuart, Estelle Jullian, William Mauck, Robert G.</description>
     </item>
     
     <item>
@@ -202,8 +202,8 @@ Sydney Brenner described the correct level of abstraction for biology as the cel
       <guid>/software/</guid>
       <description> I contribute to the following software packages:
 Sinto Sinto is a Python package for processing aligned single-cell reads.
- GitHub PyPI Seurat Seurat is an R toolkit for the analysis of single-cell data.
- GitHub CRAN </description>
+ Docs GitHub PyPI Seurat Seurat is an R toolkit for the analysis of single-cell data.
+ Docs GitHub CRAN </description>
     </item>
     
   </channel>

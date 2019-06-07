@@ -6,26 +6,26 @@
     <description>Recent content in Categories on Tim Stuart</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 03 Mar 2017 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Thu, 14 Sep 2017 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="/categories/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
-      <title>Bioinformatics</title>
-      <link>/categories/bioinformatics/</link>
-      <pubDate>Fri, 03 Mar 2017 00:00:00 +0000</pubDate>
+      <title>science</title>
+      <link>/categories/science/</link>
+      <pubDate>Thu, 14 Sep 2017 00:00:00 +0000</pubDate>
       
-      <guid>/categories/bioinformatics/</guid>
+      <guid>/categories/science/</guid>
       <description></description>
     </item>
     
     <item>
-      <title>Python</title>
-      <link>/categories/python/</link>
-      <pubDate>Mon, 12 Oct 2015 00:00:00 +0000</pubDate>
+      <title>bioinformatics</title>
+      <link>/categories/bioinformatics/</link>
+      <pubDate>Fri, 03 Mar 2017 00:00:00 +0000</pubDate>
       
-      <guid>/categories/python/</guid>
+      <guid>/categories/bioinformatics/</guid>
       <description></description>
     </item>
     
@@ -39,11 +39,11 @@
     </item>
     
     <item>
-      <title>Science</title>
-      <link>/categories/science/</link>
-      <pubDate>Thu, 14 Sep 2017 00:00:00 +0000</pubDate>
+      <title>python</title>
+      <link>/categories/python/</link>
+      <pubDate>Mon, 12 Oct 2015 00:00:00 +0000</pubDate>
       
-      <guid>/categories/science/</guid>
+      <guid>/categories/python/</guid>
       <description></description>
     </item>
     
