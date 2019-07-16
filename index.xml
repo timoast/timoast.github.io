@@ -201,9 +201,10 @@ Sydney Brenner described the correct level of abstraction for biology as the cel
       
       <guid>/software/</guid>
       <description> I contribute to the following software packages:
-Sinto Sinto is a Python package for processing aligned single-cell reads.
- Docs GitHub PyPI Seurat Seurat is an R toolkit for the analysis of single-cell data.
- Docs GitHub CRAN </description>
+Signac Signac is an R toolkit for the analysis of single-cell chromatin data.
+ Docs GitHub Seurat Seurat is an R toolkit for the analysis of single-cell RNA-seq data.
+ Docs GitHub CRAN Sinto Sinto is a Python package for processing aligned single-cell reads.
+ Docs GitHub PyPI </description>
     </item>
     
   </channel>
