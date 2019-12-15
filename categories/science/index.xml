@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>science on Tim Stuart</title>
@@ -17,7 +17,7 @@
       <pubDate>Thu, 14 Sep 2017 00:00:00 +0000</pubDate>
       
       <guid>/blog/useful-bio/</guid>
-      <description>Trim reads cutadapt -a AGATCGGAAGAGCACACGTCTGAACTCCAGTCAC -o output.fq.gz input.fq.gz  Map RNA-seq # build index STAR --runThreadN 10 \ --runMode genomeGenerate \ --genomeDir genome \ --genomeFastaFiles genome.fa \ --sjdbGTFfile genes.gtf # map STAR --runThreadN 20 \ --genomeDir genome \ --alignIntronMax 5000 \ --alignIntronMin 10 \ --readFilesCommand zcat \ --readFilesIn input.fq.gz  Pseudomap RNA-seq with kallisto # build index kallisto index -i index.idx Arabidopsis_thaliana.TAIR10.cds.all.fa #quantify for filename in *.fq.gz; do samplename=(${filename//.fq.gz/ }) kallisto quant -i index.</description>
+      <description>Trim reads cutadapt -a AGATCGGAAGAGCACACGTCTGAACTCCAGTCAC -o output.fq.gz input.fq.gz  Map RNA-seq # build index STAR --runThreadN 10 \ --runMode genomeGenerate \ --genomeDir genome \ --genomeFastaFiles genome.fa \ --sjdbGTFfile genes.gtf # map STAR --runThreadN 20 \ --genomeDir genome \ --alignIntronMax 5000 \ --alignIntronMin 10 \ --readFilesCommand zcat \ --readFilesIn input.fq.gz  Pseudomap RNA-seq with kallisto # build index kallisto index -i index.idx Arabidopsis_thaliana.TAIR10.cds.all.fa #quantify for filename in *.fq.gz; do samplename=(${filename//.</description>
     </item>
     
   </channel>

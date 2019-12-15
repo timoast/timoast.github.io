@@ -151,57 +151,41 @@
 
                     <div class="markdown">
                         
-    
-
-<p>I recently analysed some smRNA data for a paper I&rsquo;m working on. These are my analysis notes.</p>
-
+    <p>I recently analysed some smRNA data for a paper I'm working on. These are my analysis notes.</p>
 <p>I used previously published data for Brachypodium, from this paper:</p>
-
 <p>Garvin DF, Schmutz J, Rokhsar D, Bevan MW, Barry K, Lucas S, et al. Genome sequencing and analysis of the model grass Brachypodium distachyon. Nature. 2010;463: 763–768. doi:10.1038/nature08747</p>
-
 <p>First step is to download the data:</p>
-
-<pre><code class="language-bash">$ wget ftp://ftp-trace.ncbi.nlm.nih.gov//sra/sra-instant/reads/ByStudy/sra/SRP/SRP001/SRP001895/SRR035616/SRR035616.sra
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ wget ftp://ftp-trace.ncbi.nlm.nih.gov//sra/sra-instant/reads/ByStudy/sra/SRP/SRP001/SRP001895/SRR035616/SRR035616.sra
 $ fastq-dump SRR035616.sra
 $ pigz SRR035616.fastq
-</code></pre>
-
-<p>It is essential that the reads are trimmed correctly to be able to get useful data out of the reads. To do that, we first need to work out what the adapter sequence is. The easiest way to do that is to run fastqc and see what sequences are overrepresented.</p>
-
-<pre><code class="language-bash">$ fastqc SRR035616.fastq.gz
-</code></pre>
-
-<p>Then we can do a multiple sequence alignment of overrepresented sequences to find the adapter sequence:</p>
-
-<pre><code class="language-bash">CLUSTAL multiple sequence alignment by MUSCLE (3.8)
+</code></pre></div><p>It is essential that the reads are trimmed correctly to be able to get useful data out of the reads. To do that, we first need to work out what the adapter sequence is. The easiest way to do that is to run fastqc and see what sequences are overrepresented.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ fastqc SRR035616.fastq.gz
+</code></pre></div><p>Then we can do a multiple sequence alignment of overrepresented sequences to find the adapter sequence:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">CLUSTAL multiple sequence alignment by MUSCLE <span style="color:#f92672">(</span>3.8<span style="color:#f92672">)</span>
 
 
-12              GGTAGTTCGACCGCGGA------------ACTGTAGGCACCATCAATT------------
-15              GGTAGTTCGACCGCGGAA-----------TCTGTAGGCACCATCAAT-------------
-14              -------TCGCTTGGTGCAGATCGGGA--CCTGTAGGCACCCTCA---------------
-18              ---TTCATGGACGTTGATAAGATCCTT--CCTGTATGCACC-------------------
-1               -------TCGCTTGGTGCAGATCGGGA--CCTGTAGGCACCATCA---------------
-13              -------TGATTGAGCCGTGCCAATAT--CCTGTAGGCACCATCA---------------
-3               ------------GGGGGTGTAGCTCAT--ACTGTAGGCACCATCAATTCG----------
-10              ------------GGGGATGTAGCTCAG--ACTGTAGGCACCATCAATTCG----------
-2               ------------GGGGATGTAGCTCAA--ACTGTAGGCACCATCAATTCG----------
-11              --------GACCGCATAGCGCAGTGG---ACTGTAGGCACCATCAAT-------------
-9               ---------ATTGAGTGCAGCGTTGATGAACTGTAGGCACCATCA---------------
-19              -----ACTGGTTGG--ATCATGCTTCT--ACTGTAGGCACCATCA---------------
-8               ----TTTGGATTGAAGGGAGCTCT-----GCTGTAGGCACCATCA---------------
-7               ---------TCCACAGGCTTTCTTGAACTGCTGTAGGCACCATCA---------------
-17              -----TTGGACTGAAGGGTGCTCCC----TCTGTAGGCACCATCA---------------
-4               -----TGAAGCTGCCAGCATGATCTG---ACTGTAGGCACCATC----------------
-16              ----ACCTGCTCTGATACCATGTTGTG--ACTGTAGGCACCA------------------
-6               ---TTCATGGACGTTGATAAGATCCTT--CCTGTAGGCACC-------------------
-5               ------------------------------CTGTAGGCACCATCAATTCGTATGCCGTCT
+<span style="color:#ae81ff">12</span>              GGTAGTTCGACCGCGGA------------ACTGTAGGCACCATCAATT------------
+<span style="color:#ae81ff">15</span>              GGTAGTTCGACCGCGGAA-----------TCTGTAGGCACCATCAAT-------------
+<span style="color:#ae81ff">14</span>              -------TCGCTTGGTGCAGATCGGGA--CCTGTAGGCACCCTCA---------------
+<span style="color:#ae81ff">18</span>              ---TTCATGGACGTTGATAAGATCCTT--CCTGTATGCACC-------------------
+<span style="color:#ae81ff">1</span>               -------TCGCTTGGTGCAGATCGGGA--CCTGTAGGCACCATCA---------------
+<span style="color:#ae81ff">13</span>              -------TGATTGAGCCGTGCCAATAT--CCTGTAGGCACCATCA---------------
+<span style="color:#ae81ff">3</span>               ------------GGGGGTGTAGCTCAT--ACTGTAGGCACCATCAATTCG----------
+<span style="color:#ae81ff">10</span>              ------------GGGGATGTAGCTCAG--ACTGTAGGCACCATCAATTCG----------
+<span style="color:#ae81ff">2</span>               ------------GGGGATGTAGCTCAA--ACTGTAGGCACCATCAATTCG----------
+<span style="color:#ae81ff">11</span>              --------GACCGCATAGCGCAGTGG---ACTGTAGGCACCATCAAT-------------
+<span style="color:#ae81ff">9</span>               ---------ATTGAGTGCAGCGTTGATGAACTGTAGGCACCATCA---------------
+<span style="color:#ae81ff">19</span>              -----ACTGGTTGG--ATCATGCTTCT--ACTGTAGGCACCATCA---------------
+<span style="color:#ae81ff">8</span>               ----TTTGGATTGAAGGGAGCTCT-----GCTGTAGGCACCATCA---------------
+<span style="color:#ae81ff">7</span>               ---------TCCACAGGCTTTCTTGAACTGCTGTAGGCACCATCA---------------
+<span style="color:#ae81ff">17</span>              -----TTGGACTGAAGGGTGCTCCC----TCTGTAGGCACCATCA---------------
+<span style="color:#ae81ff">4</span>               -----TGAAGCTGCCAGCATGATCTG---ACTGTAGGCACCATC----------------
+<span style="color:#ae81ff">16</span>              ----ACCTGCTCTGATACCATGTTGTG--ACTGTAGGCACCA------------------
+<span style="color:#ae81ff">6</span>               ---TTCATGGACGTTGATAAGATCCTT--CCTGTAGGCACC-------------------
+<span style="color:#ae81ff">5</span>               ------------------------------CTGTAGGCACCATCAATTCGTATGCCGTCT
                                               ***** *****        
-</code></pre>
-
-<p>From this it becomes obvious that the adapter is <code>CTGTAGGCACCATCA...</code>. Next step is to trim the adapters, and we will also discard any reads that were not trimmed, as these reads are longer than the longest smRNA (so every read should need trimming). We will also retain a minumum read length of 15 nt.</p>
-
+</code></pre></div><p>From this it becomes obvious that the adapter is <code>CTGTAGGCACCATCA...</code>. Next step is to trim the adapters, and we will also discard any reads that were not trimmed, as these reads are longer than the longest smRNA (so every read should need trimming). We will also retain a minumum read length of 15 nt.</p>
 <h2 id="adapter-trimming">Adapter trimming</h2>
-
 <pre><code>$ cutadapt --discard-untrimmed -m 15 -a CTGTAGGCACCATCAATTCG -o adapertrim.fq SRR035616.fastq.gz
 
 This is cutadapt 1.10 with Python 2.7.10
@@ -269,57 +253,38 @@ length	count	expect	max.err	error counts
 34	39	0.0	2	30 3 6
 35	39	0.0	2	29 6 4
 36	33293	0.0	2	27424 5411 458
-</code></pre>
-
-<p>Now rerun fastqc</p>
-
-<pre><code class="language-bash">$ fastqc adapertrim.fq
-</code></pre>
-
-<p>We can see peaks at 21 and 24 nt, which are the most abundant smRNA size classes:</p>
-
-<p><img src="../../assets/brachy_smrna.png" alt="Drawing" style="width: 80%;"/></p>
-
+</code></pre><p>Now rerun fastqc</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ fastqc adapertrim.fq
+</code></pre></div><p>We can see peaks at 21 and 24 nt, which are the most abundant smRNA size classes:</p>
+<!-- raw HTML omitted -->
 <h2 id="mapping">Mapping</h2>
-
 <p>Map with bowtie, pipe to samtools to convert the output sam file to a bam file. Using the <code>-a</code> flag will tell bowtie to report all alignments.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">bowtie -p <span style="color:#ae81ff">20</span> -q -n <span style="color:#ae81ff">0</span> -l <span style="color:#ae81ff">20</span> -a -S /home/tstuart/working_data_01/genomes/Bdistachyon/v2.1/assembly/BowtieIndex/bd21 adapertrim.fq <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>| samtools view -b - &gt; mapped.bam
+</code></pre></div><h2 id="post-processing">Post-processing</h2>
+<p>It's important to know the length of the smRNA, its mapping position in the genome, and whether it was uniquely mapped or not. First, we can convert the bam file to a bed file and add a column showing the smRNA length:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ bedtools bamtobed -i mapped.bam <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>| awk <span style="color:#e6db74">&#39;BEGIN {FS=OFS=&#34;\t&#34;} {$7 = $3 - $2; print $0}&#39;</span> - | pigz - &gt; mapped.bed.gz
+</code></pre></div><p>Now we add a column showing the number of mapping positions for each smRNA (in R):</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#a6e22e">library</span>(dplyr)
+<span style="color:#a6e22e">library</span>(data.table)
+<span style="color:#a6e22e">library</span>(readr)
 
-<pre><code class="language-bash">bowtie -p 20 -q -n 0 -l 20 -a -S /home/tstuart/working_data_01/genomes/Bdistachyon/v2.1/assembly/BowtieIndex/bd21 adapertrim.fq \
-| samtools view -b - &gt; mapped.bam
-</code></pre>
+smrna <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">fread</span>(<span style="color:#e6db74">&#34;</span><span style="color:#e6db74">~/Downloads/mapped.bed&#34;</span>, header <span style="color:#f92672">=</span> F, sep <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;</span><span style="color:#e6db74">\t&#34;</span>,
+               col.names <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#34;</span><span style="color:#e6db74">chromosome&#34;</span>, <span style="color:#e6db74">&#34;</span><span style="color:#e6db74">start&#34;</span>, <span style="color:#e6db74">&#34;</span><span style="color:#e6db74">stop&#34;</span>,
+                             <span style="color:#e6db74">&#34;</span><span style="color:#e6db74">readName&#34;</span>, <span style="color:#e6db74">&#34;</span><span style="color:#e6db74">q&#34;</span>, <span style="color:#e6db74">&#34;</span><span style="color:#e6db74">strand&#34;</span>, <span style="color:#e6db74">&#34;</span><span style="color:#e6db74">length&#34;</span>))
 
-<h2 id="post-processing">Post-processing</h2>
+smrna <span style="color:#f92672">&lt;-</span> smrna <span style="color:#f92672">%&gt;%</span>
+  <span style="color:#a6e22e">group_by</span>(readName) <span style="color:#f92672">%&gt;%</span>
+  <span style="color:#a6e22e">mutate</span>(positions <span style="color:#f92672">=</span> <span style="color:#a6e22e">n</span>()) <span style="color:#f92672">%&gt;%</span>
+  <span style="color:#a6e22e">ungroup</span>() <span style="color:#f92672">%&gt;%</span>
+  <span style="color:#a6e22e">select</span>(<span style="color:#f92672">-</span>q) <span style="color:#f92672">%&gt;%</span>
+  <span style="color:#a6e22e">mutate</span>(unique <span style="color:#f92672">=</span> <span style="color:#a6e22e">ifelse</span>(positions <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">1</span>, <span style="color:#66d9ef">FALSE</span>, <span style="color:#66d9ef">TRUE</span>)) <span style="color:#f92672">%&gt;%</span>
+  <span style="color:#a6e22e">arrange</span>(chromosome, start)
 
-<p>It&rsquo;s important to know the length of the smRNA, its mapping position in the genome, and whether it was uniquely mapped or not. First, we can convert the bam file to a bed file and add a column showing the smRNA length:</p>
-
-<pre><code class="language-bash">$ bedtools bamtobed -i mapped.bam \
-| awk 'BEGIN {FS=OFS=&quot;\t&quot;} {$7 = $3 - $2; print $0}' - | pigz - &gt; mapped.bed.gz
-</code></pre>
-
-<p>Now we add a column showing the number of mapping positions for each smRNA (in R):</p>
-
-<pre><code class="language-r">library(dplyr)
-library(data.table)
-library(readr)
-
-smrna &lt;- fread(&quot;~/Downloads/mapped.bed&quot;, header = F, sep = &quot;\t&quot;,
-               col.names = c(&quot;chromosome&quot;, &quot;start&quot;, &quot;stop&quot;,
-                             &quot;readName&quot;, &quot;q&quot;, &quot;strand&quot;, &quot;length&quot;))
-
-smrna &lt;- smrna %&gt;%
-  group_by(readName) %&gt;%
-  mutate(positions = n()) %&gt;%
-  ungroup() %&gt;%
-  select(-q) %&gt;%
-  mutate(unique = ifelse(positions &gt; 1, FALSE, TRUE)) %&gt;%
-  arrange(chromosome, start)
-
-write_tsv(smrna, &quot;~/Desktop/brachy_smrna.tsv&quot;)
-system(&quot;gzip ~/Desktop/brachy_smrna.tsv&quot;)
-</code></pre>
-
-<p>That&rsquo;s it! We now have a file that looks like this:</p>
-
+<span style="color:#a6e22e">write_tsv</span>(smrna, <span style="color:#e6db74">&#34;</span><span style="color:#e6db74">~/Desktop/brachy_smrna.tsv&#34;</span>)
+<span style="color:#a6e22e">system</span>(<span style="color:#e6db74">&#34;</span><span style="color:#e6db74">gzip ~/Desktop/brachy_smrna.tsv&#34;</span>)
+</code></pre></div><p>That's it! We now have a file that looks like this:</p>
 <pre><code>$ zcat brachy_smrna.tsv.gz | head
 chromosome	start	stop	readName	strand	length	positions	unique
 Bd1	3	27	SRR035616.1254270	-	24	143	FALSE
@@ -332,7 +297,6 @@ Bd1	17	41	SRR035616.1254270	-	24	143	FALSE
 Bd1	19	40	SRR035616.1862694	-	21	153	FALSE
 Bd1	20	35	SRR035616.3527272	-	15	218	FALSE
 </code></pre>
-
 
 
                     </div>

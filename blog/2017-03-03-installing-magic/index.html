@@ -151,22 +151,17 @@
 
                     <div class="markdown">
                         
-    
-
-<h1 id="installing-magic">Installing magic</h1>
-
+    <h1 id="installing-magic">Installing magic</h1>
 <p>Recently a method for imputing single cell gene expression matricies
 was posted
 on <a href="http://biorxiv.org/content/early/2017/02/25/111591">biorxiv</a> by
 David van Dijk et al., called magic (Markov Affinity-based Graph
-Imputation of Cells). I&rsquo;ve been analysing single cell RNA-seq data
+Imputation of Cells). I've been analysing single cell RNA-seq data
 recently, and this method looks like it could be useful when trying to
 find co-transcriptional networks, as single cell data suffers from
 dropout which makes finding co-transcriptional networks hard.</p>
-
 <p>I had lots of problems getting magic installed and running, so will
 document them here for future reference.</p>
-
 <p>Firstly, there seems to be an error in the <code>setup.py</code> script where it
 looks for a non-existent <code>/data</code> directory that should contain test
 data. Running <code>pip3 install .</code> as instructed in the readme resulted in
@@ -174,51 +169,36 @@ an error, and I have raised
 an <a href="https://github.com/pkathail/magic/issues/12">issue</a> on
 github. Commenting out the last few lines of the <code>setup.py</code> script
 seemed to provide a temporary fix.</p>
-
 <p>The next problem was getting <code>Tk</code> to work properly with python. <code>Tk</code>
 is a GUI toolkit and not park of python itself. Chances are
 that <code>Tk</code> is installed somewhere on your computer, and the problem is that
-python doesn&rsquo;t know where it is. After trying lots of different
+python doesn't know where it is. After trying lots of different
 things, the solution I found was to install python3 using the mac
 installer and launching IDLE, as this finds and links the <code>Tk</code>
 installation with python at runtime. From the
 python <a href="https://www.python.org/download/mac/tcltk/">website</a>:</p>
-
 <blockquote>
 <p>The Python for Mac OS X installers downloaded from this website
 dynamically link at runtime to Tcl/Tk macOS frameworks.</p>
 </blockquote>
-
 <p>I then found the path of the newly installed python3 (it was symlinked
 to <code>/usr/local/bin/python3</code> for me) and used this to create a new
 virtualenv:</p>
-
 <pre><code>mkvirtualenv -p /usr/local/bin/python3 py3
-</code></pre>
-
-<p>I then installed magic again in the virtualenv (from the github repo):</p>
-
+</code></pre><p>I then installed magic again in the virtualenv (from the github repo):</p>
 <pre><code>pip3 install .
-</code></pre>
-
-<p>Next I installed all the jupyter stuff. It&rsquo;s important to link the
+</code></pre><p>Next I installed all the jupyter stuff. It's important to link the
 right ipython kernel to the jupyter notebook, otherwise it will seem
-like you still don&rsquo;t have access to <code>Tk</code>, even though at this point
+like you still don't have access to <code>Tk</code>, even though at this point
 you can sucessfully <code>import tkinter</code> in python3. To do this, install
 jupyter, ipython, the ipython kernel, and then link the
 kernel:</p>
-
 <pre><code>pip install jupyter ipython ipykernel
 python3 -m ipykernel install --user
-</code></pre>
-
-<p>Now you should be able to import magic without any problems, and use
+</code></pre><p>Now you should be able to import magic without any problems, and use
 it in a jupyter notebook. You can also start the GUI by running the <code>magic_gui.py</code> script:</p>
-
 <pre><code>python3 magic_gui.py
-</code></pre>
-
-<p><img src="../../assets/magic.png" alt="Drawing" style="width: 80%;"/></p>
+</code></pre><!-- raw HTML omitted -->
 
 
 

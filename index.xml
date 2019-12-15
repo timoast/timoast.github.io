@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Home on Tim Stuart</title>
@@ -17,7 +17,7 @@
       <pubDate>Mon, 01 Apr 2019 00:00:00 +0000</pubDate>
       
       <guid>/blog/sinto/</guid>
-      <description>Often in the analysis of single-cell ATAC-seq data it&amp;rsquo;s helpful to create a &amp;ldquo;pseudo-bulk&amp;rdquo; accessibility profile for each individual cell type or cluster within the dataset. This can allow visualization of the separate accessibility tracks, and peak-calling on the pure cell types that can often enable the identification of rare peaks that are obscured when looking at the whole population.
+      <description>Often in the analysis of single-cell ATAC-seq data it&#39;s helpful to create a &amp;ldquo;pseudo-bulk&amp;rdquo; accessibility profile for each individual cell type or cluster within the dataset. This can allow visualization of the separate accessibility tracks, and peak-calling on the pure cell types that can often enable the identification of rare peaks that are obscured when looking at the whole population.
 However, there are few tools I know of that provide a nice solution to the basic problem of splitting a BAM file into given groups of cell barcodes.</description>
     </item>
     
@@ -36,7 +36,7 @@ However, there are few tools I know of that provide a nice solution to the basic
       <pubDate>Thu, 14 Sep 2017 00:00:00 +0000</pubDate>
       
       <guid>/blog/useful-bio/</guid>
-      <description>Trim reads cutadapt -a AGATCGGAAGAGCACACGTCTGAACTCCAGTCAC -o output.fq.gz input.fq.gz  Map RNA-seq # build index STAR --runThreadN 10 \ --runMode genomeGenerate \ --genomeDir genome \ --genomeFastaFiles genome.fa \ --sjdbGTFfile genes.gtf # map STAR --runThreadN 20 \ --genomeDir genome \ --alignIntronMax 5000 \ --alignIntronMin 10 \ --readFilesCommand zcat \ --readFilesIn input.fq.gz  Pseudomap RNA-seq with kallisto # build index kallisto index -i index.idx Arabidopsis_thaliana.TAIR10.cds.all.fa #quantify for filename in *.fq.gz; do samplename=(${filename//.fq.gz/ }) kallisto quant -i index.</description>
+      <description>Trim reads cutadapt -a AGATCGGAAGAGCACACGTCTGAACTCCAGTCAC -o output.fq.gz input.fq.gz  Map RNA-seq # build index STAR --runThreadN 10 \ --runMode genomeGenerate \ --genomeDir genome \ --genomeFastaFiles genome.fa \ --sjdbGTFfile genes.gtf # map STAR --runThreadN 20 \ --genomeDir genome \ --alignIntronMax 5000 \ --alignIntronMin 10 \ --readFilesCommand zcat \ --readFilesIn input.fq.gz  Pseudomap RNA-seq with kallisto # build index kallisto index -i index.idx Arabidopsis_thaliana.TAIR10.cds.all.fa #quantify for filename in *.fq.gz; do samplename=(${filename//.</description>
     </item>
     
     <item>
@@ -56,7 +56,7 @@ def log_info(func): def wrapper(args): print(&amp;quot;Function {} called with t
       
       <guid>/blog/2017-04-03-comp-notebook/</guid>
       <description>Every data analysis I do now is kept in an R Markdown document. These are great for mixing code with explanatory text, and you can run code in many languages not just R. Whenever I finished working on something, I would compile the R Markdown document into a self-contained html report and save is somewhere, usually with a descriptive filename like &amp;ldquo;coverage_genes&amp;rdquo; or &amp;ldquo;col_vs_cvi&amp;rdquo;.
- This is where the problems begin.</description>
+This is where the problems begin. These reports, while great individually, can quickly pile up and you start to realize that the name &amp;ldquo;coverage_genes&amp;rdquo; doesn&#39;t really help you find a bit of code you wrote 3 weeks ago.</description>
     </item>
     
     <item>
@@ -65,7 +65,7 @@ def log_info(func): def wrapper(args): print(&amp;quot;Function {} called with t
       <pubDate>Fri, 03 Mar 2017 00:00:00 +0000</pubDate>
       
       <guid>/blog/2017-03-03-installing-magic/</guid>
-      <description>Installing magic Recently a method for imputing single cell gene expression matricies was posted on biorxiv by David van Dijk et al., called magic (Markov Affinity-based Graph Imputation of Cells). I&amp;rsquo;ve been analysing single cell RNA-seq data recently, and this method looks like it could be useful when trying to find co-transcriptional networks, as single cell data suffers from dropout which makes finding co-transcriptional networks hard.
+      <description>Installing magic Recently a method for imputing single cell gene expression matricies was posted on biorxiv by David van Dijk et al., called magic (Markov Affinity-based Graph Imputation of Cells). I&#39;ve been analysing single cell RNA-seq data recently, and this method looks like it could be useful when trying to find co-transcriptional networks, as single cell data suffers from dropout which makes finding co-transcriptional networks hard.
 I had lots of problems getting magic installed and running, so will document them here for future reference.</description>
     </item>
     
@@ -89,7 +89,7 @@ library(readr) read_tsv(&amp;quot;../data/r_demo/coverages.tsv&amp;quot;, col_na
       <pubDate>Tue, 12 Jul 2016 00:00:00 +0000</pubDate>
       
       <guid>/blog/2016-07-12-smrna-analysis/</guid>
-      <description>I recently analysed some smRNA data for a paper I&amp;rsquo;m working on. These are my analysis notes.
+      <description>I recently analysed some smRNA data for a paper I&#39;m working on. These are my analysis notes.
 I used previously published data for Brachypodium, from this paper:
 Garvin DF, Schmutz J, Rokhsar D, Bevan MW, Barry K, Lucas S, et al. Genome sequencing and analysis of the model grass Brachypodium distachyon. Nature. 2010;463: 763–768. doi:10.1038/nature08747
 First step is to download the data:
@@ -122,9 +122,9 @@ fastqc filtered_reads.fq.gz  Step 3: Alignment 3.</description>
       <pubDate>Tue, 23 Feb 2016 00:00:00 +0000</pubDate>
       
       <guid>/blog/2016-02-23-papers/</guid>
-      <description>In an effort to read more papers this year, I&amp;rsquo;m going to read a paper (or something paper-like) each day for the remainder of the year, and post each paper below as I go.
+      <description>In an effort to read more papers this year, I&#39;m going to read a paper (or something paper-like) each day for the remainder of the year, and post each paper below as I go.
 Dec 31 Galanter JM, Gignoux CR, Oh SS, Torgerson D, Pino-Yanes M, Thakur N, et al. Differential methylation between ethnic sub-groups reflects the effect of genetic ancestry and environmental exposures. eLife. doi:10.7554/eLife.20532
- Dec 30 Lun ATL, McCarthy DJ, Marioni JC.</description>
+Dec 30 Lun ATL, McCarthy DJ, Marioni JC.</description>
     </item>
     
     <item>
@@ -133,14 +133,14 @@ Dec 31 Galanter JM, Gignoux CR, Oh SS, Torgerson D, Pino-Yanes M, Thakur N, et a
       <pubDate>Thu, 18 Feb 2016 00:00:00 +0000</pubDate>
       
       <guid>/blog/2016-02-18-lorne/</guid>
-      <description>This week I presented some recent work at the Lorne Genome conference. It was my first time at Lorne and it&amp;rsquo;s a fantastic meeting with lots of interesting talks. It was great to see so many people getting interested in transposon biology too!
+      <description>This week I presented some recent work at the Lorne Genome conference. It was my first time at Lorne and it&#39;s a fantastic meeting with lots of interesting talks. It was great to see so many people getting interested in transposon biology too!
 Here are a few links to the work I was presenting:
 TEPID TE presence/absence variant discovery software:
 https://github.com/ListerLab/TEPID
 Poster:
 https://dx.doi.org/10.6084/m9.figshare.2082757.v1
 Manuscript:
-http://dx.doi.org/10.1101&amp;frasl;039511</description>
+http://dx.doi.org/10.1101/039511</description>
     </item>
     
     <item>
@@ -160,8 +160,8 @@ Luckily, pysam allows you to index a bam file by read name (using pysam.IndexedR
       <pubDate>Tue, 04 Nov 2014 00:00:00 +0000</pubDate>
       
       <guid>/blog/2014-11-04-sizeestimation/</guid>
-      <description>I&amp;rsquo;ve been looking for a simple way to estimate paired-end insert sizes from mapped data. There are a few more complicated tools available (I think picard will do it), as well as simple scripts different people have written that don&amp;rsquo;t exclude outliers. However outliers due to discordant read alignments will hugely change the mean, so need to be removed.
-As I couldn&amp;rsquo;t find anything that was a nice middle ground, I ended up writing my own simple python script that will take input from stdin and exclude outliers more that two standard deviations from the median, and print the mean and standard deviation to stdout.</description>
+      <description>I&#39;ve been looking for a simple way to estimate paired-end insert sizes from mapped data. There are a few more complicated tools available (I think picard will do it), as well as simple scripts different people have written that don&#39;t exclude outliers. However outliers due to discordant read alignments will hugely change the mean, so need to be removed.
+As I couldn&#39;t find anything that was a nice middle ground, I ended up writing my own simple python script that will take input from stdin and exclude outliers more that two standard deviations from the median, and print the mean and standard deviation to stdout.</description>
     </item>
     
     <item>
@@ -170,7 +170,7 @@ As I couldn&amp;rsquo;t find anything that was a nice middle ground, I ended up 
       <pubDate>Wed, 29 Oct 2014 00:00:00 +0000</pubDate>
       
       <guid>/blog/2014-10-29-methyc-analysis/</guid>
-      <description>Preliminary steps Bcl-conversion  Enter a screen  screen -S bcl-conversion   Navigate to directory with run (eg. 130909_SNL119_0105_AC2GYKACXX) Check sample sheet configured correctly. If only one adapter in lane, remove adapter sequence from sample sheet. Run the following (modified with correct run name, sample sheet etc). Can change final value to change number of reads in files:   /usr/local/packages/CASAVA_v1.8.2/bcl2fastq/build/bin/configureBclToFastq.pl --input-dir /dd_rundata/hiseq/Runs/130909_SNL119_0105_AC2GYKACXX/Data/Intensities/BaseCalls/ --sample-sheet /dd_rundata/hiseq/Runs/130909_SNL119_0105_AC2GYKACXX/SampleSheet.csv --fastq-cluster-count 50000000   Navigate to newly created Unaligned directory (under top run directory) and enter:  nohup make -j 12  Moving and renaming files  Copy run files from run directory to working directory:  cp Project_E_grandis ~/working_data   Rename fastq files to s_1_sequence.</description>
+      <description>Preliminary steps Bcl-conversion  Enter a screen  screen -S bcl-conversion Navigate to directory with run (eg. 130909_SNL119_0105_AC2GYKACXX) Check sample sheet configured correctly. If only one adapter in lane, remove adapter sequence from sample sheet. Run the following (modified with correct run name, sample sheet etc). Can change final value to change number of reads in files:  /usr/local/packages/CASAVA_v1.8.2/bcl2fastq/build/bin/configureBclToFastq.pl --input-dir /dd_rundata/hiseq/Runs/130909_SNL119_0105_AC2GYKACXX/Data/Intensities/BaseCalls/ --sample-sheet /dd_rundata/hiseq/Runs/130909_SNL119_0105_AC2GYKACXX/SampleSheet.csv --fastq-cluster-count 50000000 Navigate to newly created Unaligned directory (under top run directory) and enter:  nohup make -j 12 Moving and renaming files  Copy run files from run directory to working directory:  cp Project_E_grandis ~/working_data Rename fastq files to s_1_sequence.</description>
     </item>
     
     <item>
@@ -180,7 +180,17 @@ As I couldn&amp;rsquo;t find anything that was a nice middle ground, I ended up 
       
       <guid>/publications/</guid>
       <description>Google Scholar
-2019   Comprehensive integration of single-cell data  Tim Stuart*, Andrew Butler*, Paul Hoffman, Christoph Hafemeister, Efthymia Papalexi, William M. Mauck III, Yuhan Hao, Marlon Stoeckius, Peter Smibert, and Rahul Satija.  Cell. 2019  PDF DOI bioRxiv         Integrative single-cell analysis  Tim Stuart and Rahul Satija.  Nature Reviews Genetics. 2019  PDF DOI         A single cell transcriptional roadmap for cardiopharyngeal fate diversification  Wei Wang*, Xiang Niu*, Tim Stuart, Estelle Jullian, William Mauck, Robert G.</description>
+2019   Comprehensive integration of single-cell data  Tim Stuart*, Andrew Butler*, Paul Hoffman, Christoph Hafemeister, Efthymia Papalexi, William M. Mauck III, Yuhan Hao, Marlon Stoeckius, Peter Smibert, and Rahul Satija.  Cell. 2019  PDF DOI bioRxiv         Integrative single-cell analysis  Tim Stuart and Rahul Satija.  Nature Reviews Genetics. 2019  PDF DOI         Toward a Common Coordinate Framework for the Human Body  Jennifer E.</description>
+    </item>
+    
+    <item>
+      <title>Publications</title>
+      <link>/pubs/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>/pubs/</guid>
+      <description>Google Scholar
+2019   Comprehensive integration of single-cell data  Tim Stuart*, Andrew Butler*, Paul Hoffman, Christoph Hafemeister, Efthymia Papalexi, William M. Mauck III, Yuhan Hao, Marlon Stoeckius, Peter Smibert, and Rahul Satija.  Cell. 2019  PDF DOI bioRxiv         Integrative single-cell analysis  Tim Stuart and Rahul Satija.  Nature Reviews Genetics. 2019  PDF DOI         Toward a Common Coordinate Framework for the Human Body  Jennifer E.</description>
     </item>
     
     <item>
@@ -200,11 +210,11 @@ Sydney Brenner described the correct level of abstraction for biology as the cel
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>/software/</guid>
-      <description> I contribute to the following software packages:
+      <description>   I contribute to the following software packages:
 Signac Signac is an R toolkit for the analysis of single-cell chromatin data.
- Docs GitHub Seurat Seurat is an R toolkit for the analysis of single-cell RNA-seq data.
- Docs GitHub CRAN Sinto Sinto is a Python package for processing aligned single-cell reads.
- Docs GitHub PyPI </description>
+ Docs GitHub  Seurat Seurat is an R toolkit for the analysis of single-cell RNA-seq data.
+ Docs GitHub CRAN  Sinto Sinto is a Python package for processing aligned single-cell reads.
+ Docs GitHub PyPI  </description>
     </item>
     
   </channel>

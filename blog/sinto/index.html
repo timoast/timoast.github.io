@@ -143,17 +143,12 @@
 
                     <div class="markdown">
                         
-    <p>Often in the analysis of single-cell ATAC-seq data it&rsquo;s helpful to create a &ldquo;pseudo-bulk&rdquo; accessibility profile for each individual cell type or cluster within the dataset. This can allow visualization of the separate accessibility tracks, and peak-calling on the pure cell types that can often enable the identification of rare peaks that are obscured when looking at the whole population.</p>
-
-<p>However, there are few tools I know of that provide a nice solution to the basic problem of splitting a BAM file into given groups of cell barcodes. The simple solutions, like using <code>grep</code> or <code>awk</code>, are incredibly slow (see <a href="https://divingintogeneticsandgenomics.rbind.io/post/split-a-10xscatac-bam-file-by-cluster/">https://divingintogeneticsandgenomics.rbind.io/post/split-a-10xscatac-bam-file-by-cluster/</a>). A while ago I wrote some scripts to do this using <code>pysam</code>, with the ability to use multiple cores. We used this code in our recent <a href="https://doi.org/10.1101/460147">preprint</a> to create separate tracks for different cell types in the brain.</p>
-
+    <p>Often in the analysis of single-cell ATAC-seq data it's helpful to create a &ldquo;pseudo-bulk&rdquo; accessibility profile for each individual cell type or cluster within the dataset. This can allow visualization of the separate accessibility tracks, and peak-calling on the pure cell types that can often enable the identification of rare peaks that are obscured when looking at the whole population.</p>
+<p>However, there are few tools I know of that provide a nice solution to the basic problem of splitting a BAM file into given groups of cell barcodes. The simple solutions, like using <code>grep</code> or <code>awk</code>, are incredibly slow (see <a href="https://divingintogeneticsandgenomics.rbind.io/post/split-a-10xscatac-bam-file-by-cluster/)">https://divingintogeneticsandgenomics.rbind.io/post/split-a-10xscatac-bam-file-by-cluster/)</a>. A while ago I wrote some scripts to do this using <code>pysam</code>, with the ability to use multiple cores. We used this code in our recent <a href="https://doi.org/10.1101/460147">preprint</a> to create separate tracks for different cell types in the brain.</p>
 <p>I decided to put this code into a small <a href="https://pypi.org/project/sinto/">package</a> that will be for general single-cell data processing, called <code>sinto</code>. Right now, this package has only one function, <code>filterbarcodes</code>, that allows a BAM to be split based on a given set of cell barcodes. This works both for 10x Genomics BAM files with cell barcode read tags, and other formats with the cell barcode stored in the readname (like sci-ATAC-seq). My plan is for this package to grow over time, adding new features as the need arises. One thing I would like to add is the ability to add read tags for each cluster, rather than splitting the BAM, as some genome browsers (like IGV) support splitting the tracks by a read tag.</p>
-
 <p>Install <code>sinto</code> through <code>pip</code>:</p>
-
-<pre><code class="language-python">pip install sinto
-</code></pre>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">pip install sinto
+</code></pre></div>
 
 
                     </div>
