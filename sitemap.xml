@@ -73,12 +73,12 @@
   </url>
   
   <url>
-    <loc>/categories/r/</loc>
+    <loc>/tags/r/</loc>
     <lastmod>2016-09-22T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/tags/r/</loc>
+    <loc>/categories/r/</loc>
     <lastmod>2016-09-22T00:00:00+00:00</lastmod>
   </url>
   
@@ -174,10 +174,6 @@
   
   <url>
     <loc>/publications/</loc>
-  </url>
-  
-  <url>
-    <loc>/pubs/</loc>
   </url>
   
   <url>
