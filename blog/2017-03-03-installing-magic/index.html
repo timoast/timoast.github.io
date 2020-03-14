@@ -156,7 +156,7 @@
 was posted
 on <a href="http://biorxiv.org/content/early/2017/02/25/111591">biorxiv</a> by
 David van Dijk et al., called magic (Markov Affinity-based Graph
-Imputation of Cells). I've been analysing single cell RNA-seq data
+Imputation of Cells). I&rsquo;ve been analysing single cell RNA-seq data
 recently, and this method looks like it could be useful when trying to
 find co-transcriptional networks, as single cell data suffers from
 dropout which makes finding co-transcriptional networks hard.</p>
@@ -172,7 +172,7 @@ seemed to provide a temporary fix.</p>
 <p>The next problem was getting <code>Tk</code> to work properly with python. <code>Tk</code>
 is a GUI toolkit and not park of python itself. Chances are
 that <code>Tk</code> is installed somewhere on your computer, and the problem is that
-python doesn't know where it is. After trying lots of different
+python doesn&rsquo;t know where it is. After trying lots of different
 things, the solution I found was to install python3 using the mac
 installer and launching IDLE, as this finds and links the <code>Tk</code>
 installation with python at runtime. From the
@@ -187,9 +187,9 @@ virtualenv:</p>
 <pre><code>mkvirtualenv -p /usr/local/bin/python3 py3
 </code></pre><p>I then installed magic again in the virtualenv (from the github repo):</p>
 <pre><code>pip3 install .
-</code></pre><p>Next I installed all the jupyter stuff. It's important to link the
+</code></pre><p>Next I installed all the jupyter stuff. It&rsquo;s important to link the
 right ipython kernel to the jupyter notebook, otherwise it will seem
-like you still don't have access to <code>Tk</code>, even though at this point
+like you still don&rsquo;t have access to <code>Tk</code>, even though at this point
 you can sucessfully <code>import tkinter</code> in python3. To do this, install
 jupyter, ipython, the ipython kernel, and then link the
 kernel:</p>

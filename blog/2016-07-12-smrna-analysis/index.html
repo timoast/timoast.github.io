@@ -151,7 +151,7 @@
 
                     <div class="markdown">
                         
-    <p>I recently analysed some smRNA data for a paper I'm working on. These are my analysis notes.</p>
+    <p>I recently analysed some smRNA data for a paper I&rsquo;m working on. These are my analysis notes.</p>
 <p>I used previously published data for Brachypodium, from this paper:</p>
 <p>Garvin DF, Schmutz J, Rokhsar D, Bevan MW, Barry K, Lucas S, et al. Genome sequencing and analysis of the model grass Brachypodium distachyon. Nature. 2010;463: 763–768. doi:10.1038/nature08747</p>
 <p>First step is to download the data:</p>
@@ -262,7 +262,7 @@ length	count	expect	max.err	error counts
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">bowtie -p <span style="color:#ae81ff">20</span> -q -n <span style="color:#ae81ff">0</span> -l <span style="color:#ae81ff">20</span> -a -S /home/tstuart/working_data_01/genomes/Bdistachyon/v2.1/assembly/BowtieIndex/bd21 adapertrim.fq <span style="color:#ae81ff">\
 </span><span style="color:#ae81ff"></span>| samtools view -b - &gt; mapped.bam
 </code></pre></div><h2 id="post-processing">Post-processing</h2>
-<p>It's important to know the length of the smRNA, its mapping position in the genome, and whether it was uniquely mapped or not. First, we can convert the bam file to a bed file and add a column showing the smRNA length:</p>
+<p>It&rsquo;s important to know the length of the smRNA, its mapping position in the genome, and whether it was uniquely mapped or not. First, we can convert the bam file to a bed file and add a column showing the smRNA length:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ bedtools bamtobed -i mapped.bam <span style="color:#ae81ff">\
 </span><span style="color:#ae81ff"></span>| awk <span style="color:#e6db74">&#39;BEGIN {FS=OFS=&#34;\t&#34;} {$7 = $3 - $2; print $0}&#39;</span> - | pigz - &gt; mapped.bed.gz
 </code></pre></div><p>Now we add a column showing the number of mapping positions for each smRNA (in R):</p>
@@ -270,9 +270,9 @@ length	count	expect	max.err	error counts
 <span style="color:#a6e22e">library</span>(data.table)
 <span style="color:#a6e22e">library</span>(readr)
 
-smrna <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">fread</span>(<span style="color:#e6db74">&#34;</span><span style="color:#e6db74">~/Downloads/mapped.bed&#34;</span>, header <span style="color:#f92672">=</span> F, sep <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;</span><span style="color:#e6db74">\t&#34;</span>,
-               col.names <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#34;</span><span style="color:#e6db74">chromosome&#34;</span>, <span style="color:#e6db74">&#34;</span><span style="color:#e6db74">start&#34;</span>, <span style="color:#e6db74">&#34;</span><span style="color:#e6db74">stop&#34;</span>,
-                             <span style="color:#e6db74">&#34;</span><span style="color:#e6db74">readName&#34;</span>, <span style="color:#e6db74">&#34;</span><span style="color:#e6db74">q&#34;</span>, <span style="color:#e6db74">&#34;</span><span style="color:#e6db74">strand&#34;</span>, <span style="color:#e6db74">&#34;</span><span style="color:#e6db74">length&#34;</span>))
+smrna <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">fread</span>(<span style="color:#e6db74">&#34;~/Downloads/mapped.bed&#34;</span>, header <span style="color:#f92672">=</span> F, sep <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;\t&#34;</span>,
+               col.names <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#34;chromosome&#34;</span>, <span style="color:#e6db74">&#34;start&#34;</span>, <span style="color:#e6db74">&#34;stop&#34;</span>,
+                             <span style="color:#e6db74">&#34;readName&#34;</span>, <span style="color:#e6db74">&#34;q&#34;</span>, <span style="color:#e6db74">&#34;strand&#34;</span>, <span style="color:#e6db74">&#34;length&#34;</span>))
 
 smrna <span style="color:#f92672">&lt;-</span> smrna <span style="color:#f92672">%&gt;%</span>
   <span style="color:#a6e22e">group_by</span>(readName) <span style="color:#f92672">%&gt;%</span>
@@ -282,9 +282,9 @@ smrna <span style="color:#f92672">&lt;-</span> smrna <span style="color:#f92672"
   <span style="color:#a6e22e">mutate</span>(unique <span style="color:#f92672">=</span> <span style="color:#a6e22e">ifelse</span>(positions <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">1</span>, <span style="color:#66d9ef">FALSE</span>, <span style="color:#66d9ef">TRUE</span>)) <span style="color:#f92672">%&gt;%</span>
   <span style="color:#a6e22e">arrange</span>(chromosome, start)
 
-<span style="color:#a6e22e">write_tsv</span>(smrna, <span style="color:#e6db74">&#34;</span><span style="color:#e6db74">~/Desktop/brachy_smrna.tsv&#34;</span>)
-<span style="color:#a6e22e">system</span>(<span style="color:#e6db74">&#34;</span><span style="color:#e6db74">gzip ~/Desktop/brachy_smrna.tsv&#34;</span>)
-</code></pre></div><p>That's it! We now have a file that looks like this:</p>
+<span style="color:#a6e22e">write_tsv</span>(smrna, <span style="color:#e6db74">&#34;~/Desktop/brachy_smrna.tsv&#34;</span>)
+<span style="color:#a6e22e">system</span>(<span style="color:#e6db74">&#34;gzip ~/Desktop/brachy_smrna.tsv&#34;</span>)
+</code></pre></div><p>That&rsquo;s it! We now have a file that looks like this:</p>
 <pre><code>$ zcat brachy_smrna.tsv.gz | head
 chromosome	start	stop	readName	strand	length	positions	unique
 Bd1	3	27	SRR035616.1254270	-	24	143	FALSE

@@ -17,7 +17,7 @@
       <pubDate>Mon, 01 Apr 2019 00:00:00 +0000</pubDate>
       
       <guid>/blog/sinto/</guid>
-      <description>Often in the analysis of single-cell ATAC-seq data it&#39;s helpful to create a &amp;ldquo;pseudo-bulk&amp;rdquo; accessibility profile for each individual cell type or cluster within the dataset. This can allow visualization of the separate accessibility tracks, and peak-calling on the pure cell types that can often enable the identification of rare peaks that are obscured when looking at the whole population.
+      <description>Often in the analysis of single-cell ATAC-seq data it&amp;rsquo;s helpful to create a &amp;ldquo;pseudo-bulk&amp;rdquo; accessibility profile for each individual cell type or cluster within the dataset. This can allow visualization of the separate accessibility tracks, and peak-calling on the pure cell types that can often enable the identification of rare peaks that are obscured when looking at the whole population.
 However, there are few tools I know of that provide a nice solution to the basic problem of splitting a BAM file into given groups of cell barcodes.</description>
     </item>
     
@@ -56,7 +56,7 @@ def log_info(func): def wrapper(args): print(&amp;quot;Function {} called with t
       
       <guid>/blog/2017-04-03-comp-notebook/</guid>
       <description>Every data analysis I do now is kept in an R Markdown document. These are great for mixing code with explanatory text, and you can run code in many languages not just R. Whenever I finished working on something, I would compile the R Markdown document into a self-contained html report and save is somewhere, usually with a descriptive filename like &amp;ldquo;coverage_genes&amp;rdquo; or &amp;ldquo;col_vs_cvi&amp;rdquo;.
-This is where the problems begin. These reports, while great individually, can quickly pile up and you start to realize that the name &amp;ldquo;coverage_genes&amp;rdquo; doesn&#39;t really help you find a bit of code you wrote 3 weeks ago.</description>
+This is where the problems begin. These reports, while great individually, can quickly pile up and you start to realize that the name &amp;ldquo;coverage_genes&amp;rdquo; doesn&amp;rsquo;t really help you find a bit of code you wrote 3 weeks ago.</description>
     </item>
     
     <item>
@@ -65,7 +65,7 @@ This is where the problems begin. These reports, while great individually, can q
       <pubDate>Fri, 03 Mar 2017 00:00:00 +0000</pubDate>
       
       <guid>/blog/2017-03-03-installing-magic/</guid>
-      <description>Installing magic Recently a method for imputing single cell gene expression matricies was posted on biorxiv by David van Dijk et al., called magic (Markov Affinity-based Graph Imputation of Cells). I&#39;ve been analysing single cell RNA-seq data recently, and this method looks like it could be useful when trying to find co-transcriptional networks, as single cell data suffers from dropout which makes finding co-transcriptional networks hard.
+      <description>Installing magic Recently a method for imputing single cell gene expression matricies was posted on biorxiv by David van Dijk et al., called magic (Markov Affinity-based Graph Imputation of Cells). I&amp;rsquo;ve been analysing single cell RNA-seq data recently, and this method looks like it could be useful when trying to find co-transcriptional networks, as single cell data suffers from dropout which makes finding co-transcriptional networks hard.
 I had lots of problems getting magic installed and running, so will document them here for future reference.</description>
     </item>
     
@@ -89,7 +89,7 @@ library(readr) read_tsv(&amp;quot;../data/r_demo/coverages.tsv&amp;quot;, col_na
       <pubDate>Tue, 12 Jul 2016 00:00:00 +0000</pubDate>
       
       <guid>/blog/2016-07-12-smrna-analysis/</guid>
-      <description>I recently analysed some smRNA data for a paper I&#39;m working on. These are my analysis notes.
+      <description>I recently analysed some smRNA data for a paper I&amp;rsquo;m working on. These are my analysis notes.
 I used previously published data for Brachypodium, from this paper:
 Garvin DF, Schmutz J, Rokhsar D, Bevan MW, Barry K, Lucas S, et al. Genome sequencing and analysis of the model grass Brachypodium distachyon. Nature. 2010;463: 763–768. doi:10.1038/nature08747
 First step is to download the data:
@@ -122,7 +122,7 @@ fastqc filtered_reads.fq.gz  Step 3: Alignment 3.</description>
       <pubDate>Tue, 23 Feb 2016 00:00:00 +0000</pubDate>
       
       <guid>/blog/2016-02-23-papers/</guid>
-      <description>In an effort to read more papers this year, I&#39;m going to read a paper (or something paper-like) each day for the remainder of the year, and post each paper below as I go.
+      <description>In an effort to read more papers this year, I&amp;rsquo;m going to read a paper (or something paper-like) each day for the remainder of the year, and post each paper below as I go.
 Dec 31 Galanter JM, Gignoux CR, Oh SS, Torgerson D, Pino-Yanes M, Thakur N, et al. Differential methylation between ethnic sub-groups reflects the effect of genetic ancestry and environmental exposures. eLife. doi:10.7554/eLife.20532
 Dec 30 Lun ATL, McCarthy DJ, Marioni JC.</description>
     </item>
@@ -133,7 +133,7 @@ Dec 30 Lun ATL, McCarthy DJ, Marioni JC.</description>
       <pubDate>Thu, 18 Feb 2016 00:00:00 +0000</pubDate>
       
       <guid>/blog/2016-02-18-lorne/</guid>
-      <description>This week I presented some recent work at the Lorne Genome conference. It was my first time at Lorne and it&#39;s a fantastic meeting with lots of interesting talks. It was great to see so many people getting interested in transposon biology too!
+      <description>This week I presented some recent work at the Lorne Genome conference. It was my first time at Lorne and it&amp;rsquo;s a fantastic meeting with lots of interesting talks. It was great to see so many people getting interested in transposon biology too!
 Here are a few links to the work I was presenting:
 TEPID TE presence/absence variant discovery software:
 https://github.com/ListerLab/TEPID
@@ -160,8 +160,8 @@ Luckily, pysam allows you to index a bam file by read name (using pysam.IndexedR
       <pubDate>Tue, 04 Nov 2014 00:00:00 +0000</pubDate>
       
       <guid>/blog/2014-11-04-sizeestimation/</guid>
-      <description>I&#39;ve been looking for a simple way to estimate paired-end insert sizes from mapped data. There are a few more complicated tools available (I think picard will do it), as well as simple scripts different people have written that don&#39;t exclude outliers. However outliers due to discordant read alignments will hugely change the mean, so need to be removed.
-As I couldn&#39;t find anything that was a nice middle ground, I ended up writing my own simple python script that will take input from stdin and exclude outliers more that two standard deviations from the median, and print the mean and standard deviation to stdout.</description>
+      <description>I&amp;rsquo;ve been looking for a simple way to estimate paired-end insert sizes from mapped data. There are a few more complicated tools available (I think picard will do it), as well as simple scripts different people have written that don&amp;rsquo;t exclude outliers. However outliers due to discordant read alignments will hugely change the mean, so need to be removed.
+As I couldn&amp;rsquo;t find anything that was a nice middle ground, I ended up writing my own simple python script that will take input from stdin and exclude outliers more that two standard deviations from the median, and print the mean and standard deviation to stdout.</description>
     </item>
     
     <item>

@@ -31,7 +31,7 @@ library(readr) read_tsv(&amp;quot;../data/r_demo/coverages.tsv&amp;quot;, col_na
       <pubDate>Tue, 12 Jul 2016 00:00:00 +0000</pubDate>
       
       <guid>/blog/2016-07-12-smrna-analysis/</guid>
-      <description>I recently analysed some smRNA data for a paper I&#39;m working on. These are my analysis notes.
+      <description>I recently analysed some smRNA data for a paper I&amp;rsquo;m working on. These are my analysis notes.
 I used previously published data for Brachypodium, from this paper:
 Garvin DF, Schmutz J, Rokhsar D, Bevan MW, Barry K, Lucas S, et al. Genome sequencing and analysis of the model grass Brachypodium distachyon. Nature. 2010;463: 763–768. doi:10.1038/nature08747
 First step is to download the data:
