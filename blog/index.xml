@@ -6,10 +6,23 @@
     <description>Recent content in Blogs on Tim Stuart</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 01 Apr 2019 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sun, 05 Apr 2020 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="/blog/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Installing PyTorch</title>
+      <link>/blog/installing-pytorch/</link>
+      <pubDate>Sun, 05 Apr 2020 00:00:00 +0000</pubDate>
+      
+      <guid>/blog/installing-pytorch/</guid>
+      <description>See the PyTorch website: https://pytorch.org/tutorials/
+1. Install miniconda I find minoconda3 is the easiest way to get everything installed and working for pytorch. Install the python 3.7 64 bit linux version from here:
+https://docs.conda.io/en/latest/miniconda.html
+ 2. Create a conda environment It’s a good idea to use a separate environment for different projects. Create a new conda environment for deep learning stuff:
+conda create --name cnn  3. Activate the conda environment conda activate cnn  4.</description>
+    </item>
     
     <item>
       <title>Grouping scATAC-seq reads</title>
