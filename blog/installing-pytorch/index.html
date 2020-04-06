@@ -203,11 +203,11 @@ conda activate cnn
 jupyter lab --no-browser --port=8889</code></pre>
 <p>On your local machine:</p>
 <pre class="bash"><code>ssh -f &lt;remote-address&gt; -L 8889:localhost:8889 -N</code></pre>
-<p>Now you can open the URL provided when the jupyter notebook starts in your local browser and should see the jupyter notebook page. Opening <code>localhost:8889</code> will prompt for a password, you will need to copy the URL printed when jupyter starts.</p>
 </div>
 <div id="verify-that-everything-works" class="section level2">
 <h2>8. Verify that everything works</h2>
-<p>Open a new ipython notebook using the conda env and run the following code:</p>
+<p>Navigate to <a href="http://localhost:8889/lab" class="uri">http://localhost:8889/lab</a> and you should see jupyterlab.
+Open a new ipython notebook using the conda env and run the following code:</p>
 <pre class="python"><code>import torch
 torch.cuda.is_available()</code></pre>
 <p>Should see <code>True</code>.</p>
