@@ -4,29 +4,29 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title> Installing PyTorch - Tim Stuart </title>
+    <title> Reflections on a paper a day - Tim Stuart </title>
     <meta name="HandheldFriendly" content="True">
     <meta name="MobileOptimized" content="320">
     <meta name="referrer" content="no-referrer">
-    <meta name="description" content="Description for the page." />
+    <meta name="description" content="Tim Stuart" />
     <meta property="og:site_name" content="Tim Stuart" />
     <meta property="og:locale" content="nn_NO" />
     <meta property="og:type" content="article" />
-    <meta property="og:url" content="/blog/installing-pytorch/" />
-    <meta property="og:title" content="Installing PyTorch" />
-    <meta property="og:image" content="/image/image.png" />
-    <meta property="og:description" content="Description for the page." />
+    <meta property="og:url" content="/blog/reflections-on-a-paper-a-day/" />
+    <meta property="og:title" content="Reflections on a paper a day" />
+    <meta property="og:image" content="/" />
+    <meta property="og:description" content="Tim Stuart" />
 
     
         <meta property="twitter:site" content="@timoast">
     
 
-    <meta property="twitter:title" content="Installing PyTorch" />
-    <meta property="twitter:image" content="/image/image.png" />
+    <meta property="twitter:title" content="Reflections on a paper a day" />
+    <meta property="twitter:image" content="/" />
     <meta property="twitter:card" content="summary" />
-    <meta property="twitter:description" content="Description for the page." />
+    <meta property="twitter:description" content="Tim Stuart" />
 
-    <link rel="canonical" href="../../blog/installing-pytorch/">
+    <link rel="canonical" href="../../blog/reflections-on-a-paper-a-day/">
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha256-eSi1q2PG6J7g7ib17yAaWMcrr5GrtohYChqibrV7PBE=" crossorigin="anonymous" />
 
@@ -108,23 +108,19 @@
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-sm-12 col-md-10">
-                    <h1 class="mx-0 mx-md-4 blog-post-title">Installing PyTorch</h1>
+                    <h1 class="mx-0 mx-md-4 blog-post-title">Reflections on a paper a day</h1>
 
                     <div class="mb-md-4 meta">
                         
                             
-                                <span class="author" title="Tim Stuart">
-                                    Tim Stuart
-                                </span>
-                            
                         
 
-                        <span class="date middot" title='Sun Apr 5 2020 00:00:00 UTC'>
-                            2020-04-05
+                        <span class="date middot" title='Sun Jun 7 2020 00:00:00 UTC'>
+                            2020-06-07
                         </span>
 
                         <span class="reading-time middot">
-                            2 minute read
+                            3 minute read
                         </span>
 
                         <div class="d-none d-md-inline tags">
@@ -143,75 +139,12 @@
 
                     <div class="markdown">
                         
-    
-<script src="../../rmarkdown-libs/header-attrs/header-attrs.js"></script>
-
-
-<p>See the PyTorch website: <a href="https://pytorch.org/tutorials/" class="uri">https://pytorch.org/tutorials/</a></p>
-<div id="install-miniconda" class="section level2">
-<h2>1. Install miniconda</h2>
-<p>I find minoconda3 is the easiest way to get everything installed and working for pytorch. Install the python 3.7 64 bit linux version from here:</p>
-<p><a href="https://docs.conda.io/en/latest/miniconda.html" class="uri">https://docs.conda.io/en/latest/miniconda.html</a></p>
-</div>
-<div id="create-a-conda-environment" class="section level2">
-<h2>2. Create a conda environment</h2>
-<p>It’s a good idea to use a separate environment for different projects. Create a new conda environment for deep learning stuff:</p>
-<pre class="bash"><code>conda create --name cnn</code></pre>
-</div>
-<div id="activate-the-conda-environment" class="section level2">
-<h2>3. Activate the conda environment</h2>
-<pre class="bash"><code>conda activate cnn</code></pre>
-</div>
-<div id="install-python-packages-in-conda-environment" class="section level2">
-<h2>4. Install python packages in conda environment</h2>
-<p>Install pytorch and its dependencies</p>
-<pre class="bash"><code>conda install pytorch torchvision -c pytorch</code></pre>
-<p>Install jupyterlab:</p>
-<pre class="bash"><code>conda install -c conda-forge jupyterlab</code></pre>
-</div>
-<div id="setting-up-cuda" class="section level2">
-<h2>5. Setting up CUDA</h2>
-<p>Using a GPU with pytorch requires an NVIDIA GPU and the CUDA toolkit installed. Follow instructions here to get the CUDA toolkit installed: <a href="https://developer.nvidia.com/cuda-downloads?target_os=Linux&amp;target_arch=x86_64&amp;target_distro=Ubuntu&amp;target_version=1804&amp;target_type=deblocal">CUDA Toolkit 10.2 Download | NVIDIA Developer</a></p>
-</div>
-<div id="configuring-jupyter" class="section level2">
-<h2>6. Configuring Jupyter</h2>
-<p>We need to link the jupyter kernelspec to the conda environment we created. The configuration for available jupyter kernels is stored in <code>~/.local/share/jupyter/kernels</code>. To create a new kernel for jupyter, create a directory within the kernels directory called cnn: <code>~/.local/share/jupyter/kernels/cnn</code>. Within this directory create a file called kernel.json containing the following (change path for your user account):</p>
-<pre class="json"><code>{
- &quot;argv&quot;: [
-  &quot;/home/stuartt/miniconda3/envs/cnn/bin/python&quot;,
-  &quot;-m&quot;,
-  &quot;ipykernel_launcher&quot;,
-  &quot;-f&quot;,
-  &quot;{connection_file}&quot;
- ],
- &quot;display_name&quot;: &quot;CNN&quot;,
- &quot;language&quot;: &quot;python&quot;
-}</code></pre>
-<p>This will allow you to select the python installation created by your conda
-environment as a drop-down in the new notebook menu in jupyter.</p>
-</div>
-<div id="running-jupyter-lab-remotely" class="section level2">
-<h2>7. Running jupyter lab remotely</h2>
-<p>You will need to launch jupyter on the remote server and set up ssh tunnelling on your local computer. It’s a good idea to start jupyter in a GNU screen so that you can close your ssh session and keep the notebook active.</p>
-<p>On the remote server:</p>
-<pre class="bash"><code># start a screen
-screen -S torch
-# activate environment
-conda activate cnn
-# can cd to wherever you want to start the notebook from
-# start jupyter
-jupyter lab --no-browser --port=8889</code></pre>
-<p>On your local machine:</p>
-<pre class="bash"><code>ssh -f &lt;remote-address&gt; -L 8889:localhost:8889 -N</code></pre>
-</div>
-<div id="verify-that-everything-works" class="section level2">
-<h2>8. Verify that everything works</h2>
-<p>Navigate to <a href="http://localhost:8889/lab" class="uri">http://localhost:8889/lab</a> and you should see jupyterlab.
-Open a new ipython notebook using the conda env and run the following code:</p>
-<pre class="python"><code>import torch
-torch.cuda.is_available()</code></pre>
-<p>Should see <code>True</code>.</p>
-</div>
+    <p>Four years ago I read a paper a day for almost a year. Two things stood out to me from the experience: (1) the sense that there is an insurmountable number of papers that need to be read to keep on top of the literature completely disappears when you do this, and (2) holding yourself to reading a paper every day (seven days a week) is a terrible and demoralizing idea.</p>
+<p>The motivation for reading a paper every day was that I felt I wasn’t reading enough. If I didn’t have time dedicated each day I found it was easy for weeks to slip by without actually sitting down and reading through anything properly. I would scan the literature every day (mainly using RSS feeds) and note all the papers I found interesting, but rarely would end up going back and actually reading much more than the abstract.</p>
+<p>Another fact has become obvious to me as it must to anyone who has ever done a journal club. Reading a paper in enough detail to present to others, either through a journal club presentation or in a blog post, helps me to remember a paper much better than passively reading, which I’ve found to be almost pointless. I’ve opened papers before that have my highlights all throughout but I have no memory of the paper at all. In contrast, I still remember almost every paper I’ve presented at a journal club or written about. I wrote a blog post about <a href="https://pubmed.ncbi.nlm.nih.gov/24578530/">FISSEQ</a> six years ago, and I could still remember plenty of details about the method when reading the new <a href="https://doi.org/10.1101/2020.05.13.094268">expansion sequencing</a> paper.</p>
+<p>As I now find myself slipping into the same habits that motivated me four years ago to read a paper every day, I have started thinking how I can use the experience from last time to now come up with a lasting strategy that will enable me to stay on top of the literature in more than a superficial way. I have decided on the following plan:</p>
+<p>First, I won’t hold myself to a reading a paper every day, but instead aim for 2-3 papers per week. This should be a more manageable number.  Second, rather than just listing the names of the papers I read, I will summarise them and discuss them as a blog post. Third, I will allow combining multiple papers on the same topic into a single post. For example, I’m interested in the graph-based community detection methods, and there are ~6 core papers about this topic that I’d like to read in detail. I’d then allow myself to spend 2 weeks on these 6 papers and write one blog post covering the whole topic after those 2 weeks.</p>
+<p>Hopefully this experience will be more enjoyable, sustainable, and productive that the first.</p>
 
 
 
@@ -223,15 +156,11 @@ torch.cuda.is_available()</code></pre>
                                 <div class="col-12 col-md-6">
                                     
                                         <div class="mx-0 mx-md-4 mt-4 text-left">
-                                            <a href="../../blog/sinto/">« Grouping scATAC-seq reads</a>
+                                            <a href="../../blog/installing-pytorch/">« Installing PyTorch</a>
                                         </div>
                                     
                                 </div>
                                 <div class="col-12 col-md-6">
-                                    
-                                        <div class="mx-0 mx-md-4 mt-4 text-right">
-                                            <a href="../../blog/reflections-on-a-paper-a-day/">Reflections on a paper a day »</a>
-                                        </div>
                                     
                                 </div>
                             </div>
