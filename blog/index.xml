@@ -6,10 +6,19 @@
     <description>Recent content in Blogs on Tim Stuart</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 07 Jun 2020 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Fri, 03 Jul 2020 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="/blog/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Community detection</title>
+      <link>/blog/community-detection/</link>
+      <pubDate>Fri, 03 Jul 2020 00:00:00 +0000</pubDate>
+      
+      <guid>/blog/community-detection/</guid>
+      <description>A major goal of single-cell analysis is to study the cell-state heterogeneity within a sample by discovering groups within the population of cells. This amounts to a clustering problem, where we aim to learn an optimal set of groups (communities) from the observed data. In single-cell biology we often use graph-based community detection methods to do this, as these methods are unsupervised, scale well, and usually give good results.</description>
+    </item>
     
     <item>
       <title>Reflections on a paper a day</title>

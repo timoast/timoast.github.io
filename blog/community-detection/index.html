@@ -1,0 +1,379 @@
+<!doctype html>
+<html lang="en-us">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title> Community detection - Tim Stuart </title>
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+    <meta name="referrer" content="no-referrer">
+    <meta name="description" content="Tim Stuart" />
+    <meta property="og:site_name" content="Tim Stuart" />
+    <meta property="og:locale" content="nn_NO" />
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="/blog/community-detection/" />
+    <meta property="og:title" content="Community detection" />
+    <meta property="og:image" content="/" />
+    <meta property="og:description" content="Tim Stuart" />
+
+    
+        <meta property="twitter:site" content="@timoast">
+    
+
+    <meta property="twitter:title" content="Community detection" />
+    <meta property="twitter:image" content="/" />
+    <meta property="twitter:card" content="summary" />
+    <meta property="twitter:description" content="Tim Stuart" />
+
+    <link rel="canonical" href="../../blog/community-detection/">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha256-eSi1q2PG6J7g7ib17yAaWMcrr5GrtohYChqibrV7PBE=" crossorigin="anonymous" />
+
+    <link rel="stylesheet" href="../../css/custom.css" />
+
+    
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/styles/tomorrow.min.css" integrity="sha256-0QU8ry64q+N6YBIEF/6XF6vUeF15gbNO4tLS6ikk0FI=" crossorigin="anonymous" />
+    
+
+    
+
+    <link rel="shortcut icon"
+        href="../../img/favicon.ico">
+
+    
+</head>
+
+<body>
+    
+    <div class="my-4 my-md-5 header">
+    <div class="container">
+        <div class="row">
+            <div class="col-auto offset-md-1 d-none d-md-block">
+                
+            </div>
+            <div class="col-auto align-self-center mr-auto">
+                <a href="../../">
+                    <h1 class="name">Tim Stuart</h1>
+                </a>
+
+                <ul class="nav nav-primary">
+                    
+                        <li class="nav-item">
+                            <a class="text-uppercase nav-link text-about" href="../../">
+                                
+                                About
+                            </a>
+                        </li>
+                    
+                        <li class="nav-item">
+                            <a class="text-uppercase nav-link text-research" href="../../research/">
+                                
+                                Research
+                            </a>
+                        </li>
+                    
+                        <li class="nav-item">
+                            <a class="text-uppercase nav-link text-publications" href="../../publications/">
+                                
+                                Publications
+                            </a>
+                        </li>
+                    
+                        <li class="nav-item">
+                            <a class="text-uppercase nav-link text-software" href="../../software/">
+                                
+                                Software
+                            </a>
+                        </li>
+                    
+                        <li class="nav-item">
+                            <a class="text-uppercase nav-link text-blog" href="../../blog/">
+                                
+                                Blog
+                            </a>
+                        </li>
+                    
+
+                    
+                </ul>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+    <div class="content">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-sm-12 col-md-10">
+                    <h1 class="mx-0 mx-md-4 blog-post-title">Community detection</h1>
+
+                    <div class="mb-md-4 meta">
+                        
+                            
+                        
+
+                        <span class="date middot" title='Fri Jul 3 2020 00:00:00 UTC'>
+                            2020-07-03
+                        </span>
+
+                        <span class="reading-time middot">
+                            10 minute read
+                        </span>
+
+                        <div class="d-none d-md-inline tags">
+                            <ul class="list-unstyled d-inline">
+                                
+                            </ul>
+                        </div>
+
+                        <div class="d-none d-md-inline tags">
+                            <ul class="list-unstyled d-inline">
+                                
+                                
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="markdown">
+                        
+    
+<script src="../../rmarkdown-libs/header-attrs/header-attrs.js"></script>
+
+
+<p>A major goal of single-cell analysis is to study the cell-state heterogeneity within a sample by discovering groups within the population of cells. This amounts to a clustering problem, where we aim to learn an optimal set of groups (communities) from the observed data. In single-cell biology we often use graph-based community detection methods to do this, as these methods are unsupervised, scale well, and usually give good results.</p>
+<p>The Louvain method for community detection is a popular way to discover communities from single-cell data. We typically reduce the dimensionality of the data first by running PCA, then construct a neighbor graph in the reduced space. Community detection can then be performed using this graph.</p>
+<div id="measures-of-graph-structure" class="section level2">
+<h2>Measures of graph structure</h2>
+<p>To find an optimal grouping of cells into communities, we need some way of evaluating different partitions in the graph. Two ways of doing this are graph modularity <span class="citation">(Newman and Girvan 2004)</span> and the constant Potts model <span class="citation">(Ronhovde and Nussinov 2010)</span>. Each of these can be used as an objective function for graph-based community detection methods, with our goal being to maximize this value.</p>
+<div id="modularity" class="section level3">
+<h3>Modularity</h3>
+<p>For each community, modularity measures the number of edges within the community and the number of edges going outside the community, and gives a value between -1 and +1. Modularity scores of +1 mean that all the edges in a community are connecting nodes within the community. A score of 0 would mean that the community has half its edges connecting nodes within the same community, and half connecting nodes outside the community. A score of -1 means that there are no edges connecting nodes within the community, and they instead all connect nodes outside the community. Modularity is a popular objective function used with the Louvain method for community detection.</p>
+<p>However, modularity suffers from a difficult problem known as the resolution limit <span class="citation">(Fortunato and Barthélemy 2007)</span>. The resolution limit describes a limitation where there is a minimum community size able to be resolved by optimizing modularity (or other related functions). The minimum resolvable community size depends on the total size of the network and the degree of interconnectedness of the modules. Modules smaller than the minimum size may not be resolved through modularity optimization, even in the extreme case where they are only connected to the rest of the network through a single edge. In practice, this means that small clusters can “hide” inside larger clusters, making their identification difficult.</p>
+</div>
+<div id="constant-potts-model" class="section level3">
+<h3>Constant Potts Model</h3>
+<p>The constant Potts model (CPM), so called due to the use of a constant value in the Potts model, is an alternative objective function for community detection. CPM has the advantage that it is not subject to the resolution limit. The constant Potts model tries to maximize the number of internal edges in a community, while simultaneously trying to keep community sizes small, and the constant parameter balances these two characteristics. According to CPM, it is better to split into two communities when the link density between the communities is lower than the constant. In this way, the constant acts as a resolution parameter, and setting the constant higher will result in fewer communities. Importantly, the number of communities discovered is related only to the difference in edge density, and not the total number of nodes in the community.</p>
+</div>
+</div>
+<div id="louvain" class="section level2">
+<h2>Louvain</h2>
+<p>As the problem of modularity optimization is NP-hard, we need heuristic methods to optimize modularity (or CPM). The Louvain algorithm is a simple and popular method for community detection <span class="citation">(Blondel, Guillaume, and Lambiotte 2008)</span>. It was originally developed for modularity optimization, although the same method can be applied to optimize CPM. Louvain has two phases: local moving and aggregation.</p>
+<div id="local-moving" class="section level3">
+<h3>Local moving</h3>
+<p>The Louvain local moving phase consists of the following steps:</p>
+<ol style="list-style-type: decimal">
+<li>Assign each node to a different community</li>
+<li>For each node <em>i</em>, consider the neighbors <em>j</em> of <em>i</em> and evaluate the increase in modularity that would occur if we moved <em>i</em> into the community of <em>j</em></li>
+<li>Place node <em>i</em> in the neighboring community that gives the maximal gain in modularity, provided the gain is positive</li>
+</ol>
+<p>This process is repeated for every node in the network until no further improvement in modularity is possible. Note that nodes can be revisited several times within a single iteration of the local moving stage, as the possible increase in modularity will change as other nodes are moved to different communities. Importantly, the output of the local moving stage will depend on the order that the nodes are considered in. Once no further increase in modularity is possible by moving any node to its neighboring community, we move to the second phase of the algorithm: aggregation.</p>
+</div>
+<div id="aggregation" class="section level3">
+<h3>Aggregation</h3>
+<p>In this stage we essentially collapse communities down into a single representative node, creating a new simplified graph. To do this we just sum all the edge weights between nodes of the corresponding communities to get a single weighted edge between them, and collapse each community down to a single new node. Once aggregation is complete we restart the local moving phase, and continue to iterate until everything converges down to one node. This aspect of the Louvain algorithm can be used to give information about the hierarchical relationships between communities by tracking at which stage the nodes in the communities were aggregated.</p>
+</div>
+</div>
+<div id="improvements-on-louvain" class="section level2">
+<h2>Improvements on Louvain</h2>
+<p>The Louvain algorithm guarantees that modularity cannot be increased by merging communities (it finds a locally optimal solution). It does <em>not</em> guarantee that modularity can’t be increased by moving nodes between communities. Louvain can also be quite slow, as it spends a lot of time revisiting nodes that may not have changed neighborhoods.</p>
+<div id="smart-local-moving-slm" class="section level3">
+<h3>Smart local moving (SLM)</h3>
+<p>The smart local moving algorithm <span class="citation">(Waltman and Eck 2013)</span> identified another limitation in the original Louvain method: it isn’t able to split communities once they’re merged, even when it may be very beneficial to do so. This is because Louvain only moves individual nodes at a time. The solution proposed in smart local moving is to alter how the local moving step in Louvain works. After running local moving, we end up with a set of communities where we can’t increase the objective function (eg, modularity) by moving any node to any neighboring community. Rather than progress straight to the aggregation stage (as we would for the original Louvain), we next consider each community as a new sub-network and re-apply the local moving step within each community. Any sub-networks that are found are treated as different communities in the next aggregation step. This enables us to find cases where it’s beneficial to split a community.</p>
+</div>
+<div id="random-moving" class="section level3">
+<h3>Random moving</h3>
+<p>While smart local moving and multilevel refinement can improve the communities found, the next two improvements on Louvain that I’ll discuss focus on the speed/efficiency of the algorithm. Random moving is a very simple adjustment to Louvain local moving proposed in 2015 <span class="citation">(Traag 2015)</span>. Rather than evaluating the modularity gain for moving a node to each neighboring communities, we choose a neighboring node at random and evaluate whether there is a gain in modularity if we were to move the node to that neighbor’s community. The reasoning behind this is that the best community to join will usually be the one that most of the node’s neighbors already belong to. Therefore, by selecting a community based by choosing randomly from the neighbors, we choose the community to evaluate with probability proportional to the composition of the neighbors communities. The random component also makes the algorithm more explorative, which might help to find better community structures.</p>
+<p>Random moving can result in some huge speedups, since Louvain spends about 95% of its time computing the modularity gain from moving nodes. In the initial stage of Louvain (when all nodes belong to their own community), nearly any move will result in a modularity gain, and it doesn’t matter too much which move is chosen. In later stages, most neighbors will belong to the same community, and it’s very likely that the best move for the node is to the community that most of its neighbors already belong to.</p>
+</div>
+<div id="louvain-pruning" class="section level3">
+<h3>Louvain pruning</h3>
+<p>Louvain pruning is another improvement to Louvain proposed in 2016, and can reduce the computational time by as much as 90% while finding communities that are almost as good as Louvain <span class="citation">(Ozaki, Tezuka, and Inaba 2016)</span>. The authors show that the total computational time for Louvain depends a lot on the number of phase one loops (loops during the first local moving stage). This makes sense, because after phase one the total size of the graph should be significantly reduced. They identified an inefficiency in the Louvain algorithm: computes modularity gain for all neighbouring nodes per loop in local moving phase, even though many of these nodes will not have moved. The phase one loop can be greatly accelerated by finding the nodes that have the potential to change community and only revisit those nodes. These nodes can be approximately identified based on whether neighbouring nodes have changed communities. Louvain pruning keeps track of a list of nodes that have the potential to change communities, and only revisits nodes in this list, which is much smaller than the total number of nodes.</p>
+</div>
+<div id="leiden" class="section level3">
+<h3>Leiden</h3>
+<p>Leiden is the most recent major development in this space, and highlighted a flaw in the original Louvain algorithm <span class="citation">(Traag, Waltman, and Eck 2018)</span>. They show that the original Louvain algorithm that can result in badly connected communities (even communities that are completely disconnected internally) and propose an alternative method, Leiden, that guarantees that communities are well connected. This is well illustrated by figure 2 in the Leiden paper:</p>
+<p><img src="../../assets/leiden.png" alt="Drawing" style="width: 50%;"/></p>
+<p>When a community becomes disconnected like this, there is no way for Louvain to easily split it into two separate communities. This is the crux of the Leiden paper, and the authors show that this exact problem happens frequently in practice.</p>
+<p>The solution provided by Leiden is based on the smart local moving algorithm. Leiden consists of the following steps:</p>
+<ol style="list-style-type: decimal">
+<li>Local moving of nodes</li>
+<li>Partition refinement</li>
+<li>Network aggregation</li>
+</ol>
+<p>The refinement step allows badly connected communities to be split before creating the aggregate network. This is very similar to what the smart local moving algorithm does. As far as I can tell, Leiden seems to essentially be smart local moving with the additional improvements of random moving and Louvain pruning added.</p>
+</div>
+</div>
+<div id="conclusion" class="section level2">
+<h2>Conclusion</h2>
+<p>The current state of the art when it comes to graph-based community detection is Leiden, which incorporates about 10 years of algorithmic improvements to the original Louvain method. This should be the first preference when choosing an algorithm. If you can’t use Leiden, choosing Smart Local Moving will likely give very similar results, but might be a bit slower as it doesn’t include some of the simple speedups to Louvain like random moving and Louvain pruning. The classic Louvain algorithm should be avoided due to the known problem with disconnected communities.</p>
+<p>In this post I’ve mainly focused on the optimisation methods for community detection, rather than the different objective functions that can be used. Modularity is used most commonly, but is subject to the resolution limit. The constant Potts model might give better communities in some cases, as it is not subject to the resolution limit.</p>
+<p>For those wanting to read more, I highly recommend starting with the Leiden paper <span class="citation">(Traag, Waltman, and Eck 2018)</span> or the smart local moving paper <span class="citation">(Waltman and Eck 2013)</span>.</p>
+</div>
+<div id="references" class="section level1 unnumbered">
+<h1>References</h1>
+<div id="refs" class="references hanging-indent">
+<div id="ref-Blondel2008-nu">
+<p>Blondel, V D, J L Guillaume, and R Lambiotte. 2008. “Fast Unfolding of Communities in Large Networks.” <em>Journal of Statistical …</em>, January. <a href="http://iopscience.iop.org/article/10.1088/1742-5468/2008/10/P10008/meta">http://iopscience.iop.org/article/10.1088/1742-5468/2008/10/P10008/meta</a>.</p>
+</div>
+<div id="ref-Fortunato2007-fg">
+<p>Fortunato, Santo, and Marc Barthélemy. 2007. “Resolution Limit in Community Detection.” <em>Proc. Natl. Acad. Sci. U. S. A.</em> 104 (1): 36–41. <a href="http://dx.doi.org/10.1073/pnas.0605965104">http://dx.doi.org/10.1073/pnas.0605965104</a>.</p>
+</div>
+<div id="ref-Newman2004-jj">
+<p>Newman, M E J, and M Girvan. 2004. “Finding and Evaluating Community Structure in Networks.” <em>Phys. Rev. E Stat. Nonlin. Soft Matter Phys.</em> 69 (2 Pt 2): 026113. <a href="http://dx.doi.org/10.1103/PhysRevE.69.026113">http://dx.doi.org/10.1103/PhysRevE.69.026113</a>.</p>
+</div>
+<div id="ref-Ozaki2016-mq">
+<p>Ozaki, Naoto, Hiroshi Tezuka, and Mary Inaba. 2016. “A Simple Acceleration Method for the Louvain Algorithm.” <em>Int. J. Elect. Computer Syst. Eng.</em> 8 (3): 207. <a href="https://pdfs.semanticscholar.org/4ea9/74f0fadb57a0b1ec35cbc5b3eb28e9b966d8.pdf">https://pdfs.semanticscholar.org/4ea9/74f0fadb57a0b1ec35cbc5b3eb28e9b966d8.pdf</a>.</p>
+</div>
+<div id="ref-Ronhovde2010-fi">
+<p>Ronhovde, Peter, and Zohar Nussinov. 2010. “Local Resolution-Limit-Free Potts Model for Community Detection.” <em>Phys. Rev. E Stat. Nonlin. Soft Matter Phys.</em> 81 (4 Pt 2): 046114. <a href="http://dx.doi.org/10.1103/PhysRevE.81.046114">http://dx.doi.org/10.1103/PhysRevE.81.046114</a>.</p>
+</div>
+<div id="ref-Traag2015-hu">
+<p>Traag, V A. 2015. “Faster Unfolding of Communities: Speeding up the Louvain Algorithm.” <em>Phys. Rev. E Stat. Nonlin. Soft Matter Phys.</em> 92 (3): 032801. <a href="http://dx.doi.org/10.1103/PhysRevE.92.032801">http://dx.doi.org/10.1103/PhysRevE.92.032801</a>.</p>
+</div>
+<div id="ref-Traag2018-up">
+<p>Traag, Vincent, Ludo Waltman, and Nees Jan van Eck. 2018. “From Louvain to Leiden: Guaranteeing Well-Connected Communities,” October. <a href="http://arxiv.org/abs/1810.08473">http://arxiv.org/abs/1810.08473</a>.</p>
+</div>
+<div id="ref-Waltman2013-bt">
+<p>Waltman, Ludo, and Nees Jan van Eck. 2013. “A Smart Local Moving Algorithm for Large-Scale Modularity-Based Community Detection.” <em>Eur. Phys. J. B</em> 86 (11): 471. <a href="https://doi.org/10.1140/epjb/e2013-40829-0">https://doi.org/10.1140/epjb/e2013-40829-0</a>.</p>
+</div>
+</div>
+</div>
+
+
+
+                    </div>
+
+                    
+                        <div class="navigation">
+                            <div class="row">
+                                <div class="col-12 col-md-6">
+                                    
+                                        <div class="mx-0 mx-md-4 mt-4 text-left">
+                                            <a href="../../blog/reflections-on-a-paper-a-day/">« Reflections on a paper a day</a>
+                                        </div>
+                                    
+                                </div>
+                                <div class="col-12 col-md-6">
+                                    
+                                </div>
+                            </div>
+                        </div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <section id="comments">
+
+      <div class="py-3 content">
+            <div class="container">
+                  <div class="row justify-content-center">
+                        <div class="col-sm-12 col-md-10">
+                              <div class="comments">
+                                    <div id="disqus_thread"></div>
+                              </div>
+                        </div>
+                  </div>
+            </div>
+      </div>
+
+      <script type="text/javascript">
+            (function () {
+                  
+                  
+                  if (window.location.hostname == "localhost")
+                        return;
+
+                  var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                  var disqus_shortname = '';
+                  dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+                  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+            })();
+      </script>
+      <noscript>
+            Please enable JavaScript to view the
+            <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+      </noscript>
+</section>
+    <div class="my-4 footer">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-sm-12 col-md-5">
+                
+            </div>
+            <div class="col-sm-12 col-md-5">
+                <div class="mx-0 mx-md-4 text-right">
+                    
+                        <a href="https://github.com/timoast" target="_blank">
+                            <img class="icon" src="../../img/github.svg" alt="github" />
+                        </a>
+                    
+
+                    
+
+                    
+                        <a href="https://twitter.com/timoast" target="_blank">
+                            <img class="icon" src="../../img/twitter.svg" alt="twitter" />
+                        </a>
+                    
+
+                    
+
+                    
+
+                    
+
+                    
+
+                    
+                        <a href="../../index.xml" class="mr-0">
+                            <img class="icon" src="../../img/rss.svg" alt="rss" />
+                        </a>
+                    
+
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+    
+
+    
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/highlight.min.js" integrity="sha256-iq71rXEe/fvjCUP9AfLY0cKudQuKAQywiUpXkRFSkLc=" crossorigin="anonymous"></script>
+        
+        <script>
+            window.addEventListener('load', function() {
+                hljs.initHighlighting();
+            }, true);
+        </script>
+    
+
+    
+
+    
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-131769435-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+    
+        
+
+    
+</body>
+
+</html>
