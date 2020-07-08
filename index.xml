@@ -6,10 +6,19 @@
     <description>Recent content in Home on Tim Stuart</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 03 Jul 2020 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Tue, 07 Jul 2020 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Seeking the K99</title>
+      <link>/blog/seeking-the-k99/</link>
+      <pubDate>Tue, 07 Jul 2020 00:00:00 +0000</pubDate>
+      
+      <guid>/blog/seeking-the-k99/</guid>
+      <description>In February 2020 I submitted an application for the NIH K99/R00 career development award. This is an award designed to help senior postdocs transition into an independent position, and is something many postdocs in the US consider applying for. Applying for the K99 is tough, there are a lot of application components and people involved, and you need to develop a solid 5-year research and training plan. In this post I&amp;rsquo;ll describe my experience in applying for the K99 and try to offer some advice for future applicants.</description>
+    </item>
     
     <item>
       <title>Community detection</title>
