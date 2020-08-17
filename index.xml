@@ -6,10 +6,21 @@
     <description>Recent content in Home on Tim Stuart</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 07 Jul 2020 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sun, 16 Aug 2020 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Iterative epigenomic analyses of the same single cell</title>
+      <link>/blog/iterative-epigenomic-analyses/</link>
+      <pubDate>Sun, 16 Aug 2020 00:00:00 +0000</pubDate>
+      
+      <guid>/blog/iterative-epigenomic-analyses/</guid>
+      <description>https://doi.org/10.1101/2020.07.20.212969
+Epigenomic measurements are typically destructive, and so prevent the identification of multiple marks at the same site in the same single cell. For example, CUT&amp;amp;Tag (Kaya-Okur et al. 2019; Carter et al. 2019) uses Tn5 transposase guided by an antibody to tagment DNA near the antibody binding site, which is then sequenced and mapped to determine the position of the mark in the cell.
+Ohnuki et al. present an innovative new method that gets around this limitation in some interesting ways (Ohnuki et al.</description>
+    </item>
     
     <item>
       <title>Seeking the K99</title>

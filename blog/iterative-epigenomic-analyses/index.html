@@ -1,0 +1,319 @@
+<!doctype html>
+<html lang="en-us">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title> Iterative epigenomic analyses of the same single cell - Tim Stuart </title>
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+    <meta name="referrer" content="no-referrer">
+    <meta name="description" content="Tim Stuart" />
+    <meta property="og:site_name" content="Tim Stuart" />
+    <meta property="og:locale" content="nn_NO" />
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="/blog/iterative-epigenomic-analyses/" />
+    <meta property="og:title" content="Iterative epigenomic analyses of the same single cell" />
+    <meta property="og:image" content="/" />
+    <meta property="og:description" content="Tim Stuart" />
+
+    
+        <meta property="twitter:site" content="@timoast">
+    
+
+    <meta property="twitter:title" content="Iterative epigenomic analyses of the same single cell" />
+    <meta property="twitter:image" content="/" />
+    <meta property="twitter:card" content="summary" />
+    <meta property="twitter:description" content="Tim Stuart" />
+
+    <link rel="canonical" href="../../blog/iterative-epigenomic-analyses/">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha256-eSi1q2PG6J7g7ib17yAaWMcrr5GrtohYChqibrV7PBE=" crossorigin="anonymous" />
+
+    <link rel="stylesheet" href="../../css/custom.css" />
+
+    
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/styles/tomorrow.min.css" integrity="sha256-0QU8ry64q+N6YBIEF/6XF6vUeF15gbNO4tLS6ikk0FI=" crossorigin="anonymous" />
+    
+
+    
+
+    <link rel="shortcut icon"
+        href="../../img/favicon.ico">
+
+    
+</head>
+
+<body>
+    
+    <div class="my-4 my-md-5 header">
+    <div class="container">
+        <div class="row">
+            <div class="col-auto offset-md-1 d-none d-md-block">
+                
+            </div>
+            <div class="col-auto align-self-center mr-auto">
+                <a href="../../">
+                    <h1 class="name">Tim Stuart</h1>
+                </a>
+
+                <ul class="nav nav-primary">
+                    
+                        <li class="nav-item">
+                            <a class="text-uppercase nav-link text-about" href="../../">
+                                
+                                About
+                            </a>
+                        </li>
+                    
+                        <li class="nav-item">
+                            <a class="text-uppercase nav-link text-research" href="../../research/">
+                                
+                                Research
+                            </a>
+                        </li>
+                    
+                        <li class="nav-item">
+                            <a class="text-uppercase nav-link text-publications" href="../../publications/">
+                                
+                                Publications
+                            </a>
+                        </li>
+                    
+                        <li class="nav-item">
+                            <a class="text-uppercase nav-link text-software" href="../../software/">
+                                
+                                Software
+                            </a>
+                        </li>
+                    
+                        <li class="nav-item">
+                            <a class="text-uppercase nav-link text-blog" href="../../blog/">
+                                
+                                Blog
+                            </a>
+                        </li>
+                    
+
+                    
+                </ul>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+    <div class="content">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-sm-12 col-md-10">
+                    <h1 class="mx-0 mx-md-4 blog-post-title">Iterative epigenomic analyses of the same single cell</h1>
+
+                    <div class="mb-md-4 meta">
+                        
+                            
+                        
+
+                        <span class="date middot" title='Sun Aug 16 2020 00:00:00 UTC'>
+                            2020-08-16
+                        </span>
+
+                        <span class="reading-time middot">
+                            5 minute read
+                        </span>
+
+                        <div class="d-none d-md-inline tags">
+                            <ul class="list-unstyled d-inline">
+                                
+                            </ul>
+                        </div>
+
+                        <div class="d-none d-md-inline tags">
+                            <ul class="list-unstyled d-inline">
+                                
+                                
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="markdown">
+                        
+    
+<script src="../../rmarkdown-libs/header-attrs/header-attrs.js"></script>
+
+
+<p><a href="https://doi.org/10.1101/2020.07.20.212969" class="uri">https://doi.org/10.1101/2020.07.20.212969</a></p>
+<p>Epigenomic measurements are typically destructive, and so prevent the identification of multiple marks at the same site in the same single cell. For example, CUT&amp;Tag <span class="citation">(Kaya-Okur et al. 2019; Carter et al. 2019)</span> uses Tn5 transposase guided by an antibody to tagment DNA near the antibody binding site, which is then sequenced and mapped to determine the position of the mark in the cell.</p>
+<p>Ohnuki et al. present an innovative new method that gets around this limitation in some interesting ways <span class="citation">(Ohnuki et al. 2020)</span>. They embed the cell in a small hydrogel bead by first fixing the cell, then creating a polyacrylamide gel matrix by adding acrylamide and paraformaldehyde. Acrylamide reacts with primary amines, especially at the N-terminus of proteins. There are many exposed primary amines in the nucleosome as they’re present on the ends of the histone tails, and so the nucleosome should be nicely anchored in one spot and embedded in a 3D matrix covering the entire cell. Figure 1 shows nicely how this works:</p>
+<p><img src="../../assets/epigen_sc.png" alt="Drawing" style="width: 50%;"/></p>
+<p>This is very similar to methods used in STARmap <span class="citation">(Wang et al. 2018)</span>, where they do reverse transcription with amine-modified nucleotides and then similarly polymerize with acrylamide to embed the cell in a hydrogel, anchoring the cDNAs in place in the gel.</p>
+<p>Next, random primers containing a UMI and a ligation adapter sequence are annealed to gDNA and extended using a DNA polymerase. This creates a copied DNA molecule with a free 3’ OH end which can be used for subsequent ligation. The primers are able to bind to the template DNA by first heating the gel bead to 94ºC, which would denature the strands, and then incubating on ice to bring down the temperature and allow the primer and gDNA to anneal.</p>
+<p>Antibodies conjugated with a DNA probe containing an antibody-specific barcode and a ligation adapter sequence are then added to the gel bead and allowed to diffuse and bind to their epitope. The authors show results for several different antibodies, including H3K27ac, H3K27me3, Med1, and 5-hydroxymethylcytosine. The antibody-conjugated DNA oligo and copied gDNA are ligated together in-situ using T4 ligase, then washed out and collected.</p>
+<p>The ligated DNA products are then amplified using MALBAC, adding a second cell-specific barcode sequence. MALBAC (Multiple Annealing and Looping Based Amplification Cycles) is a near-linear amplification method sometimes used for low-input DNA amplification. MALBAC amplification products have complimentary DNA ends, causing them to loop into a circle preventing further copies being made from that template. This makes the method closer to a linear rather than exponential amplification, and is useful for the amplification of low-input DNA as there will be less bias towards molecules that happen to be amplified early in the process.</p>
+<p>Once the antibody is washed out of the gel bead the whole process can be started again by adding new DNA polymerase, new conjugated antibody, and repeating the ligation. This allows the same site within the same cell to be assayed multiple times. In the paper the authors show results for four consecutive measurements from the same cell, but also show data for up to 100 annealing cycles. With a high concentration of acrylamide, most cellular proteins are retained in the gel even after 100 cycles, suggesting that many repeated measurements could potentially be made from the same cell.</p>
+<p>The authors were also able to show repeated measurement of the same mark in the same cell (eg, H3K27ac or H3K27me3) gave similar results, supporting the idea that the same site can be repeatedly measured in the same cell. Overall I think this is a very interesting, creative new method and it will be exciting to see how it can be improved and developed further over time. This could prove a very powerful method to profile bivalent chromatin domains, and to start to quantify the combination of chromatin marks that exist at a single site in a single cell.</p>
+<div id="perspectives" class="section level2">
+<h2>Perspectives</h2>
+<p>Since the structure of the cell and nucleus is retained, I wonder if it would be possible to collect spatial coordinates for each sequenced DNA molecule. Perhaps this could be done by performing some kind of FISH method (eg, MERFISH or SEQFISH) on the ligation UMI in-situ <span class="citation">(Moffitt et al. 2018; Eng et al. 2019)</span>. The Illumina-sequenced molecules could then be coupled to a spatial position in the cell by sequencing both the ligation UMI and the gDNA sequence. This could also be a way of scaling up the method, if you could add many cells to the same gel bead and determine which molecules came from the same cell based on the spatial position of ligation UMIs.</p>
+<p>I also wonder if antibodies could be multiplexed together and demultiplexed using the antibody-specific barcodes (rather than doing iterative measurements with different antibodies). You would still have the problem then of only being able to measure a single site in a single cell, but if you chose antibodies with little overlap in their target positions and measured many cells, this might not be an issue. This could help scale the method to many cells, as I’m sure the iterative aspect of the method would be more difficult to scale than a single-iteration method.</p>
+</div>
+<div id="references" class="section level2 unnumbered">
+<h2>References</h2>
+<div id="refs" class="references hanging-indent">
+<div id="ref-Carter2019-ta">
+<p>Carter, Benjamin, Wai Lim Ku, Jee Youn Kang, Gangqing Hu, Jonathan Perrie, Qingsong Tang, and Keji Zhao. 2019. “Mapping Histone Modifications in Low Cell Number and Single Cells Using Antibody-Guided Chromatin Tagmentation (ACT-seq).” <em>Nat. Commun.</em> 10 (1): 3747. <a href="https://doi.org/10.1038/s41467-019-11559-1">https://doi.org/10.1038/s41467-019-11559-1</a>.</p>
+</div>
+<div id="ref-Eng2019-lz">
+<p>Eng, Chee-Huat Linus, Michael Lawson, Qian Zhu, Ruben Dries, Noushin Koulena, Yodai Takei, Jina Yun, et al. 2019. “Transcriptome-Scale Super-Resolved Imaging in Tissues by RNA seqFISH+.” <em>Nature</em>, March, 1. <a href="https://www.nature.com/articles/s41586-019-1049-y">https://www.nature.com/articles/s41586-019-1049-y</a>.</p>
+</div>
+<div id="ref-Kaya-Okur2019-zs">
+<p>Kaya-Okur, Hatice S, Steven J Wu, Christine A Codomo, Erica S Pledger, Terri D Bryson, Jorja G Henikoff, Kami Ahmad, and Steven Henikoff. 2019. “CUT&amp;Tag for Efficient Epigenomic Profiling of Small Samples and Single Cells.” <em>Nat. Commun.</em> 10 (1): 1930. <a href="https://doi.org/10.1038/s41467-019-09982-5">https://doi.org/10.1038/s41467-019-09982-5</a>.</p>
+</div>
+<div id="ref-Moffitt2018-vo">
+<p>Moffitt, Jeffrey R, Dhananjay Bambah-Mukku, Stephen W Eichhorn, Eric Vaughn, Karthik Shekhar, Julio D Perez, Nimrod D Rubinstein, et al. 2018. “Molecular, Spatial and Functional Single-Cell Profiling of the Hypothalamic Preoptic Region.” <em>Science</em>, November. <a href="http://dx.doi.org/10.1126/science.aau5324">http://dx.doi.org/10.1126/science.aau5324</a>.</p>
+</div>
+<div id="ref-Ohnuki2020-yr">
+<p>Ohnuki, Hidetaka, David J Venzon, Alexei Lobanov, and Giovanna Tosato. 2020. “Iterative Epigenomic Analyses in the Same Single Cell.” <em>bioRxiv</em>, July, 2020.07.20.212969. <a href="https://www.biorxiv.org/content/10.1101/2020.07.20.212969v1">https://www.biorxiv.org/content/10.1101/2020.07.20.212969v1</a>.</p>
+</div>
+<div id="ref-Wang2018-tk">
+<p>Wang, Xiao, William E Allen, Matthew A Wright, Emily L Sylwestrak, Nikolay Samusik, Sam Vesuna, Kathryn Evans, et al. 2018. “Three-Dimensional Intact-Tissue Sequencing of Single-Cell Transcriptional States.” <em>Science</em>, June. <a href="http://dx.doi.org/10.1126/science.aat5691">http://dx.doi.org/10.1126/science.aat5691</a>.</p>
+</div>
+</div>
+</div>
+
+
+
+                    </div>
+
+                    
+                        <div class="navigation">
+                            <div class="row">
+                                <div class="col-12 col-md-6">
+                                    
+                                        <div class="mx-0 mx-md-4 mt-4 text-left">
+                                            <a href="../../blog/seeking-the-k99/">« Seeking the K99</a>
+                                        </div>
+                                    
+                                </div>
+                                <div class="col-12 col-md-6">
+                                    
+                                </div>
+                            </div>
+                        </div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <section id="comments">
+
+      <div class="py-3 content">
+            <div class="container">
+                  <div class="row justify-content-center">
+                        <div class="col-sm-12 col-md-10">
+                              <div class="comments">
+                                    <div id="disqus_thread"></div>
+                              </div>
+                        </div>
+                  </div>
+            </div>
+      </div>
+
+      <script type="text/javascript">
+            (function () {
+                  
+                  
+                  if (window.location.hostname == "localhost")
+                        return;
+
+                  var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                  var disqus_shortname = '';
+                  dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+                  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+            })();
+      </script>
+      <noscript>
+            Please enable JavaScript to view the
+            <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+      </noscript>
+</section>
+    <div class="my-4 footer">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-sm-12 col-md-5">
+                
+            </div>
+            <div class="col-sm-12 col-md-5">
+                <div class="mx-0 mx-md-4 text-right">
+                    
+                        <a href="https://github.com/timoast" target="_blank">
+                            <img class="icon" src="../../img/github.svg" alt="github" />
+                        </a>
+                    
+
+                    
+
+                    
+                        <a href="https://twitter.com/timoast" target="_blank">
+                            <img class="icon" src="../../img/twitter.svg" alt="twitter" />
+                        </a>
+                    
+
+                    
+
+                    
+
+                    
+
+                    
+
+                    
+                        <a href="../../index.xml" class="mr-0">
+                            <img class="icon" src="../../img/rss.svg" alt="rss" />
+                        </a>
+                    
+
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+    
+
+    
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/highlight.min.js" integrity="sha256-iq71rXEe/fvjCUP9AfLY0cKudQuKAQywiUpXkRFSkLc=" crossorigin="anonymous"></script>
+        
+        <script>
+            window.addEventListener('load', function() {
+                hljs.initHighlighting();
+            }, true);
+        </script>
+    
+
+    
+
+    
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-131769435-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+    
+        
+
+    
+</body>
+
+</html>
