@@ -1,0 +1,597 @@
+<!doctype html>
+<html lang="en-us">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title> Single-cell ATAC &#43; RNA co-assay methods - Tim Stuart </title>
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+    <meta name="referrer" content="no-referrer">
+    <meta name="description" content="Tim Stuart" />
+    <meta property="og:site_name" content="Tim Stuart" />
+    <meta property="og:locale" content="nn_NO" />
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="/blog/single-cell-atac-rna/" />
+    <meta property="og:title" content="Single-cell ATAC &#43; RNA co-assay methods" />
+    <meta property="og:image" content="/" />
+    <meta property="og:description" content="Tim Stuart" />
+
+    
+        <meta property="twitter:site" content="@timoast">
+    
+
+    <meta property="twitter:title" content="Single-cell ATAC &#43; RNA co-assay methods" />
+    <meta property="twitter:image" content="/" />
+    <meta property="twitter:card" content="summary" />
+    <meta property="twitter:description" content="Tim Stuart" />
+
+    <link rel="canonical" href="../../blog/single-cell-atac-rna/">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha256-eSi1q2PG6J7g7ib17yAaWMcrr5GrtohYChqibrV7PBE=" crossorigin="anonymous" />
+
+    <link rel="stylesheet" href="../../css/custom.css" />
+
+    
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/styles/tomorrow.min.css" integrity="sha256-0QU8ry64q+N6YBIEF/6XF6vUeF15gbNO4tLS6ikk0FI=" crossorigin="anonymous" />
+    
+
+    
+
+    <link rel="shortcut icon"
+        href="../../img/favicon.ico">
+
+    
+</head>
+
+<body>
+    
+    <div class="my-4 my-md-5 header">
+    <div class="container">
+        <div class="row">
+            <div class="col-auto offset-md-1 d-none d-md-block">
+                
+            </div>
+            <div class="col-auto align-self-center mr-auto">
+                <a href="../../">
+                    <h1 class="name">Tim Stuart</h1>
+                </a>
+
+                <ul class="nav nav-primary">
+                    
+                        <li class="nav-item">
+                            <a class="text-uppercase nav-link text-about" href="../../">
+                                
+                                About
+                            </a>
+                        </li>
+                    
+                        <li class="nav-item">
+                            <a class="text-uppercase nav-link text-research" href="../../research/">
+                                
+                                Research
+                            </a>
+                        </li>
+                    
+                        <li class="nav-item">
+                            <a class="text-uppercase nav-link text-publications" href="../../publications/">
+                                
+                                Publications
+                            </a>
+                        </li>
+                    
+                        <li class="nav-item">
+                            <a class="text-uppercase nav-link text-software" href="../../software/">
+                                
+                                Software
+                            </a>
+                        </li>
+                    
+                        <li class="nav-item">
+                            <a class="text-uppercase nav-link text-blog" href="../../blog/">
+                                
+                                Blog
+                            </a>
+                        </li>
+                    
+
+                    
+                </ul>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+    <div class="content">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-sm-12 col-md-10">
+                    <h1 class="mx-0 mx-md-4 blog-post-title">Single-cell ATAC &#43; RNA co-assay methods</h1>
+
+                    <div class="mb-md-4 meta">
+                        
+                            
+                        
+
+                        <span class="date middot" title='Thu Oct 29 2020 00:00:00 UTC'>
+                            2020-10-29
+                        </span>
+
+                        <span class="reading-time middot">
+                            15 minute read
+                        </span>
+
+                        <div class="d-none d-md-inline tags">
+                            <ul class="list-unstyled d-inline">
+                                
+                            </ul>
+                        </div>
+
+                        <div class="d-none d-md-inline tags">
+                            <ul class="list-unstyled d-inline">
+                                
+                                
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="markdown">
+                        
+    
+<script src="../../rmarkdown-libs/header-attrs/header-attrs.js"></script>
+
+
+<p>Several methods have been developed over the past ~2 years that enable the
+simultaneous measurement of DNA accessibility and gene expression in single
+cells. To me, these co-assay methods are one of the most exciting frontiers in
+single-cell biology, and will open up a range of new approaches for studying
+gene regulation.</p>
+<p>These new single-cell co-assay methods include sciCAR, scCAT-seq, SNARE-seq, Paired-seq,
+ASTAR-seq, SHARE-seq, and a recently released commercial solution by
+10x Genomics. In this post, I will give an overview of each of these methods,
+explain how they work, and give some comments on the strengths and weaknesses of
+each. Some important things to consider when looking at these methods are the
+sensitivity and cell throughput, what percentage of cells acquire useable
+measurements for both assays, how complex/difficult the experimental workflow
+is, and whether they use cells or nuclei as input. Keep in mind that I have not
+run any of these protocols myself, and everything presented here comes only from
+reading the papers, and in some cases exploring publicly available datasets.</p>
+<div id="scicar" class="section level2">
+<h2>sciCAR</h2>
+<p>The sci-CAR method was the first single-cell gene expression DNA accessibility
+co-assay method published <span class="citation">(Cao et al. 2018)</span>. It uses a plate-based combinatorial indexing
+strategy and essentially combines sciRNA-seq and sciATAC-seq. The basic workflow
+goes as follows:</p>
+<ol style="list-style-type: decimal">
+<li>Extract nuclei (with or without fixation)</li>
+<li>Distribute into wells</li>
+<li>Add RNA-seq index by in situ reverse transcription (RT within the nucleus)
+using oligo-dT RT primer with well-specific barcode and a UMI</li>
+<li>Add the first ATAC-seq index by <em>in situ</em> tagmentation with barcoded Tn5
+adaptors (well specific). Do not add SDS at this stage, so DNA remains intact
+with Tn5 integrated.</li>
+<li>Pool and redistribute nuclei by FANS</li>
+<li>Perform second strand synthesis on the cDNA</li>
+<li>Lyse nuclei</li>
+<li>Split into ATAC and cDNA portions</li>
+<li>Fragment the cDNA by transposition with un-indexed Tn5</li>
+<li>Amplify cDNA 3’ tags with primers specific for the unbarcoded Tn5 adapter
+handle and the RT primer. This incorporates a second well-specific index and
+gives the RNA library.</li>
+<li>Amplify the ATAC lysate with primers specific to the barcoded Tn5 adapters.
+This also adds a second well-specific barcode. This gives the ATAC-seq library.</li>
+</ol>
+<p>There are a few things to note regarding this protocol. First, I’d expect that
+the first Tn5 transposition would also result in some integration events into
+the RNA/DNA heteroduplex produced from the in-situ PCR, since Tn5 can integrate
+into RNA/DNA heteroduplexes <span class="citation">(Di et al. 2020)</span>. This would reduce the sensitivity of
+the RNA assay, as it would interfere with second-strand synthesis, and might
+result in some cDNA molecules entering the ATAC library and being mistaken for
+open chromatin regions. To be fair, I don’t think it was widely known in 2018
+that Tn5 could integrate into a heteroduplex. A better strategy could be to do
+the tagmentation first, and then do the in-situ RT. The ATAC assay sensitivity
+for sciCAR was around 10-fold lower than that of standard scATAC-seq. Most
+cells (88-93%) had measurements for both RNA and ATAC.</p>
+<p>The authors presented some interesting analyses using their co-assay datasets,
+and really were able to highlight the potential utility of these types of
+single-cell datasets if the experimental methods could be improved.
+They found a weak correlation between promoter
+accessibility and gene expression, although it’s likely that this was
+substantially impacted by the low sensitivity of both measurements. Much of the
+ATAC-based analysis was performed using finely clustered “pseudo-cells” to help
+reduce the data sparsity. Using both RNA and ATAC measurements, they were able
+to link peaks to the genes that they potentially regulate using
+LASSO-regularized regression.</p>
+</div>
+<div id="sccat-seq" class="section level2">
+<h2>scCAT-seq</h2>
+<p>scCAT-seq is a lower-throughput plate-based method for dual gene expression DNA
+accessibility profiling <span class="citation">(Liu et al. 2019)</span>. The workflow is as follows:</p>
+<ol style="list-style-type: decimal">
+<li>Distribute single cells into wells in a plate using FACS</li>
+<li>Lyse cells using mild lysis conditions (10 mM NaCl, 10 mM Tris-HCl, pH 7.5,
+0.2% IGEPAL CA-630). IGEPAL is a nonionic detergent very similar to Triton
+X-100.</li>
+<li>Vortex and centrifuge. The goal is to lyse the cell membrane but not the
+nucleus.</li>
+<li>Extract the supernatant and transfer to a different plate (physical
+separation of mRNA and nucleus).</li>
+<li>Run the Smart-seq2 protocol on the RNA fraction.</li>
+<li>Run ATAC-seq on the cell nuclei (carrier DNA added after transposition).</li>
+</ol>
+<p>Although the method is very low-throughput, the data quality seems very good in
+terms of the number of genes and DNA fragments detected per cell. However, the
+use of the Smart-seq2 protocol means there are no UMIs for the gene expression
+assay. You could run any plate-based scRNA-seq method here, so updating to the
+Smart-seq3 protocol (which includes 5’ UMIs) wouldn’t be an issue <span class="citation">(Hagemann-Jensen et al. 2020)</span>.
+For small tissue samples that are difficult to attain such as human
+embryos (used the paper) this could be a good approach.</p>
+</div>
+<div id="snare-seq" class="section level2">
+<h2>SNARE-seq</h2>
+<p>SNARE-seq was the first droplet-based RNA/ATAC co-assay method and uses some
+clever tricks to collect both DNA and RNA information using standard Drop-seq
+beads <span class="citation">(Chen, Lake, and Zhang 2019)</span>. One advantage over sciCAR and scCAT-seq is that it doesn’t require any
+cell sorting via FANS. It uses the following workflow:</p>
+<ol style="list-style-type: decimal">
+<li>Extract nuclei from cells</li>
+<li>Tagment nuclei in bulk</li>
+<li>Encapsulate nuclei in droplets using a Drop-seq instrument. A special
+splint oligo is added to the buffer that spans the Tn5 adapter sequence overhang
+and the oligo-dT capture sequence on the Drop-seq bead.</li>
+<li>Beads are heated to 72ºC to release Tn5 and free the tagmented DNA</li>
+<li>Polyadenylated mRNA anneals to the bead-bound RT primers</li>
+<li>Fragmented gDNA is annealed indirectly to the bead-bound RT primers via the
+splint oligo that is able to anneal to both the Tn5 adapter overhang sequence
+and the oligo-dT RT primer sequence</li>
+<li>Break the emulsion and perform RT and ligation to add the bead-specific
+barcodes to the mRNAs and gDNA fragments.</li>
+<li>Perform PCR to amplify the cDNA and gDNA libraries from the beads</li>
+<li>Split into cDNA and gDNA libraries</li>
+</ol>
+<p>The authors produced data for the P0 and adult mouse brain, and the sensitivity
+of both the RNA and ATAC assays is significantly improved compared to the
+earlier sciCAR method. The P0 mouse brain dataset contains some developmental
+trajectories for excitatory neurons, and the authors were able to show some
+interesting examples where chromatin changes preceded transcriptional changes in
+a pseudo temporal cell ordering. Code to process the raw SNARE-seq data is available here:
+<a href="https://github.com/timoast/SNARE-seq" class="uri">https://github.com/timoast/SNARE-seq</a>.</p>
+</div>
+<div id="paired-seq" class="section level2">
+<h2>Paired-seq</h2>
+<p>Paired-seq, like sciCAR, is a combinatorial indexing based co-assay method <span class="citation">(Zhu et al. 2019)</span>.
+Unlike sciCAR it uses ligation to build the cell barcode (rather than PCR) and
+in that sense is more similar to SPLiT-seq <span class="citation">(Rosenberg et al. 2018)</span>:</p>
+<ol style="list-style-type: decimal">
+<li>Distribute nuclei into eight tubes</li>
+<li>Tagment nuclei using barcoded Tn5 (different barcode for each tube)</li>
+<li>Centrifuge and wash pellet, resuspend in a buffer for reverse transcription</li>
+<li>Add barcoded RT primers to each tube and perform reverse transcription</li>
+<li>Combine nuclei from all tubes</li>
+<li>Add ligation mix and distribute into wells in a plate with barcode oligo and
+blocker in each well</li>
+<li>Incubate, then repeat the pooling and redistribution steps two more times for
+two more rounds of barcoding</li>
+<li>Lyse nuclei and extract DNA</li>
+<li>Amplify DNA using terminal deoxynucleotidyl transferase (TdT)-assisted DNA
+amplification. TdT is an polymerase that can add untemplated nucleotides to DNA
+strands, and so can be used to add bases to the end of the DNA molecule to form
+a primer binding site.</li>
+<li>Split into two portions for cDNA and ATAC libraries</li>
+<li>Add different restriction enzymes to the cDNA and ATAC libraries. This will
+specifically cut fragments that originated from RT or from tagmentation,
+depending on the RE added.</li>
+</ol>
+<p>Paired-seq greatly increased the scalablilty of RNA/ATAC coassay in comparison to
+earlier methods. This is due to the combinatorial indexing strategy used, with many rounds
+of barcoding. I like that they tagment the DNA first (before RT), preventing any
+possible tagmentation of DNA/RNA heteroduplexes. They also don’t use any FANS,
+which simplifies the workflow.</p>
+<p>However, due to the way the library is constructed, the ATAC-seq assay is not
+paired-end. Read 1 is used to read the gDNA sequence (one end of the tagmented
+DNA), or the cDNA for the RNA assay, and read 2 is used to sequence the series
+of cell barcodes. For ATAC-seq, the important information is the Tn5 integration
+sites, and so only sequencing one gDNA end reduces the number of sites measured per
+cell in half. You also lose the fragment length information, which can be useful
+for QC or for certain analyses. However, we <em>know</em> that each sequenced ATAC
+fragment must be derived from two integration events, so being able to precicely
+map only one of those two events doesn’t exactly equate to halving the amount of
+information returned from the assay.</p>
+<p>The authors show some interesting analyses using their dataset. In particular, they
+show a simple joint clustering method that incorporates information from both
+data modalities by creating a neighbor graph from each assay (ATAC or RNA), and
+taking the Hadamard product of the neighbor graphs. The Hadamard product is just
+the element-wise product of two matrices of the same dimension, so when applied
+to two graphs it will remove any edges that were present in only one of the two
+graphs. It’s not clear to me if removing edges that were unique to one assay is
+necessarily a good thing, as there may be interesting structure present in one
+modality that’s not as apparent from analysis of a second modality. Recent work
+in the Satija lab, led by Yuhan Hao, has focused on developing more sophisticated
+methods for creating a joint neighbor graph from multimodal single-cell data <span class="citation">(Hao et al. 2020)</span>.</p>
+<p>Similar to the sciCAR work, the authors also linked peaks to nearby correlated
+genes using Pearson correlation with cells “microclustered” into small groups
+based on the Jaccard similarity to reduce data sparsity. Here they went a step
+further and generated PLAC-seq data to validate some of the peak-gene links they
+identified.</p>
+</div>
+<div id="astar-seq" class="section level2">
+<h2>ASTAR-seq</h2>
+<p>Assay for single-cell transcriptome and accessibility regions (ASTAR-seq, which
+coincidently was developed at A*STAR in Singapore) uses an integrated micro
+fluidic chip (Fluidigm C1) to compartmentalize the cells, similar to the first
+scATAC-seq <span class="citation">(Xing et al. 2020; Buenrostro et al. 2015)</span>. Cells are then
+tagmented with Tn5 within the chip, then the RNA is reverse transcribed and amplified
+with biotinylated primers. The incorporation of biotin into the cDNAs allows
+later separation of the ATAC and RNA libraries with streptavidin beads. Notably,
+the authors state in the paper than they tried an approach where they performed
+RT before tagmentation that was not successful. They attribute this to Tn5
+digesting the single-stranded cDNAs. I like that they included these details in
+the paper, as what <em>didn’t</em> work can often be just as informative as what did
+work, but is not usually reported in a final paper.</p>
+<p>ASTAR-seq is fairly low-throughput as it depends on using the microfluidic chip.
+As with most lower-throughput methods, the sensitivity also tends to be higher.
+The authors compare to scCAT-seq in the paper, as they say it’s the most similar
+published method. One point that I didn’t notice when reading the scCAT-seq
+paper is the huge sequencing depth required. To compare between ASTAR-seq and
+scCAT-seq the authors sequence 40 cells on one HiSeq 4000 lane. Their
+supplementary figure 2E shows a cost comparison between SNARE-seq, sciCAR,
+Paired-seq, scCAT-seq, and ASTAR-seq, and is quite compelling. Those numbers
+will change slightly depending on how “well” the assay works in different labs
+(how many high quality cells are produced by a single experiment), but it really
+shows how the lower-throughput methods like scCAT-seq and ASTAR-seq are an order
+of magnitude more expensive per cell than high-throughput methods.</p>
+</div>
+<div id="share-seq" class="section level2">
+<h2>SHARE-seq</h2>
+<p>Simultaneous high-throughput ATAC and RNA Expression sequencing (SHARE-seq) is a
+method for assaying mRNA and DNA accessibility in the same cells, released
+earlier this year on biorxiv and published recently in Cell <span class="citation">(Ma et al. 2020)</span>.
+It is similar to both SPLiT-seq <span class="citation">(Rosenberg et al. 2018)</span> and Paired-seq:</p>
+<ol style="list-style-type: decimal">
+<li>Fixed, permeablized cells or nuclei are prepared and transposed with Tn5</li>
+<li>mRNA is reverse transcribed with a primer containing a UMI and biotin tag.</li>
+<li>Cells are distributed into wells</li>
+<li>Hybridization with well-specific barcoded oligos. These hybridize to both the
+Tn5 adapter and the RT primer handle, allowing RNA and ATAC molecules to acquire
+the same set of barcodes.</li>
+<li>Perform repeated rounds of ligation barcoding by pooling and redistributing cells.
+Blocking oligos complementary to the previous-round barcode are added after each ligation
+to prevent the incorporation of previous-round barcodes in subsequent ligation cycles.</li>
+<li>Reverse crosslinking by incubating with high salt to release the barcoded gDNA and cDNA
+molecules.</li>
+<li>Separate cDNAs from the ATAC molecules via streptavidin beads.</li>
+<li>Prepare separate ATAC and RNA libraries for sequencing</li>
+</ol>
+<p>There are several advantages to the SHARE-seq approach. It doesn’t require
+specialized equipment (no droplets or FACS), only some plates and pipettes. It
+is also very high-throughput, and additional rounds of barcoding can be added to
+further increase the number of cells able to be profiled in a single experiment.
+Importantly, SHARE-seq is able to sequence both ends of the ATAC-seq fragment,
+in contrast to Paired-seq, by using a super-long 99 cycle index 1 read to
+sequence the cell barcodes. Note that most Illumina machines restrict the number
+of index cycles in the software, and users will need to contact Illumina for a
+custom run recipe if they want to extend the number of index cycles beyond 20.
+The authors compare the sensitivity of
+SHARE-seq to sciCAR, SNARE-seq, and Paired-seq and show a pretty impressive
+boost in sensitivity for both the RNA and ATAC assays.</p>
+<p>With their boosted sensitivity, and by profiling some more interesting tissue
+types (mouse skin, containing cells undergoing a developmental trajectory), the
+authors are able to show some exciting new analyses that highlight the value of
+these types of datasets, particularly for studying developing cells. They
+capitalize on the fact that nuclei are used, capturing more unspliced RNAs, to
+compute RNA velocities in addition to mRNA abundance. This allows them to order
+cells on a trajectory and look at the relationship between chromatin state,
+transcriptional state, and mRNA abundance over the cellular trajectory. As
+expected, changes in chromatin state (opening of distal enhancers) precede later
+changes in transcriptional rate and later changes in spliced mRNA abundance.</p>
+<p>With the increase in sensitivity for both the RNA and ATAC assays, the authors
+are also able to link peaks to genes using regression models. This has been done
+in many previous papers, but the accuracy of the approach tends to be highly
+dependent on the quality of the data. Here, it looks like the data is starting
+to get to the level where reliable links can be identified without the need for
+pooling cells into “microclusters” as was done in earlier work (sciCAR and Paired-seq,
+for example). By linking peaks to genes genome-wide, they identify known
+superenhancer- (stretch enhancer-) regulated genes as having significantly more
+linked ATAC-seq peaks than other genes. There is a real need to link functional
+noncoding DNA elements to the genes that they regulate, and a multimodal
+regression-based method such as this could prove very useful. I have been working
+on implementing similar regression-based peak-gene linkage methods in the <a href="https://github.com/timoast/signac">Signac
+package</a>.</p>
+</div>
+<div id="x-genomics-multiome" class="section level2">
+<h2>10x Genomics Multiome</h2>
+<p>10x Genomics recently released their commercial kit for dual RNA and ATAC
+measurements in the same cell, which they call the “Multiome ATAC + Gene
+Expression” kit. Their kit uses the standard 10x chromium controller for
+encapsulating cells in droplets and is similar to the scATAC-seq kit in that you
+need to extract nuclei and tagment them in bulk before loading them into the
+instrument. One key thing to note here is that, as with most other RNA + ATAC
+methods, the RNA data comes from nuclei so is more similar to snRNA-seq than
+scRNA-seq. There aren’t a whole lot of details available as to how the method
+works (there’s some information in the user guide on the 10x website). What we
+do know is that the multiome beads contain a mixture of two different oligos
+that contain the same cell barcode but different capture sequences, one for
+RT on the mRNAs and one for annealing to the Tn5 adapter sequence.</p>
+<p>10x have several demonstration datasets available on their website (currently
+human PBMC, human brain, mouse brain, and human lymph node with B-cell lymphoma).
+From what I’ve seen, the data quality for these is very good and seems similar
+to the SHARE-seq data. Seeing as these kits are commercially available, this
+will almost certainly become the method of choice for most labs wanting to
+generate these multimodal datasets.</p>
+</div>
+<div id="references" class="section level2 unnumbered">
+<h2>References</h2>
+<div id="refs" class="references hanging-indent">
+<div id="ref-Buenrostro2015">
+<p>Buenrostro, Jason D, Beijing Wu, Ulrike M Litzenburger, Dave Ruff, Michael L Gonzales, Michael P Snyder, Howard Y Chang, and William J Greenleaf. 2015. “Single-Cell Chromatin Accessibility Reveals Principles of Regulatory Variation.” <em>Nature</em> 523 (7561): 486–90. <a href="http://dx.doi.org/10.1038/nature14590">http://dx.doi.org/10.1038/nature14590</a>.</p>
+</div>
+<div id="ref-scicar">
+<p>Cao, Junyue, Darren A Cusanovich, Vijay Ramani, Delasa Aghamirzaie, Hannah A Pliner, Andrew J Hill, Riza M Daza, et al. 2018. “Joint Profiling of Chromatin Accessibility and Gene Expression in Thousands of Single Cells.” <em>Science</em>, August. <a href="http://dx.doi.org/10.1126/science.aau0730">http://dx.doi.org/10.1126/science.aau0730</a>.</p>
+</div>
+<div id="ref-snare">
+<p>Chen, Song, Blue B Lake, and Kun Zhang. 2019. “High-Throughput Sequencing of the Transcriptome and Chromatin Accessibility in the Same Cell.” <em>Nat. Biotechnol.</em>, October. <a href="https://doi.org/10.1038/s41587-019-0290-0">https://doi.org/10.1038/s41587-019-0290-0</a>.</p>
+</div>
+<div id="ref-Di2020">
+<p>Di, Lin, Yusi Fu, Yue Sun, Jie Li, Lu Liu, Jiacheng Yao, Guanbo Wang, et al. 2020. “RNA Sequencing by Direct Tagmentation of RNA/DNA Hybrids.” <em>Proc. Natl. Acad. Sci. U. S. A.</em> 117 (6): 2886–93. <a href="http://dx.doi.org/10.1073/pnas.1919800117">http://dx.doi.org/10.1073/pnas.1919800117</a>.</p>
+</div>
+<div id="ref-ss3">
+<p>Hagemann-Jensen, Michael, Christoph Ziegenhain, Ping Chen, Daniel Ramsköld, Gert-Jan Hendriks, Anton J M Larsson, Omid R Faridani, and Rickard Sandberg. 2020. “Single-Cell RNA Counting at Allele and Isoform Resolution Using Smart-Seq3.” <em>Nat. Biotechnol.</em> 38 (6): 708–14. <a href="http://dx.doi.org/10.1038/s41587-020-0497-0">http://dx.doi.org/10.1038/s41587-020-0497-0</a>.</p>
+</div>
+<div id="ref-hao">
+<p>Hao, Yuhan, Stephanie Hao, Erica Andersen-Nissen, William M Mauck, Shiwei Zheng, Andrew Butler, Maddie Jane Lee, et al. 2020. “Integrated Analysis of Multimodal Single-Cell Data.” <a href="https://www.biorxiv.org/content/10.1101/2020.10.12.335331v1">https://www.biorxiv.org/content/10.1101/2020.10.12.335331v1</a>.</p>
+</div>
+<div id="ref-sccatseq">
+<p>Liu, Longqi, Chuanyu Liu, Andrés Quintero, Liang Wu, Yue Yuan, Mingyue Wang, Mengnan Cheng, et al. 2019. “Deconvolution of Single-Cell Multi-Omics Layers Reveals Regulatory Heterogeneity.” <em>Nat. Commun.</em> 10 (1): 470. <a href="http://dx.doi.org/10.1038/s41467-018-08205-7">http://dx.doi.org/10.1038/s41467-018-08205-7</a>.</p>
+</div>
+<div id="ref-shareseq">
+<p>Ma, Sai, Bing Zhang, Lindsay M LaFave, Andrew S Earl, Zachary Chiang, Yan Hu, Jiarui Ding, et al. 2020. “Chromatin Potential Identified by Shared Single-Cell Profiling of RNA and Chromatin.” <em>Cell</em> 0 (0). <a href="http://www.cell.com/article/S0092867420312538/abstract">http://www.cell.com/article/S0092867420312538/abstract</a>.</p>
+</div>
+<div id="ref-splitseq">
+<p>Rosenberg, Alexander B, Charles M Roco, Richard A Muscat, Anna Kuchina, Paul Sample, Zizhen Yao, Lucas T Graybuck, et al. 2018. “Single-Cell Profiling of the Developing Mouse Brain and Spinal Cord with Split-Pool Barcoding.” <em>Science</em> 360 (6385): eaam8999. <a href="http://dx.doi.org/10.1126/science.aam8999">http://dx.doi.org/10.1126/science.aam8999</a>.</p>
+</div>
+<div id="ref-astar">
+<p>Xing, Qiao Rui, Chadi A El Farran, Ying Ying Zeng, Yao Yi, Tushar Warrier, Pradeep Gautam, James J Collins, et al. 2020. “Parallel Bimodal Single-Cell Sequencing of Transcriptome and Chromatin Accessibility.” <em>Genome Res.</em> 30 (7): 1027–39. <a href="http://dx.doi.org/10.1101/gr.257840.119">http://dx.doi.org/10.1101/gr.257840.119</a>.</p>
+</div>
+<div id="ref-paired">
+<p>Zhu, Chenxu, Miao Yu, Hui Huang, Ivan Juric, Armen Abnousi, Rong Hu, Jacinta Lucero, M Margarita Behrens, Ming Hu, and Bing Ren. 2019. “An Ultra High-Throughput Method for Single-Cell Joint Analysis of Open Chromatin and Transcriptome.” <em>Nat. Struct. Mol. Biol.</em> 26 (11): 1063–70. <a href="http://dx.doi.org/10.1038/s41594-019-0323-x">http://dx.doi.org/10.1038/s41594-019-0323-x</a>.</p>
+</div>
+</div>
+</div>
+
+
+
+                    </div>
+
+                    
+                        <div class="navigation">
+                            <div class="row">
+                                <div class="col-12 col-md-6">
+                                    
+                                        <div class="mx-0 mx-md-4 mt-4 text-left">
+                                            <a href="../../blog/iterative-epigenomic-analyses/">« Iterative epigenomic analyses of the same single cell</a>
+                                        </div>
+                                    
+                                </div>
+                                <div class="col-12 col-md-6">
+                                    
+                                </div>
+                            </div>
+                        </div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <section id="comments">
+
+      <div class="py-3 content">
+            <div class="container">
+                  <div class="row justify-content-center">
+                        <div class="col-sm-12 col-md-10">
+                              <div class="comments">
+                                    <div id="disqus_thread"></div>
+                              </div>
+                        </div>
+                  </div>
+            </div>
+      </div>
+
+      <script type="text/javascript">
+            (function () {
+                  
+                  
+                  if (window.location.hostname == "localhost")
+                        return;
+
+                  var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                  var disqus_shortname = '';
+                  dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+                  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+            })();
+      </script>
+      <noscript>
+            Please enable JavaScript to view the
+            <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+      </noscript>
+</section>
+    <div class="my-4 footer">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-sm-12 col-md-5">
+                
+            </div>
+            <div class="col-sm-12 col-md-5">
+                <div class="mx-0 mx-md-4 text-right">
+                    
+                        <a href="https://github.com/timoast" target="_blank">
+                            <img class="icon" src="../../img/github.svg" alt="github" />
+                        </a>
+                    
+
+                    
+
+                    
+                        <a href="https://twitter.com/timoast" target="_blank">
+                            <img class="icon" src="../../img/twitter.svg" alt="twitter" />
+                        </a>
+                    
+
+                    
+
+                    
+
+                    
+
+                    
+
+                    
+                        <a href="../../index.xml" class="mr-0">
+                            <img class="icon" src="../../img/rss.svg" alt="rss" />
+                        </a>
+                    
+
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+    
+
+    
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/highlight.min.js" integrity="sha256-iq71rXEe/fvjCUP9AfLY0cKudQuKAQywiUpXkRFSkLc=" crossorigin="anonymous"></script>
+        
+        <script>
+            window.addEventListener('load', function() {
+                hljs.initHighlighting();
+            }, true);
+        </script>
+    
+
+    
+
+    
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-131769435-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+    
+        
+
+    
+</body>
+
+</html>
