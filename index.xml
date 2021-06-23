@@ -6,7 +6,16 @@
     <description>Recent content in Home on Tim Stuart</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 29 Oct 2020 00:00:00 +0000</lastBuildDate><atom:link href="/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 14 Jun 2021 00:00:00 +0000</lastBuildDate><atom:link href="/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Downloading SRA data via GCP</title>
+      <link>/post/2021/06/14/downloading-sra-data-via-gcp/</link>
+      <pubDate>Mon, 14 Jun 2021 00:00:00 +0000</pubDate>
+      
+      <guid>/post/2021/06/14/downloading-sra-data-via-gcp/</guid>
+      <description>The SRA now stores the data in the originally uploaded format for many SRA accessions. This is particularly useful for single-cell data, as the conversion to SRA FASTQ often strips cell barcodes from the file, as read names and particular read tags are not preserved. SRA enables you to download the original files provided by the authors, provided you pay for the download cost. They provide download links for AWS and Google Cloud Compute.</description>
+    </item>
+    
     <item>
       <title>Single-cell ATAC &#43; RNA co-assay methods</title>
       <link>/blog/single-cell-atac-rna/</link>
