@@ -9,11 +9,11 @@
     <lastBuildDate>Mon, 14 Jun 2021 00:00:00 +0000</lastBuildDate><atom:link href="/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Downloading SRA data via GCP</title>
-      <link>/post/2021/06/14/downloading-sra-data-via-gcp/</link>
+      <link>/blog/downloading-sra-data-via-gcp/</link>
       <pubDate>Mon, 14 Jun 2021 00:00:00 +0000</pubDate>
       
-      <guid>/post/2021/06/14/downloading-sra-data-via-gcp/</guid>
-      <description>The SRA now stores the data in the originally uploaded format for many SRA accessions. This is particularly useful for single-cell data, as the conversion to SRA FASTQ often strips cell barcodes from the file, as read names and particular read tags are not preserved. SRA enables you to download the original files provided by the authors, provided you pay for the download cost. They provide download links for AWS and Google Cloud Compute.</description>
+      <guid>/blog/downloading-sra-data-via-gcp/</guid>
+      <description>The SRA now stores the data in the originally uploaded format for many SRA accessions. This is particularly useful for single-cell data, as the conversion to SRA FASTQ often strips cell barcodes from the file, as read names and read tags are not preserved. SRA enables you to download the original files provided by the authors, provided you pay for the download cost. They provide download links for AWS and Google Cloud Compute.</description>
     </item>
     
     <item>
@@ -246,7 +246,7 @@ As I couldn&amp;rsquo;t find anything that was a nice middle ground, I ended up 
       
       <guid>/publications/</guid>
       <description>Google Scholar
-2021   Integrated analysis of multimodal single-cell data  Yuhan Hao, Stephanie Hao, Erica Andersen-Nissen, William M Mauck, Shiwei Zheng, Andrew Butler, Maddie Jane Lee, Aaron J Wilk, Charlotte Darby, Michael Zagar, Paul Hoffman, Marlon Stoeckius, Efthymia Papalexi, Eleni P Mimitou, Jaisin Jain, Avi Srivastava,  Tim Stuart , Lamar B Fleming, Bertrand Yeung, Angela J Rogers, Juliana M McElrath, Catherine A Blish, Raphael Gottardo, Peter Smibert, and Rahul Satija  Cell.</description>
+2021   Characterizing cellular heterogeneity in chromatin state with scCUT&amp;amp;Tag-pro   Bingjie Zhang*, Avi Srivastava*, Eleni Mimitou, Tim Stuart, Ivan Raimondi, Yuhan Hao, Peter Smibert, Rahul Satija  bioRxiv. 2021  PDF bioRxiv         geneBasis: an iterative approach for unsupervised selection of targeted gene panels from scRNA-seq  Alsu Missarova, Jaison Jain, Andrew Butler, Shila Ghazanfar, Tim Stuart, Maigan Brusko, Clive Wasserfall, Harry Nick, Todd Brusko, Mark Atkinson, Rahul Satija, John Marioni  bioRxiv.</description>
     </item>
     
     <item>
