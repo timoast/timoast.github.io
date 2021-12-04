@@ -184,20 +184,20 @@ dynamically link at runtime to Tcl/Tk macOS frameworks.</p>
 <p>I then found the path of the newly installed python3 (it was symlinked
 to <code>/usr/local/bin/python3</code> for me) and used this to create a new
 virtualenv:</p>
-<pre><code>mkvirtualenv -p /usr/local/bin/python3 py3
+<pre tabindex="0"><code>mkvirtualenv -p /usr/local/bin/python3 py3
 </code></pre><p>I then installed magic again in the virtualenv (from the github repo):</p>
-<pre><code>pip3 install .
+<pre tabindex="0"><code>pip3 install .
 </code></pre><p>Next I installed all the jupyter stuff. It&rsquo;s important to link the
 right ipython kernel to the jupyter notebook, otherwise it will seem
 like you still don&rsquo;t have access to <code>Tk</code>, even though at this point
 you can sucessfully <code>import tkinter</code> in python3. To do this, install
 jupyter, ipython, the ipython kernel, and then link the
 kernel:</p>
-<pre><code>pip install jupyter ipython ipykernel
+<pre tabindex="0"><code>pip install jupyter ipython ipykernel
 python3 -m ipykernel install --user
 </code></pre><p>Now you should be able to import magic without any problems, and use
 it in a jupyter notebook. You can also start the GUI by running the <code>magic_gui.py</code> script:</p>
-<pre><code>python3 magic_gui.py
+<pre tabindex="0"><code>python3 magic_gui.py
 </code></pre><!-- raw HTML omitted -->
 
 

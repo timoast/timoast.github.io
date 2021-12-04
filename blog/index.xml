@@ -6,7 +6,17 @@
     <description>Recent content in Blogs on Tim Stuart</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 14 Jun 2021 00:00:00 +0000</lastBuildDate><atom:link href="/blog/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 03 Dec 2021 00:00:00 +0000</lastBuildDate><atom:link href="/blog/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Retrieving SRA data from AWS Glacier storage</title>
+      <link>/blog/sra-aws/</link>
+      <pubDate>Fri, 03 Dec 2021 00:00:00 +0000</pubDate>
+      
+      <guid>/blog/sra-aws/</guid>
+      <description>The SRA now hosts the user-submitted files for download alongside the “SRA” version. This is useful because the SRA version strips some information like original read names and the index read, which are commonly used to store cell barcode information for single-cell data.
+However, the user-submitted files are not quite as easy to access as the SRA files. They are stored on GCP and AWS. Transfer of the files to other cloud storage (eg, to your own S3 bucket) is free, but users pay the cost of egress if you want to use local compute resources.</description>
+    </item>
+    
     <item>
       <title>Downloading SRA data via GCP</title>
       <link>/blog/downloading-sra-data-via-gcp/</link>

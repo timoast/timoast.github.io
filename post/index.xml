@@ -6,14 +6,15 @@
     <description>Recent content in Posts on Tim Stuart</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 14 Jun 2021 00:00:00 +0000</lastBuildDate><atom:link href="/post/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 03 Dec 2021 00:00:00 +0000</lastBuildDate><atom:link href="/post/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>Downloading SRA data via GCP</title>
-      <link>/post/2021/06/14/downloading-sra-data-via-gcp/</link>
-      <pubDate>Mon, 14 Jun 2021 00:00:00 +0000</pubDate>
+      <title>Retrieving SRA data from AWS Glacier storage</title>
+      <link>/post/2021/12/03/sra-aws/</link>
+      <pubDate>Fri, 03 Dec 2021 00:00:00 +0000</pubDate>
       
-      <guid>/post/2021/06/14/downloading-sra-data-via-gcp/</guid>
-      <description>The SRA now stores the data in the originally uploaded format for many SRA accessions. This is particularly useful for single-cell data, as the conversion to SRA FASTQ often strips cell barcodes from the file, as read names and particular read tags are not preserved. SRA enables you to download the original files provided by the authors, provided you pay for the download cost. They provide download links for AWS and Google Cloud Compute.</description>
+      <guid>/post/2021/12/03/sra-aws/</guid>
+      <description>The SRA now hosts the user-submitted files for download alongside the &amp;ldquo;SRA&amp;rdquo; version. This is useful because the SRA version strips some information like original read names and the index read, which are commonly used to store cell barcode information for single-cell data.
+However, the user-submitted files are not quite as easy to access as the SRA files. They are stored on GCP and AWS. Transfer of the files to other cloud storage (eg, to your own S3 bucket) is free, but users pay the cost of egress if you want to use local compute resources.</description>
     </item>
     
   </channel>

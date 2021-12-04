@@ -161,14 +161,14 @@ walkthrough of how to use GCP to download data from the SRA:</p>
 <p>The Google cloud SDK is the command-line toolkit used for accessing
 Google cloud. You can install it from the Google cloud website,
 or from conda:</p>
-<pre><code>mamba install -c conda-forge google-cloud-sdk
+<pre tabindex="0"><code>mamba install -c conda-forge google-cloud-sdk
 </code></pre><p>Next, you need to configure <code>gcloud</code> to access your account.</p>
-<pre><code>gcloud init
+<pre tabindex="0"><code>gcloud init
 </code></pre><h2 id="2-download-data">2. Download data</h2>
 <p>Data can be downloaded using the <code>gsutils cp</code> command. Files that require
 the requester pays for egress will also need a project specified, so
 that your project gets billed for the download. For example:</p>
-<pre><code>gsutil -u proj cp gs://sra-pub-src-18/SRR10343083/scATAC_CD34_D7T1.bam.1 .
+<pre tabindex="0"><code>gsutil -u proj cp gs://sra-pub-src-18/SRR10343083/scATAC_CD34_D7T1.bam.1 .
 </code></pre><p>Note that you&rsquo;ll need to set up a project to use on your Google cloud
 account.</p>
 <p>This should download the specified file. In this case, the BAM file is ~40 Gb
@@ -189,6 +189,10 @@ and I was charged ~$6 including archive data retrieval and download.</p>
                                     
                                 </div>
                                 <div class="col-12 col-md-6">
+                                    
+                                        <div class="mx-0 mx-md-4 mt-4 text-right">
+                                            <a href="../../blog/sra-aws/">Retrieving SRA data from AWS Glacier storage »</a>
+                                        </div>
                                     
                                 </div>
                             </div>

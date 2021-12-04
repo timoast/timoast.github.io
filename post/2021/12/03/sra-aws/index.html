@@ -1,0 +1,251 @@
+<!doctype html>
+<html lang="en-us">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title> Retrieving SRA data from AWS Glacier storage - Tim Stuart </title>
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+    <meta name="referrer" content="no-referrer">
+    <meta name="description" content="Tim Stuart" />
+    <meta property="og:site_name" content="Tim Stuart" />
+    <meta property="og:locale" content="nn_NO" />
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="/post/2021/12/03/sra-aws/" />
+    <meta property="og:title" content="Retrieving SRA data from AWS Glacier storage" />
+    <meta property="og:image" content="/" />
+    <meta property="og:description" content="Tim Stuart" />
+
+    
+        <meta property="twitter:site" content="@timoast">
+    
+
+    <meta property="twitter:title" content="Retrieving SRA data from AWS Glacier storage" />
+    <meta property="twitter:image" content="/" />
+    <meta property="twitter:card" content="summary" />
+    <meta property="twitter:description" content="Tim Stuart" />
+
+    <link rel="canonical" href="../../../../../post/2021/12/03/sra-aws/">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha256-eSi1q2PG6J7g7ib17yAaWMcrr5GrtohYChqibrV7PBE=" crossorigin="anonymous" />
+
+    <link rel="stylesheet" href="../../../../../css/custom.css" />
+
+    
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/styles/tomorrow.min.css" integrity="sha256-0QU8ry64q+N6YBIEF/6XF6vUeF15gbNO4tLS6ikk0FI=" crossorigin="anonymous" />
+    
+
+    
+
+    <link rel="shortcut icon"
+        href="../../../../../img/favicon.ico">
+
+    
+</head>
+
+<body>
+    
+    <div class="my-4 my-md-5 header">
+    <div class="container">
+        <div class="row">
+            <div class="col-auto offset-md-1 d-none d-md-block">
+                
+            </div>
+            <div class="col-auto align-self-center mr-auto">
+                <a href="../../../../../">
+                    <h1 class="name">Tim Stuart</h1>
+                </a>
+
+                <ul class="nav nav-primary">
+                    
+                        <li class="nav-item">
+                            <a class="text-uppercase nav-link text-about" href="../../../../../">
+                                
+                                About
+                            </a>
+                        </li>
+                    
+                        <li class="nav-item">
+                            <a class="text-uppercase nav-link text-research" href="../../../../../research/">
+                                
+                                Research
+                            </a>
+                        </li>
+                    
+                        <li class="nav-item">
+                            <a class="text-uppercase nav-link text-publications" href="../../../../../publications/">
+                                
+                                Publications
+                            </a>
+                        </li>
+                    
+                        <li class="nav-item">
+                            <a class="text-uppercase nav-link text-software" href="../../../../../software/">
+                                
+                                Software
+                            </a>
+                        </li>
+                    
+                        <li class="nav-item">
+                            <a class="text-uppercase nav-link text-blog" href="../../../../../blog/">
+                                
+                                Blog
+                            </a>
+                        </li>
+                    
+
+                    
+                </ul>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+    <div class="content">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-sm-12 col-md-10">
+                    <h1 class="mx-0 mx-md-4">Retrieving SRA data from AWS Glacier storage</h1>
+                    <div class="markdown">
+                        
+    <p>The SRA now hosts the user-submitted files for download alongside the &ldquo;SRA&rdquo;
+version. This is useful because the SRA version strips some information like
+original read names and the index read, which are commonly used to store
+cell barcode information for single-cell data.</p>
+<p>However, the user-submitted files are not quite as easy to access as the SRA
+files. They are stored on GCP and AWS. Transfer of the files to other cloud
+storage (eg, to your own S3 bucket) is free, but users pay the cost of egress
+if you want to use local compute resources. Many datasets are also stored in
+&ldquo;cold storage,&rdquo; meaning they are archived in a way that is not immediately
+accessible.</p>
+<p>It took me a while to work out how to actually retrieve SRA data from AWS
+Glacier storage, so I will document here the steps required. In this example
+I wanted to access the raw data for the recent <a href="https://doi.org/10.1016/j.molcel.2021.09.019">multi-CUT&amp;Tag paper</a>.</p>
+<p>These are the most useful NBCI pages on the topic:</p>
+<ul>
+<li><a href="https://www.ncbi.nlm.nih.gov/sra/docs/sra-aws-download/">https://www.ncbi.nlm.nih.gov/sra/docs/sra-aws-download/</a></li>
+<li><a href="https://www.ncbi.nlm.nih.gov/sra/docs/data-delivery/">https://www.ncbi.nlm.nih.gov/sra/docs/data-delivery/</a></li>
+</ul>
+<h2 id="step-1-create-an-aws-s3-bucket-to-receive-the-data">Step 1: Create an AWS S3 bucket to receive the data</h2>
+<p>The way data retrieval from glacier storage works is you request that NCBI
+copies the data into an S3 bucket that you own. You will need to create an AWS
+account and create an S3 bucket to hold the data. I recommend choosing us-east-1
+as the region for the bucket, since that&rsquo;s where most (all?) of the SRA data is
+held (although there is no user cost for transfer across regions). There are
+many tutorials already showing how to do this, and it is very straightforward,
+so I won&rsquo;t get into it here. Be aware that you will be charged by Amazon for
+data stored in this bucket.</p>
+<h2 id="step-2-request-data-retrieval-through-ncbi">Step 2: Request data retrieval through NCBI</h2>
+<p>You next need to log into MyNCBI and go to the the <a href="https://www.ncbi.nlm.nih.gov/Traces/cloud-delivery/">cloud delivery site</a>.
+Here you can follow the steps to choose the SRA runs to include in the data
+delivery. At this stage you will be provided with a bucket policy to add to your
+S3 bucket that will allow NCBI to deposit data into your bucket. You just need
+to copy this into the S3 bucket policy settings.</p>
+<p><img src="1.png" alt=""></p>
+<p>You should see a message like telling you how much data is being retrieved:</p>
+<p><img src="2.png" alt=""></p>
+<p>And then a confirmation:</p>
+<p><img src="3.png" alt=""></p>
+<h2 id="step-3-download-data-from-your-s3-bucket">Step 3: Download data from your S3 bucket</h2>
+<p>And you should get an email telling you that the data has been delivered 1 or 2
+days after submitting the request:</p>
+<p><img src="4.png" alt=""></p>
+<p>Interestingly, the data transfer limits cited in the email are half that which
+was originally cited on the NCBI website.</p>
+<p>Once you see this email you can check your S3 bucket using the command line
+tools or my logging onto the AWS console, and you should see the data sitting
+in your S3 bucket:</p>
+<p><img src="5.png" alt=""></p>
+<p>You can then download the data out of your own bucket or create an EC2 instance
+to compute directly on the data without moving it out of AWS and incurring the
+data egress charges.</p>
+
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="my-4 footer">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-sm-12 col-md-5">
+                
+            </div>
+            <div class="col-sm-12 col-md-5">
+                <div class="mx-0 mx-md-4 text-right">
+                    
+                        <a href="https://github.com/timoast" target="_blank">
+                            <img class="icon" src="../../../../../img/github.svg" alt="github" />
+                        </a>
+                    
+
+                    
+
+                    
+                        <a href="https://twitter.com/timoast" target="_blank">
+                            <img class="icon" src="../../../../../img/twitter.svg" alt="twitter" />
+                        </a>
+                    
+
+                    
+
+                    
+
+                    
+
+                    
+
+                    
+                        <a href="../../../../../index.xml" class="mr-0">
+                            <img class="icon" src="../../../../../img/rss.svg" alt="rss" />
+                        </a>
+                    
+
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+    
+
+    
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/highlight.min.js" integrity="sha256-iq71rXEe/fvjCUP9AfLY0cKudQuKAQywiUpXkRFSkLc=" crossorigin="anonymous"></script>
+        
+        <script>
+            window.addEventListener('load', function() {
+                hljs.initHighlighting();
+            }, true);
+        </script>
+    
+
+    
+
+    
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-131769435-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+    
+        
+
+    
+</body>
+
+</html>

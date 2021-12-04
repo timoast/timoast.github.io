@@ -155,13 +155,13 @@
 <p>I used previously published data for Brachypodium, from this paper:</p>
 <p>Garvin DF, Schmutz J, Rokhsar D, Bevan MW, Barry K, Lucas S, et al. Genome sequencing and analysis of the model grass Brachypodium distachyon. Nature. 2010;463: 763–768. doi:10.1038/nature08747</p>
 <p>First step is to download the data:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ wget ftp://ftp-trace.ncbi.nlm.nih.gov//sra/sra-instant/reads/ByStudy/sra/SRP/SRP001/SRP001895/SRR035616/SRR035616.sra
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ wget ftp://ftp-trace.ncbi.nlm.nih.gov//sra/sra-instant/reads/ByStudy/sra/SRP/SRP001/SRP001895/SRR035616/SRR035616.sra
 $ fastq-dump SRR035616.sra
 $ pigz SRR035616.fastq
 </code></pre></div><p>It is essential that the reads are trimmed correctly to be able to get useful data out of the reads. To do that, we first need to work out what the adapter sequence is. The easiest way to do that is to run fastqc and see what sequences are overrepresented.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ fastqc SRR035616.fastq.gz
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ fastqc SRR035616.fastq.gz
 </code></pre></div><p>Then we can do a multiple sequence alignment of overrepresented sequences to find the adapter sequence:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">CLUSTAL multiple sequence alignment by MUSCLE <span style="color:#f92672">(</span>3.8<span style="color:#f92672">)</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">CLUSTAL multiple sequence alignment by MUSCLE <span style="color:#f92672">(</span>3.8<span style="color:#f92672">)</span>
 
 
 <span style="color:#ae81ff">12</span>              GGTAGTTCGACCGCGGA------------ACTGTAGGCACCATCAATT------------
@@ -186,7 +186,7 @@ $ pigz SRR035616.fastq
                                               ***** *****        
 </code></pre></div><p>From this it becomes obvious that the adapter is <code>CTGTAGGCACCATCA...</code>. Next step is to trim the adapters, and we will also discard any reads that were not trimmed, as these reads are longer than the longest smRNA (so every read should need trimming). We will also retain a minumum read length of 15 nt.</p>
 <h2 id="adapter-trimming">Adapter trimming</h2>
-<pre><code>$ cutadapt --discard-untrimmed -m 15 -a CTGTAGGCACCATCAATTCG -o adapertrim.fq SRR035616.fastq.gz
+<pre tabindex="0"><code>$ cutadapt --discard-untrimmed -m 15 -a CTGTAGGCACCATCAATTCG -o adapertrim.fq SRR035616.fastq.gz
 
 This is cutadapt 1.10 with Python 2.7.10
 Command line parameters: --discard-untrimmed -m 15 -a CTGTAGGCACCATCAATTCG -o adapertrim.fq SRR035616.fastq.gz
@@ -254,19 +254,19 @@ length	count	expect	max.err	error counts
 35	39	0.0	2	29 6 4
 36	33293	0.0	2	27424 5411 458
 </code></pre><p>Now rerun fastqc</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ fastqc adapertrim.fq
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ fastqc adapertrim.fq
 </code></pre></div><p>We can see peaks at 21 and 24 nt, which are the most abundant smRNA size classes:</p>
 <!-- raw HTML omitted -->
 <h2 id="mapping">Mapping</h2>
 <p>Map with bowtie, pipe to samtools to convert the output sam file to a bam file. Using the <code>-a</code> flag will tell bowtie to report all alignments.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">bowtie -p <span style="color:#ae81ff">20</span> -q -n <span style="color:#ae81ff">0</span> -l <span style="color:#ae81ff">20</span> -a -S /home/tstuart/working_data_01/genomes/Bdistachyon/v2.1/assembly/BowtieIndex/bd21 adapertrim.fq <span style="color:#ae81ff">\
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">bowtie -p <span style="color:#ae81ff">20</span> -q -n <span style="color:#ae81ff">0</span> -l <span style="color:#ae81ff">20</span> -a -S /home/tstuart/working_data_01/genomes/Bdistachyon/v2.1/assembly/BowtieIndex/bd21 adapertrim.fq <span style="color:#ae81ff">\
 </span><span style="color:#ae81ff"></span>| samtools view -b - &gt; mapped.bam
 </code></pre></div><h2 id="post-processing">Post-processing</h2>
 <p>It&rsquo;s important to know the length of the smRNA, its mapping position in the genome, and whether it was uniquely mapped or not. First, we can convert the bam file to a bed file and add a column showing the smRNA length:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ bedtools bamtobed -i mapped.bam <span style="color:#ae81ff">\
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ bedtools bamtobed -i mapped.bam <span style="color:#ae81ff">\
 </span><span style="color:#ae81ff"></span>| awk <span style="color:#e6db74">&#39;BEGIN {FS=OFS=&#34;\t&#34;} {$7 = $3 - $2; print $0}&#39;</span> - | pigz - &gt; mapped.bed.gz
 </code></pre></div><p>Now we add a column showing the number of mapping positions for each smRNA (in R):</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#a6e22e">library</span>(dplyr)
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#a6e22e">library</span>(dplyr)
 <span style="color:#a6e22e">library</span>(data.table)
 <span style="color:#a6e22e">library</span>(readr)
 
@@ -285,7 +285,7 @@ smrna <span style="color:#f92672">&lt;-</span> smrna <span style="color:#f92672"
 <span style="color:#a6e22e">write_tsv</span>(smrna, <span style="color:#e6db74">&#34;~/Desktop/brachy_smrna.tsv&#34;</span>)
 <span style="color:#a6e22e">system</span>(<span style="color:#e6db74">&#34;gzip ~/Desktop/brachy_smrna.tsv&#34;</span>)
 </code></pre></div><p>That&rsquo;s it! We now have a file that looks like this:</p>
-<pre><code>$ zcat brachy_smrna.tsv.gz | head
+<pre tabindex="0"><code>$ zcat brachy_smrna.tsv.gz | head
 chromosome	start	stop	readName	strand	length	positions	unique
 Bd1	3	27	SRR035616.1254270	-	24	143	FALSE
 Bd1	5	26	SRR035616.1862694	-	21	153	FALSE
